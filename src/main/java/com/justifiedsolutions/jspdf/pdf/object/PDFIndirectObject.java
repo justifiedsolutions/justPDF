@@ -76,12 +76,12 @@ public class PDFIndirectObject implements PDFObject {
 
     @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
-        pdf.write(String.valueOf(objectNumber).getBytes(StandardCharsets.UTF_8));
+        pdf.write(String.valueOf(objectNumber).getBytes(StandardCharsets.US_ASCII));
         pdf.write(' ');
-        pdf.write(String.valueOf(generationNumber).getBytes(StandardCharsets.UTF_8));
-        pdf.write(" obj\n".getBytes(StandardCharsets.UTF_8));
+        pdf.write(String.valueOf(generationNumber).getBytes(StandardCharsets.US_ASCII));
+        pdf.write(" obj\n".getBytes(StandardCharsets.US_ASCII));
         object.writeToPDF(pdf);
-        pdf.write("\nendobj\n".getBytes(StandardCharsets.UTF_8));
+        pdf.write("\nendobj\n".getBytes(StandardCharsets.US_ASCII));
     }
 
     /**
@@ -96,9 +96,9 @@ public class PDFIndirectObject implements PDFObject {
 
         @Override
         public void writeToPDF(OutputStream pdf) throws IOException {
-            pdf.write(String.valueOf(objectNumber).getBytes(StandardCharsets.UTF_8));
+            pdf.write(String.valueOf(objectNumber).getBytes(StandardCharsets.US_ASCII));
             pdf.write(' ');
-            pdf.write(String.valueOf(generationNumber).getBytes(StandardCharsets.UTF_8));
+            pdf.write(String.valueOf(generationNumber).getBytes(StandardCharsets.US_ASCII));
             pdf.write(' ');
             pdf.write('R');
         }

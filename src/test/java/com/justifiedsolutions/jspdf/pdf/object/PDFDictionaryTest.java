@@ -94,7 +94,7 @@ class PDFDictionaryTest {
     @Test
     void writeToPDF1KV() throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
-        expected.writeBytes("<</Name true\n>>".getBytes(StandardCharsets.UTF_8));
+        expected.writeBytes("<</Name true\n>>".getBytes(StandardCharsets.US_ASCII));
 
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         PDFDictionary dict = new PDFDictionary();
@@ -107,7 +107,7 @@ class PDFDictionaryTest {
     @Test
     void writeToPDF2KV() throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
-        expected.writeBytes("<</Name true\n/Type 42\n>>".getBytes(StandardCharsets.UTF_8));
+        expected.writeBytes("<</Name true\n/Type 42\n>>".getBytes(StandardCharsets.US_ASCII));
 
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         PDFDictionary dict = new PDFDictionary();

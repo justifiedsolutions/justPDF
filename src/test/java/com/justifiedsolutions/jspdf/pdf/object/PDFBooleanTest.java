@@ -18,7 +18,7 @@ public class PDFBooleanTest {
     @Test
     public void writeToPDFTrue() throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
-        expected.writeBytes("true".getBytes(StandardCharsets.UTF_8));
+        expected.writeBytes("true".getBytes(StandardCharsets.US_ASCII));
 
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         PDFBoolean.TRUE.writeToPDF(actual);
@@ -29,7 +29,7 @@ public class PDFBooleanTest {
     @Test
     public void writeToPDFFalse() throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
-        expected.writeBytes("false".getBytes(StandardCharsets.UTF_8));
+        expected.writeBytes("false".getBytes(StandardCharsets.US_ASCII));
 
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         PDFBoolean.FALSE.writeToPDF(actual);

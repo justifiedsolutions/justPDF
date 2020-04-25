@@ -77,7 +77,7 @@ public class PDFNameTest {
 
     private void testPDFName(String input, String pdfName) throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
-        expected.writeBytes(pdfName.getBytes(StandardCharsets.UTF_8));
+        expected.writeBytes(pdfName.getBytes(StandardCharsets.US_ASCII));
 
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         PDFName name = new PDFName(input);

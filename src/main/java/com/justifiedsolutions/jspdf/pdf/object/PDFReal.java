@@ -43,6 +43,6 @@ public class PDFReal implements PDFObject {
 
     @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
-        pdf.write(String.valueOf(value).getBytes(StandardCharsets.UTF_8));
+        pdf.write(String.valueOf(value).getBytes(StandardCharsets.US_ASCII));
     }
 }

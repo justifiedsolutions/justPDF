@@ -34,8 +34,8 @@ public class PDFIndirectObjectTest {
         PDFIndirectObject inObject = new PDFIndirectObject(PDFBoolean.TRUE);
 
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
-        expected.writeBytes(String.valueOf(inObject.getObjectNumber()).getBytes(StandardCharsets.UTF_8));
-        expected.writeBytes(" 0 R".getBytes(StandardCharsets.UTF_8));
+        expected.writeBytes(String.valueOf(inObject.getObjectNumber()).getBytes(StandardCharsets.US_ASCII));
+        expected.writeBytes(" 0 R".getBytes(StandardCharsets.US_ASCII));
 
         PDFIndirectObject.Reference reference = inObject.getReference();
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
@@ -49,8 +49,8 @@ public class PDFIndirectObjectTest {
         PDFIndirectObject inObject = new PDFIndirectObject(PDFBoolean.TRUE);
 
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
-        expected.writeBytes(String.valueOf(inObject.getObjectNumber()).getBytes(StandardCharsets.UTF_8));
-        expected.writeBytes(" 0 obj\ntrue\nendobj\n".getBytes(StandardCharsets.UTF_8));
+        expected.writeBytes(String.valueOf(inObject.getObjectNumber()).getBytes(StandardCharsets.US_ASCII));
+        expected.writeBytes(" 0 obj\ntrue\nendobj\n".getBytes(StandardCharsets.US_ASCII));
 
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         inObject.writeToPDF(actual);

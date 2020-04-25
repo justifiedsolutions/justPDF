@@ -18,7 +18,7 @@ public class PDFNullTest {
     @Test
     public void writeToPDF() throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
-        expected.writeBytes("null".getBytes(StandardCharsets.UTF_8));
+        expected.writeBytes("null".getBytes(StandardCharsets.US_ASCII));
 
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         PDFNull.NULL.writeToPDF(actual);

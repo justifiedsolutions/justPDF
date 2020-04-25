@@ -26,6 +26,6 @@ public class PDFNull implements PDFObject {
 
     @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
-        pdf.write("null".getBytes(StandardCharsets.UTF_8));
+        pdf.write("null".getBytes(StandardCharsets.US_ASCII));
     }
 }

@@ -56,7 +56,7 @@ public class PDFName implements PDFObject, Comparable<PDFName> {
         pdf.write('/');
         for (char c : value.toCharArray()) {
             String encoded = encodeChar(c);
-            pdf.write(encoded.getBytes(StandardCharsets.UTF_8));
+            pdf.write(encoded.getBytes(StandardCharsets.US_ASCII));
         }
     }
 

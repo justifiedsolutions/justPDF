@@ -47,7 +47,7 @@ public class PDFRealTest {
 
     private void testPDFReal(float value) throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
-        expected.writeBytes(String.valueOf(value).getBytes(StandardCharsets.UTF_8));
+        expected.writeBytes(String.valueOf(value).getBytes(StandardCharsets.US_ASCII));
 
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         PDFReal real = new PDFReal(value);

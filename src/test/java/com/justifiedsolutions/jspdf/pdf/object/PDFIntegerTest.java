@@ -32,7 +32,7 @@ public class PDFIntegerTest {
 
     private void testPDFInteger(int value) throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
-        expected.writeBytes(String.valueOf(value).getBytes(StandardCharsets.UTF_8));
+        expected.writeBytes(String.valueOf(value).getBytes(StandardCharsets.US_ASCII));
 
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         PDFInteger integer = new PDFInteger(value);

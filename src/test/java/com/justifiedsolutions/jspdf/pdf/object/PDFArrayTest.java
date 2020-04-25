@@ -86,9 +86,9 @@ class PDFArrayTest {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
         expected.write('[');
         expected.write(' ');
-        expected.writeBytes("42".getBytes(StandardCharsets.UTF_8));
+        expected.writeBytes("42".getBytes(StandardCharsets.US_ASCII));
         expected.write(' ');
-        expected.writeBytes("true".getBytes(StandardCharsets.UTF_8));
+        expected.writeBytes("true".getBytes(StandardCharsets.US_ASCII));
         expected.write(' ');
         expected.write(']');
 
