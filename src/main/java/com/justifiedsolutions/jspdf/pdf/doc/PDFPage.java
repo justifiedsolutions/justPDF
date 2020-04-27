@@ -23,16 +23,20 @@ public class PDFPage {
     private final Resources resources = new Resources();
 
     private final PDFDictionary page = new PDFDictionary();
-    private final PDFIndirectObject indirectPage = new PDFIndirectObject(page);
+    private final PDFIndirectObject indirectPage;
 
     private PDFIndirectObject indirectContents;
+
+    private final PDFDocument document;
 
     /**
      * Creates a new PDF Page. It sets the <code>Type</code> key in the dictionary.
      *
      * @param pageSize the size of the page
      */
-    public PDFPage(PDFRectangle pageSize) {
+    PDFPage(PDFDocument document, PDFRectangle pageSize) {
+        this.document = document;
+        this.indirectPage = this.document.createIndirectObject(page);
         page.put(TYPE, PAGE);
         page.put(MEDIA_BOX, pageSize);
         page.put(RESOURCES, resources);
@@ -44,7 +48,7 @@ public class PDFPage {
      * @param contents the contents of the page
      */
     public void setContents(PDFStream contents) {
-        this.indirectContents = new PDFIndirectObject(contents);
+        this.indirectContents = document.createIndirectObject(contents);
         page.put(CONTENTS, this.indirectContents.getReference());
     }
 

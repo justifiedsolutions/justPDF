@@ -6,10 +6,7 @@
 package com.justifiedsolutions.jspdf.pdf.doc;
 
 import com.justifiedsolutions.jspdf.pdf.font.PDFFont;
-import com.justifiedsolutions.jspdf.pdf.object.PDFIndirectObject;
-import com.justifiedsolutions.jspdf.pdf.object.PDFInteger;
-import com.justifiedsolutions.jspdf.pdf.object.PDFName;
-import com.justifiedsolutions.jspdf.pdf.object.PDFString;
+import com.justifiedsolutions.jspdf.pdf.object.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -28,17 +25,18 @@ public class PDFDocument {
     private final PDFXRefTable xrefTable = new PDFXRefTable();
     private final PDFTrailer trailer = new PDFTrailer();
 
-    private final List<PDFPage> pageList = new ArrayList<>();
+    private final List<PDFIndirectObject> indirectObjects = new ArrayList<>();
+
     private final PDFPages pages = new PDFPages();
-    private final PDFIndirectObject indirectPages = new PDFIndirectObject(pages);
-
     private final PDFInfoDictionary info = new PDFInfoDictionary();
-    private final PDFIndirectObject indirectInfo = new PDFIndirectObject(info);
-
     private final PDFCatalogDictionary catalog = new PDFCatalogDictionary();
-    private final PDFIndirectObject indirectCatalog = new PDFIndirectObject(catalog);
-
     private final Map<PDFFont, PDFIndirectObject> fonts = new HashMap<>();
+
+    public PDFDocument() {
+        PDFIndirectObject.resetObjectNumber();
+        PDFIndirectObject indirectCatalog = createIndirectObject(catalog);
+        trailer.setRoot(indirectCatalog.getReference());
+    }
 
     /**
      * Adds a piece of metadata to the Information Dictionary
@@ -47,31 +45,38 @@ public class PDFDocument {
      * @param value a value to associate with the key
      */
     public void addInfo(PDFName key, PDFString value) {
+        if (!trailer.hasInfo()) {
+            PDFIndirectObject indirectInfo = createIndirectObject(info);
+            trailer.setInfo(indirectInfo.getReference());
+        }
         info.put(key, value);
     }
 
     /**
-     * Adds a new {@link PDFPage} to the PDF document.
+     * Factory method for new {@link PDFPage}s. Adds the new PDFPage to the PDF document.
      *
-     * @param page the page to add
+     * @param pageSize the size of the new page
      */
-    public void addPage(PDFPage page) {
-        pageList.add(page);
+    public PDFPage createPage(PDFRectangle pageSize) {
+        PDFIndirectObject indirectPages = (PDFIndirectObject) catalog.get(PDFCatalogDictionary.PAGES);
+        if (indirectPages == null) {
+            indirectPages = createIndirectObject(pages);
+            catalog.put(PDFCatalogDictionary.PAGES, indirectPages.getReference());
+        }
+        PDFPage page = new PDFPage(this, pageSize);
+        page.setParent(indirectPages.getReference());
+        pages.addPage(page.getIndirectPage().getReference());
+
+        return page;
     }
 
-    public void addFont(PDFFont font) {
-        if (!fonts.containsKey(font)) {
-            fonts.put(font, new PDFIndirectObject(font));
+    public PDFIndirectObject.Reference addFont(PDFFont font) {
+        PDFIndirectObject indirectFont = fonts.get(font);
+        if (indirectFont == null) {
+            indirectFont = createIndirectObject(font);
+            fonts.put(font, indirectFont);
         }
-    }
-
-    public PDFIndirectObject.Reference getFontReference(PDFFont font) {
-        PDFIndirectObject.Reference result = null;
-        PDFIndirectObject indirectObject = fonts.get(font);
-        if (indirectObject != null) {
-            result = indirectObject.getReference();
-        }
-        return result;
+        return indirectFont.getReference();
     }
 
     /**
@@ -82,14 +87,8 @@ public class PDFDocument {
      */
     public void write(OutputStream pdf) throws IOException {
         CountingOutputStream cos = new CountingOutputStream(pdf);
-        List<PDFIndirectObject> indirectObjects = getIndirectObjects();
         header.writeToPDF(cos);
         for (PDFIndirectObject indirectObject : indirectObjects) {
-            if (catalog.equals(indirectObject.getObject())) {
-                trailer.setRoot(indirectObject.getReference());
-            } else if (info.equals(indirectObject.getObject())) {
-                trailer.setInfo(indirectObject.getReference());
-            }
             indirectObject.setByteOffset(new PDFInteger(cos.getCounter()));
             indirectObject.writeToPDF(cos);
             cos.flush();
@@ -101,28 +100,15 @@ public class PDFDocument {
         trailer.writeToPDF(cos);
     }
 
-    private List<PDFIndirectObject> getIndirectObjects() {
-        List<PDFIndirectObject> result = new ArrayList<>();
-
-
-        pageList.forEach(page -> {
-            result.add(page.getIndirectContents());
-            result.add(page.getIndirectPage());
-
-            page.setParent(indirectPages.getReference());
-            pages.addPage(page.getIndirectPage().getReference());
-        });
-        if (!pageList.isEmpty()) {
-            catalog.put(PDFCatalogDictionary.PAGES, indirectPages.getReference());
-            result.add(indirectPages);
-        }
-
-        result.add(indirectCatalog);
-
-        if (!info.isEmpty()) {
-            result.add(indirectInfo);
-        }
-
+    /**
+     * All {@link PDFIndirectObject}s in a document must be created through this method.
+     *
+     * @param object the object to wrap
+     * @return the PDFIndirectObject
+     */
+    PDFIndirectObject createIndirectObject(PDFObject object) {
+        PDFIndirectObject result = new PDFIndirectObject(object);
+        this.indirectObjects.add(result);
         return result;
     }
 
