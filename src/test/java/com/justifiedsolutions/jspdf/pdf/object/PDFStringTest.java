@@ -37,7 +37,6 @@ public class PDFStringTest {
         expected.write('(');
         if (value != null && !value.isEmpty()) {
             byte[] data = value.getBytes(StandardCharsets.UTF_16BE);
-            expected.write('\ufeff');
             expected.writeBytes(data);
         }
         expected.write(')');

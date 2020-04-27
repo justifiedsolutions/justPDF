@@ -46,13 +46,12 @@ public class PDFString implements PDFObject {
         pdf.write('(');
         byte[] bytes = escapeValue().getBytes(StandardCharsets.UTF_16BE);
         if (bytes.length > 0) {
-            pdf.write('\ufeff');
             pdf.write(bytes);
         }
         pdf.write(')');
     }
 
-    private String escapeValue() {
+    protected String escapeValue() {
         StringBuilder result = new StringBuilder();
         for (char c : value.toCharArray()) {
             switch (c) {
