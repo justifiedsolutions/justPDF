@@ -44,8 +44,7 @@ class PDFDateTest {
     private void testPDFDateCreation(String dateString, ZonedDateTime date) throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
         expected.write('(');
-        expected.write('\ufeff');
-        expected.writeBytes(dateString.getBytes(StandardCharsets.UTF_16BE));
+        expected.writeBytes(dateString.getBytes(StandardCharsets.US_ASCII));
         expected.write(')');
 
         PDFDate pdfDate = new PDFDate(date);
