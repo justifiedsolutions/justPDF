@@ -39,6 +39,13 @@ public class PDFIndirectObject implements PDFObject, Comparable<PDFIndirectObjec
     }
 
     /**
+     * Resets the counter used to generate the object number.
+     */
+    public static void resetObjectNumber() {
+        LAST_USED_OBJECT_NUMBER.set(0);
+    }
+
+    /**
      * Gets the unique object number.
      *
      * @return the object number
