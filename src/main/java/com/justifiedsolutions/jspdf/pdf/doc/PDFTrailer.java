@@ -56,6 +56,15 @@ class PDFTrailer {
     }
 
     /**
+     * Specifies if the PDFTrailer has an <code>Info</code> entry.
+     *
+     * @return true if Info is in the dictionary
+     */
+    boolean hasInfo() {
+        return dictionary.containsKey(INFO);
+    }
+
+    /**
      * Sets the total number of bytes in the PDF prior to the Cross Reference Table.
      *
      * @param totalBytes the total number of bytes
