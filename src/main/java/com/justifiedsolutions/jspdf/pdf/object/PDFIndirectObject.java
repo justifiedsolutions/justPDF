@@ -16,14 +16,15 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @see "ISO 32000-1:2008, 7.3.10"
  */
-public class PDFIndirectObject implements PDFObject {
+public class PDFIndirectObject implements PDFObject, Comparable<PDFIndirectObject> {
 
     private static final AtomicInteger LAST_USED_OBJECT_NUMBER = new AtomicInteger(0);
 
-    private final int objectNumber;
-    private final int generationNumber;
+    private final PDFInteger objectNumber;
+    private final PDFInteger generationNumber;
     private final PDFObject object;
     private final Reference reference;
+    private PDFInteger byteOffset;
 
     /**
      * Creates the PDFIndirectObject that points at the specified {@link PDFObject}.
@@ -31,8 +32,8 @@ public class PDFIndirectObject implements PDFObject {
      * @param object the referenced object
      */
     public PDFIndirectObject(PDFObject object) {
-        this.objectNumber = LAST_USED_OBJECT_NUMBER.addAndGet(1);
-        this.generationNumber = 0;
+        this.objectNumber = new PDFInteger(LAST_USED_OBJECT_NUMBER.addAndGet(1));
+        this.generationNumber = new PDFInteger(0);
         this.object = Objects.requireNonNull(object);
         this.reference = new Reference();
     }
@@ -42,7 +43,7 @@ public class PDFIndirectObject implements PDFObject {
      *
      * @return the object number
      */
-    public int getObjectNumber() {
+    public PDFInteger getObjectNumber() {
         return objectNumber;
     }
 
@@ -51,7 +52,7 @@ public class PDFIndirectObject implements PDFObject {
      *
      * @return the generation number
      */
-    public int getGenerationNumber() {
+    public PDFInteger getGenerationNumber() {
         return generationNumber;
     }
 
@@ -62,6 +63,14 @@ public class PDFIndirectObject implements PDFObject {
      */
     public PDFObject getObject() {
         return object;
+    }
+
+    public PDFInteger getByteOffset() {
+        return byteOffset;
+    }
+
+    public void setByteOffset(PDFInteger byteOffset) {
+        this.byteOffset = byteOffset;
     }
 
     /**
@@ -75,10 +84,33 @@ public class PDFIndirectObject implements PDFObject {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(objectNumber, generationNumber, object);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PDFIndirectObject that = (PDFIndirectObject) o;
+        return objectNumber.equals(that.objectNumber) &&
+                generationNumber.equals(that.generationNumber) &&
+                object.equals(that.object);
+    }
+
+    @Override
+    public int compareTo(PDFIndirectObject o) {
+        if (o == null) {
+            return -1;
+        }
+        return this.objectNumber.compareTo(o.objectNumber);
+    }
+
+    @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
-        pdf.write(String.valueOf(objectNumber).getBytes(StandardCharsets.US_ASCII));
+        objectNumber.writeToPDF(pdf);
         pdf.write(' ');
-        pdf.write(String.valueOf(generationNumber).getBytes(StandardCharsets.US_ASCII));
+        generationNumber.writeToPDF(pdf);
         pdf.write(" obj\n".getBytes(StandardCharsets.US_ASCII));
         object.writeToPDF(pdf);
         pdf.write("\nendobj\n".getBytes(StandardCharsets.US_ASCII));
@@ -96,9 +128,9 @@ public class PDFIndirectObject implements PDFObject {
 
         @Override
         public void writeToPDF(OutputStream pdf) throws IOException {
-            pdf.write(String.valueOf(objectNumber).getBytes(StandardCharsets.US_ASCII));
+            objectNumber.writeToPDF(pdf);
             pdf.write(' ');
-            pdf.write(String.valueOf(generationNumber).getBytes(StandardCharsets.US_ASCII));
+            generationNumber.writeToPDF(pdf);
             pdf.write(' ');
             pdf.write('R');
         }

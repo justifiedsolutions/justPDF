@@ -8,9 +8,7 @@ package com.justifiedsolutions.jspdf.pdf.object;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Represents a <code>name object</code> in a PDF document.
@@ -18,8 +16,6 @@ import java.util.Set;
  * @see "ISO 32000-1:2008, 7.3.5"
  */
 public class PDFName implements PDFObject, Comparable<PDFName> {
-
-    private static final Set<PDFName> NAMES = new HashSet<>();
 
     private final String value;
 
@@ -30,7 +26,6 @@ public class PDFName implements PDFObject, Comparable<PDFName> {
      */
     public PDFName(String value) {
         this.value = Objects.requireNonNull(value);
-        NAMES.add(this);
     }
 
     @Override

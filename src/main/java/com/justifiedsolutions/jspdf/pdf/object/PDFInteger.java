@@ -15,7 +15,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 7.3.3"
  */
-public class PDFInteger implements PDFObject {
+public class PDFInteger implements PDFObject, Comparable<PDFInteger> {
 
     private final int value;
 
@@ -42,7 +42,19 @@ public class PDFInteger implements PDFObject {
     }
 
     @Override
+    public int compareTo(PDFInteger o) {
+        if (o == null) {
+            return -1;
+        }
+        return Integer.compare(this.value, o.value);
+    }
+
+    @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
         pdf.write(String.valueOf(value).getBytes(StandardCharsets.US_ASCII));
+    }
+
+    public int getValue() {
+        return value;
     }
 }

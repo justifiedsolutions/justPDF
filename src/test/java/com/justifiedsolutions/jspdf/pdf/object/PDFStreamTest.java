@@ -22,7 +22,7 @@ class PDFStreamTest {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
         expected.writeBytes("<</Length ".getBytes(StandardCharsets.US_ASCII));
         expected.writeBytes(String.valueOf(data.length).getBytes(StandardCharsets.US_ASCII));
-        expected.writeBytes("\n>>\nstream\n".getBytes(StandardCharsets.US_ASCII));
+        expected.writeBytes(">>\nstream\n".getBytes(StandardCharsets.US_ASCII));
         expected.writeBytes(data);
         expected.writeBytes("\nendstream\n".getBytes(StandardCharsets.US_ASCII));
 

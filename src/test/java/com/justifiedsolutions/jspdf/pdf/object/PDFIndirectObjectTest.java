@@ -19,7 +19,7 @@ public class PDFIndirectObjectTest {
     @Test
     public void getGenerationNumber() {
         PDFIndirectObject inObject = new PDFIndirectObject(PDFBoolean.TRUE);
-        assertEquals(0, inObject.getGenerationNumber());
+        assertEquals(new PDFInteger(0), inObject.getGenerationNumber());
     }
 
     @Test
@@ -34,7 +34,7 @@ public class PDFIndirectObjectTest {
         PDFIndirectObject inObject = new PDFIndirectObject(PDFBoolean.TRUE);
 
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
-        expected.writeBytes(String.valueOf(inObject.getObjectNumber()).getBytes(StandardCharsets.US_ASCII));
+        expected.writeBytes(String.valueOf(inObject.getObjectNumber().getValue()).getBytes(StandardCharsets.US_ASCII));
         expected.writeBytes(" 0 R".getBytes(StandardCharsets.US_ASCII));
 
         PDFIndirectObject.Reference reference = inObject.getReference();
@@ -49,7 +49,7 @@ public class PDFIndirectObjectTest {
         PDFIndirectObject inObject = new PDFIndirectObject(PDFBoolean.TRUE);
 
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
-        expected.writeBytes(String.valueOf(inObject.getObjectNumber()).getBytes(StandardCharsets.US_ASCII));
+        expected.writeBytes(String.valueOf(inObject.getObjectNumber().getValue()).getBytes(StandardCharsets.US_ASCII));
         expected.writeBytes(" 0 obj\ntrue\nendobj\n".getBytes(StandardCharsets.US_ASCII));
 
         ByteArrayOutputStream actual = new ByteArrayOutputStream();

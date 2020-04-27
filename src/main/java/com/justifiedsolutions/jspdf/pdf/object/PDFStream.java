@@ -8,6 +8,8 @@ package com.justifiedsolutions.jspdf.pdf.object;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Represents a <code>stream object</code> in a PDF document.
@@ -25,8 +27,24 @@ public class PDFStream implements PDFObject {
      * @param data the data for the stream
      */
     public PDFStream(byte[] data) {
-        this.data = data;
+        this.data = Objects.requireNonNull(data);
         dictionary.put(new PDFName("Length"), new PDFInteger(data.length));
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(dictionary);
+        result = 31 * result + Arrays.hashCode(data);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PDFStream pdfStream = (PDFStream) o;
+        return dictionary.equals(pdfStream.dictionary) &&
+                Arrays.equals(data, pdfStream.data);
     }
 
     @Override

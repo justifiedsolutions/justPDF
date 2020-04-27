@@ -125,7 +125,6 @@ public class PDFDictionary implements PDFObject {
             key.writeToPDF(pdf);
             pdf.write(' ');
             value.writeToPDF(pdf);
-            pdf.write('\n');
         }
         pdf.write('>');
         pdf.write('>');
