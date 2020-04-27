@@ -56,6 +56,7 @@ public class PDFDocument {
      * Factory method for new {@link PDFPage}s. Adds the new PDFPage to the PDF document.
      *
      * @param pageSize the size of the new page
+     * @return the new PDFPage
      */
     public PDFPage createPage(PDFRectangle pageSize) {
         PDFIndirectObject indirectPages = (PDFIndirectObject) catalog.get(PDFCatalogDictionary.PAGES);
