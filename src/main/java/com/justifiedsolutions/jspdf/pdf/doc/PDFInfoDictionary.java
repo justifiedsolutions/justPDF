@@ -6,7 +6,9 @@
 package com.justifiedsolutions.jspdf.pdf.doc;
 
 import com.justifiedsolutions.jspdf.pdf.object.PDFDictionary;
+import com.justifiedsolutions.jspdf.pdf.object.PDFDocEncodedString;
 import com.justifiedsolutions.jspdf.pdf.object.PDFName;
+import com.justifiedsolutions.jspdf.pdf.object.PDFObject;
 
 /**
  * Models the Document Information Dictionary in a PDF document.
@@ -22,4 +24,21 @@ public class PDFInfoDictionary extends PDFDictionary {
     public static final PDFName PRODUCER = new PDFName("Producer");
     public static final PDFName CREATION_DATE = new PDFName("CreationDate");
     public static final PDFName MOD_DATE = new PDFName("ModDate");
+
+    /**
+     * Associates the specified value to the specified key. If the key already exists in the dictionary, the value will
+     * replace the existing value.
+     *
+     * @param key   the key
+     * @param value the new value
+     * @throws IllegalArgumentException if the value is not a PDFDocEncodedString
+     */
+    @Override
+    public void put(PDFName key, PDFObject value) {
+        if (value instanceof PDFDocEncodedString) {
+            super.put(key, value);
+        } else {
+            throw new IllegalArgumentException("value must be a PDFDocEncodedString.");
+        }
+    }
 }
