@@ -7,7 +7,9 @@ package com.justifiedsolutions.jspdf.pdf.object;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.RoundingMode;
 import java.nio.charset.StandardCharsets;
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 /**
@@ -43,6 +45,14 @@ public class PDFReal implements PDFObject {
 
     @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
-        pdf.write(String.valueOf(value).getBytes(StandardCharsets.US_ASCII));
+        DecimalFormat df = new DecimalFormat("#");
+        df.setMinimumFractionDigits(0);
+        df.setMaximumFractionDigits(5);
+        df.setMinimumIntegerDigits(0);
+        df.setDecimalSeparatorAlwaysShown(false);
+        df.setRoundingMode(RoundingMode.HALF_UP);
+
+        String strValue = df.format(value);
+        pdf.write(strValue.getBytes(StandardCharsets.US_ASCII));
     }
 }

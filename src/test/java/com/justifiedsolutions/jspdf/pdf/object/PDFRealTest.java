@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
@@ -17,42 +17,60 @@ public class PDFRealTest {
 
     @Test
     public void writeToPDFPositive() throws IOException {
-        testPDFReal(3.14f);
+        float input = 3.14f;
+        byte[] expected = {(byte) '3', (byte) '.', (byte) '1', (byte) '4'};
+        testPDFReal(input, expected);
     }
 
     @Test
     public void writeToPDFNegative() throws IOException {
-        testPDFReal(-3.14f);
+        float input = -3.14f;
+        byte[] expected = {(byte) '-', (byte) '3', (byte) '.', (byte) '1', (byte) '4'};
+        testPDFReal(input, expected);
     }
 
     @Test
     public void writeToPDFZero() throws IOException {
-        testPDFReal(0);
+        float input = 0;
+        byte[] expected = {(byte) '0'};
+        testPDFReal(input, expected);
     }
 
     @Test
     public void writeToPDFOne() throws IOException {
-        testPDFReal(1);
+        float input = 1;
+        byte[] expected = {(byte) '1'};
+        testPDFReal(input, expected);
     }
 
     @Test
     public void writeToPDFNegOne() throws IOException {
-        testPDFReal(-1);
+        float input = -1;
+        byte[] expected = {(byte) '-', (byte) '1'};
+        testPDFReal(input, expected);
     }
 
     @Test
     public void writeToPDFHalf() throws IOException {
-        testPDFReal(.5f);
+        float input = .5f;
+        byte[] expected = {(byte) '.', (byte) '5'};
+        testPDFReal(input, expected);
     }
 
-    private void testPDFReal(float value) throws IOException {
-        ByteArrayOutputStream expected = new ByteArrayOutputStream();
-        expected.writeBytes(String.valueOf(value).getBytes(StandardCharsets.US_ASCII));
+    @Test
+    public void writeToPDFFrac5() throws IOException {
+        float input = .55555557f;
+        byte[] expected = {(byte) '.', (byte) '5', (byte) '5', (byte) '5', (byte) '5', (byte) '6'};
+        testPDFReal(input, expected);
+    }
 
+    private void testPDFReal(float input, byte[] expected) throws IOException {
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
-        PDFReal real = new PDFReal(value);
+        PDFReal real = new PDFReal(input);
         real.writeToPDF(actual);
 
-        assertArrayEquals(expected.toByteArray(), actual.toByteArray());
+        System.out.println("Expected: " + Arrays.toString(expected));
+        System.out.println("Actual:   " + Arrays.toString(actual.toByteArray()));
+        assertArrayEquals(expected, actual.toByteArray());
     }
 }
