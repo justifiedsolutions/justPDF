@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
@@ -69,8 +68,6 @@ public class PDFRealTest {
         PDFReal real = new PDFReal(input);
         real.writeToPDF(actual);
 
-        System.out.println("Expected: " + Arrays.toString(expected));
-        System.out.println("Actual:   " + Arrays.toString(actual.toByteArray()));
         assertArrayEquals(expected, actual.toByteArray());
     }
 }
