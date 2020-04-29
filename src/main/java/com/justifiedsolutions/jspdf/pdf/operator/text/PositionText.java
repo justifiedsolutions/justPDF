@@ -21,6 +21,12 @@ public class PositionText implements TextOperator {
     private final PDFReal tx;
     private final PDFReal ty;
 
+    /**
+     * Creates a new operator instance that translates the text position to Tx, Ty for the {@link TextObject}.
+     *
+     * @param tx the distance on the x-axis from the last set text position
+     * @param ty the distance on the y-axis from the last set text position
+     */
     public PositionText(PDFReal tx, PDFReal ty) {
         this.tx = Objects.requireNonNull(tx);
         this.ty = Objects.requireNonNull(ty);

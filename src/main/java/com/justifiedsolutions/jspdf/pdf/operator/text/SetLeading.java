@@ -21,6 +21,11 @@ import java.util.Objects;
 public class SetLeading implements TextOperator {
     private final PDFReal leading;
 
+    /**
+     * Creates a new operator that sets the current leading for the {@link TextObject}.
+     *
+     * @param leading the new leading
+     */
     public SetLeading(PDFReal leading) {
         this.leading = Objects.requireNonNull(leading);
     }

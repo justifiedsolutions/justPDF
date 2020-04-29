@@ -22,6 +22,12 @@ public class SetFont implements TextOperator {
     private final PDFName font;
     private final PDFReal size;
 
+    /**
+     * Creates a new operator instance that sets the current working font and font size for the {@link TextObject}.
+     *
+     * @param font the new font
+     * @param size the new font size
+     */
     public SetFont(PDFName font, PDFReal size) {
         this.font = Objects.requireNonNull(font);
         this.size = Objects.requireNonNull(size);

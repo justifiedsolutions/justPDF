@@ -20,6 +20,11 @@ import java.util.Objects;
 public class ShowText implements TextOperator {
     private final PDFString text;
 
+    /**
+     * Creates a new instance of an operator that shows the specified text in the {@link TextObject}.
+     *
+     * @param text the text to show
+     */
     public ShowText(PDFString text) {
         this.text = Objects.requireNonNull(text);
     }
