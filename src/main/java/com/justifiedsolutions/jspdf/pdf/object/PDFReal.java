@@ -30,6 +30,15 @@ public class PDFReal implements PDFObject {
         this.value = value;
     }
 
+    /**
+     * Returns the value of the PDFReal as a Java <code>float</code>.
+     *
+     * @return the float value
+     */
+    public float getValue() {
+        return value;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(value);

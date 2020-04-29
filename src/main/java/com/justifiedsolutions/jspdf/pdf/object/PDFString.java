@@ -28,6 +28,15 @@ public class PDFString implements PDFObject {
         this.value = Objects.requireNonNull(value);
     }
 
+    /**
+     * Returns the value of the PDFString as a Java {@link String}.
+     *
+     * @return the string value
+     */
+    public String getValue() {
+        return value;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(value);
