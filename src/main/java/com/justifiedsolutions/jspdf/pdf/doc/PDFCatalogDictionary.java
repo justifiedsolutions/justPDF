@@ -18,8 +18,11 @@ public class PDFCatalogDictionary extends PDFDictionary {
     public static final PDFName VERSION = new PDFName("Version");
     public static final PDFName PAGES = new PDFName("Pages");
 
+    static final PDFName CATALOG = new PDFName("Catalog");
+    static final PDFName VERSION_17 = new PDFName("1.7");
+
     public PDFCatalogDictionary() {
-        put(TYPE, new PDFName("Catalog"));
-        put(VERSION, new PDFName("1.7"));
+        put(TYPE, CATALOG);
+        put(VERSION, VERSION_17);
     }
 }
