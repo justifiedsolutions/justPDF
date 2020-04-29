@@ -59,10 +59,12 @@ public class TextObject implements PDFWritable {
 
     @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
-        pdf.write("BT\n".getBytes(StandardCharsets.US_ASCII));
-        for (TextOperator operator : operators) {
-            operator.writeToPDF(pdf);
+        if (!operators.isEmpty()) {
+            pdf.write("BT\n".getBytes(StandardCharsets.US_ASCII));
+            for (TextOperator operator : operators) {
+                operator.writeToPDF(pdf);
+            }
+            pdf.write("ET".getBytes(StandardCharsets.US_ASCII));
         }
-        pdf.write("ET".getBytes(StandardCharsets.US_ASCII));
     }
 }

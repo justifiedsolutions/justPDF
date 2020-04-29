@@ -30,7 +30,7 @@ public class TextObjectTest {
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         textObject.writeToPDF(actual);
 
-        assertArrayEquals("BT\nET".getBytes(StandardCharsets.US_ASCII), actual.toByteArray());
+        assertArrayEquals("".getBytes(StandardCharsets.US_ASCII), actual.toByteArray());
     }
 
     @Test
