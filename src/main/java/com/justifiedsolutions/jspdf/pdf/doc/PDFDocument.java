@@ -59,13 +59,14 @@ public class PDFDocument {
      * @return the new PDFPage
      */
     public PDFPage createPage(PDFRectangle pageSize) {
-        PDFIndirectObject indirectPages = (PDFIndirectObject) catalog.get(PDFCatalogDictionary.PAGES);
-        if (indirectPages == null) {
-            indirectPages = createIndirectObject(pages);
-            catalog.put(PDFCatalogDictionary.PAGES, indirectPages.getReference());
+        PDFIndirectObject.Reference pagesReference = (PDFIndirectObject.Reference) catalog.get(PDFCatalogDictionary.PAGES);
+        if (pagesReference == null) {
+            PDFIndirectObject indirectObject = createIndirectObject(pages);
+            pagesReference = indirectObject.getReference();
+            catalog.put(PDFCatalogDictionary.PAGES, pagesReference);
         }
         PDFPage page = new PDFPage(this, pageSize);
-        page.setParent(indirectPages.getReference());
+        page.setParent(pagesReference);
         pages.addPage(page.getIndirectPage().getReference());
 
         return page;
