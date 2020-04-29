@@ -11,6 +11,13 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Models a PDFString that utilizes PDF Doc Encoding in a PDF document.
+ *
+ * @see "ISO 32000-1:2008, 7.3.4"
+ * @see "ISO 32000-1:2008, 7.9.2"
+ * @see "ISO 32000-1:2008, D.3"
+ */
 public class PDFDocEncodedString extends PDFString {
     private static final Map<Character, Integer> PDF_DOC_ENCODING = new HashMap<>();
 
