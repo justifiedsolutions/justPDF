@@ -28,6 +28,15 @@ public class PDFInteger implements PDFObject, Comparable<PDFInteger> {
         this.value = value;
     }
 
+    /**
+     * Returns the value of the PDFInteger as a Java <code>int</code>.
+     *
+     * @return the int value
+     */
+    public int getValue() {
+        return value;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(value);
@@ -52,9 +61,5 @@ public class PDFInteger implements PDFObject, Comparable<PDFInteger> {
     @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
         pdf.write(String.valueOf(value).getBytes(StandardCharsets.US_ASCII));
-    }
-
-    public int getValue() {
-        return value;
     }
 }
