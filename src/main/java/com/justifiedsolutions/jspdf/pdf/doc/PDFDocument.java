@@ -67,7 +67,7 @@ public class PDFDocument {
         }
         PDFPage page = new PDFPage(this, pageSize);
         page.setParent(pagesReference);
-        pages.addPage(page.getIndirectPage().getReference());
+        pages.addPage(page.getReference());
 
         return page;
     }

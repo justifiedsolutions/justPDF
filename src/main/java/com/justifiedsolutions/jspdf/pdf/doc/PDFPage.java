@@ -25,8 +25,6 @@ public class PDFPage {
     private final PDFDictionary page = new PDFDictionary();
     private final PDFIndirectObject indirectPage;
 
-    private PDFIndirectObject indirectContents;
-
     private final PDFDocument document;
 
     /**
@@ -48,8 +46,8 @@ public class PDFPage {
      * @param contents the contents of the page
      */
     public void setContents(PDFStream contents) {
-        this.indirectContents = document.createIndirectObject(contents);
-        page.put(CONTENTS, this.indirectContents.getReference());
+        PDFIndirectObject indirectContents = document.createIndirectObject(contents);
+        page.put(CONTENTS, indirectContents.getReference());
     }
 
     /**
@@ -72,21 +70,12 @@ public class PDFPage {
     }
 
     /**
-     * Gets the {@link PDFIndirectObject} for the contents of the page.
+     * Gets a reference to this PDFPage.
      *
-     * @return the IndirectObject for the contents of the page
+     * @return the reference to the PDFIndirectObject that wraps this page
      */
-    PDFIndirectObject getIndirectContents() {
-        return this.indirectContents;
-    }
-
-    /**
-     * Gets the {@link PDFIndirectObject} for the page description.
-     *
-     * @return the IndirectObject for the page
-     */
-    PDFIndirectObject getIndirectPage() {
-        return this.indirectPage;
+    PDFIndirectObject.Reference getReference() {
+        return this.indirectPage.getReference();
     }
 
     /**
