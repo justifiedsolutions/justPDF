@@ -50,7 +50,7 @@ public class PDFIndirectObjectTest {
 
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
         expected.writeBytes(String.valueOf(inObject.getObjectNumber().getValue()).getBytes(StandardCharsets.US_ASCII));
-        expected.writeBytes(" 0 obj\ntrue\nendobj\n".getBytes(StandardCharsets.US_ASCII));
+        expected.writeBytes(" 0 obj\ntrue\nendobj\n\n".getBytes(StandardCharsets.US_ASCII));
 
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         inObject.writeToPDF(actual);

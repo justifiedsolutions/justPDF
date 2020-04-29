@@ -5,6 +5,7 @@
 
 package com.justifiedsolutions.jspdf.pdf.object;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
@@ -115,12 +116,17 @@ public class PDFIndirectObject implements PDFObject, Comparable<PDFIndirectObjec
 
     @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
-        objectNumber.writeToPDF(pdf);
-        pdf.write(' ');
-        generationNumber.writeToPDF(pdf);
-        pdf.write(" obj\n".getBytes(StandardCharsets.US_ASCII));
-        object.writeToPDF(pdf);
-        pdf.write("\nendobj\n".getBytes(StandardCharsets.US_ASCII));
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        objectNumber.writeToPDF(out);
+        out.write(' ');
+        generationNumber.writeToPDF(out);
+        out.write(" obj\n".getBytes(StandardCharsets.US_ASCII));
+        object.writeToPDF(out);
+        if (out.toByteArray()[out.size() - 1] != 10) {
+            out.write('\n');
+        }
+        out.write("endobj\n\n".getBytes(StandardCharsets.US_ASCII));
+        out.writeTo(pdf);
     }
 
     /**
