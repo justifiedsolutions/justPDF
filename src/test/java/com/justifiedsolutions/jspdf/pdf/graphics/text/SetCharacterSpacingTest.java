@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package com.justifiedsolutions.jspdf.pdf.operator.text;
+package com.justifiedsolutions.jspdf.pdf.graphics.text;
 
-import com.justifiedsolutions.jspdf.pdf.object.PDFString;
+import com.justifiedsolutions.jspdf.pdf.object.PDFReal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,13 +15,13 @@ import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ShowTextTest {
+class SetCharacterSpacingTest {
 
-    private ShowText operator;
+    private SetCharacterSpacing operator;
 
     @BeforeEach
     public void setup() {
-        operator = new ShowText(new PDFString("string"));
+        operator = new SetCharacterSpacing(new PDFReal(12));
     }
 
     @Test
@@ -32,26 +32,21 @@ class ShowTextTest {
 
     @Test
     public void isCollapsableTrue() {
-        ShowText other = new ShowText(new PDFString(" along"));
+        SetCharacterSpacing other = new SetCharacterSpacing(new PDFReal(14));
         assertTrue(operator.isCollapsable(other));
     }
 
     @Test
     public void collapse() {
-        ShowText expected = new ShowText(new PDFString("string along"));
-        ShowText other = new ShowText(new PDFString(" along"));
+        SetCharacterSpacing other = new SetCharacterSpacing(new PDFReal(14));
         TextOperator actual = operator.collapse(other);
-        assertEquals(expected, actual);
+        assertEquals(other, actual);
     }
 
     @Test
     public void writeToPDF() throws IOException {
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         operator.writeToPDF(actual);
-        PDFString text = new PDFString("string");
-        ByteArrayOutputStream expected = new ByteArrayOutputStream();
-        text.writeToPDF(expected);
-        expected.writeBytes("Tj\n".getBytes(StandardCharsets.US_ASCII));
-        assertArrayEquals(expected.toByteArray(), actual.toByteArray());
+        assertArrayEquals("12 Tc\n".getBytes(StandardCharsets.US_ASCII), actual.toByteArray());
     }
 }

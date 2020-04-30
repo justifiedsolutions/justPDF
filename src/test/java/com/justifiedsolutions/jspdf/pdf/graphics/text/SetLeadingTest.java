@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package com.justifiedsolutions.jspdf.pdf.operator.text;
+package com.justifiedsolutions.jspdf.pdf.graphics.text;
 
 import com.justifiedsolutions.jspdf.pdf.object.PDFReal;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,13 +15,13 @@ import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SetWordSpacingTest {
+class SetLeadingTest {
 
-    private SetWordSpacing operator;
+    private SetLeading operator;
 
     @BeforeEach
     public void setup() {
-        operator = new SetWordSpacing(new PDFReal(12));
+        operator = new SetLeading(new PDFReal(12));
     }
 
     @Test
@@ -32,13 +32,13 @@ class SetWordSpacingTest {
 
     @Test
     public void isCollapsableTrue() {
-        SetWordSpacing other = new SetWordSpacing(new PDFReal(14));
+        SetLeading other = new SetLeading(new PDFReal(14));
         assertTrue(operator.isCollapsable(other));
     }
 
     @Test
     public void collapse() {
-        SetWordSpacing other = new SetWordSpacing(new PDFReal(14));
+        SetLeading other = new SetLeading(new PDFReal(14));
         TextOperator actual = operator.collapse(other);
         assertEquals(other, actual);
     }
@@ -47,6 +47,6 @@ class SetWordSpacingTest {
     public void writeToPDF() throws IOException {
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         operator.writeToPDF(actual);
-        assertArrayEquals("12 Tw\n".getBytes(StandardCharsets.US_ASCII), actual.toByteArray());
+        assertArrayEquals("12 TL\n".getBytes(StandardCharsets.US_ASCII), actual.toByteArray());
     }
 }

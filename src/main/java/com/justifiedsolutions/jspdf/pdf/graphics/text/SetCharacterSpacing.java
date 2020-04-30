@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package com.justifiedsolutions.jspdf.pdf.operator.text;
+package com.justifiedsolutions.jspdf.pdf.graphics.text;
 
 import com.justifiedsolutions.jspdf.pdf.object.PDFReal;
 
