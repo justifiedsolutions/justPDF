@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SetLeadingTest {
+public class SetLeadingTest {
 
     private SetLeading operator;
 

@@ -12,10 +12,10 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-class StrokePathTest {
+public class StrokePathTest {
 
     @Test
-    void writeToPDF() throws IOException {
+    public void writeToPDF() throws IOException {
         byte[] expected = {(byte) 'S', (byte) '\n'};
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         new StrokePath().writeToPDF(actual);

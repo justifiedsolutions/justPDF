@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SetWordSpacingTest {
+public class SetWordSpacingTest {
 
     private SetWordSpacing operator;
 
