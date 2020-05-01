@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package com.justifiedsolutions.jspdf.pdf.graphics.text;
+package com.justifiedsolutions.jspdf.pdf.contents;
 
 import com.justifiedsolutions.jspdf.pdf.object.PDFName;
 import com.justifiedsolutions.jspdf.pdf.object.PDFReal;
@@ -18,7 +18,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 9.2.2"
  */
-public class SetFont implements TextOperator {
+public class SetFont implements TextStateOperator {
     private final PDFName font;
     private final PDFReal size;
 
@@ -55,6 +55,17 @@ public class SetFont implements TextOperator {
     @Override
     public TextOperator collapse(TextOperator operator) {
         return operator;
+    }
+
+    @Override
+    public boolean changesState(GraphicsState currentState) {
+        return !(font.equals(currentState.getTextFont()) && size.equals(currentState.getTextFontSize()));
+    }
+
+    @Override
+    public void changeState(GraphicsState state) {
+        state.setTextFont(font);
+        state.setTextFontSize(size);
     }
 
     @Override

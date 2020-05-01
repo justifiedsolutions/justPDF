@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package com.justifiedsolutions.jspdf.pdf.graphics.text;
+package com.justifiedsolutions.jspdf.pdf.contents;
 
 import com.justifiedsolutions.jspdf.pdf.object.PDFReal;
 
@@ -18,7 +18,7 @@ import java.util.Objects;
  * @see "ISO 32000-1:2008, 9.3.1"
  * @see "ISO 32000-1:2008, 9.3.5"
  */
-public class SetLeading implements TextOperator {
+public class SetLeading implements TextStateOperator {
     private final PDFReal leading;
 
     /**
@@ -51,6 +51,16 @@ public class SetLeading implements TextOperator {
     @Override
     public TextOperator collapse(TextOperator operator) {
         return operator;
+    }
+
+    @Override
+    public boolean changesState(GraphicsState currentState) {
+        return !leading.equals(currentState.getLeading());
+    }
+
+    @Override
+    public void changeState(GraphicsState state) {
+        state.setLeading(leading);
     }
 
     @Override

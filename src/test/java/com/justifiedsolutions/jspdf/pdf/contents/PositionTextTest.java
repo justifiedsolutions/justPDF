@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package com.justifiedsolutions.jspdf.pdf.graphics.text;
+package com.justifiedsolutions.jspdf.pdf.contents;
 
-import com.justifiedsolutions.jspdf.pdf.object.PDFString;
+import com.justifiedsolutions.jspdf.pdf.object.PDFReal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,13 +15,13 @@ import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ShowTextTest {
+public class PositionTextTest {
 
-    private ShowText operator;
+    private PositionText operator;
 
     @BeforeEach
     public void setup() {
-        operator = new ShowText(new PDFString("string"));
+        operator = new PositionText(new PDFReal(10), new PDFReal(10));
     }
 
     @Test
@@ -32,14 +32,14 @@ class ShowTextTest {
 
     @Test
     public void isCollapsableTrue() {
-        ShowText other = new ShowText(new PDFString(" along"));
+        PositionText other = new PositionText(new PDFReal(5), new PDFReal(5));
         assertTrue(operator.isCollapsable(other));
     }
 
     @Test
     public void collapse() {
-        ShowText expected = new ShowText(new PDFString("string along"));
-        ShowText other = new ShowText(new PDFString(" along"));
+        PositionText expected = new PositionText(new PDFReal(15), new PDFReal(15));
+        PositionText other = new PositionText(new PDFReal(5), new PDFReal(5));
         TextOperator actual = operator.collapse(other);
         assertEquals(expected, actual);
     }
@@ -48,10 +48,6 @@ class ShowTextTest {
     public void writeToPDF() throws IOException {
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         operator.writeToPDF(actual);
-        PDFString text = new PDFString("string");
-        ByteArrayOutputStream expected = new ByteArrayOutputStream();
-        text.writeToPDF(expected);
-        expected.writeBytes("Tj\n".getBytes(StandardCharsets.US_ASCII));
-        assertArrayEquals(expected.toByteArray(), actual.toByteArray());
+        assertArrayEquals("10 10 Td\n".getBytes(StandardCharsets.US_ASCII), actual.toByteArray());
     }
 }

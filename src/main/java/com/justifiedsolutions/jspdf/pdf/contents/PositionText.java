@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package com.justifiedsolutions.jspdf.pdf.graphics.text;
+package com.justifiedsolutions.jspdf.pdf.contents;
 
 import com.justifiedsolutions.jspdf.pdf.object.PDFReal;
 
@@ -17,7 +17,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 9.4.2"
  */
-public class PositionText implements TextOperator {
+public class PositionText implements TextPositioningOperator {
     private final PDFReal tx;
     private final PDFReal ty;
 
