@@ -15,10 +15,10 @@ public interface GraphicsStateOperator extends GraphicsOperator {
     /**
      * Determines if applying this {@link GraphicsOperator} would alter a value in the {@link GraphicsState}.
      *
-     * @param currentState the current GraphicsState
+     * @param state the current GraphicsState
      * @return true if the state would change if this operator were added
      */
-    boolean changesState(GraphicsState currentState);
+    boolean changesState(GraphicsState state);
 
     /**
      * Alters the {@link GraphicsState} by applying this {@link GraphicsOperator}.

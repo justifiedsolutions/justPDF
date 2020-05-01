@@ -54,8 +54,8 @@ public class SetLeading implements TextStateOperator {
     }
 
     @Override
-    public boolean changesState(GraphicsState currentState) {
-        return !leading.equals(currentState.getLeading());
+    public boolean changesState(GraphicsState state) {
+        return !leading.equals(state.getLeading());
     }
 
     @Override

@@ -58,8 +58,8 @@ public class SetFont implements TextStateOperator {
     }
 
     @Override
-    public boolean changesState(GraphicsState currentState) {
-        return !(font.equals(currentState.getTextFont()) && size.equals(currentState.getTextFontSize()));
+    public boolean changesState(GraphicsState state) {
+        return !(font.equals(state.getTextFont()) && size.equals(state.getTextFontSize()));
     }
 
     @Override

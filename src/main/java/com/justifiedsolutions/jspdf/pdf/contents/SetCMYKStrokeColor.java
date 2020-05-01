@@ -57,8 +57,8 @@ public class SetCMYKStrokeColor implements ColorGraphicsOperator {
     }
 
     @Override
-    public boolean changesState(GraphicsState currentState) {
-        return !colorSpace.equals(currentState.getStrokeColorSpace());
+    public boolean changesState(GraphicsState state) {
+        return !colorSpace.equals(state.getStrokeColorSpace());
     }
 
     @Override

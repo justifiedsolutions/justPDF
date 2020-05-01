@@ -54,8 +54,8 @@ public class SetWordSpacing implements TextStateOperator {
     }
 
     @Override
-    public boolean changesState(GraphicsState currentState) {
-        return !wordSpacing.equals(currentState.getWordSpacing());
+    public boolean changesState(GraphicsState state) {
+        return !wordSpacing.equals(state.getWordSpacing());
     }
 
     @Override

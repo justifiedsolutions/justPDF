@@ -44,8 +44,8 @@ public class SetLineWidth implements GeneralGraphicsOperator {
     }
 
     @Override
-    public boolean changesState(GraphicsState currentState) {
-        return !width.equals(currentState.getLineWidth());
+    public boolean changesState(GraphicsState state) {
+        return !width.equals(state.getLineWidth());
     }
 
     @Override

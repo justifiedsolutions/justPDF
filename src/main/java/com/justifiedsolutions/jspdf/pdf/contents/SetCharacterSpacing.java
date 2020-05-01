@@ -54,8 +54,8 @@ public class SetCharacterSpacing implements TextStateOperator {
     }
 
     @Override
-    public boolean changesState(GraphicsState currentState) {
-        return !charSpacing.equals(currentState.getCharacterSpacing());
+    public boolean changesState(GraphicsState state) {
+        return !charSpacing.equals(state.getCharacterSpacing());
     }
 
     @Override

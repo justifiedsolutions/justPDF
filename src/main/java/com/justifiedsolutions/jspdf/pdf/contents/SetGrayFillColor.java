@@ -47,8 +47,8 @@ public class SetGrayFillColor implements ColorGraphicsOperator {
     }
 
     @Override
-    public boolean changesState(GraphicsState currentState) {
-        return !colorSpace.equals(currentState.getFillColorSpace());
+    public boolean changesState(GraphicsState state) {
+        return !colorSpace.equals(state.getFillColorSpace());
     }
 
     @Override

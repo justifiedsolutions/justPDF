@@ -57,8 +57,8 @@ public class SetCMYKFillColor implements ColorGraphicsOperator {
     }
 
     @Override
-    public boolean changesState(GraphicsState currentState) {
-        return !colorSpace.equals(currentState.getFillColorSpace());
+    public boolean changesState(GraphicsState state) {
+        return !colorSpace.equals(state.getFillColorSpace());
     }
 
     @Override
@@ -77,4 +77,5 @@ public class SetCMYKFillColor implements ColorGraphicsOperator {
         black.writeToPDF(pdf);
         pdf.write(" k\n".getBytes(StandardCharsets.US_ASCII));
     }
+
 }

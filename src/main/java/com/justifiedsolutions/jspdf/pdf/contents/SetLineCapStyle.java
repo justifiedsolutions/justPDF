@@ -42,8 +42,8 @@ public class SetLineCapStyle implements GeneralGraphicsOperator {
     }
 
     @Override
-    public boolean changesState(GraphicsState currentState) {
-        return !lineCapStyle.equals(currentState.getLineCap());
+    public boolean changesState(GraphicsState state) {
+        return !lineCapStyle.equals(state.getLineCap());
     }
 
     @Override
