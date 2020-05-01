@@ -9,14 +9,58 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Objects;
 
+/**
+ * Represents a <code>rectangle object</code> in a PDF document.
+ *
+ * @see "ISO 32000-1:2008, 7.9.5"
+ */
 public class PDFRectangle implements PDFObject {
-    private final int llx, lly, urx, ury;
+    private final PDFReal llx, lly, urx, ury;
 
-    public PDFRectangle(int llx, int lly, int urx, int ury) {
-        this.llx = llx;
-        this.lly = lly;
-        this.urx = urx;
-        this.ury = ury;
+    /**
+     * Creates a rectangle given the x,y coordinates for the lower left and upper right corners of the rectangle.
+     *
+     * @param llx lower left x
+     * @param lly lower left y
+     * @param urx upper right x
+     * @param ury upper right y
+     */
+    public PDFRectangle(PDFReal llx, PDFReal lly, PDFReal urx, PDFReal ury) {
+        this.llx = Objects.requireNonNull(llx);
+        this.lly = Objects.requireNonNull(lly);
+        this.urx = Objects.requireNonNull(urx);
+        this.ury = Objects.requireNonNull(ury);
+    }
+
+    /**
+     * Creates a rectangle given the x,y coordinates for the lower left and upper right corners of the rectangle.
+     *
+     * @param llx lower left x
+     * @param lly lower left y
+     * @param urx upper right x
+     * @param ury upper right y
+     */
+    public PDFRectangle(float llx, float lly, float urx, float ury) {
+        this.llx = new PDFReal(llx);
+        this.lly = new PDFReal(lly);
+        this.urx = new PDFReal(urx);
+        this.ury = new PDFReal(ury);
+    }
+
+    public PDFReal getLLx() {
+        return llx;
+    }
+
+    public PDFReal getLLy() {
+        return lly;
+    }
+
+    public PDFReal getURx() {
+        return urx;
+    }
+
+    public PDFReal getURy() {
+        return ury;
     }
 
     @Override
@@ -29,19 +73,19 @@ public class PDFRectangle implements PDFObject {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PDFRectangle that = (PDFRectangle) o;
-        return llx == that.llx &&
-                lly == that.lly &&
-                urx == that.urx &&
-                ury == that.ury;
+        return llx.equals(that.llx) &&
+                lly.equals(that.lly) &&
+                urx.equals(that.urx) &&
+                ury.equals(that.ury);
     }
 
     @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
         PDFArray array = new PDFArray();
-        array.add(new PDFInteger(llx));
-        array.add(new PDFInteger(lly));
-        array.add(new PDFInteger(urx));
-        array.add(new PDFInteger(ury));
+        array.add(llx);
+        array.add(lly);
+        array.add(urx);
+        array.add(ury);
         array.writeToPDF(pdf);
     }
 }

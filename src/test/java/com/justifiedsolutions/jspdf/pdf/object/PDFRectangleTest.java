@@ -16,9 +16,22 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 class PDFRectangleTest {
 
     @Test
-    void writeToPDF() throws IOException {
+    void writeToPDFFloat() throws IOException {
         PDFRectangle rect = new PDFRectangle(0, 0, 10, 10);
+        testRectangle(rect);
+    }
 
+    @Test
+    void writeToPDFObject() throws IOException {
+        PDFReal llx = new PDFReal(0);
+        PDFReal lly = new PDFReal(0);
+        PDFReal urx = new PDFReal(10);
+        PDFReal ury = new PDFReal(10);
+        PDFRectangle rect = new PDFRectangle(llx, lly, urx, ury);
+        testRectangle(rect);
+    }
+
+    private void testRectangle(PDFRectangle rect) throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
         expected.writeBytes("[ 0 0 10 10 ]".getBytes(StandardCharsets.US_ASCII));
 
