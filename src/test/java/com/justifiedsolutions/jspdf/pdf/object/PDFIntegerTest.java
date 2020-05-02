@@ -12,8 +12,16 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PDFIntegerTest {
+
+    @Test
+    public void compareTo() {
+        PDFInteger value = new PDFInteger(0);
+        assertEquals(-1, value.compareTo(null));
+        assertEquals(0, value.compareTo(new PDFInteger(0)));
+    }
 
     @Test
     public void writeToPDFPositive() throws IOException {
