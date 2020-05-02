@@ -18,7 +18,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 9.2.2"
  */
-public class SetFont implements TextStateOperator {
+public class SetFont implements TextStateOperator, CollapsableOperator {
     private final PDFName font;
     private final PDFReal size;
 
@@ -48,12 +48,12 @@ public class SetFont implements TextStateOperator {
     }
 
     @Override
-    public boolean isCollapsable(TextOperator operator) {
+    public boolean isCollapsable(GraphicsOperator operator) {
         return (operator instanceof SetFont);
     }
 
     @Override
-    public TextOperator collapse(TextOperator operator) {
+    public GraphicsOperator collapse(GraphicsOperator operator) {
         return operator;
     }
 

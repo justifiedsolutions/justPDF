@@ -29,15 +29,17 @@ class PDFDocumentTest {
         for (int i = 0; i < 4; i++) {
             PDFPage page = doc.createPage(new PDFRectangle(0, 0, 612, 792));
             PDFName fontName = page.addFontReference(fontReference);
-            PDFString text = new PDFString("Hello World: " + i);
-            ByteArrayOutputStream content = new ByteArrayOutputStream();
-            content.writeBytes("BT\n72 720 Td\n".getBytes(StandardCharsets.US_ASCII));
-            fontName.writeToPDF(content);
-            content.writeBytes(" 24 Tf\n".getBytes(StandardCharsets.US_ASCII));
-            text.writeToPDF(content);
-            content.writeBytes("Tj\nET".getBytes(StandardCharsets.US_ASCII));
-            PDFStream contents = new PDFStream(content.toByteArray());
-            page.setContents(contents);
+            PDFContentStreamBuilder builder = new PDFContentStreamBuilder();
+            builder.addOperator(new BeginText());
+            builder.addOperator(new SetFont(fontName, new PDFReal(24)));
+            builder.addOperator(new SetLeading(new PDFReal(28.8f)));
+            builder.addOperator(new PositionText(new PDFReal(72), new PDFReal(720)));
+            builder.addOperator(new ShowText(new PDFString("Hello World: " + i)));
+            builder.addOperator(new MoveToNextLine());
+            builder.addOperator(new ShowText(new PDFString("Nice to see you!")));
+            builder.addOperator(new EndText());
+            PDFStream contentStream = builder.getStream();
+            page.setContents(contentStream);
         }
 
         doc.write(actual);

@@ -18,7 +18,7 @@ import java.util.Objects;
  * @see "ISO 32000-1:2008, 9.3.1"
  * @see "ISO 32000-1:2008, 9.3.5"
  */
-public class SetLeading implements TextStateOperator {
+public class SetLeading implements TextStateOperator, CollapsableOperator {
     private final PDFReal leading;
 
     /**
@@ -44,12 +44,12 @@ public class SetLeading implements TextStateOperator {
     }
 
     @Override
-    public boolean isCollapsable(TextOperator operator) {
+    public boolean isCollapsable(GraphicsOperator operator) {
         return (operator instanceof SetLeading);
     }
 
     @Override
-    public TextOperator collapse(TextOperator operator) {
+    public GraphicsOperator collapse(GraphicsOperator operator) {
         return operator;
     }
 

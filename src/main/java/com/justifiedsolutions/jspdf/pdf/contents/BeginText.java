@@ -13,7 +13,7 @@ import java.io.OutputStream;
  *
  * @see "ISO 32000-1:2008, 9.4.1"
  */
-public class BeginText implements GraphicsOperator {
+public class BeginText implements TextOperator {
     @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
         pdf.write('B');

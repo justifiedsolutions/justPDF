@@ -40,7 +40,7 @@ public class SetFontTest {
     @Test
     public void collapse() {
         SetFont other = new SetFont(new PDFName("F1"), new PDFReal(14));
-        TextOperator actual = operator.collapse(other);
+        GraphicsOperator actual = operator.collapse(other);
         assertEquals(other, actual);
     }
 

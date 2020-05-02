@@ -39,7 +39,7 @@ public class SetCharacterSpacingTest {
     @Test
     public void collapse() {
         SetCharacterSpacing other = new SetCharacterSpacing(new PDFReal(14));
-        TextOperator actual = operator.collapse(other);
+        GraphicsOperator actual = operator.collapse(other);
         assertEquals(other, actual);
     }
 

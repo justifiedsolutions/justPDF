@@ -12,7 +12,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class MoveToNextLineTest {
 
@@ -21,16 +21,6 @@ public class MoveToNextLineTest {
     @BeforeEach
     public void setup() {
         operator = new MoveToNextLine();
-    }
-
-    @Test
-    public void isCollapsable() {
-        assertFalse(operator.isCollapsable(null));
-    }
-
-    @Test
-    public void collapse() {
-        assertNull(operator.collapse(null));
     }
 
     @Test

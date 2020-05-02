@@ -18,7 +18,7 @@ import java.util.Objects;
  * @see "ISO 32000-1:2008, 9.3.1"
  * @see "ISO 32000-1:2008, 9.3.3"
  */
-public class SetWordSpacing implements TextStateOperator {
+public class SetWordSpacing implements TextStateOperator, CollapsableOperator {
     private final PDFReal wordSpacing;
 
     /**
@@ -44,12 +44,12 @@ public class SetWordSpacing implements TextStateOperator {
     }
 
     @Override
-    public boolean isCollapsable(TextOperator operator) {
+    public boolean isCollapsable(GraphicsOperator operator) {
         return (operator instanceof SetWordSpacing);
     }
 
     @Override
-    public TextOperator collapse(TextOperator operator) {
+    public GraphicsOperator collapse(GraphicsOperator operator) {
         return operator;
     }
 

@@ -17,7 +17,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 9.4.2"
  */
-public class PositionText implements TextPositioningOperator {
+public class PositionText implements TextPositioningOperator, CollapsableOperator {
     private final PDFReal tx;
     private final PDFReal ty;
 
@@ -47,12 +47,12 @@ public class PositionText implements TextPositioningOperator {
     }
 
     @Override
-    public boolean isCollapsable(TextOperator operator) {
+    public boolean isCollapsable(GraphicsOperator operator) {
         return (operator instanceof PositionText);
     }
 
     @Override
-    public TextOperator collapse(TextOperator operator) {
+    public GraphicsOperator collapse(GraphicsOperator operator) {
         PositionText other = (PositionText) operator;
         float newTx = tx.getValue() + other.tx.getValue();
         float newTy = ty.getValue() + other.ty.getValue();

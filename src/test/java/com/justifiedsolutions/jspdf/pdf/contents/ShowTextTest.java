@@ -40,7 +40,7 @@ public class ShowTextTest {
     public void collapse() {
         ShowText expected = new ShowText(new PDFString("string along"));
         ShowText other = new ShowText(new PDFString(" along"));
-        TextOperator actual = operator.collapse(other);
+        GraphicsOperator actual = operator.collapse(other);
         assertEquals(expected, actual);
     }
 

@@ -16,7 +16,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 8.5.2.1"
  */
-public class StartPath implements PathConstructionGraphicsOperator {
+public class StartPath implements PathConstructionGraphicsOperator, CollapsableOperator {
     private final PDFReal x;
     private final PDFReal y;
 
@@ -43,6 +43,16 @@ public class StartPath implements PathConstructionGraphicsOperator {
         StartPath startPath = (StartPath) o;
         return x.equals(startPath.x) &&
                 y.equals(startPath.y);
+    }
+
+    @Override
+    public boolean isCollapsable(GraphicsOperator operator) {
+        return (operator instanceof StartPath);
+    }
+
+    @Override
+    public GraphicsOperator collapse(GraphicsOperator operator) {
+        return operator;
     }
 
     @Override

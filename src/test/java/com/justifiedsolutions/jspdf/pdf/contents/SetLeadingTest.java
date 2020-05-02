@@ -39,7 +39,7 @@ public class SetLeadingTest {
     @Test
     public void collapse() {
         SetLeading other = new SetLeading(new PDFReal(14));
-        TextOperator actual = operator.collapse(other);
+        GraphicsOperator actual = operator.collapse(other);
         assertEquals(other, actual);
     }
 

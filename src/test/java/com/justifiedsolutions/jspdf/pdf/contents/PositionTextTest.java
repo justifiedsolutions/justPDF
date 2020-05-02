@@ -40,7 +40,7 @@ public class PositionTextTest {
     public void collapse() {
         PositionText expected = new PositionText(new PDFReal(15), new PDFReal(15));
         PositionText other = new PositionText(new PDFReal(5), new PDFReal(5));
-        TextOperator actual = operator.collapse(other);
+        GraphicsOperator actual = operator.collapse(other);
         assertEquals(expected, actual);
     }
 

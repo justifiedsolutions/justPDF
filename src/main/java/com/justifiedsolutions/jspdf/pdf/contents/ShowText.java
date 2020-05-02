@@ -17,7 +17,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 9.4.3"
  */
-public class ShowText implements TextShowingOperator {
+public class ShowText implements TextShowingOperator, CollapsableOperator {
     private final PDFString text;
 
     /**
@@ -43,12 +43,12 @@ public class ShowText implements TextShowingOperator {
     }
 
     @Override
-    public boolean isCollapsable(TextOperator operator) {
+    public boolean isCollapsable(GraphicsOperator operator) {
         return (operator instanceof ShowText);
     }
 
     @Override
-    public TextOperator collapse(TextOperator operator) {
+    public GraphicsOperator collapse(GraphicsOperator operator) {
         ShowText other = (ShowText) operator;
         String newValue = text.getValue() + other.text.getValue();
         PDFString newText = new PDFString(newValue);

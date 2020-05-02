@@ -39,7 +39,7 @@ public class SetWordSpacingTest {
     @Test
     public void collapse() {
         SetWordSpacing other = new SetWordSpacing(new PDFReal(14));
-        TextOperator actual = operator.collapse(other);
+        GraphicsOperator actual = operator.collapse(other);
         assertEquals(other, actual);
     }
 
