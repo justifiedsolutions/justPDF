@@ -5,12 +5,10 @@
 
 package com.justifiedsolutions.jspdf.pdf.contents;
 
-import com.justifiedsolutions.jspdf.pdf.PDFWritable;
-
 /**
  * Interface that marks operators for PDF text objects.
  */
-public interface TextOperator extends PDFWritable {
+public interface TextOperator extends GraphicsOperator {
 
     /**
      * Specifies if this TextOperator and the specified TextOperator can be collapsed into a single TextOperator. In
