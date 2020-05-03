@@ -22,6 +22,21 @@ public class GraphicsStateTest {
     }
 
     @Test
+    public void copyConstructor() {
+        state.setLineWidth(new PDFReal(2));
+        state.setLineCap(LineCapStyle.ROUND_CAP);
+        state.setFillColorSpace(new DeviceRGB(new PDFReal(.5f), new PDFReal(.5f), new PDFReal(.5f)));
+        state.setStrokeColorSpace(new DeviceRGB(new PDFReal(.6f), new PDFReal(.6f), new PDFReal(.6f)));
+        state.setCharacterSpacing(new PDFReal(.3f));
+        state.setWordSpacing(new PDFReal(.4f));
+        state.setLeading(new PDFReal(1.2f));
+        state.setTextFont(new PDFName("F2"));
+        state.setTextFontSize(new PDFReal(12));
+
+        assertEquals(state, new GraphicsState(state));
+    }
+
+    @Test
     public void lineWidth() {
         assertEquals(new PDFReal(1), state.getLineWidth());
         PDFReal value = new PDFReal(.5f);
