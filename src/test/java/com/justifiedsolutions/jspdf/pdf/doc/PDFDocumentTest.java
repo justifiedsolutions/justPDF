@@ -5,6 +5,7 @@
 
 package com.justifiedsolutions.jspdf.pdf.doc;
 
+import com.justifiedsolutions.jspdf.pdf.contents.*;
 import com.justifiedsolutions.jspdf.pdf.font.PDFFont;
 import com.justifiedsolutions.jspdf.pdf.font.PDFFontType1;
 import com.justifiedsolutions.jspdf.pdf.object.*;
@@ -12,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 class PDFDocumentTest {
 
@@ -30,6 +30,9 @@ class PDFDocumentTest {
             PDFPage page = doc.createPage(new PDFRectangle(0, 0, 612, 792));
             PDFName fontName = page.addFontReference(fontReference);
             PDFContentStreamBuilder builder = new PDFContentStreamBuilder();
+            builder.addOperator(new SetLineWidth(new PDFReal(.5f)));
+            builder.addOperator(new CreateRectangularPath(new PDFRectangle(70, 718, 235, 740)));
+            builder.addOperator(new StrokePath());
             builder.addOperator(new BeginText());
             builder.addOperator(new SetFont(fontName, new PDFReal(24)));
             builder.addOperator(new SetLeading(new PDFReal(28.8f)));
@@ -43,5 +46,8 @@ class PDFDocumentTest {
         }
 
         doc.write(actual);
+
+        //FileOutputStream fileOS = new FileOutputStream("/Users/jason/Downloads/test.pdf");
+        //actual.writeTo(fileOS);
     }
 }
