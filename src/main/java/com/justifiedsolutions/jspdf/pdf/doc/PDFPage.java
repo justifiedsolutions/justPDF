@@ -91,6 +91,9 @@ public class PDFPage {
             PDFArray procSet = new PDFArray();
             procSet.add(new PDFName("PDF"));
             procSet.add(new PDFName("Text"));
+            procSet.add(new PDFName("ImageB"));
+            procSet.add(new PDFName("ImageC"));
+            procSet.add(new PDFName("ImageI"));
             put(PROC_SET, procSet);
         }
 
