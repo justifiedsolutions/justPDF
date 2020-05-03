@@ -71,7 +71,7 @@ public class PDFContentStreamBuilder {
     }
 
     public PDFStream getStream() throws IOException {
-        if (graphicsStateStack.isEmpty() && (graphicsObject instanceof PageDescriptionObject)) {
+        if (graphicsStateStack.isEmpty() && (graphicsObject instanceof PageDescriptionObject) && !operators.isEmpty()) {
             return new PDFStream(getByteArray());
         }
         throw new IllegalStateException("Contents are not complete. Cannot create content stream.");
