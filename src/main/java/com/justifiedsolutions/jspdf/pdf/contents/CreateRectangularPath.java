@@ -46,12 +46,14 @@ public class CreateRectangularPath implements PathConstructionGraphicsOperator {
     private PDFReal calculateWidth() {
         float llx = rectangle.getLLx().getValue();
         float urx = rectangle.getURx().getValue();
-        return new PDFReal(urx - llx);
+        float width = Math.max(llx, urx) - Math.min(llx, urx);
+        return new PDFReal(width);
     }
 
     private PDFReal calculateHeight() {
         float lly = rectangle.getLLy().getValue();
         float ury = rectangle.getURy().getValue();
-        return new PDFReal(ury - lly);
+        float height = Math.max(lly, ury) - Math.min(lly, ury);
+        return new PDFReal(height);
     }
 }
