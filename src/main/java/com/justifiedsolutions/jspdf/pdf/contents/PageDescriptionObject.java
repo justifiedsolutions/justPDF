@@ -5,7 +5,19 @@
 
 package com.justifiedsolutions.jspdf.pdf.contents;
 
+import java.util.Objects;
+
 class PageDescriptionObject implements GraphicsObject {
+    @Override
+    public int hashCode() {
+        return Objects.hashCode("PageDescriptionObject");
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof PageDescriptionObject);
+    }
+
     @Override
     public boolean isValidOperator(GraphicsOperator operator) {
         return ((operator instanceof GeneralGraphicsOperator)

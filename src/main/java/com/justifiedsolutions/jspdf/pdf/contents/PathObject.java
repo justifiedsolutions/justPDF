@@ -5,7 +5,19 @@
 
 package com.justifiedsolutions.jspdf.pdf.contents;
 
+import java.util.Objects;
+
 class PathObject implements GraphicsObject {
+    @Override
+    public int hashCode() {
+        return Objects.hashCode("PathObject");
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof PathObject);
+    }
+
     @Override
     public boolean isValidOperator(GraphicsOperator operator) {
         return ((operator instanceof PathConstructionGraphicsOperator)
