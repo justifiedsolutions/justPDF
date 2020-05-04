@@ -13,10 +13,10 @@ import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PDFArrayTest {
+public class PDFArrayTest {
 
     @Test
-    void sizeAndAdd() {
+    public void sizeAndAdd() {
         PDFArray array = new PDFArray();
         assertEquals(0, array.size());
         array.add(PDFBoolean.TRUE);
@@ -24,7 +24,7 @@ class PDFArrayTest {
     }
 
     @Test
-    void isEmpty() {
+    public void isEmpty() {
         PDFArray array = new PDFArray();
         assertTrue(array.isEmpty());
         array.add(PDFBoolean.TRUE);
@@ -32,7 +32,7 @@ class PDFArrayTest {
     }
 
     @Test
-    void contains() {
+    public void contains() {
         PDFArray array = new PDFArray();
         assertFalse(array.contains(PDFBoolean.TRUE));
         array.add(PDFBoolean.TRUE);
@@ -40,7 +40,7 @@ class PDFArrayTest {
     }
 
     @Test
-    void remove() {
+    public void remove() {
         PDFArray array = new PDFArray();
         assertFalse(array.contains(PDFBoolean.TRUE));
         array.add(PDFBoolean.TRUE);
@@ -50,7 +50,7 @@ class PDFArrayTest {
     }
 
     @Test
-    void clear() {
+    public void clear() {
         PDFArray array = new PDFArray();
         assertEquals(0, array.size());
         array.add(PDFBoolean.TRUE);
@@ -60,7 +60,7 @@ class PDFArrayTest {
     }
 
     @Test
-    void get() {
+    public void get() {
         PDFArray array = new PDFArray();
         assertEquals(0, array.size());
         array.add(PDFBoolean.TRUE);
@@ -68,7 +68,7 @@ class PDFArrayTest {
     }
 
     @Test
-    void writeToPDFEmpty() throws IOException {
+    public void writeToPDFEmpty() throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
         expected.write('[');
         expected.write(' ');
@@ -82,7 +82,7 @@ class PDFArrayTest {
     }
 
     @Test
-    void writeToPDFIntegerBoolean() throws IOException {
+    public void writeToPDFIntegerBoolean() throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
         expected.write('[');
         expected.write(' ');

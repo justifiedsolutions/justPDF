@@ -16,7 +16,7 @@ import java.time.ZonedDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-class PDFDateTest {
+public class PDFDateTest {
     @Test
     public void createPDFDateStringEpochUTC() throws IOException {
         String expected = "D:19700101000000Z";

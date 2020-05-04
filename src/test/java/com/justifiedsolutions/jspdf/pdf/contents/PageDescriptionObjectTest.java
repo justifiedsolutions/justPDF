@@ -11,10 +11,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PageDescriptionObjectTest {
+public class PageDescriptionObjectTest {
 
     @Test
-    void isValidOperator() {
+    public void isValidOperator() {
         PageDescriptionObject graphicsObject = new PageDescriptionObject();
         assertTrue(graphicsObject.isValidOperator(new SetLineWidth(new PDFReal(0))));
         assertTrue(graphicsObject.isValidOperator(new PushGraphicsState()));
@@ -29,7 +29,7 @@ class PageDescriptionObjectTest {
     }
 
     @Test
-    void endsGraphicsObject() {
+    public void endsGraphicsObject() {
         PageDescriptionObject graphicsObject = new PageDescriptionObject();
         assertTrue(graphicsObject.endsGraphicsObject(new BeginText()));
         assertTrue(graphicsObject.endsGraphicsObject(new StartPath(new PDFReal(0), new PDFReal(0))));
@@ -39,7 +39,7 @@ class PageDescriptionObjectTest {
     }
 
     @Test
-    void getNewGraphicsObject() {
+    public void getNewGraphicsObject() {
         PageDescriptionObject graphicsObject = new PageDescriptionObject();
         assertEquals(new TextObject(), graphicsObject.getNewGraphicsObject(new BeginText()));
         assertEquals(new PathObject(), graphicsObject.getNewGraphicsObject(new StartPath(new PDFReal(0), new PDFReal(0))));

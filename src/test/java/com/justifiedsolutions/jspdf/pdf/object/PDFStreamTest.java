@@ -13,10 +13,10 @@ import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-class PDFStreamTest {
+public class PDFStreamTest {
 
     @Test
-    void writeToPDF() throws IOException {
+    public void writeToPDF() throws IOException {
         byte[] data = "I am a leaf on the wind. Watch how I soar.".getBytes();
 
         ByteArrayOutputStream expected = new ByteArrayOutputStream();

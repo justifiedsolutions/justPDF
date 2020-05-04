@@ -14,10 +14,10 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-class PDFDocumentTest {
+public class PDFDocumentTest {
 
     @Test
-    void write() throws IOException {
+    public void write() throws IOException {
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         PDFDocument doc = new PDFDocument();
         doc.addInfo(PDFInfoDictionary.AUTHOR, new PDFDocEncodedString("Jason Burgess"));

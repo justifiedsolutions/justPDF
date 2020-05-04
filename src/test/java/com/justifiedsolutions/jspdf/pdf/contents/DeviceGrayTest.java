@@ -26,7 +26,7 @@ public class DeviceGrayTest {
     }
 
     @Test
-    void testEquals() {
+    public void testEquals() {
         DeviceGray g1 = new DeviceGray(new PDFReal(.33f));
         DeviceGray g2 = new DeviceGray(new PDFReal(.33f));
 

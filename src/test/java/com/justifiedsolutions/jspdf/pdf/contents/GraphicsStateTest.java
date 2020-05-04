@@ -92,7 +92,7 @@ public class GraphicsStateTest {
     }
 
     @Test
-    void font() {
+    public void font() {
         PDFName name = new PDFName("F3");
         PDFReal size = new PDFReal(12);
         state.setTextFont(name);

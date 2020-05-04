@@ -20,9 +20,9 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class SetLineCapStyleTest {
 
-    private final SetLineCapStyle operator = new SetLineCapStyle(LineCapStyle.ROUND_CAP);
+    public final SetLineCapStyle operator = new SetLineCapStyle(LineCapStyle.ROUND_CAP);
     @Mock
-    private GraphicsState graphicsState;
+    public GraphicsState graphicsState;
 
     @Test
     public void changesStateFalse() {

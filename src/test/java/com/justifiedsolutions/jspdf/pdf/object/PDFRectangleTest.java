@@ -13,16 +13,16 @@ import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-class PDFRectangleTest {
+public class PDFRectangleTest {
 
     @Test
-    void writeToPDFFloat() throws IOException {
+    public void writeToPDFFloat() throws IOException {
         PDFRectangle rect = new PDFRectangle(0, 0, 10, 10);
         testRectangle(rect);
     }
 
     @Test
-    void writeToPDFObject() throws IOException {
+    public void writeToPDFObject() throws IOException {
         PDFReal llx = new PDFReal(0);
         PDFReal lly = new PDFReal(0);
         PDFReal urx = new PDFReal(10);

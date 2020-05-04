@@ -21,16 +21,16 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class SetCMYKStrokeColorTest {
-    private final PDFReal c = new PDFReal(0);
-    private final PDFReal m = new PDFReal(.2f);
-    private final PDFReal y = new PDFReal(.6f);
-    private final PDFReal k = new PDFReal(1);
-    private final PDFReal x = new PDFReal(.9f);
+    public final PDFReal c = new PDFReal(0);
+    public final PDFReal m = new PDFReal(.2f);
+    public final PDFReal y = new PDFReal(.6f);
+    public final PDFReal k = new PDFReal(1);
+    public final PDFReal x = new PDFReal(.9f);
 
-    private SetCMYKStrokeColor operator;
+    public SetCMYKStrokeColor operator;
 
     @Mock
-    private GraphicsState graphicsState;
+    public GraphicsState graphicsState;
 
     @BeforeEach
     public void setup() {

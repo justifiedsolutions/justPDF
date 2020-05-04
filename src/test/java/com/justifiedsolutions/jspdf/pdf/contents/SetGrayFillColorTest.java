@@ -21,13 +21,13 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class SetGrayFillColorTest {
-    private final PDFReal g = new PDFReal(.2f);
-    private final PDFReal x = new PDFReal(.9f);
+    public final PDFReal g = new PDFReal(.2f);
+    public final PDFReal x = new PDFReal(.9f);
 
-    private SetGrayFillColor operator;
+    public SetGrayFillColor operator;
 
     @Mock
-    private GraphicsState graphicsState;
+    public GraphicsState graphicsState;
 
     @BeforeEach
     public void setup() {

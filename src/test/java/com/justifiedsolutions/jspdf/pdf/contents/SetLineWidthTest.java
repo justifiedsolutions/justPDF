@@ -21,10 +21,10 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class SetLineWidthTest {
 
-    private final PDFReal width = new PDFReal(.5f);
-    private final SetLineWidth operator = new SetLineWidth(width);
+    public final PDFReal width = new PDFReal(.5f);
+    public final SetLineWidth operator = new SetLineWidth(width);
     @Mock
-    private GraphicsState graphicsState;
+    public GraphicsState graphicsState;
 
     @Test
     public void changesStateFalse() {

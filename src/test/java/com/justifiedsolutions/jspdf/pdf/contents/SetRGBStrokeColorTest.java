@@ -21,15 +21,15 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class SetRGBStrokeColorTest {
-    private final PDFReal r = new PDFReal(0);
-    private final PDFReal g = new PDFReal(.2f);
-    private final PDFReal b = new PDFReal(.6f);
-    private final PDFReal x = new PDFReal(.9f);
+    public final PDFReal r = new PDFReal(0);
+    public final PDFReal g = new PDFReal(.2f);
+    public final PDFReal b = new PDFReal(.6f);
+    public final PDFReal x = new PDFReal(.9f);
 
-    private SetRGBStrokeColor operator;
+    public SetRGBStrokeColor operator;
 
     @Mock
-    private GraphicsState graphicsState;
+    public GraphicsState graphicsState;
 
     @BeforeEach
     public void setup() {
