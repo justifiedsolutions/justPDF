@@ -128,5 +128,8 @@ public class CellTest {
         float input = .25f;
         cell.setGrayFill(input);
         assertEquals(input, cell.getGrayFill());
+
+        assertThrows(IllegalArgumentException.class, () -> cell.setGrayFill(-0.1f));
+        assertThrows(IllegalArgumentException.class, () -> cell.setGrayFill(1.1f));
     }
 }

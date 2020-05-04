@@ -289,6 +289,9 @@ public class Cell {
      * @throws IllegalArgumentException if the value is less than 0.0 or greater than 1.0.
      */
     public void setGrayFill(float grayFill) {
+        if (grayFill < 0.0f || grayFill > 1.0f) {
+            throw new IllegalArgumentException("Invalid Gray Fill value. Must be between 0.0 and 1.0.");
+        }
         this.grayFill = grayFill;
     }
 
