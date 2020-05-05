@@ -33,29 +33,29 @@ public class Paragraph implements TextContent {
     private HorizontalAlignment alignment;
 
     /**
-     * Creates an empty Paragraph.
+     * Creates an empty Paragraph with the default font.
      */
     public Paragraph() {
-        // do nothing
+        this("", null);
     }
 
     /**
-     * Creates a new Paragraph adding the specified content.
+     * Creates a new Paragraph adding the specified content using the default font.
      *
      * @param content the content
      * @throws IllegalArgumentException if content is not a Chunk or Phrase
      */
     public Paragraph(Content content) {
-        add(content);
+        this(content, null);
     }
 
     /**
-     * Creates a new Paragraph adding the specified text.
+     * Creates a new Paragraph adding the specified text using the default font.
      *
      * @param text the content
      */
     public Paragraph(String text) {
-        add(text);
+        this(text, null);
     }
 
     /**
