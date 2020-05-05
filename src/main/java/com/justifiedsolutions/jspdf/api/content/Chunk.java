@@ -20,16 +20,14 @@ public class Chunk implements TextContent {
      * Adds a line break into a piece of content.
      */
     public static final Chunk LINE_BREAK = new Chunk("\n");
-
     private String text;
     private Font font;
-    private final boolean pageBreak = false;
 
     /**
      * Creates an empty Chunk.
      */
     public Chunk() {
-        this(null, null);
+        this("", null);
     }
 
     /**
@@ -101,20 +99,15 @@ public class Chunk implements TextContent {
 
     @Override
     public int hashCode() {
-        return Objects.hash(text, font, pageBreak);
+        return Objects.hash(text, font);
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Chunk chunk = (Chunk) o;
-        return pageBreak == chunk.pageBreak &&
-                Objects.equals(text, chunk.text) &&
+        return Objects.equals(text, chunk.text) &&
                 Objects.equals(font, chunk.font);
     }
 }

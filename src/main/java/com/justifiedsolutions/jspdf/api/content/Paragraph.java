@@ -36,7 +36,6 @@ public class Paragraph implements TextContent {
      * Creates an empty Paragraph with the default font.
      */
     public Paragraph() {
-        this("", null);
     }
 
     /**

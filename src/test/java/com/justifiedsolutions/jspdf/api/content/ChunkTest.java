@@ -10,7 +10,8 @@ import com.justifiedsolutions.jspdf.api.font.PDFFont;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class ChunkTest {
 
@@ -48,13 +49,6 @@ public class ChunkTest {
     }
 
     @Test
-    public void isPageBreak() {
-        assertTrue(Chunk.PAGE_BREAK.isPageBreak());
-        assertFalse(Chunk.LINE_BREAK.isPageBreak());
-        assertFalse(chunk.isPageBreak());
-    }
-
-    @Test
     public void equalsHashCode() {
         Chunk chunk2 = new Chunk();
 
@@ -68,7 +62,6 @@ public class ChunkTest {
         chunk2.setFont(new PDFFont());
         assertNotEquals(chunk2, chunk);
 
-        assertNotEquals(Chunk.PAGE_BREAK, chunk);
         assertNotEquals(chunk, new Phrase(""));
         assertNotEquals(chunk, null);
     }

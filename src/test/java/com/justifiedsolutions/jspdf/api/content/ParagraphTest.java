@@ -137,6 +137,11 @@ public class ParagraphTest {
     }
 
     @Test
+    public void addContentPageBreak() {
+        assertThrows(IllegalArgumentException.class, () -> paragraph.add(new PageBreak()));
+    }
+
+    @Test
     public void addContentNull() {
         paragraph.add((Content) null);
         List<Content> actual = paragraph.getContent();
