@@ -140,12 +140,34 @@ public class PDFIndirectObject implements PDFObject, Comparable<PDFIndirectObjec
         }
 
         @Override
+        public int hashCode() {
+            return Objects.hash(objectNumber, generationNumber);
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Reference reference = (Reference) o;
+            return objectNumber.equals(reference.getObjectNumber()) &&
+                    generationNumber.equals(reference.getGenerationNumber());
+        }
+
+        @Override
         public void writeToPDF(OutputStream pdf) throws IOException {
             objectNumber.writeToPDF(pdf);
             pdf.write(' ');
             generationNumber.writeToPDF(pdf);
             pdf.write(' ');
             pdf.write('R');
+        }
+
+        private PDFInteger getObjectNumber() {
+            return objectNumber;
+        }
+
+        private PDFInteger getGenerationNumber() {
+            return generationNumber;
         }
     }
 }
