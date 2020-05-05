@@ -16,12 +16,14 @@ import java.util.Objects;
  */
 public class Chunk implements TextContent {
 
+    /**
+     * Adds a line break into a piece of content.
+     */
     public static final Chunk LINE_BREAK = new Chunk("\n");
-    public static final Chunk PAGE_BREAK = new Chunk(true);
 
     private String text;
     private Font font;
-    private boolean pageBreak = false;
+    private final boolean pageBreak = false;
 
     /**
      * Creates an empty Chunk.
@@ -48,10 +50,6 @@ public class Chunk implements TextContent {
     public Chunk(String text, Font font) {
         setText(text);
         setFont(font);
-    }
-
-    private Chunk(boolean pageBreak) {
-        this.pageBreak = pageBreak;
     }
 
     /**
@@ -99,15 +97,6 @@ public class Chunk implements TextContent {
      */
     public void setFont(Font font) {
         this.font = font;
-    }
-
-    /**
-     * Specifies if this Chunk represents a page break.
-     *
-     * @return true if it is a page break
-     */
-    public boolean isPageBreak() {
-        return pageBreak;
     }
 
     @Override
