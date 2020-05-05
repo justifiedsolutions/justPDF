@@ -14,6 +14,13 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
+/**
+ * A helper used to build a PDF content stream. A content stream is built by adding a series of {@link
+ * GraphicsOperator}s by calling the {@link #addOperator(GraphicsOperator)} method. When complete, calling the {@link
+ * #getStream()} method will return the actual PDF content stream.
+ *
+ * @see "ISO 32000-1:2008, 7.8.2"
+ */
 public class PDFContentStreamBuilder {
 
     private final List<GraphicsOperator> operators = new ArrayList<>();
@@ -21,6 +28,24 @@ public class PDFContentStreamBuilder {
     private GraphicsState graphicsState = new GraphicsState();
     private GraphicsObject graphicsObject = new PageDescriptionObject();
 
+    /**
+     * Checks to see if the stream is empty.
+     *
+     * @return true if the stream is empty
+     */
+    public boolean isEmpty() {
+        return operators.isEmpty();
+    }
+
+    /**
+     * Adds the specified {@link GraphicsOperator} to the content stream. It will ensure the operator is valid for the
+     * current {@link GraphicsObject}, and possibly collapse the specified operator with the previously specified
+     * operator if possible. It may also drop the specified operator if it is a {@link GraphicsStateOperator} and it
+     * does not change the current state.
+     *
+     * @param operator the operator to add
+     * @throws IllegalStateException if the specified operator is invalid for the current state
+     */
     public void addOperator(GraphicsOperator operator) {
         if (!graphicsObject.isValidOperator(operator)) {
             throw new IllegalStateException("This operator is not allowed here.");
@@ -70,6 +95,13 @@ public class PDFContentStreamBuilder {
         operators.add(operator);
     }
 
+    /**
+     * Gets the PDF Content Stream defined by the set of operators added to this builder.
+     *
+     * @return the {@link PDFStream} object that represents the contents
+     * @throws IOException           if there was an issue creating the byte stream
+     * @throws IllegalStateException if the content stream is not in a valid state.
+     */
     public PDFStream getStream() throws IOException {
         if (graphicsStateStack.isEmpty() && (graphicsObject instanceof PageDescriptionObject) && !operators.isEmpty()) {
             return new PDFStream(getByteArray());
