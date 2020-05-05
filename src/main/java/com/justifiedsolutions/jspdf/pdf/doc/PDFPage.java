@@ -103,9 +103,24 @@ public class PDFPage {
                 fonts = new PDFDictionary();
                 put(FONT, fonts);
             }
-            int refIndex = fonts.size() + 1;
-            PDFName refName = new PDFName("F" + refIndex);
-            fonts.put(refName, reference);
+            PDFName refName;
+            if (!fonts.values().contains(reference)) {
+                int refIndex = fonts.size() + 1;
+                refName = new PDFName("F" + refIndex);
+                fonts.put(refName, reference);
+            } else {
+                refName = null;
+                for (PDFName key : fonts.keySet()) {
+                    PDFObject value = fonts.get(key);
+                    if (reference.equals(value)) {
+                        refName = key;
+                        break;
+                    }
+                }
+                if (refName == null) {
+                    throw new IllegalStateException("Font dictionary contains reference but cannot find it!");
+                }
+            }
             return refName;
         }
     }
