@@ -13,9 +13,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * A Phrase is a series of {@link Chunk}s. The Phrase has an associated {@link com.justifiedsolutions.jspdf.api.font.Font}
- * and any Chunks added to the Phrase inherit the Font of the Phrase unless they specify a Font themselves. A Phrase
- * also specifies a leading value.
+ * A Phrase is a series of {@link Chunk}s. The Phrase has an associated {@link Font} and any Chunks added to the Phrase
+ * inherit the Font of the Phrase unless they specify a Font themselves. A Phrase also specifies a leading value.
  *
  * @see <a href="https://techterms.com/definition/leading">Leading</a>
  */
