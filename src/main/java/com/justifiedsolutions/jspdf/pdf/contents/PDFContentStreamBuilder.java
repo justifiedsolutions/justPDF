@@ -48,7 +48,7 @@ public class PDFContentStreamBuilder {
      */
     public void addOperator(GraphicsOperator operator) {
         if (!graphicsObject.isValidOperator(operator)) {
-            throw new IllegalStateException("This operator is not allowed here.");
+            throw new IllegalStateException(operator.getClass().getSimpleName() + " is not allowed in " + graphicsObject.getClass().getSimpleName());
         }
 
         if ((operator instanceof PopGraphicsState) && graphicsStateStack.isEmpty()) {
