@@ -14,6 +14,7 @@ import com.justifiedsolutions.jspdf.api.content.PageBreak;
 import com.justifiedsolutions.jspdf.pdf.doc.PDFDocument;
 import com.justifiedsolutions.jspdf.pdf.doc.PDFInfoDictionary;
 import com.justifiedsolutions.jspdf.pdf.object.PDFDate;
+import com.justifiedsolutions.jspdf.pdf.object.PDFDocEncodedString;
 import com.justifiedsolutions.jspdf.pdf.object.PDFString;
 
 import java.io.IOException;
@@ -65,7 +66,7 @@ public class DocumentLayout {
     private void processMetadata() {
         for (Metadata key : document.getMetadata().keySet()) {
             String value = document.getMetadata(key);
-            PDFString pdfValue = new PDFString(value);
+            PDFString pdfValue = new PDFDocEncodedString(value);
             switch (key) {
                 case TITLE:
                     pdfDocument.addInfo(PDFInfoDictionary.TITLE, pdfValue);
@@ -93,13 +94,17 @@ public class DocumentLayout {
     }
 
     private void createPage() throws IOException {
-        if (currentPage != null) {
-            currentPage.complete();
-        }
+        completePage();
         float width = document.getPageSize().width();
         float height = document.getPageSize().height();
         Margin margin = document.getMargin();
         currentPage = new PageLayout(pdfDocument, width, height, margin);
+    }
+
+    private void completePage() throws IOException {
+        if (currentPage != null) {
+            currentPage.complete();
+        }
     }
 
     private void layoutContent() throws DocumentException {
@@ -108,6 +113,7 @@ public class DocumentLayout {
             for (Content content : document.getContent()) {
                 layoutContent(content);
             }
+            completePage();
         } catch (IOException e) {
             throw new DocumentException("Error laying out page.", e);
         }

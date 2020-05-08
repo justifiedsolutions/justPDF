@@ -8,13 +8,13 @@ package com.justifiedsolutions.jspdf.layout;
 import com.justifiedsolutions.jspdf.api.DocumentException;
 import com.justifiedsolutions.jspdf.api.Margin;
 import com.justifiedsolutions.jspdf.api.content.Content;
-import com.justifiedsolutions.jspdf.pdf.contents.GraphicsOperator;
-import com.justifiedsolutions.jspdf.pdf.contents.PDFContentStreamBuilder;
-import com.justifiedsolutions.jspdf.pdf.contents.SetFont;
+import com.justifiedsolutions.jspdf.api.content.TextContent;
+import com.justifiedsolutions.jspdf.pdf.contents.*;
 import com.justifiedsolutions.jspdf.pdf.doc.PDFDocument;
 import com.justifiedsolutions.jspdf.pdf.doc.PDFPage;
 import com.justifiedsolutions.jspdf.pdf.object.PDFIndirectObject;
 import com.justifiedsolutions.jspdf.pdf.object.PDFName;
+import com.justifiedsolutions.jspdf.pdf.object.PDFReal;
 import com.justifiedsolutions.jspdf.pdf.object.PDFRectangle;
 
 import java.io.IOException;
@@ -31,7 +31,9 @@ class PageLayout {
 
     private final Set<ContentLayoutFactory> factories = new HashSet<>();
 
+    private final Margin margin;
     private float remainingHeight;
+    private float currentVertPos;
 
     /**
      * Creates a new PageLayout.
@@ -49,9 +51,11 @@ class PageLayout {
 
         this.pdfBuilder = new PDFContentStreamBuilder();
 
-        this.remainingHeight = height;
+        this.margin = margin;
+        this.remainingHeight = height - (margin.getTop() + margin.getBottom());
         float lineWidth = width - (margin.getLeft() + margin.getRight());
 
+        currentVertPos = height - margin.getTop();
         factories.add(new PhraseLayoutFactory(lineWidth));
     }
 
@@ -69,16 +73,14 @@ class PageLayout {
      *
      * @param content the content to check
      * @return true if the content will fit
+     * @throws DocumentException if the specified content isn't supported
      */
-    boolean checkFit(Content content) {
-        float height = Float.MAX_VALUE;
-        for (ContentLayoutFactory factory : factories) {
-            if (factory.supportsContent(content)) {
-                ContentLayout layout = factory.getContentLayout(content);
-                height = layout.getMinimumHeight();
-                break;
-            }
+    boolean checkFit(Content content) throws DocumentException {
+        ContentLayout layout = getContentLayout(content);
+        if (layout == null) {
+            throw new DocumentException("Unsupported Content type: " + content.getClass());
         }
+        float height = layout.getMinimumHeight();
         return (height <= remainingHeight);
     }
 
@@ -91,15 +93,15 @@ class PageLayout {
      * @throws DocumentException if the specified content isn't supported
      */
     Content add(Content content) throws DocumentException {
-        ContentLayout layout = null;
-        for (ContentLayoutFactory factory : factories) {
-            if (factory.supportsContent(content)) {
-                layout = factory.getContentLayout(content);
-                break;
-            }
-        }
+        ContentLayout layout = getContentLayout(content);
         if (layout == null) {
             throw new DocumentException("Unsupported Content type: " + content.getClass());
+        }
+
+        if (content instanceof TextContent) {
+            pdfBuilder.addOperator(new PushGraphicsState());
+            pdfBuilder.addOperator(new BeginText());
+            pdfBuilder.addOperator(new PositionText(new PDFReal(margin.getLeft()), new PDFReal(currentVertPos)));
         }
 
         float minHeight = layout.getMinimumHeight();
@@ -110,7 +112,13 @@ class PageLayout {
             }
             addLine(line);
             remainingHeight -= line.getHeight();
+            currentVertPos -= line.getHeight();
             minHeight = layout.getMinimumHeight();
+        }
+
+        if (content instanceof TextContent) {
+            pdfBuilder.addOperator(new EndText());
+            pdfBuilder.addOperator(new PopGraphicsState());
         }
 
         return layout.getRemainingContent();
@@ -121,6 +129,17 @@ class PageLayout {
      */
     void complete() throws IOException {
         pdfPage.setContents(pdfBuilder.getStream());
+    }
+
+    private ContentLayout getContentLayout(Content content) {
+        ContentLayout layout = null;
+        for (ContentLayoutFactory factory : factories) {
+            if (factory.supportsContent(content)) {
+                layout = factory.getContentLayout(content);
+                break;
+            }
+        }
+        return layout;
     }
 
     private void addLine(ContentLine line) {
