@@ -133,6 +133,6 @@ public class PDFFont implements Font {
         TIMES_ITALIC,
         TIMES_BOLD_ITALIC,
         SYMBOL,
-        ZAPFDINGBATS()
+        ZAPFDINGBATS
     }
 }

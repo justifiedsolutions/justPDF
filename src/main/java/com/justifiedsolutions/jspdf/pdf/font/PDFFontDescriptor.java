@@ -5,10 +5,7 @@
 
 package com.justifiedsolutions.jspdf.pdf.font;
 
-import com.justifiedsolutions.jspdf.pdf.object.PDFDictionary;
-import com.justifiedsolutions.jspdf.pdf.object.PDFInteger;
-import com.justifiedsolutions.jspdf.pdf.object.PDFName;
-import com.justifiedsolutions.jspdf.pdf.object.PDFRectangle;
+import com.justifiedsolutions.jspdf.pdf.object.*;
 
 import java.util.Objects;
 
@@ -52,7 +49,7 @@ public class PDFFontDescriptor extends PDFDictionary {
         } else if (line.contains("StdVW")) {
             parseIntegerValue(line, STEM_V);
         } else if (line.contains("ItalicAngle")) {
-            parseIntegerValue(line, ITALIC_ANGLE);
+            parseFloatValue(line, ITALIC_ANGLE);
         }
     }
 
@@ -60,6 +57,14 @@ public class PDFFontDescriptor extends PDFDictionary {
         String value = parseSingleValue(line);
         if (value != null) {
             put(key, new PDFName(value));
+        }
+    }
+
+    private void parseFloatValue(String line, PDFName key) {
+        String value = parseSingleValue(line);
+        if (value != null) {
+            float result = Float.parseFloat(value);
+            put(key, new PDFReal(result));
         }
     }
 
@@ -74,8 +79,8 @@ public class PDFFontDescriptor extends PDFDictionary {
     private void parseRectangleValue(String line, PDFName key) {
         String[] kv = line.trim().split("[ \t]");
         if (kv.length == 5) {
-            PDFRectangle rect = new PDFRectangle(Integer.parseInt(kv[1]), Integer.parseInt(kv[2]),
-                    Integer.parseInt(kv[3]), Integer.parseInt(kv[4]));
+            PDFRectangle rect = new PDFRectangle(Float.parseFloat(kv[1]), Float.parseFloat(kv[2]),
+                    Float.parseFloat(kv[3]), Float.parseFloat(kv[4]));
             put(key, rect);
         }
     }

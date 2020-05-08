@@ -50,7 +50,7 @@ public class PDFFontType1Test {
         assertEquals(new PDFInteger(-157), fontDescriptor.get(PDFFontDescriptor.DESCENT));
         assertEquals(new PDFInteger(51), fontDescriptor.get(PDFFontDescriptor.STEM_H));
         assertEquals(new PDFInteger(51), fontDescriptor.get(PDFFontDescriptor.STEM_V));
-        assertEquals(new PDFInteger(0), fontDescriptor.get(PDFFontDescriptor.ITALIC_ANGLE));
+        assertEquals(new PDFReal(0), fontDescriptor.get(PDFFontDescriptor.ITALIC_ANGLE));
         assertEquals(new PDFInteger(33), fontDescriptor.get(PDFFontDescriptor.FLAGS));
     }
 
@@ -89,7 +89,7 @@ public class PDFFontType1Test {
         assertEquals(new PDFInteger(-207), fontDescriptor.get(PDFFontDescriptor.DESCENT));
         assertEquals(new PDFInteger(118), fontDescriptor.get(PDFFontDescriptor.STEM_H));
         assertEquals(new PDFInteger(140), fontDescriptor.get(PDFFontDescriptor.STEM_V));
-        assertEquals(new PDFInteger(0), fontDescriptor.get(PDFFontDescriptor.ITALIC_ANGLE));
+        assertEquals(new PDFReal(0), fontDescriptor.get(PDFFontDescriptor.ITALIC_ANGLE));
         assertEquals(new PDFInteger(32), fontDescriptor.get(PDFFontDescriptor.FLAGS));
     }
 
@@ -128,7 +128,7 @@ public class PDFFontType1Test {
         assertNull(fontDescriptor.get(PDFFontDescriptor.DESCENT));
         assertEquals(new PDFInteger(92), fontDescriptor.get(PDFFontDescriptor.STEM_H));
         assertEquals(new PDFInteger(85), fontDescriptor.get(PDFFontDescriptor.STEM_V));
-        assertEquals(new PDFInteger(0), fontDescriptor.get(PDFFontDescriptor.ITALIC_ANGLE));
+        assertEquals(new PDFReal(0), fontDescriptor.get(PDFFontDescriptor.ITALIC_ANGLE));
         assertEquals(new PDFInteger(4), fontDescriptor.get(PDFFontDescriptor.FLAGS));
     }
 

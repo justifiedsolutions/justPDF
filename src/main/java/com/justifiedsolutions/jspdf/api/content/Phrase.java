@@ -21,7 +21,7 @@ import java.util.Objects;
 public class Phrase implements TextContent {
 
     private final List<Chunk> chunks = new ArrayList<>();
-    private float leading = Float.NaN;
+    private float leading = 0f;
     private Font font;
 
     /**
@@ -73,7 +73,7 @@ public class Phrase implements TextContent {
     }
 
     /**
-     * Get the leading for the Phrase. The default value is {@link Float#NaN} which dynamically calculates the leading.
+     * Get the leading for the Phrase. The default value is <code>0.0</code>.
      *
      * @return the leading
      */

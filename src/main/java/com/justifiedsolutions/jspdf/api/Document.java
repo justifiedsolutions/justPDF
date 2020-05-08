@@ -7,7 +7,9 @@ package com.justifiedsolutions.jspdf.api;
 
 import com.justifiedsolutions.jspdf.api.content.Content;
 import com.justifiedsolutions.jspdf.api.content.Paragraph;
+import com.justifiedsolutions.jspdf.layout.DocumentLayout;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.*;
 
@@ -206,9 +208,14 @@ public class Document {
      * Writes the contents of the Document to the specified {@link OutputStream}.
      *
      * @param out the OutputStream to write the PDF to
-     * @throws NullPointerException if the OutputStream is <code>null</code>
+     * @throws NullPointerException  if the OutputStream is <code>null</code>
+     * @throws IOException           if there was a problem writing to the output stream
+     * @throws DocumentException     if there was problem laying out the document
+     * @throws IllegalStateException if there was no data in the document
      */
-    public void write(OutputStream out) {
+    public void write(OutputStream out) throws IOException, DocumentException {
         Objects.requireNonNull(out);
+        DocumentLayout layout = new DocumentLayout(this);
+        layout.write(out);
     }
 }

@@ -42,6 +42,11 @@ public class PDFName implements PDFObject, Comparable<PDFName> {
     }
 
     @Override
+    public String toString() {
+        return "PDFName{value='" + value + "'}";
+    }
+
+    @Override
     public int compareTo(PDFName o) {
         return value.compareTo(o.value);
     }

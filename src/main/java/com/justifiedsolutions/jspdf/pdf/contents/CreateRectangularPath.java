@@ -37,23 +37,9 @@ public class CreateRectangularPath implements PathConstructionGraphicsOperator {
         pdf.write(' ');
         rectangle.getLLy().writeToPDF(pdf);
         pdf.write(' ');
-        calculateWidth().writeToPDF(pdf);
+        rectangle.getWidth().writeToPDF(pdf);
         pdf.write(' ');
-        calculateHeight().writeToPDF(pdf);
+        rectangle.getHeight().writeToPDF(pdf);
         pdf.write(" re\n".getBytes(StandardCharsets.US_ASCII));
-    }
-
-    private PDFReal calculateWidth() {
-        float llx = rectangle.getLLx().getValue();
-        float urx = rectangle.getURx().getValue();
-        float width = Math.max(llx, urx) - Math.min(llx, urx);
-        return new PDFReal(width);
-    }
-
-    private PDFReal calculateHeight() {
-        float lly = rectangle.getLLy().getValue();
-        float ury = rectangle.getURy().getValue();
-        float height = Math.max(lly, ury) - Math.min(lly, ury);
-        return new PDFReal(height);
     }
 }

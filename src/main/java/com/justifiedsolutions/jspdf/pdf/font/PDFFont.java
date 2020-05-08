@@ -22,4 +22,19 @@ public abstract class PDFFont extends PDFDictionary {
     PDFFont() {
         put(TYPE, FONT);
     }
+
+    /**
+     * Gets the width of the character in 1/1000 of text space.
+     *
+     * @param character the character to get the width of
+     * @return the width
+     */
+    public abstract int getCharacterWidth(int character);
+
+    /**
+     * Gets the minimum leading for the font. Measured in 1/1000 of text space.
+     *
+     * @return the minimum leading
+     */
+    public abstract float getMinimumLeading();
 }

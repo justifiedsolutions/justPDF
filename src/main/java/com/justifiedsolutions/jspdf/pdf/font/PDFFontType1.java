@@ -5,9 +5,7 @@
 
 package com.justifiedsolutions.jspdf.pdf.font;
 
-import com.justifiedsolutions.jspdf.pdf.object.PDFArray;
-import com.justifiedsolutions.jspdf.pdf.object.PDFInteger;
-import com.justifiedsolutions.jspdf.pdf.object.PDFName;
+import com.justifiedsolutions.jspdf.pdf.object.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,6 +33,9 @@ public class PDFFontType1 extends PDFFont {
     private static final int FLAG_NON_SYMBOLIC = 32;
 
     private final PDFFontDescriptor descriptor;
+
+    private final Map<Integer, Integer> characterWidths = new HashMap<>();
+    private float minimumLeading = 0;
 
     /**
      * Creates a new Type 1 font with the specified name. This supports the "standard 14" fonts in a PDF.
@@ -66,6 +67,17 @@ public class PDFFontType1 extends PDFFont {
         return result;
     }
 
+    @Override
+    public int getCharacterWidth(int character) {
+        Integer width = characterWidths.get(character);
+        return (width != null) ? width : 0;
+    }
+
+    @Override
+    public float getMinimumLeading() {
+        return minimumLeading;
+    }
+
     private void readFontMetrics(String fontName) {
         String location = String.format("/afm/%s.afm", fontName);
         InputStream is = PDFFontType1.class.getResourceAsStream(location);
@@ -76,6 +88,12 @@ public class PDFFontType1 extends PDFFont {
                     break;
                 }
                 descriptor.parseAFMLine(line);
+            }
+
+            PDFObject bboxObject = descriptor.get(PDFFontDescriptor.FONT_BBOX);
+            if (bboxObject instanceof PDFRectangle) {
+                PDFRectangle bboxRect = (PDFRectangle) bboxObject;
+                minimumLeading = bboxRect.getHeight().getValue();
             }
 
             int firstChar = 0;
@@ -100,6 +118,7 @@ public class PDFFontType1 extends PDFFont {
                 }
                 lastChar = character;
                 widths.add(new PDFInteger(width));
+                characterWidths.put(character, width);
             }
 
             put(FIRST_CHAR, new PDFInteger(firstChar));

@@ -21,8 +21,8 @@ import java.util.Objects;
 public class Paragraph implements TextContent {
 
     private final List<Content> content = new ArrayList<>();
-    private float leading = 16f;
-    private float lineHeight = 0;
+    private float leading = 0f;
+    private float lineHeight = 0f;
     private Font font;
     private float leftIndent = 0f;
     private float rightIndent = 0f;
@@ -81,7 +81,7 @@ public class Paragraph implements TextContent {
     }
 
     /**
-     * Get the leading for the Paragraph. The default value is 16.0f.
+     * Get the leading for the Paragraph. The default value is <code>0.0</code>.
      *
      * @return the leading
      */
@@ -91,7 +91,7 @@ public class Paragraph implements TextContent {
 
     /**
      * Set the leading for the Paragraph. You can have either leading or line height but not both. Setting one will set
-     * the other to 0.
+     * the other to <code>0.0</code>.
      *
      * @param leading the leading
      */
@@ -102,7 +102,7 @@ public class Paragraph implements TextContent {
 
     /**
      * Gets the line height for the Paragraph. This multiplied by the maximum height of the largest font in the
-     * Paragraph.
+     * Paragraph. The default value is <code>0.0</code>.
      *
      * @return the line height
      */
@@ -112,7 +112,8 @@ public class Paragraph implements TextContent {
 
     /**
      * Sets the line height for the Paragraph. This multiplied by the maximum height of the largest font in the
-     * Paragraph. You can have either leading or line height but not both. Setting one will set the other to 0.
+     * Paragraph. You can have either leading or line height but not both. Setting one will set the other to
+     * <code>0.0</code>.
      *
      * @param lineHeight the line height
      */

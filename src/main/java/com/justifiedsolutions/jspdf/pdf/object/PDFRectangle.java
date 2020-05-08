@@ -63,6 +63,16 @@ public class PDFRectangle implements PDFObject {
         return ury;
     }
 
+    public PDFReal getWidth() {
+        float width = Math.max(llx.getValue(), urx.getValue()) - Math.min(llx.getValue(), urx.getValue());
+        return new PDFReal(width);
+    }
+
+    public PDFReal getHeight() {
+        float height = Math.max(lly.getValue(), ury.getValue()) - Math.min(lly.getValue(), ury.getValue());
+        return new PDFReal(height);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(llx, lly, urx, ury);
