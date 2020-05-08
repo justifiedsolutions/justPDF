@@ -10,12 +10,23 @@ import com.justifiedsolutions.jspdf.api.content.Content;
 import com.justifiedsolutions.jspdf.api.content.Phrase;
 import com.justifiedsolutions.jspdf.api.font.PDFFont;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
+/**
+ * Lays out a {@link Phrase} into a series of {@link ContentLine}s.
+ */
 class PhraseLayout implements ContentLayout {
     private final float lineWidth;
     private Phrase phrase;
 
+    /**
+     * Creates a new PhraseLayout. This should only be called by {@link PhraseLayoutFactory#getContentLayout(Content)}.
+     *
+     * @param lineWidth the width of the lines to be created by this {@link ContentLayout}
+     * @param phrase    the Phrase to layout
+     */
     PhraseLayout(float lineWidth, Phrase phrase) {
         this.lineWidth = lineWidth;
         this.phrase = Objects.requireNonNull(phrase);
