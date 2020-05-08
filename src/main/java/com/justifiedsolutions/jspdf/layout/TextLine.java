@@ -69,6 +69,10 @@ class TextLine implements ContentLine {
      * @return the remainder or null if it all fit
      */
     Chunk append(Chunk chunk) {
+        if (remainingWidth == 0) {
+            return chunk;
+        }
+
         if (Chunk.LINE_BREAK.equals(chunk)) {
             remainingWidth = 0;
             return null;
@@ -103,6 +107,7 @@ class TextLine implements ContentLine {
         }
         return null;
     }
+
 
     private List<String> splitText(String input, PDFFontWrapper wrapper) {
         List<String> result = new ArrayList<>();
