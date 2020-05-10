@@ -65,6 +65,7 @@ class PageLayout {
         factories.add(new ParagraphLayoutFactory(lineWidth));
 
         drawMargin();
+        drawCenterLine();
     }
 
     /**
@@ -168,6 +169,10 @@ class PageLayout {
     }
 
     private void drawMargin() {
+        Object debug = System.getProperties().get("DrawMargin");
+        if (debug == null) {
+            return;
+        }
         float llx = margin.getLeft();
         float lly = margin.getBottom();
         float urx = width - margin.getRight();
@@ -176,9 +181,23 @@ class PageLayout {
         pdfBuilder.addOperator(new SetLineWidth(new PDFReal(.5f)));
         pdfBuilder.addOperator(new CreateRectangularPath(new PDFRectangle(llx, lly, urx, ury)));
         pdfBuilder.addOperator(new StrokePath());
+        pdfBuilder.addOperator(new PopGraphicsState());
+    }
+
+    private void drawCenterLine() {
+        Object debug = System.getProperties().get("DrawCenterLine");
+        if (debug == null) {
+            return;
+        }
+        float lly = margin.getBottom();
+        float ury = height - margin.getTop();
+        pdfBuilder.addOperator(new PushGraphicsState());
+        pdfBuilder.addOperator(new SetLineWidth(new PDFReal(.5f)));
         pdfBuilder.addOperator(new StartPath(new PDFReal(width / 2f), new PDFReal(ury)));
         pdfBuilder.addOperator(new AppendToPath(new PDFReal(width / 2f), new PDFReal(lly)));
         pdfBuilder.addOperator(new StrokePath());
         pdfBuilder.addOperator(new PopGraphicsState());
     }
+
+
 }
