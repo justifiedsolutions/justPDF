@@ -105,7 +105,7 @@ public class ParagraphTest {
 
     @Test
     public void setAlignment() {
-        assertNull(paragraph.getAlignment());
+        assertEquals(HorizontalAlignment.LEFT, paragraph.getAlignment());
         HorizontalAlignment input = HorizontalAlignment.JUSTIFIED;
         paragraph.setAlignment(input);
         assertEquals(input, paragraph.getAlignment());

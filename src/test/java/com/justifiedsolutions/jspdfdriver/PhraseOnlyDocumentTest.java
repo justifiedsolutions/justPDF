@@ -13,7 +13,7 @@ import java.io.IOException;
 public class PhraseOnlyDocumentTest {
 
     @Test
-    void go() throws IOException, DocumentException {
+    public void go() throws IOException, DocumentException {
         Document document = new Document(PageSize.LETTER, new Margin(72, 72, 72, 72));
         Phrase content = new Phrase();
         content.setFont(new PDFFont(PDFFont.FontName.HELVETICA, 12));

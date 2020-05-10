@@ -12,7 +12,7 @@ import java.io.IOException;
 public class ParagraphOnlyDocumentTest {
 
     @Test
-    void go() throws IOException, DocumentException {
+    public void go() throws IOException, DocumentException {
         Document document = new Document(PageSize.LETTER, new Margin(72, 72, 72, 72));
         document.setMetadata(Metadata.TITLE, "ParagraphOnlyDocumentTest");
         document.setMetadata(Metadata.AUTHOR, "Jay Burgess");

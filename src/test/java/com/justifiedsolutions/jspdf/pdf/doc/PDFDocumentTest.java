@@ -12,6 +12,8 @@ import com.justifiedsolutions.jspdf.pdf.object.*;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class PDFDocumentTest {
@@ -47,7 +49,13 @@ public class PDFDocumentTest {
 
         doc.write(actual);
 
-        //FileOutputStream fileOS = new FileOutputStream("/Users/jason/Downloads/test.pdf");
-        //actual.writeTo(fileOS);
+        String targetDirectoryName = (String) System.getProperties().get("TargetDirectory");
+        File targetDirectory = new File(targetDirectoryName);
+        File testOutputDirectory = new File(targetDirectory, "test-output");
+        if (testOutputDirectory.isDirectory() || testOutputDirectory.mkdirs()) {
+            File outputFile = new File(testOutputDirectory, "PDFDocumentTest.pdf");
+            FileOutputStream pdf = new FileOutputStream(outputFile);
+            actual.writeTo(pdf);
+        }
     }
 }
