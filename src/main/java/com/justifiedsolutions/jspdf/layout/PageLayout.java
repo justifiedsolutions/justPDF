@@ -31,9 +31,12 @@ class PageLayout {
 
     private final Set<ContentLayoutFactory> factories = new HashSet<>();
 
+    private final float width;
+    private final float height;
     private final Margin margin;
     private float remainingHeight;
     private float currentVertPos;
+    private float currentSpacingAfter = 0;
 
     /**
      * Creates a new PageLayout.
@@ -45,6 +48,8 @@ class PageLayout {
      */
     PageLayout(PDFDocument pdfDocument, float width, float height, Margin margin) {
         this.pdfDocument = pdfDocument;
+        this.width = width;
+        this.height = height;
 
         PDFRectangle pageSize = new PDFRectangle(0, 0, width, height);
         this.pdfPage = pdfDocument.createPage(pageSize);
@@ -57,6 +62,9 @@ class PageLayout {
 
         currentVertPos = height - margin.getTop();
         factories.add(new PhraseLayoutFactory(lineWidth));
+        factories.add(new ParagraphLayoutFactory(lineWidth));
+
+        drawMargin();
     }
 
     /**
@@ -78,7 +86,7 @@ class PageLayout {
     boolean checkFit(Content content) throws DocumentException {
         ContentLayout layout = getContentLayout(content);
         if (layout == null) {
-            throw new DocumentException("Unsupported Content type: " + content.getClass());
+            throw new DocumentException("Unsupported Content type: " + content.getClass().getSimpleName());
         }
         float height = layout.getMinimumHeight();
         return (height <= remainingHeight);
@@ -95,8 +103,11 @@ class PageLayout {
     Content add(Content content) throws DocumentException {
         ContentLayout layout = getContentLayout(content);
         if (layout == null) {
-            throw new DocumentException("Unsupported Content type: " + content.getClass());
+            throw new DocumentException("Unsupported Content type: " + content.getClass().getSimpleName());
         }
+
+        remainingHeight -= Math.max(currentSpacingAfter, layout.getSpacingBefore());
+        currentVertPos -= Math.max(currentSpacingAfter, layout.getSpacingBefore());
 
         if (content instanceof TextContent) {
             pdfBuilder.addOperator(new PushGraphicsState());
@@ -115,6 +126,8 @@ class PageLayout {
             currentVertPos -= line.getHeight();
             minHeight = layout.getMinimumHeight();
         }
+
+        currentSpacingAfter = layout.getSpacingAfter();
 
         if (content instanceof TextContent) {
             pdfBuilder.addOperator(new EndText());
@@ -152,5 +165,20 @@ class PageLayout {
             }
             pdfBuilder.addOperator(operator);
         }
+    }
+
+    private void drawMargin() {
+        float llx = margin.getLeft();
+        float lly = margin.getBottom();
+        float urx = width - margin.getRight();
+        float ury = height - margin.getTop();
+        pdfBuilder.addOperator(new PushGraphicsState());
+        pdfBuilder.addOperator(new SetLineWidth(new PDFReal(.5f)));
+        pdfBuilder.addOperator(new CreateRectangularPath(new PDFRectangle(llx, lly, urx, ury)));
+        pdfBuilder.addOperator(new StrokePath());
+        pdfBuilder.addOperator(new StartPath(new PDFReal(width / 2f), new PDFReal(ury)));
+        pdfBuilder.addOperator(new AppendToPath(new PDFReal(width / 2f), new PDFReal(lly)));
+        pdfBuilder.addOperator(new StrokePath());
+        pdfBuilder.addOperator(new PopGraphicsState());
     }
 }

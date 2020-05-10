@@ -40,12 +40,8 @@ class PhraseLayout implements ContentLayout {
             return -1;
         }
 
-        float leading = phrase.getLeading();
-        leading = Math.max(leading, PDFFontWrapper.getInstance(phrase.getFont()).getMinimumLeading());
-        for (Chunk chunk : phrase.getChunks()) {
-            leading = Math.max(leading, PDFFontWrapper.getInstance(chunk.getFont()).getMinimumLeading());
-        }
-        return leading;
+        PhraseLayout layout = new PhraseLayout(this.lineWidth, this.phrase);
+        return layout.getNextLine().getHeight();
     }
 
     @Override
@@ -63,7 +59,7 @@ class PhraseLayout implements ContentLayout {
             Chunk remainder = line.append(chunk);
             if (remainder != null) {
                 originalChunks.add(0, remainder);
-                updatePhrase(originalChunks);
+                phrase = new Phrase(phrase, originalChunks);
                 break;
             }
         }
@@ -80,6 +76,16 @@ class PhraseLayout implements ContentLayout {
         return phrase;
     }
 
+    @Override
+    public float getSpacingBefore() {
+        return 0;
+    }
+
+    @Override
+    public float getSpacingAfter() {
+        return 0;
+    }
+
     private void initializeFonts() {
         if (phrase.getFont() == null) {
             phrase.setFont(new PDFFont());
@@ -90,15 +96,5 @@ class PhraseLayout implements ContentLayout {
                 chunk.setFont(phrase.getFont());
             }
         }
-    }
-
-    private void updatePhrase(List<Chunk> remainingChunks) {
-        Phrase remainingPhrase = new Phrase();
-        remainingPhrase.setFont(phrase.getFont());
-        remainingPhrase.setLeading(phrase.getLeading());
-        for (Chunk oChunk : remainingChunks) {
-            remainingPhrase.add(oChunk);
-        }
-        phrase = remainingPhrase;
     }
 }

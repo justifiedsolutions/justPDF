@@ -5,7 +5,6 @@
 
 package com.justifiedsolutions.jspdf.api.content;
 
-import com.justifiedsolutions.jspdf.api.Document;
 import com.justifiedsolutions.jspdf.api.HorizontalAlignment;
 import com.justifiedsolutions.jspdf.api.font.Font;
 
@@ -30,7 +29,7 @@ public class Paragraph implements TextContent {
     private float spacingBefore = 0f;
     private float spacingAfter = 0f;
     private boolean keepTogether = false;
-    private HorizontalAlignment alignment;
+    private HorizontalAlignment alignment = HorizontalAlignment.LEFT;
 
     /**
      * Creates an empty Paragraph with the default font.
@@ -78,6 +77,26 @@ public class Paragraph implements TextContent {
     public Paragraph(String text, Font font) {
         add(text);
         setFont(font);
+    }
+
+    /**
+     * Copy constructor that copies all fields except for the content. It fills the content with the specified content.
+     *
+     * @param paragraph the Paragraph to copy
+     * @param content   the content to copy
+     */
+    public Paragraph(Paragraph paragraph, List<Content> content) {
+        this.leading = paragraph.leading;
+        this.lineHeight = paragraph.lineHeight;
+        this.font = paragraph.font;
+        this.leftIndent = paragraph.leftIndent;
+        this.rightIndent = paragraph.rightIndent;
+        this.firstLineIndent = paragraph.firstLineIndent;
+        this.spacingBefore = paragraph.spacingBefore;
+        this.spacingAfter = paragraph.spacingAfter;
+        this.keepTogether = paragraph.keepTogether;
+        this.alignment = paragraph.alignment;
+        this.content.addAll(content);
     }
 
     /**
@@ -169,7 +188,7 @@ public class Paragraph implements TextContent {
     }
 
     /**
-     * Specifies the amount of the first line indentation. The default is <code>0</code>.
+     * Specifies the amount of the first line indentation from the left indent. The default is <code>0</code>.
      *
      * @return the amount of indentation
      */
@@ -178,7 +197,7 @@ public class Paragraph implements TextContent {
     }
 
     /**
-     * Specifies the amount of the first line indentation.
+     * Specifies the amount of the first line indentation from the left indent.
      *
      * @param firstLineIndent the amount of indentation
      */
@@ -242,8 +261,7 @@ public class Paragraph implements TextContent {
     }
 
     /**
-     * Gets the {@link HorizontalAlignment} of the Paragraph. If not specified, it will default to HorizontalAlignment
-     * of the {@link Document}.
+     * Gets the {@link HorizontalAlignment} of the Paragraph. Default is {@link HorizontalAlignment#LEFT}.
      *
      * @return the alignment of the paragraph or <code>null</code> if it isn't specified
      */

@@ -5,11 +5,9 @@
 
 package com.justifiedsolutions.jspdf.layout;
 
+import com.justifiedsolutions.jspdf.api.HorizontalAlignment;
 import com.justifiedsolutions.jspdf.api.content.Chunk;
-import com.justifiedsolutions.jspdf.pdf.contents.GraphicsOperator;
-import com.justifiedsolutions.jspdf.pdf.contents.MoveToNextLine;
-import com.justifiedsolutions.jspdf.pdf.contents.SetLeading;
-import com.justifiedsolutions.jspdf.pdf.contents.ShowText;
+import com.justifiedsolutions.jspdf.pdf.contents.*;
 import com.justifiedsolutions.jspdf.pdf.object.PDFReal;
 import com.justifiedsolutions.jspdf.pdf.object.PDFString;
 
@@ -25,17 +23,37 @@ class TextLine implements ContentLine {
 
     private final float lineWidth;
     private float remainingWidth;
+    private float lineStart = 0;
+    private float previousLineStart = 0;
 
     private float leading = 0;
+    private float lineHeight = 0;
+    private HorizontalAlignment alignment = HorizontalAlignment.LEFT;
+    private float leftIndent;
+
+    private int numSpaces = 0;
+    private int numChars = 0;
 
     /**
-     * Creates a new TextLine of the specified width
+     * Creates a new TextLine of the specified width.
      *
      * @param lineWidth the width of the line
      */
     TextLine(float lineWidth) {
         this.lineWidth = lineWidth;
         this.remainingWidth = lineWidth;
+    }
+
+    /**
+     * Creates a new TextLine of the specified width and indentations from the margin.
+     *
+     * @param lineWidth   the width of the line
+     * @param leftIndent  the amount of left indent
+     * @param rightIndent the amount of right indent
+     */
+    TextLine(float lineWidth, float leftIndent, float rightIndent) {
+        this(lineWidth - (leftIndent + rightIndent));
+        this.leftIndent = leftIndent;
     }
 
     @Override
@@ -48,6 +66,7 @@ class TextLine implements ContentLine {
         List<GraphicsOperator> result = new ArrayList<>();
         result.add(new SetLeading(new PDFReal(leading)));
         result.add(new MoveToNextLine());
+        result.addAll(getAlignmentOperators());
         result.addAll(operators);
         return result;
     }
@@ -59,6 +78,42 @@ class TextLine implements ContentLine {
      */
     void setLeading(float leading) {
         this.leading = Math.max(this.leading, leading);
+    }
+
+    /**
+     * Sets the lineHeight multiplier. This will be multiplied by the font height to determine the leading for the line.
+     *
+     * @param lineHeight the multiplier
+     */
+    void setLineHeight(float lineHeight) {
+        this.lineHeight = lineHeight;
+    }
+
+    /**
+     * Sets the alignment of the line.
+     *
+     * @param alignment the alignment
+     */
+    void setAlignment(HorizontalAlignment alignment) {
+        this.alignment = alignment;
+    }
+
+    /**
+     * Gets the start of this line as indentation from <code>0</code>.
+     *
+     * @return the start of the line
+     */
+    float getLineStart() {
+        return lineStart;
+    }
+
+    /**
+     * Gets the start of the previous line as indentation from <code>0</code>.
+     *
+     * @param previousLineStart the start of the previous line
+     */
+    void setPreviousLineStart(float previousLineStart) {
+        this.previousLineStart = previousLineStart;
     }
 
     /**
@@ -84,6 +139,7 @@ class TextLine implements ContentLine {
 
         PDFFontWrapper wrapper = PDFFontWrapper.getInstance(chunk.getFont());
         setLeading(wrapper.getMinimumLeading());
+        setLeading(lineHeight * wrapper.getSize().getValue());
 
         String chunkText;
         boolean firstWord = (lineWidth == remainingWidth);
@@ -108,7 +164,6 @@ class TextLine implements ContentLine {
         return null;
     }
 
-
     private List<String> splitText(String input, PDFFontWrapper wrapper) {
         List<String> result = new ArrayList<>();
         char[] chars = input.toCharArray();
@@ -116,12 +171,18 @@ class TextLine implements ContentLine {
         boolean reachedEOL = false;
         int splitPoint = 0;
         int lastWhitespace = 0;
+        int spaceCount = 0;
+        float textWidthAtLastWhitespace = 0;
         float textWidth = 0;
         for (int i = 0; i < chars.length; i++) {
             char c = chars[i];
 
             if (Character.isWhitespace(c)) {
                 lastWhitespace = i;
+                textWidthAtLastWhitespace = textWidth;
+                if (c == 32) {
+                    spaceCount++;
+                }
             }
 
             float charWidth = wrapper.getCharacterWidth(c);
@@ -129,13 +190,17 @@ class TextLine implements ContentLine {
                 textWidth += charWidth;
             } else {
                 splitPoint = lastWhitespace;
+                textWidth = textWidthAtLastWhitespace;
                 reachedEOL = true;
                 break;
             }
         }
 
+        numSpaces += (spaceCount - 1);
+        numChars += splitPoint;
+        remainingWidth -= textWidth;
+        calculateLineStart();
         if (!reachedEOL) {
-            remainingWidth += textWidth;
             result.add(input);
         } else {
             result.add(new String(chars, 0, splitPoint));
@@ -143,4 +208,36 @@ class TextLine implements ContentLine {
         }
         return result;
     }
+
+    private void calculateLineStart() {
+        if (HorizontalAlignment.LEFT == alignment || HorizontalAlignment.JUSTIFIED == alignment) {
+            lineStart = leftIndent;
+        } else if (HorizontalAlignment.CENTER == alignment) {
+            lineStart = (remainingWidth / 2f);
+        } else if (HorizontalAlignment.RIGHT == alignment) {
+            lineStart = remainingWidth;
+        }
+    }
+
+    private List<GraphicsOperator> getAlignmentOperators() {
+        List<GraphicsOperator> operators = new ArrayList<>();
+        float start = (lineStart - previousLineStart);
+        if (start != 0) {
+            operators.add(new PositionText(new PDFReal(start), new PDFReal(0)));
+        }
+        if (HorizontalAlignment.JUSTIFIED == alignment) {
+            if ((lineWidth * .25f) < remainingWidth) {
+                operators.add(new SetWordSpacing(new PDFReal(0)));
+                operators.add(new SetCharacterSpacing(new PDFReal(0)));
+            } else {
+                float wordSpacing = remainingWidth / (float) numSpaces;
+                operators.add(new SetWordSpacing(new PDFReal(wordSpacing)));
+                float remainder = remainingWidth - (wordSpacing * numSpaces);
+                float charSpacing = remainder / (float) numChars;
+                operators.add(new SetCharacterSpacing(new PDFReal(charSpacing)));
+            }
+        }
+        return operators;
+    }
+
 }

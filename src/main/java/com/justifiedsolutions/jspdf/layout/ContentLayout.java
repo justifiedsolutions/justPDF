@@ -34,4 +34,18 @@ interface ContentLayout {
      * @return the remaining content or <code>null</code> if the content is exhausted
      */
     Content getRemainingContent();
+
+    /**
+     * Gets the amount of vertical spacing before this content.
+     *
+     * @return the spacing before
+     */
+    float getSpacingBefore();
+
+    /**
+     * Gets the amount of vertical spacing after this content.
+     *
+     * @return the spacing after
+     */
+    float getSpacingAfter();
 }

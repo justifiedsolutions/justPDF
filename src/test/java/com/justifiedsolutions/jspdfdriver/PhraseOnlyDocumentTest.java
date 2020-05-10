@@ -6,6 +6,7 @@ import com.justifiedsolutions.jspdf.api.content.Phrase;
 import com.justifiedsolutions.jspdf.api.font.PDFFont;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -38,7 +39,13 @@ public class PhraseOnlyDocumentTest {
         document.setMetadata(Metadata.CREATOR, "jsPDF");
         document.setMetadata(Metadata.SUBJECT, "Lorum Ipsum");
 
-        FileOutputStream pdf = new FileOutputStream("/Users/jason/Downloads/PhraseOnlyDocumentTest.pdf");
-        document.write(pdf);
+        String targetDirectoryName = (String) System.getProperties().get("TargetDirectory");
+        File targetDirectory = new File(targetDirectoryName);
+        File testOutputDirectory = new File(targetDirectory, "test-output");
+        if (testOutputDirectory.isDirectory() || testOutputDirectory.mkdirs()) {
+            File outputFile = new File(testOutputDirectory, "PhraseOnlyDocumentTest.pdf");
+            FileOutputStream pdf = new FileOutputStream(outputFile);
+            document.write(pdf);
+        }
     }
 }

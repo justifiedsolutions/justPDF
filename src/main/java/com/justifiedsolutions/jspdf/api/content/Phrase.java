@@ -73,6 +73,18 @@ public class Phrase implements TextContent {
     }
 
     /**
+     * This copy constructor will copy all fields except for the list of Chunks. That will be set with the specified list of Chunks.
+     *
+     * @param phrase the phrase to copy
+     * @param chunks the chunks to copy
+     */
+    public Phrase(Phrase phrase, List<Chunk> chunks) {
+        this.leading = phrase.leading;
+        this.font = phrase.font;
+        this.chunks.addAll(chunks);
+    }
+
+    /**
      * Get the leading for the Phrase. The default value is <code>0.0</code>.
      *
      * @return the leading
