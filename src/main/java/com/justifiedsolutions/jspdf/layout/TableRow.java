@@ -187,13 +187,16 @@ class TableRow implements ContentLine {
             result.add(new EndText());
         }
 
-        float textLLx = llx + cell.getPaddingLeft();
-        float textLLy = lly + cell.getPaddingBottom();
-        float textURx = llx + width - cell.getPaddingRight();
-        float textURy = lly + height - cell.getPaddingTop();
-        result.add(new SetLineWidth(new PDFReal(.25f)));
-        result.add(new CreateRectangularPath(new PDFRectangle(textLLx, textLLy, textURx, textURy)));
-        result.add(new StrokePath());
+        Object debug = System.getProperties().get("DrawCellPadding");
+        if (debug != null) {
+            float textLLx = llx + cell.getPaddingLeft();
+            float textLLy = lly + cell.getPaddingBottom();
+            float textURx = llx + width - cell.getPaddingRight();
+            float textURy = lly + height - cell.getPaddingTop();
+            result.add(new SetLineWidth(new PDFReal(.25f)));
+            result.add(new CreateRectangularPath(new PDFRectangle(textLLx, textLLy, textURx, textURy)));
+            result.add(new StrokePath());
+        }
 
         return result;
     }

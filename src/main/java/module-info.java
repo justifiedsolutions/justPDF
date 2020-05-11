@@ -9,6 +9,7 @@
  * <UL>
  * <LI><code>DrawMargin</code> - Draws a box on every page at the margin</LI>
  * <LI><code>DrawCenterLine</code> - Draws a vertical line thru the center of the page from top to bottom margin</LI>
+ * <LI><code>DrawCellPadding</code> - Draws a box around the content area of a cell</LI>
  * </UL>
  */
 module com.justifiedsolutions.jspdf {
