@@ -41,11 +41,11 @@ class PhraseLayout implements ContentLayout {
         }
 
         PhraseLayout layout = new PhraseLayout(this.lineWidth, this.phrase);
-        return layout.getNextLine().getHeight();
+        return layout.getNextLine(0).getHeight();
     }
 
     @Override
-    public ContentLine getNextLine() {
+    public ContentLine getNextLine(float verticalPosition) {
         if (phrase == null) {
             return null;
         }

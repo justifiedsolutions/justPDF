@@ -120,8 +120,8 @@ public class Paragraph implements TextContent {
     }
 
     /**
-     * Gets the line height for the Paragraph. This multiplied by the maximum height of the largest font in the
-     * Paragraph. The default value is <code>0.0</code>.
+     * Gets the line height for the Paragraph. This multiplied by the maximum height of the largest font on each line of
+     * the Paragraph. The default value is <code>0.0</code>.
      *
      * @return the line height
      */

@@ -17,7 +17,7 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PDFFontWrapperTest {
 
@@ -89,14 +89,14 @@ public class PDFFontWrapperTest {
         float size = 12f;
         PDFFontWrapper wrapper = PDFFontWrapper.getInstance(new PDFFont(PDFFont.FontName.COURIER, size));
         float expected = 7.2f;
-        assertEquals(expected, wrapper.getCharacterWidth('c'));
+        assertEquals(expected, wrapper.getCharacterWidth('c'), .00001);
     }
 
     @Test
     public void getMinimumLeading() {
         float size = 12f;
         PDFFontWrapper wrapper = PDFFontWrapper.getInstance(new PDFFont(PDFFont.FontName.HELVETICA, size));
-        float expected = 14f;
+        float expected = 8.616f;
         assertEquals(expected, wrapper.getMinimumLeading());
     }
 }

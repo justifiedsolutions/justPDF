@@ -28,11 +28,12 @@ public class Cell {
     private HorizontalAlignment horizontalAlignment = HorizontalAlignment.LEFT;
     private VerticalAlignment verticalAlignment = VerticalAlignment.TOP;
     private float minimumHeight = 0;
-    private float paddingTop = 2;
-    private float paddingBottom = 2;
-    private float paddingLeft = 2;
-    private float paddingRight = 2;
+    private float paddingTop = 4;
+    private float paddingBottom = 4;
+    private float paddingLeft = 4;
+    private float paddingRight = 4;
     private float grayFill = 1;
+    private float borderWidth = 1;
 
     /**
      * Creates a cell devoid of content.
@@ -181,7 +182,7 @@ public class Cell {
     }
 
     /**
-     * Gets the padding for the top of the cell. The default value is 2.
+     * Gets the padding for the top of the cell. The default value is 4.
      *
      * @return the top padding
      */
@@ -199,7 +200,7 @@ public class Cell {
     }
 
     /**
-     * Gets the padding for the bottom of the cell. The default value is 2.
+     * Gets the padding for the bottom of the cell. The default value is 4.
      *
      * @return the bottom padding
      */
@@ -217,7 +218,7 @@ public class Cell {
     }
 
     /**
-     * Gets the padding for the left side of the cell. The default value is 2.
+     * Gets the padding for the left side of the cell. The default value is 4.
      *
      * @return the left padding
      */
@@ -235,7 +236,7 @@ public class Cell {
     }
 
     /**
-     * Gets the padding for the right side of the cell. The default value is 2.
+     * Gets the padding for the right side of the cell. The default value is 4.
      *
      * @return the right padding
      */
@@ -295,6 +296,23 @@ public class Cell {
         this.grayFill = grayFill;
     }
 
+    /**
+     * Gets the width of the border line. The default value is 1.0.
+     *
+     * @return the border width
+     */
+    public float getBorderWidth() {
+        return borderWidth;
+    }
+
+    /**
+     * Sets the width of the border line.
+     *
+     * @param borderWidth the border width
+     */
+    public void setBorderWidth(float borderWidth) {
+        this.borderWidth = borderWidth;
+    }
 
     /**
      * A Border represents the sides of the {@link Cell} that should have a border.

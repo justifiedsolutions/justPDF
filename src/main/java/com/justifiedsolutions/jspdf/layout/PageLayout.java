@@ -63,9 +63,7 @@ class PageLayout {
         currentVertPos = height - margin.getTop();
         factories.add(new PhraseLayoutFactory(lineWidth));
         factories.add(new ParagraphLayoutFactory(lineWidth));
-
-        drawMargin();
-        drawCenterLine();
+        factories.add(new TableLayoutFactory(margin, lineWidth));
     }
 
     /**
@@ -110,15 +108,15 @@ class PageLayout {
         remainingHeight -= Math.max(currentSpacingAfter, layout.getSpacingBefore());
         currentVertPos -= Math.max(currentSpacingAfter, layout.getSpacingBefore());
 
+        pdfBuilder.addOperator(new PushGraphicsState());
         if (content instanceof TextContent) {
-            pdfBuilder.addOperator(new PushGraphicsState());
             pdfBuilder.addOperator(new BeginText());
             pdfBuilder.addOperator(new PositionText(new PDFReal(margin.getLeft()), new PDFReal(currentVertPos)));
         }
 
         float minHeight = layout.getMinimumHeight();
         while ((minHeight > 0) && (minHeight <= remainingHeight)) {
-            ContentLine line = layout.getNextLine();
+            ContentLine line = layout.getNextLine(currentVertPos);
             if (line == null) {
                 break;
             }
@@ -132,8 +130,8 @@ class PageLayout {
 
         if (content instanceof TextContent) {
             pdfBuilder.addOperator(new EndText());
-            pdfBuilder.addOperator(new PopGraphicsState());
         }
+        pdfBuilder.addOperator(new PopGraphicsState());
 
         return layout.getRemainingContent();
     }
@@ -142,6 +140,8 @@ class PageLayout {
      * Notifies the page that no more content will be added.
      */
     void complete() throws IOException {
+        drawMargin();
+        drawCenterLine();
         pdfPage.setContents(pdfBuilder.getStream());
     }
 
@@ -198,6 +198,4 @@ class PageLayout {
         pdfBuilder.addOperator(new StrokePath());
         pdfBuilder.addOperator(new PopGraphicsState());
     }
-
-
 }

@@ -26,6 +26,15 @@ public class DeviceGray extends DeviceColorSpace {
         this.gray = checkRange(gray);
     }
 
+    /**
+     * Gets the gray level.
+     *
+     * @return the gray level
+     */
+    public PDFReal getGray() {
+        return gray;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(gray);

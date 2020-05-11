@@ -9,7 +9,17 @@ import com.justifiedsolutions.jspdf.pdf.contents.GraphicsOperator;
 
 import java.util.List;
 
+/**
+ * Models a line of content in a PDF document.
+ */
 interface ContentLine {
+
+    /**
+     * Gets the actual width of the line.
+     *
+     * @return the width
+     */
+    float getWidth();
 
     /**
      * Gets the actual height of the line.

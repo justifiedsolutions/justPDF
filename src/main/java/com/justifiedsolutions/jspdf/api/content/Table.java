@@ -41,7 +41,24 @@ public class Table implements Content {
      */
     public Table(int numberOfColumns) {
         relativeColumnWidths = new float[numberOfColumns];
-        Arrays.fill(relativeColumnWidths, 1);
+        float widthPercent = (1f / (float) numberOfColumns) * 100f;
+        Arrays.fill(relativeColumnWidths, widthPercent);
+    }
+
+    /**
+     * A copy constructor that copies all attributes of the specified table except for the {@link Cell}s. Those are
+     * copied from the specified list.
+     *
+     * @param table the table to copy
+     * @param cells the cells to copy
+     */
+    public Table(Table table, List<Cell> cells) {
+        this.relativeColumnWidths = table.relativeColumnWidths;
+        this.keepTogether = table.keepTogether;
+        this.widthPercentage = table.widthPercentage;
+        this.spacingBefore = table.spacingBefore;
+        this.spacingAfter = table.spacingAfter;
+        this.cells.addAll(cells);
     }
 
     /**

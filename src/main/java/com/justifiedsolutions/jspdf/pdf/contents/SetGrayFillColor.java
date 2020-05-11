@@ -12,16 +12,13 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
-import static com.justifiedsolutions.jspdf.pdf.contents.DeviceColorSpace.checkRange;
-
 /**
  * Implements the PDF command <code>g</code> to set the fill color in the monochrome color space in a content stream.
  *
  * @see "ISO 32000-1:2008, 8.6.4.2"
  */
 public class SetGrayFillColor implements ColorGraphicsOperator {
-    private final PDFReal gray;
-    private final ColorSpace colorSpace;
+    private final DeviceGray colorSpace;
 
     /**
      * Creates a new operator that sets the fill color in the monochrome color space in a content stream.
@@ -29,13 +26,21 @@ public class SetGrayFillColor implements ColorGraphicsOperator {
      * @param gray gray
      */
     public SetGrayFillColor(PDFReal gray) {
-        this.gray = checkRange(gray);
-        this.colorSpace = new DeviceGray(gray);
+        this(new DeviceGray(gray));
+    }
+
+    /**
+     * Creates a new operator that sets the fill color in the monochrome color space in a content stream.
+     *
+     * @param gray gray
+     */
+    public SetGrayFillColor(DeviceGray gray) {
+        this.colorSpace = Objects.requireNonNull(gray);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(gray);
+        return Objects.hash(colorSpace);
     }
 
     @Override
@@ -43,7 +48,7 @@ public class SetGrayFillColor implements ColorGraphicsOperator {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SetGrayFillColor that = (SetGrayFillColor) o;
-        return gray.equals(that.gray);
+        return colorSpace.equals(that.colorSpace);
     }
 
     @Override
@@ -58,7 +63,7 @@ public class SetGrayFillColor implements ColorGraphicsOperator {
 
     @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
-        gray.writeToPDF(pdf);
+        colorSpace.getGray().writeToPDF(pdf);
         pdf.write(" g\n".getBytes(StandardCharsets.US_ASCII));
     }
 }

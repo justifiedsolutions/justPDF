@@ -24,9 +24,10 @@ interface ContentLayout {
     /**
      * Gets the next {@link ContentLine} from the content.
      *
+     * @param verticalPosition the upper left y coordinate on the page as the starting point of the content
      * @return the next line or <code>null</code> if the content is exhausted
      */
-    ContentLine getNextLine();
+    ContentLine getNextLine(float verticalPosition);
 
     /**
      * Gets the remaining {@link Content}.

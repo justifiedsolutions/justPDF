@@ -39,15 +39,15 @@ public class PDFFontDescriptor extends PDFDictionary {
         } else if (line.contains("FontBBox")) {
             parseRectangleValue(line, FONT_BBOX);
         } else if (line.contains("CapHeight")) {
-            parseIntegerValue(line, CAP_HEIGHT);
+            parseFloatValue(line, CAP_HEIGHT);
         } else if (line.contains("Ascender")) {
-            parseIntegerValue(line, ASCENT);
+            parseFloatValue(line, ASCENT);
         } else if (line.contains("Descender")) {
-            parseIntegerValue(line, DESCENT);
+            parseFloatValue(line, DESCENT);
         } else if (line.contains("StdHW")) {
-            parseIntegerValue(line, STEM_H);
+            parseFloatValue(line, STEM_H);
         } else if (line.contains("StdVW")) {
-            parseIntegerValue(line, STEM_V);
+            parseFloatValue(line, STEM_V);
         } else if (line.contains("ItalicAngle")) {
             parseFloatValue(line, ITALIC_ANGLE);
         }
@@ -65,14 +65,6 @@ public class PDFFontDescriptor extends PDFDictionary {
         if (value != null) {
             float result = Float.parseFloat(value);
             put(key, new PDFReal(result));
-        }
-    }
-
-    private void parseIntegerValue(String line, PDFName key) {
-        String value = parseSingleValue(line);
-        if (value != null) {
-            int result = Integer.parseInt(value);
-            put(key, new PDFInteger(result));
         }
     }
 

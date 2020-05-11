@@ -18,11 +18,7 @@ import java.util.Objects;
  * @see "ISO 32000-1:2008, 8.6.4.4"
  */
 public class SetCMYKFillColor implements ColorGraphicsOperator {
-    private final PDFReal cyan;
-    private final PDFReal magenta;
-    private final PDFReal yellow;
-    private final PDFReal black;
-    private final ColorSpace colorSpace;
+    private final DeviceCMYK colorSpace;
 
     /**
      * Creates a new operator that sets the fill color in the CMYK color space in a content stream.
@@ -33,16 +29,21 @@ public class SetCMYKFillColor implements ColorGraphicsOperator {
      * @param black   black
      */
     public SetCMYKFillColor(PDFReal cyan, PDFReal magenta, PDFReal yellow, PDFReal black) {
-        this.cyan = cyan;
-        this.magenta = magenta;
-        this.yellow = yellow;
-        this.black = black;
-        this.colorSpace = new DeviceCMYK(cyan, magenta, yellow, black);
+        this(new DeviceCMYK(cyan, magenta, yellow, black));
+    }
+
+    /**
+     * Creates a new operator that sets the fill color in the CMYK color space in a content stream.
+     *
+     * @param colorSpace the color space
+     */
+    public SetCMYKFillColor(DeviceCMYK colorSpace) {
+        this.colorSpace = Objects.requireNonNull(colorSpace);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cyan, magenta, yellow, black);
+        return Objects.hash(colorSpace);
     }
 
     @Override
@@ -50,10 +51,7 @@ public class SetCMYKFillColor implements ColorGraphicsOperator {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SetCMYKFillColor that = (SetCMYKFillColor) o;
-        return cyan.equals(that.cyan) &&
-                magenta.equals(that.magenta) &&
-                yellow.equals(that.yellow) &&
-                black.equals(that.black);
+        return colorSpace.equals(that.colorSpace);
     }
 
     @Override
@@ -68,14 +66,13 @@ public class SetCMYKFillColor implements ColorGraphicsOperator {
 
     @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
-        cyan.writeToPDF(pdf);
+        colorSpace.getCyan().writeToPDF(pdf);
         pdf.write(' ');
-        magenta.writeToPDF(pdf);
+        colorSpace.getMagenta().writeToPDF(pdf);
         pdf.write(' ');
-        yellow.writeToPDF(pdf);
+        colorSpace.getYellow().writeToPDF(pdf);
         pdf.write(' ');
-        black.writeToPDF(pdf);
+        colorSpace.getBlack().writeToPDF(pdf);
         pdf.write(" k\n".getBytes(StandardCharsets.US_ASCII));
     }
-
 }

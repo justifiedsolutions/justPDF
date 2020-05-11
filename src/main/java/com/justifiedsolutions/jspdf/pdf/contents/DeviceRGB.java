@@ -32,6 +32,33 @@ public class DeviceRGB extends DeviceColorSpace {
         this.blue = checkRange(blue);
     }
 
+    /**
+     * Gets the red level.
+     *
+     * @return the red level
+     */
+    public PDFReal getRed() {
+        return red;
+    }
+
+    /**
+     * Gets the green level.
+     *
+     * @return the green level
+     */
+    public PDFReal getGreen() {
+        return green;
+    }
+
+    /**
+     * Gets the blue level.
+     *
+     * @return the blue level
+     */
+    public PDFReal getBlue() {
+        return blue;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(red, green, blue);

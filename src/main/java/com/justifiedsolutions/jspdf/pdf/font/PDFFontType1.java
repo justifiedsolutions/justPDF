@@ -90,8 +90,17 @@ public class PDFFontType1 extends PDFFont {
                 descriptor.parseAFMLine(line);
             }
 
+            PDFObject ascentObject = descriptor.get(PDFFontDescriptor.ASCENT);
+            PDFObject decentObject = descriptor.get(PDFFontDescriptor.DESCENT);
+            if (ascentObject instanceof PDFReal && decentObject instanceof PDFReal) {
+                PDFReal ascent = (PDFReal) ascentObject;
+                PDFReal decent = (PDFReal) decentObject;
+                minimumLeading = ascent.getValue() - decent.getValue();
+                minimumLeading = ascent.getValue();
+            }
+
             PDFObject bboxObject = descriptor.get(PDFFontDescriptor.FONT_BBOX);
-            if (bboxObject instanceof PDFRectangle) {
+            if (minimumLeading == 0 && bboxObject instanceof PDFRectangle) {
                 PDFRectangle bboxRect = (PDFRectangle) bboxObject;
                 minimumLeading = bboxRect.getHeight().getValue();
             }

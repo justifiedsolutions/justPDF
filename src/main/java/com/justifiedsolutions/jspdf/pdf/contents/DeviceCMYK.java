@@ -35,6 +35,42 @@ public class DeviceCMYK extends DeviceColorSpace {
         this.black = checkRange(black);
     }
 
+    /**
+     * Gets the cyan level.
+     *
+     * @return the cyan level
+     */
+    public PDFReal getCyan() {
+        return cyan;
+    }
+
+    /**
+     * Gets the magenta level.
+     *
+     * @return the magenta level
+     */
+    public PDFReal getMagenta() {
+        return magenta;
+    }
+
+    /**
+     * Gets the yellow level.
+     *
+     * @return the yellow level
+     */
+    public PDFReal getYellow() {
+        return yellow;
+    }
+
+    /**
+     * Gets the black level.
+     *
+     * @return the black level
+     */
+    public PDFReal getBlack() {
+        return black;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(cyan, magenta, yellow, black);

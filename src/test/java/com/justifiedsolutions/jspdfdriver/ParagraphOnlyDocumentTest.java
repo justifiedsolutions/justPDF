@@ -41,6 +41,7 @@ public class ParagraphOnlyDocumentTest {
         Paragraph p3 = new Paragraph();
         p3.setFont(new PDFFont(PDFFont.FontName.HELVETICA, 14));
         p3.setAlignment(HorizontalAlignment.JUSTIFIED);
+        p3.setLeading(14.5f);
         p3.setFirstLineIndent(10);
         p3.setSpacingBefore(9);
         p3.setSpacingAfter(9);

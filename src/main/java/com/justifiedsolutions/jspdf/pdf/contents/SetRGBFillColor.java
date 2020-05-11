@@ -12,18 +12,13 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
-import static com.justifiedsolutions.jspdf.pdf.contents.DeviceColorSpace.checkRange;
-
 /**
  * Implements the PDF command <code>rg</code> to set the fill color in the RGB color space in a content stream.
  *
  * @see "ISO 32000-1:2008, 8.6.4.3"
  */
 public class SetRGBFillColor implements ColorGraphicsOperator {
-    private final PDFReal red;
-    private final PDFReal green;
-    private final PDFReal blue;
-    private final ColorSpace colorSpace;
+    private final DeviceRGB colorSpace;
 
     /**
      * Creates a new operator that sets the fill color in the RGB color space in a content stream.
@@ -33,15 +28,21 @@ public class SetRGBFillColor implements ColorGraphicsOperator {
      * @param blue  blue
      */
     public SetRGBFillColor(PDFReal red, PDFReal green, PDFReal blue) {
-        this.red = checkRange(red);
-        this.green = checkRange(green);
-        this.blue = checkRange(blue);
-        this.colorSpace = new DeviceRGB(red, green, blue);
+        this(new DeviceRGB(red, green, blue));
+    }
+
+    /**
+     * Creates a new operator that sets the fill color in the RGB color space in a content stream.
+     *
+     * @param colorSpace the color space
+     */
+    public SetRGBFillColor(DeviceRGB colorSpace) {
+        this.colorSpace = Objects.requireNonNull(colorSpace);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(red, green, blue);
+        return Objects.hash(colorSpace);
     }
 
     @Override
@@ -49,9 +50,7 @@ public class SetRGBFillColor implements ColorGraphicsOperator {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SetRGBFillColor that = (SetRGBFillColor) o;
-        return red.equals(that.red) &&
-                green.equals(that.green) &&
-                blue.equals(that.blue);
+        return colorSpace.equals(that.colorSpace);
     }
 
     @Override
@@ -66,11 +65,11 @@ public class SetRGBFillColor implements ColorGraphicsOperator {
 
     @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
-        red.writeToPDF(pdf);
+        colorSpace.getRed().writeToPDF(pdf);
         pdf.write(' ');
-        green.writeToPDF(pdf);
+        colorSpace.getGreen().writeToPDF(pdf);
         pdf.write(' ');
-        blue.writeToPDF(pdf);
+        colorSpace.getBlue().writeToPDF(pdf);
         pdf.write(" rg\n".getBytes(StandardCharsets.US_ASCII));
     }
 }

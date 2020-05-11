@@ -82,10 +82,10 @@ class PDFFontWrapper {
     }
 
     float getCharacterWidth(int character) {
-        return (size.getValue() * font.getCharacterWidth(character)) / 1000f;
+        return size.getValue() * (font.getCharacterWidth(character) / 1000f);
     }
 
     float getMinimumLeading() {
-        return (float) Math.ceil((size.getValue() * font.getMinimumLeading()) / 1000f);
+        return size.getValue() * (font.getMinimumLeading() / 1000f);
     }
 }

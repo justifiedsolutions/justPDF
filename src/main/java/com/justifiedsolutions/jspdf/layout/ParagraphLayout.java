@@ -50,11 +50,11 @@ class ParagraphLayout implements ContentLayout {
 
         float height = 0;
         ParagraphLayout layout = new ParagraphLayout(this.lineWidth, this.paragraph);
-        ContentLine line = layout.getNextLine();
+        ContentLine line = layout.getNextLine(0);
         if (this.paragraph.isKeepTogether()) {
             while (line != null) {
                 height += line.getHeight();
-                line = layout.getNextLine();
+                line = layout.getNextLine(0);
             }
         } else {
             height = line.getHeight();
@@ -63,7 +63,7 @@ class ParagraphLayout implements ContentLayout {
     }
 
     @Override
-    public ContentLine getNextLine() {
+    public ContentLine getNextLine(float verticalPosition) {
         if (paragraph == null) {
             return null;
         }
@@ -72,14 +72,13 @@ class ParagraphLayout implements ContentLayout {
 
         float leftIndent = paragraph.getLeftIndent();
         if (firstLine) {
-            firstLine = false;
             leftIndent += paragraph.getFirstLineIndent();
         }
 
         TextLine line = new TextLine(lineWidth, leftIndent, paragraph.getRightIndent());
+        line.setAlignment(paragraph.getAlignment());
         line.setLeading(paragraph.getLeading());
         line.setLineHeight(paragraph.getLineHeight());
-        line.setAlignment(paragraph.getAlignment());
         line.setPreviousLineStart(lineStart);
 
         for (Content content : paragraph.getContent()) {
@@ -113,6 +112,7 @@ class ParagraphLayout implements ContentLayout {
             paragraph = null;
         }
 
+        firstLine = false;
         lineStart = line.getLineStart();
         return line;
     }

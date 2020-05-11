@@ -25,12 +25,10 @@ class TextLine implements ContentLine {
     private float remainingWidth;
     private float lineStart = 0;
     private float previousLineStart = 0;
-
     private float leading = 0;
     private float lineHeight = 0;
     private HorizontalAlignment alignment = HorizontalAlignment.LEFT;
     private float leftIndent;
-
     private int numSpaces = 0;
     private int numChars = 0;
 
@@ -52,8 +50,14 @@ class TextLine implements ContentLine {
      * @param rightIndent the amount of right indent
      */
     TextLine(float lineWidth, float leftIndent, float rightIndent) {
-        this(lineWidth - (leftIndent + rightIndent));
+        this.lineWidth = (lineWidth - (leftIndent + rightIndent));
+        this.remainingWidth = (lineWidth - (leftIndent + rightIndent));
         this.leftIndent = leftIndent;
+    }
+
+    @Override
+    public float getWidth() {
+        return (lineWidth - remainingWidth);
     }
 
     @Override
@@ -81,7 +85,8 @@ class TextLine implements ContentLine {
     }
 
     /**
-     * Sets the lineHeight multiplier. This will be multiplied by the font height to determine the leading for the line.
+     * Sets the lineHeight multiplier. This will be multiplied by the font height to determine the leading for the
+     * line.
      *
      * @param lineHeight the multiplier
      */
@@ -153,6 +158,7 @@ class TextLine implements ContentLine {
 
         if (!split.get(0).isEmpty()) {
             operators.add(new FontWrapperOperator(wrapper));
+            operators.add(getColorSpaceOperator(wrapper));
             operators.add(new ShowText(new PDFString(split.get(0))));
         } else {
             return chunk;
@@ -238,6 +244,18 @@ class TextLine implements ContentLine {
             }
         }
         return operators;
+    }
+
+    private GraphicsOperator getColorSpaceOperator(PDFFontWrapper wrapper) {
+        ColorSpace colorSpace = wrapper.getColor();
+        if (colorSpace instanceof DeviceGray) {
+            return new SetGrayFillColor((DeviceGray) colorSpace);
+        } else if (colorSpace instanceof DeviceRGB) {
+            return new SetRGBFillColor((DeviceRGB) colorSpace);
+        } else if (colorSpace instanceof DeviceCMYK) {
+            return new SetCMYKFillColor((DeviceCMYK) colorSpace);
+        }
+        throw new IllegalArgumentException("Invalid ColorSpace");
     }
 
 }
