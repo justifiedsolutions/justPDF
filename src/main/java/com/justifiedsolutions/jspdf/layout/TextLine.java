@@ -186,8 +186,14 @@ class TextLine implements ContentLine {
             if (Character.isWhitespace(c)) {
                 lastWhitespace = i;
                 textWidthAtLastWhitespace = textWidth;
-                if (c == 32) {
+                if (c == ' ') {
                     spaceCount++;
+                }
+                if (c == '\n') {
+                    splitPoint = lastWhitespace;
+                    textWidth = textWidthAtLastWhitespace;
+                    reachedEOL = true;
+                    break;
                 }
             }
 
