@@ -61,8 +61,7 @@ class PageLayout {
         float lineWidth = width - (margin.getLeft() + margin.getRight());
 
         currentVertPos = height - margin.getTop();
-        factories.add(new PhraseLayoutFactory(lineWidth));
-        factories.add(new ParagraphLayoutFactory(lineWidth));
+        factories.add(new TextContentLayoutFactory(lineWidth));
         factories.add(new TableLayoutFactory(margin, lineWidth));
     }
 

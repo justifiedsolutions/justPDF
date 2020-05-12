@@ -6,26 +6,27 @@
 package com.justifiedsolutions.jspdf.layout;
 
 import com.justifiedsolutions.jspdf.api.content.Content;
-import com.justifiedsolutions.jspdf.api.content.Phrase;
+import com.justifiedsolutions.jspdf.api.content.Paragraph;
+import com.justifiedsolutions.jspdf.api.content.TextContent;
 
 
 /**
- * A {@link ContentLayoutFactory} that supports {@link Phrase}s.
+ * A {@link ContentLayoutFactory} that supports {@link Paragraph}s.
  */
-class PhraseLayoutFactory implements ContentLayoutFactory {
+class TextContentLayoutFactory implements ContentLayoutFactory {
     private final float lineWidth;
 
-    PhraseLayoutFactory(float lineWidth) {
+    TextContentLayoutFactory(float lineWidth) {
         this.lineWidth = lineWidth;
     }
 
     @Override
     public boolean supportsContent(Content content) {
-        return (content instanceof Phrase);
+        return (content instanceof TextContent);
     }
 
     @Override
     public ContentLayout getContentLayout(Content content) {
-        return new PhraseLayout(lineWidth, (Phrase) content);
+        return new TextContentLayout(lineWidth, (TextContent) content);
     }
 }

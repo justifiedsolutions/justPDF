@@ -12,14 +12,13 @@ import java.util.*;
 
 /**
  * A Cell represents a cell in a {@link Table}. A Cell is created by methods on the Table and must be instantiated with
- * the content embedded in the Cell. When adding a {@link Phrase} to a Cell, the leading is ignored. The leading is
- * honored when adding a {@link Paragraph} to a Cell. When adding a Paragraph to a Cell, if the Paragraph has a {@link
- * HorizontalAlignment} set, it will override the HorizontalAlignment of the Cell.
+ * the content embedded in the Cell. When adding a Paragraph to a Cell, if the Paragraph has a {@link
+ * HorizontalAlignment} set, it will be overridden the HorizontalAlignment of the Cell.
  */
 public class Cell {
 
     private final List<Border> borders = new ArrayList<>();
-    private Content content;
+    private TextContent content;
     private int rowSpan = 1;
     private int columnSpan = 1;
     private HorizontalAlignment horizontalAlignment = HorizontalAlignment.LEFT;
@@ -40,13 +39,13 @@ public class Cell {
     }
 
     /**
-     * Creates a new Cell with the specified content. The {@link Content} must be a {@link Phrase} or a {@link
+     * Creates a new Cell with the specified content. The {@link TextContent} must be a {@link Phrase} or a {@link
      * Paragraph}.
      *
      * @param content the cell content
      * @throws IllegalArgumentException if the content isn't the correct type.
      */
-    Cell(Content content) {
+    Cell(TextContent content) {
         this();
         setContent(content);
     }
@@ -56,21 +55,21 @@ public class Cell {
      *
      * @return the content
      */
-    public Content getContent() {
+    public TextContent getContent() {
         return content;
     }
 
     /**
-     * Sets the content of the Cell. The {@link Content} must be a {@link Phrase} or a {@link Paragraph}.
+     * Sets the content of the Cell. The {@link TextContent} must be a {@link Phrase} or a {@link Paragraph}.
      *
      * @param content the cell content
      * @throws IllegalArgumentException if the content isn't the correct type.
      */
-    public void setContent(Content content) {
+    public void setContent(TextContent content) {
         if ((content instanceof Phrase) || (content instanceof Paragraph)) {
             this.content = content;
         } else {
-            throw new IllegalArgumentException("Invalid content type: " + content.getClass());
+            throw new IllegalArgumentException("Invalid content type: " + content.getClass().getSimpleName());
         }
     }
 

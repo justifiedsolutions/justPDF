@@ -2,9 +2,7 @@ package com.justifiedsolutions.jspdf.layout;
 
 import com.justifiedsolutions.jspdf.api.VerticalAlignment;
 import com.justifiedsolutions.jspdf.api.content.Cell;
-import com.justifiedsolutions.jspdf.api.content.Chunk;
 import com.justifiedsolutions.jspdf.api.content.Paragraph;
-import com.justifiedsolutions.jspdf.api.content.Phrase;
 import com.justifiedsolutions.jspdf.pdf.contents.*;
 import com.justifiedsolutions.jspdf.pdf.object.PDFReal;
 import com.justifiedsolutions.jspdf.pdf.object.PDFRectangle;
@@ -102,25 +100,11 @@ class CellLayout {
     private ContentLayout getContentLayout() {
         float contentWidth = cellWidth - (cell.getPaddingLeft() + cell.getPaddingRight());
 
-        Paragraph content;
-        if (cell.getContent() instanceof Paragraph) {
-            content = (Paragraph) cell.getContent();
-            content.setSpacingBefore(0);
-            content.setSpacingAfter(0);
-            content.setAlignment(cell.getHorizontalAlignment());
-        } else if (cell.getContent() instanceof Phrase) {
-            Phrase phrase = (Phrase) cell.getContent();
-            content = new Paragraph();
-            content.setFont(phrase.getFont());
-            content.setLeading(phrase.getLeading());
-            content.setAlignment(cell.getHorizontalAlignment());
-            for (Chunk chunk : phrase.getChunks()) {
-                content.add(chunk);
-            }
-        } else {
-            throw new IllegalArgumentException("Invalid content type for cell: " + cell.getContent().getClass().getSimpleName());
-        }
-        return new ParagraphLayout(contentWidth, content);
+        Paragraph content = TextContentUtility.getParagraph(cell.getContent());
+        content.setSpacingBefore(0);
+        content.setSpacingAfter(0);
+        content.setAlignment(cell.getHorizontalAlignment());
+        return new TextContentLayout(contentWidth, content);
     }
 
     private float getTextHeight() {

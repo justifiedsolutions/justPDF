@@ -5,20 +5,16 @@
 
 package com.justifiedsolutions.jspdf.layout;
 
-import com.justifiedsolutions.jspdf.api.content.Chunk;
-import com.justifiedsolutions.jspdf.api.content.Content;
-import com.justifiedsolutions.jspdf.api.content.Paragraph;
-import com.justifiedsolutions.jspdf.api.content.Phrase;
+import com.justifiedsolutions.jspdf.api.content.*;
 import com.justifiedsolutions.jspdf.api.font.PDFFont;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
- * Lays out a {@link Paragraph} into a series of {@link ContentLine}s.
+ * Lays out {@link TextContent} into a series of {@link ContentLine}s.
  */
-class ParagraphLayout implements ContentLayout {
+class TextContentLayout implements ContentLayout {
     private final float lineWidth;
     private final float spacingBefore;
     private final float spacingAfter;
@@ -27,13 +23,13 @@ class ParagraphLayout implements ContentLayout {
     private boolean firstLine = true;
 
     /**
-     * Creates a new ParagraphLayout. This should only be called by {@link ParagraphLayoutFactory#getContentLayout(Content)}.
+     * Creates a new ParagraphLayout. This should only be called by {@link TextContentLayoutFactory#getContentLayout(Content)}.
      *
-     * @param lineWidth the width of the lines to be created by this {@link ContentLayout}
-     * @param paragraph the Phrase to layout
+     * @param lineWidth   the width of the lines to be created by this {@link ContentLayout}
+     * @param textContent the {@link TextContent} to layout
      */
-    ParagraphLayout(float lineWidth, Paragraph paragraph) {
-        this.paragraph = Objects.requireNonNull(paragraph);
+    TextContentLayout(float lineWidth, TextContent textContent) {
+        this.paragraph = TextContentUtility.getParagraph(textContent);
         this.lineWidth = lineWidth;
 
         this.spacingBefore = this.paragraph.getSpacingBefore();
@@ -49,7 +45,7 @@ class ParagraphLayout implements ContentLayout {
         }
 
         float height = 0;
-        ParagraphLayout layout = new ParagraphLayout(this.lineWidth, this.paragraph);
+        TextContentLayout layout = new TextContentLayout(this.lineWidth, this.paragraph);
         ContentLine line = layout.getNextLine(0);
         if (this.paragraph.isKeepTogether()) {
             while (line != null) {

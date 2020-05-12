@@ -172,14 +172,14 @@ public class Table implements Content {
     }
 
     /**
-     * Creates a new {@link Cell} with the specified {@link Content} and adds it to the Table. The Content must be
-     * either a {@link Phrase} or a {@link Paragraph}.
+     * Creates a new {@link Cell} with the specified {@link TextContent} and adds it to the Table. The TextContent must
+     * be either a {@link Phrase} or a {@link Paragraph}.
      *
      * @param content the content for the cell
      * @return a new cell
      * @throws IllegalArgumentException if content is not the correct type
      */
-    public Cell createCell(Content content) {
+    public Cell createCell(TextContent content) {
         Cell cell = new Cell(content);
         cells.add(cell);
         return cell;
