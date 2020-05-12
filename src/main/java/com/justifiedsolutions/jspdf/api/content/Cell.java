@@ -266,7 +266,13 @@ public class Cell {
      */
     public void setBorders(Border... borders) {
         this.borders.clear();
-        this.borders.addAll(Arrays.asList(borders));
+        List<Border> borderList = Arrays.asList(borders);
+        if (borderList.contains(Border.TOP) && borderList.contains(Border.BOTTOM)
+                && borderList.contains(Border.LEFT) && borderList.contains(Border.RIGHT)) {
+            this.borders.add(Border.ALL);
+        } else {
+            this.borders.addAll(borderList);
+        }
     }
 
     /**

@@ -12,6 +12,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Lays out the contents of a {@link Cell}.
+ */
 class CellLayout {
     private final Cell cell;
     private final float cellWidth;
@@ -19,12 +22,25 @@ class CellLayout {
     private float cellHeight;
     private PDFRectangle location;
 
+    /**
+     * Creates a new CellLayout.
+     *
+     * @param cell      the cell to layout
+     * @param cellWidth the width of the specified cell
+     */
     CellLayout(Cell cell, float cellWidth) {
         this.cell = Objects.requireNonNull(cell);
         this.cellWidth = cellWidth;
         layoutContent();
     }
 
+    /**
+     * Gets all {@link TableGridIndex}s that the specified {@link Cell} will cover.
+     *
+     * @param cell           the cell
+     * @param beginningIndex the index where the cell starts
+     * @return the list of all indices that the cell will cover
+     */
     static List<TableGridIndex> getGridIndices(Cell cell, TableGridIndex beginningIndex) {
         List<TableGridIndex> indices = new ArrayList<>();
         for (int i = 0; i < cell.getRowSpan(); i++) {
@@ -45,10 +61,20 @@ class CellLayout {
         return indices;
     }
 
+    /**
+     * Gets the {@link Cell} that is being laid out
+     *
+     * @return the cell
+     */
     Cell getCell() {
         return cell;
     }
 
+    /**
+     * Gets the minimum height of the cell including top and bottom padding.
+     *
+     * @return the minimum height
+     */
     float getMinimumCellHeight() {
         float height = cell.getPaddingTop() + cell.getPaddingBottom() + getTextHeight();
         return Math.max(height, cell.getMinimumHeight());
@@ -76,15 +102,21 @@ class CellLayout {
         location = new PDFRectangle(ulx, lly, urx, uly);
     }
 
+    /**
+     * Gets the list of {@link GraphicsOperator}s necessary to draw this cell and it's contents.
+     *
+     * @return the operators
+     */
     List<GraphicsOperator> getOperators() {
         if (location == null) {
             throw new IllegalStateException("The location must be set first.");
         }
 
         List<GraphicsOperator> operators = new ArrayList<>();
-        operators.addAll(getCellFill());
-        operators.addAll(getCellBorders());
-        operators.addAll(getCellContents());
+        operators.addAll(drawCellFill());
+        operators.addAll(drawCellBorders());
+        operators.addAll(drawCellContents());
+        operators.addAll(drawCellPadding());
         return operators;
     }
 
@@ -115,7 +147,7 @@ class CellLayout {
         return height;
     }
 
-    private List<GraphicsOperator> getCellFill() {
+    private List<GraphicsOperator> drawCellFill() {
         List<GraphicsOperator> result = new ArrayList<>();
 
         if (cell.getGrayFill() < 1) {
@@ -127,7 +159,7 @@ class CellLayout {
         return result;
     }
 
-    private List<GraphicsOperator> getCellBorders() {
+    private List<GraphicsOperator> drawCellBorders() {
         List<Cell.Border> borders = cell.getBorders();
 
         List<GraphicsOperator> result = new ArrayList<>();
@@ -161,7 +193,7 @@ class CellLayout {
         return result;
     }
 
-    private List<GraphicsOperator> getCellContents() {
+    private List<GraphicsOperator> drawCellContents() {
         List<GraphicsOperator> result = new ArrayList<>();
 
         float textHeight = getTextHeight();
@@ -192,6 +224,16 @@ class CellLayout {
             result.add(new EndText());
         }
 
+        return result;
+    }
+
+    /**
+     * Method for debugging cell layout issues. Will draw a thin line for the padding border.
+     *
+     * @return the operators required to draw the padding border. An empty list if the debug is turned off.
+     */
+    private List<GraphicsOperator> drawCellPadding() {
+        List<GraphicsOperator> result = new ArrayList<>();
         Object debug = System.getProperties().get("DrawCellPadding");
         if (debug != null) {
             float textLLx = location.getLLx().getValue() + cell.getPaddingLeft();
@@ -202,7 +244,6 @@ class CellLayout {
             result.add(new CreateRectangularPath(new PDFRectangle(textLLx, textLLy, textURx, textURy)));
             result.add(new StrokePath());
         }
-
         return result;
     }
 

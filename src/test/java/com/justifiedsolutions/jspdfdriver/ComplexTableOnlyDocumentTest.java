@@ -29,6 +29,7 @@ public class ComplexTableOnlyDocumentTest {
         table.setWidthPercentage(100);
         table.setSpacingBefore(9);
         table.setSpacingAfter(9);
+        table.setBorderWidth(.5f);
 
         addCourt(table);
         addCourtUseOnly(table);
@@ -87,7 +88,7 @@ public class ComplexTableOnlyDocumentTest {
         cell.setRowSpan(2);
         cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
         cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
-        cell.setPaddingBottom(10);
+        cell.setPaddingBottom(4);
     }
 
     private void addCaseDetails(final Table table) {

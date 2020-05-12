@@ -23,6 +23,7 @@ public class Table implements Content {
     private float widthPercentage = 80;
     private float spacingBefore = 0;
     private float spacingAfter = 0;
+    private float borderWidth = 1;
 
     /**
      * Creates a Table with {@code relativeColumnWidths.length} number of columns. The widths should be specified as a
@@ -160,12 +161,33 @@ public class Table implements Content {
     }
 
     /**
+     * Gets the default borderWidth for the cells in the table. This value is assigned to the {@link Cell}s as they are
+     * created. Changes to this do not change Cells that have already been created. The default value is {@code 1}.
+     *
+     * @return the default border width
+     */
+    public float getBorderWidth() {
+        return borderWidth;
+    }
+
+    /**
+     * Sets the default borderWidth for the cells in this table. This only affects {@code Cells} created after this
+     * value is set.
+     *
+     * @param borderWidth the default border width
+     */
+    public void setBorderWidth(float borderWidth) {
+        this.borderWidth = borderWidth;
+    }
+
+    /**
      * Creates a new empty {@link Cell} and adds it to the Table.
      *
      * @return a new cell
      */
     public Cell createCell() {
         Cell cell = new Cell();
+        cell.setBorderWidth(this.borderWidth);
         cells.add(cell);
         return cell;
     }
@@ -180,6 +202,7 @@ public class Table implements Content {
      */
     public Cell createCell(TextContent content) {
         Cell cell = new Cell(content);
+        cell.setBorderWidth(this.borderWidth);
         cells.add(cell);
         return cell;
     }

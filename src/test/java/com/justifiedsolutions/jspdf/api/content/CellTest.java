@@ -116,10 +116,7 @@ public class CellTest {
 
         expected.clear();
         cell.setBorders(Cell.Border.TOP, Cell.Border.BOTTOM, Cell.Border.LEFT, Cell.Border.RIGHT);
-        expected.add(Cell.Border.TOP);
-        expected.add(Cell.Border.BOTTOM);
-        expected.add(Cell.Border.LEFT);
-        expected.add(Cell.Border.RIGHT);
+        expected.add(Cell.Border.ALL);
         assertEquals(expected, cell.getBorders());
     }
 

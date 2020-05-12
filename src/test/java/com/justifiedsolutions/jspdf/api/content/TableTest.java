@@ -71,12 +71,23 @@ public class TableTest {
     }
 
     @Test
-    public void createCell() {
+    public void setBorderWidth() {
+        float input = .5f;
         Table table = new Table(4);
+        table.setBorderWidth(input);
+        assertEquals(input, table.getBorderWidth());
+    }
+
+    @Test
+    public void createCell() {
+        float bw = .5f;
+        Table table = new Table(4);
+        table.setBorderWidth(bw);
         Cell cell = table.createCell();
         assertNotNull(table.getCells());
         assertEquals(1, table.getCells().size());
         assertEquals(cell, table.getCells().get(0));
+        assertEquals(bw, cell.getBorderWidth());
     }
 
     @Test
