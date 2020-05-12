@@ -21,6 +21,8 @@ public class SimpleTableOnlyDocumentTest {
         createTable2(document);
         createTable3(document);
         createTable4(document);
+        createTable5(document);
+        createTable6(document);
 
         document.setMetadata(Metadata.TITLE, "SimpleTableOnlyDocumentTest");
         document.setMetadata(Metadata.AUTHOR, "Jay Burgess");
@@ -159,6 +161,138 @@ public class SimpleTableOnlyDocumentTest {
         cell.setPadding(5);
         cell = table.createCell(new Phrase("Cell dp 1-3"));
         cell.setPadding(40);
+        cell.setColumnSpan(2);
+
+        document.add(table);
+    }
+
+    private void createTable5(Document document) throws DocumentException {
+        Table table = new Table(new float[]{.25f, .25f, .25f, .25f});
+        table.setSpacingBefore(20);
+
+        Cell cell;
+        cell = table.createCell(new Phrase("Cell dp 1-1"));
+        cell.setVerticalAlignment(VerticalAlignment.TOP);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 1-2"));
+        cell.setVerticalAlignment(VerticalAlignment.TOP);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 1-3"));
+        cell.setVerticalAlignment(VerticalAlignment.TOP);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 1-4"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
+        cell.setRowSpan(2);
+
+        cell = table.createCell(new Phrase("Cell dp 2-1"));
+        cell.setVerticalAlignment(VerticalAlignment.MIDDLE);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 2-2"));
+        cell.setVerticalAlignment(VerticalAlignment.MIDDLE);
+        cell.setColumnSpan(2);
+        cell.setPadding(4);
+
+        cell = table.createCell(new Phrase("Cell dp 3-1"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 3-2"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 3-3"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 3-4"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
+
+        document.add(table);
+    }
+
+    private void createTable6(Document document) throws DocumentException {
+        Table table = new Table(new float[]{.25f, .25f, .25f, .25f});
+        table.setSpacingBefore(100);
+        table.setKeepTogether(true);
+
+        Cell cell;
+        cell = table.createCell(new Phrase("Cell dp 1-1"));
+        cell.setVerticalAlignment(VerticalAlignment.TOP);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 1-2"));
+        cell.setVerticalAlignment(VerticalAlignment.TOP);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 1-3"));
+        cell.setVerticalAlignment(VerticalAlignment.TOP);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 1-4"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
+        cell.setRowSpan(2);
+
+        cell = table.createCell(new Phrase("Cell dp 2-1"));
+        cell.setVerticalAlignment(VerticalAlignment.MIDDLE);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 2-2"));
+        cell.setVerticalAlignment(VerticalAlignment.MIDDLE);
+        cell.setColumnSpan(2);
+        cell.setPadding(4);
+
+        cell = table.createCell(new Phrase("Cell dp 3-1"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 3-2"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 3-3"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 3-4"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
+        cell.setRowSpan(3);
+
+        cell = table.createCell(new Phrase("Cell dp 4-1"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 4-2"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 4-3"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
+
+        cell = table.createCell(new Phrase("Cell dp 5-1"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 5-2"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 5-3"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
+
+        cell = table.createCell(new Phrase("Cell dp 6-1"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 6-2"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 6-3"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 6-4"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
+
+        cell = table.createCell(new Phrase("Cell dp 7-1"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 7-2"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
+        cell = table.createCell(new Phrase("Cell dp 7-3"));
+        cell.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        cell.setPadding(4);
         cell.setColumnSpan(2);
 
         document.add(table);

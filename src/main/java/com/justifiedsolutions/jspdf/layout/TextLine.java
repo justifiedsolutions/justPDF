@@ -56,11 +56,6 @@ class TextLine implements ContentLine {
     }
 
     @Override
-    public float getWidth() {
-        return (lineWidth - remainingWidth);
-    }
-
-    @Override
     public float getHeight() {
         return leading;
     }

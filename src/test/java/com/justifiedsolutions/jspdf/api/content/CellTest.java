@@ -132,4 +132,11 @@ public class CellTest {
         assertThrows(IllegalArgumentException.class, () -> cell.setGrayFill(-0.1f));
         assertThrows(IllegalArgumentException.class, () -> cell.setGrayFill(1.1f));
     }
+
+    @Test
+    public void borderWidth() {
+        float input = .5f;
+        cell.setBorderWidth(input);
+        assertEquals(input, cell.getBorderWidth());
+    }
 }

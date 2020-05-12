@@ -15,13 +15,6 @@ import java.util.List;
 interface ContentLine {
 
     /**
-     * Gets the actual width of the line.
-     *
-     * @return the width
-     */
-    float getWidth();
-
-    /**
      * Gets the actual height of the line.
      *
      * @return the height

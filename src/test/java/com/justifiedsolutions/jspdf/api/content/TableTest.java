@@ -12,6 +12,18 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TableTest {
 
     @Test
+    public void createWithBadWidthPositive() {
+        float[] columns = {25f, 25f, 25f, 25f};
+        assertThrows(IllegalArgumentException.class, () -> new Table(columns));
+    }
+
+    @Test
+    public void createWithBadWidthNegative() {
+        float[] columns = {-25f, -25f, -25f, -25f};
+        assertThrows(IllegalArgumentException.class, () -> new Table(columns));
+    }
+
+    @Test
     public void getNumberOfColumns() {
         int input = 4;
         Table table = new Table(input);

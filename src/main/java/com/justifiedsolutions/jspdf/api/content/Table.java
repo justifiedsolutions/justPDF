@@ -25,13 +25,19 @@ public class Table implements Content {
     private float spacingAfter = 0;
 
     /**
-     * Creates a Table with <code>relativeColumnWidths.length</code> number of columns, having the widths set relative
-     * to each other based on the values in the array.
+     * Creates a Table with <code>relativeColumnWidths.length</code> number of columns. The widths should be specified
+     * as a percentage of the whole, with the values ranging between 0 and 1.
      *
      * @param relativeColumnWidths the relative widths of the columns
+     * @throws IllegalArgumentException if an invalid width is passed
      */
     public Table(float[] relativeColumnWidths) {
         this.relativeColumnWidths = relativeColumnWidths;
+        for (float width : this.relativeColumnWidths) {
+            if (width < 0 || width > 1) {
+                throw new IllegalArgumentException("Widths should be between 0 and 1");
+            }
+        }
     }
 
     /**

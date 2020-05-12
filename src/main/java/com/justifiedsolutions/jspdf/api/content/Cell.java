@@ -8,10 +8,7 @@ package com.justifiedsolutions.jspdf.api.content;
 import com.justifiedsolutions.jspdf.api.HorizontalAlignment;
 import com.justifiedsolutions.jspdf.api.VerticalAlignment;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * A Cell represents a cell in a {@link Table}. A Cell is created by methods on the Table and must be instantiated with
@@ -312,6 +309,31 @@ public class Cell {
      */
     public void setBorderWidth(float borderWidth) {
         this.borderWidth = borderWidth;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(borders, content, rowSpan, columnSpan, horizontalAlignment, verticalAlignment, minimumHeight, paddingTop, paddingBottom, paddingLeft, paddingRight, grayFill, borderWidth);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cell cell = (Cell) o;
+        return rowSpan == cell.rowSpan &&
+                columnSpan == cell.columnSpan &&
+                Float.compare(cell.minimumHeight, minimumHeight) == 0 &&
+                Float.compare(cell.paddingTop, paddingTop) == 0 &&
+                Float.compare(cell.paddingBottom, paddingBottom) == 0 &&
+                Float.compare(cell.paddingLeft, paddingLeft) == 0 &&
+                Float.compare(cell.paddingRight, paddingRight) == 0 &&
+                Float.compare(cell.grayFill, grayFill) == 0 &&
+                Float.compare(cell.borderWidth, borderWidth) == 0 &&
+                borders.equals(cell.borders) &&
+                Objects.equals(content, cell.content) &&
+                horizontalAlignment == cell.horizontalAlignment &&
+                verticalAlignment == cell.verticalAlignment;
     }
 
     /**
