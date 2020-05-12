@@ -12,7 +12,7 @@ import java.io.OutputStream;
 import java.util.Objects;
 
 /**
- * Implements the PDF command <code>l</code> to append a straight line segment to the current path in a content stream.
+ * Implements the PDF command {@code l} to append a straight line segment to the current path in a content stream.
  *
  * @see "ISO 32000-1:2008, 8.5.2.1"
  */

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Implements the PDF command <code>f</code> to fill a path in a content stream.
+ * Implements the PDF command {@code f} to fill a path in a content stream.
  *
  * @see "ISO 32000-1:2008, 8.5.3.1"
  * @see "ISO 32000-1:2008, 8.5.3.3"

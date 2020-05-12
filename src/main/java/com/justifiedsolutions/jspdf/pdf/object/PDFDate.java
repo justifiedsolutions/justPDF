@@ -33,7 +33,7 @@ public class PDFDate extends PDFDocEncodedString {
     }
 
     /**
-     * Creates a string in the format <code>D:YYYYMMDDHHmmSSOHH'mm</code>.
+     * Creates a string in the format {@code D:YYYYMMDDHHmmSSOHH'mm}.
      *
      * @param dateTime the time to convert
      * @return the formatted string

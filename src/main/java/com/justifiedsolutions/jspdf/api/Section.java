@@ -62,7 +62,7 @@ public class Section {
     }
 
     /**
-     * Specifies if the Section should start a new page. The default value is <code>false</code>.
+     * Specifies if the Section should start a new page. The default value is {@code false}.
      *
      * @return true if the section should start a new page
      */
@@ -71,7 +71,7 @@ public class Section {
     }
 
     /**
-     * Specifies if the Section should start a new page. The default value is <code>false</code>.
+     * Specifies if the Section should start a new page. The default value is {@code false}.
      *
      * @param startsNewPage true if the section should start a new page
      */
@@ -80,7 +80,7 @@ public class Section {
     }
 
     /**
-     * Specifies if the section number should be displayed. The default is <code>true</code>.
+     * Specifies if the section number should be displayed. The default is {@code true}.
      *
      * @return true if the section number should be displayed
      */
@@ -89,7 +89,7 @@ public class Section {
     }
 
     /**
-     * Specifies if the section number should be displayed. The default is <code>true</code>.
+     * Specifies if the section number should be displayed. The default is {@code true}.
      *
      * @param displaySectionNumber true if the section number should be displayed
      */
@@ -122,7 +122,7 @@ public class Section {
      *
      * @param title the title of the subsection
      * @return the Section
-     * @throws NullPointerException if title is <code>null</code>
+     * @throws NullPointerException if title is {@code null}
      */
     public Section addSection(Paragraph title) {
         Objects.requireNonNull(title);

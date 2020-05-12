@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
- * Represents a <code>integer object</code> inside a PDF document.
+ * Represents a {@code integer object} inside a PDF document.
  *
  * @see "ISO 32000-1:2008, 7.3.3"
  */
@@ -29,7 +29,7 @@ public class PDFInteger implements PDFObject, Comparable<PDFInteger> {
     }
 
     /**
-     * Returns the value of the PDFInteger as a Java <code>int</code>.
+     * Returns the value of the PDFInteger as a Java {@code int}.
      *
      * @return the int value
      */

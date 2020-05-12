@@ -37,7 +37,7 @@ class CellLayout {
 
         if (indices.size() > 1) {
             for (TableGridIndex index : indices) {
-                index.setSpan(true);
+                index.setSpan();
             }
         }
 

@@ -5,7 +5,6 @@
 
 package com.justifiedsolutions.jspdf.pdf.contents;
 
-import com.justifiedsolutions.jspdf.pdf.object.PDFReal;
 import com.justifiedsolutions.jspdf.pdf.object.PDFRectangle;
 
 import java.io.IOException;
@@ -14,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
- * Implements the PDF {@link GraphicsOperator} <code>re</code> to create a rectangular path in a PDF content stream.
+ * Implements the PDF {@link GraphicsOperator} {@code re} to create a rectangular path in a PDF content stream.
  *
  * @see "ISO 32000-1:2008, 8.5.2.1"
  */

@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Represents an <code>indirect object</code> in a PDF document.
+ * Represents an {@code indirect object} in a PDF document.
  *
  * @see "ISO 32000-1:2008, 7.3.10"
  */
@@ -56,7 +56,7 @@ public class PDFIndirectObject implements PDFObject, Comparable<PDFIndirectObjec
     }
 
     /**
-     * Gets the generation number. This is <code>0</code> unless the PDF was updated.
+     * Gets the generation number. This is {@code 0} unless the PDF was updated.
      *
      * @return the generation number
      */

@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
- * Represents a <code>string object</code> inside a PDF document.
+ * Represents a {@code string object} inside a PDF document.
  *
  * @see "ISO 32000-1:2008, 7.3.4"
  */

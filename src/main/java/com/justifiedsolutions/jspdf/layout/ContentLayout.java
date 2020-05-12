@@ -8,7 +8,7 @@ package com.justifiedsolutions.jspdf.layout;
 import com.justifiedsolutions.jspdf.api.content.Content;
 
 /**
- * A <code>ContentLayout</code> is responsible for taking a specific type of {@link Content} and transforming it into a
+ * A {@code ContentLayout} is responsible for taking a specific type of {@link Content} and transforming it into a
  * series of {@link ContentLine}s.
  */
 interface ContentLayout {
@@ -25,14 +25,14 @@ interface ContentLayout {
      * Gets the next {@link ContentLine} from the content.
      *
      * @param verticalPosition the upper left y coordinate on the page as the starting point of the content
-     * @return the next line or <code>null</code> if the content is exhausted
+     * @return the next line or {@code null} if the content is exhausted
      */
     ContentLine getNextLine(float verticalPosition);
 
     /**
      * Gets the remaining {@link Content}.
      *
-     * @return the remaining content or <code>null</code> if the content is exhausted
+     * @return the remaining content or {@code null} if the content is exhausted
      */
     Content getRemainingContent();
 

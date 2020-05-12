@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Implements the PDF command <code>BT</code> to begin a text object in a content stream.
+ * Implements the PDF command {@code BT} to begin a text object in a content stream.
  *
  * @see "ISO 32000-1:2008, 9.4.1"
  */

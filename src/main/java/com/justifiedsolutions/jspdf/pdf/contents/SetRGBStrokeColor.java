@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
- * Implements the PDF command <code>RG</code> to set the stroke color in the RGB color space in a content stream.
+ * Implements the PDF command {@code RG} to set the stroke color in the RGB color space in a content stream.
  *
  * @see "ISO 32000-1:2008, 8.6.4.3"
  */

@@ -18,7 +18,7 @@ public class DeviceGray extends DeviceColorSpace {
     private final PDFReal gray;
 
     /**
-     * Creates a new DeviceGray ColorSpace. All values range from <code>0.0</code> to <code>1.0</code>.
+     * Creates a new DeviceGray ColorSpace. All values range from {@code 0.0} to {@code 1.0}.
      *
      * @param gray gray value
      */

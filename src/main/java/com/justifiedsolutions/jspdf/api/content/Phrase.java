@@ -85,7 +85,7 @@ public class Phrase implements TextContent {
     }
 
     /**
-     * Get the leading for the Phrase. The default value is <code>0.0</code>.
+     * Get the leading for the Phrase. The default value is {@code 0.0}.
      *
      * @return the leading
      */
@@ -134,7 +134,7 @@ public class Phrase implements TextContent {
 
     /**
      * Adds the text to the Phrase. This is a shortcut for creating a {@link Chunk} then adding it to the Phrase.
-     * Passing <code>null</code> to this method is silently ignored.
+     * Passing {@code null} to this method is silently ignored.
      *
      * @param text the text to add
      */

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Implements the PDF command <code>q</code> to push the graphics state on to the stack in a content stream.
+ * Implements the PDF command {@code q} to push the graphics state on to the stack in a content stream.
  *
  * @see "ISO 32000-1:2008, 8.4.2"
  */

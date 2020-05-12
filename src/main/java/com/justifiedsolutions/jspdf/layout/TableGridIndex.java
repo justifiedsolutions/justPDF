@@ -52,7 +52,7 @@ class TableGridIndex implements Comparable<TableGridIndex> {
         return span;
     }
 
-    void setSpan(boolean span) {
-        this.span = span;
+    void setSpan() {
+        this.span = true;
     }
 }

@@ -28,7 +28,7 @@ public class PDFPage {
     private final PDFDocument document;
 
     /**
-     * Creates a new PDF Page. It sets the <code>Type</code> key in the dictionary.
+     * Creates a new PDF Page. It sets the {@code Type} key in the dictionary.
      *
      * @param pageSize the size of the page
      */
@@ -41,7 +41,7 @@ public class PDFPage {
     }
 
     /**
-     * Sets the contents of the page. This also sets the <code>Contents</code> key in the dictionary.
+     * Sets the contents of the page. This also sets the {@code Contents} key in the dictionary.
      *
      * @param contents the contents of the page
      */
@@ -61,7 +61,7 @@ public class PDFPage {
     }
 
     /**
-     * Sets the reference to the <code>Parent</code> Pages node.
+     * Sets the reference to the {@code Parent} Pages node.
      *
      * @param parent the reference
      */

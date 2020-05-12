@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * Represents a <code>stream object</code> in a PDF document.
+ * Represents a {@code stream object} in a PDF document.
  *
  * @see "ISO 32000-1:2008, 7.3.8"
  */

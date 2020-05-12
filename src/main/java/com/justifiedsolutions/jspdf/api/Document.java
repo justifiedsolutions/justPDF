@@ -34,7 +34,7 @@ public class Document {
      *
      * @param pageSize the size of the pages
      * @param margin   the page margins
-     * @throws NullPointerException if either argument is <code>null</code>
+     * @throws NullPointerException if either argument is {@code null}
      */
     public Document(PageSize pageSize, Margin margin) {
         this.pageSize = Objects.requireNonNull(pageSize);
@@ -60,11 +60,11 @@ public class Document {
     }
 
     /**
-     * Sets the specific piece of metadata. A <code>null</code> value will remove the metadata from the document.
+     * Sets the specific piece of metadata. A {@code null} value will remove the metadata from the document.
      *
      * @param metadata the metadata to set
-     * @param value    the value of the metadata. <code>null</code> removes the metadata
-     * @throws NullPointerException if metadata is <code>null</code>
+     * @param value    the value of the metadata. {@code null} removes the metadata
+     * @throws NullPointerException if metadata is {@code null}
      */
     public void setMetadata(Metadata metadata, String value) {
         Objects.requireNonNull(metadata);
@@ -79,8 +79,8 @@ public class Document {
      * Gets the metadata value.
      *
      * @param metadata the metadata to get
-     * @return the value of the metadata. <code>null</code> means there is no value for that @{@link Metadata}
-     * @throws NullPointerException if metadata is <code>null</code>
+     * @return the value of the metadata. {@code null} means there is no value for that @{@link Metadata}
+     * @throws NullPointerException if metadata is {@code null}
      */
     public String getMetadata(Metadata metadata) {
         Objects.requireNonNull(metadata);
@@ -108,7 +108,7 @@ public class Document {
     /**
      * Sets the {@link Header} for the document.
      *
-     * @param header the header, <code>null</code> will remove the header
+     * @param header the header, {@code null} will remove the header
      */
     public void setHeader(Header header) {
         this.header = header;
@@ -126,7 +126,7 @@ public class Document {
     /**
      * Sets the {@link Footer} for the document.
      *
-     * @param footer the footer, <code>null</code> will remove the footer
+     * @param footer the footer, {@code null} will remove the footer
      */
     public void setFooter(Footer footer) {
         this.footer = footer;
@@ -156,7 +156,7 @@ public class Document {
      * @param title the title for the Section
      * @return the new chapter
      * @throws DocumentException    if other {@link Content} has already been added to the Document
-     * @throws NullPointerException if title is <code>null</code>
+     * @throws NullPointerException if title is {@code null}
      */
     public Section createSection(Paragraph title) throws DocumentException {
         if (hasContent()) {
@@ -193,7 +193,7 @@ public class Document {
      *
      * @param content the content to add
      * @throws DocumentException    if {@link Section}s have already been added to the Document
-     * @throws NullPointerException if content is <code>null</code>
+     * @throws NullPointerException if content is {@code null}
      */
     public void add(Content content) throws DocumentException {
         if (hasSections()) {
@@ -208,7 +208,7 @@ public class Document {
      * Writes the contents of the Document to the specified {@link OutputStream}.
      *
      * @param out the OutputStream to write the PDF to
-     * @throws NullPointerException  if the OutputStream is <code>null</code>
+     * @throws NullPointerException  if the OutputStream is {@code null}
      * @throws IOException           if there was a problem writing to the output stream
      * @throws DocumentException     if there was problem laying out the document
      * @throws IllegalStateException if there was no data in the document

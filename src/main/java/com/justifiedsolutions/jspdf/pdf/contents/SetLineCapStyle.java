@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
- * Implements the PDF command <code>J</code> to set the line cap style in a content stream.
+ * Implements the PDF command {@code J} to set the line cap style in a content stream.
  *
  * @see "ISO 32000-1:2008, 8.4"
  * @see "ISO 32000-1:2008, 8.4.3.3"

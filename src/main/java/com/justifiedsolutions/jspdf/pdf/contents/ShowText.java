@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
- * Implements the PDF command <code>Tj</code> to write a text string in a Text Object in a stream.
+ * Implements the PDF command {@code Tj} to write a text string in a Text Object in a stream.
  *
  * @see "ISO 32000-1:2008, 9.4.3"
  */

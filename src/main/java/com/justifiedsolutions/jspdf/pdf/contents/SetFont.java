@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
- * Implements the PDF command <code>Tf</code> to set the font in a Text Object in a stream.
+ * Implements the PDF command {@code Tf} to set the font in a Text Object in a stream.
  *
  * @see "ISO 32000-1:2008, 9.2.2"
  */

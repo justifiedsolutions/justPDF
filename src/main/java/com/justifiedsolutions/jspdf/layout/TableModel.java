@@ -24,7 +24,7 @@ class TableModel {
         TableGridIndex beginningIndex = getNextIndex();
         List<TableGridIndex> cellIndices = CellLayout.getGridIndices(cell, beginningIndex);
         if (cellIndices.size() > 1) {
-            beginningIndex.setSpan(true);
+            beginningIndex.setSpan();
         }
         indices.addAll(cellIndices);
         Collections.sort(indices);

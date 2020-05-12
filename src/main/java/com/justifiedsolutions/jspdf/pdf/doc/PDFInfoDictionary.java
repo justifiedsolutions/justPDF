@@ -23,7 +23,6 @@ public class PDFInfoDictionary extends PDFDictionary {
     public static final PDFName CREATOR = new PDFName("Creator");
     public static final PDFName PRODUCER = new PDFName("Producer");
     public static final PDFName CREATION_DATE = new PDFName("CreationDate");
-    public static final PDFName MOD_DATE = new PDFName("ModDate");
 
     /**
      * Associates the specified value to the specified key. If the key already exists in the dictionary, the value will

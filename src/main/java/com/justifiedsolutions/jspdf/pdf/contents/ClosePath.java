@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Implements the PDF command <code>h</code> to close an existing path in a content stream by connecting it to the
- * original point specified by {@link StartPath}.
+ * Implements the PDF command {@code h} to close an existing path in a content stream by connecting it to the original
+ * point specified by {@link StartPath}.
  *
  * @see "ISO 32000-1:2008, 8.5.2.1"
  */

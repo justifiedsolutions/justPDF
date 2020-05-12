@@ -10,7 +10,7 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
 /**
- * Implements the PDF command <code>T*</code> to move to the start of the next line including leading.
+ * Implements the PDF command {@code T*} to move to the start of the next line including leading.
  *
  * @see "ISO 32000-1:2008, 9.4.2"
  */

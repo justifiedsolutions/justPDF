@@ -10,7 +10,7 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
 /**
- * Represents a <code>null object</code> in a PDF document.
+ * Represents a {@code null object} in a PDF document.
  *
  * @see "ISO 32000-1:2008, 7.3.9"
  */

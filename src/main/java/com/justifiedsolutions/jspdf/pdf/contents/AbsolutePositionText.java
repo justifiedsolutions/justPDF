@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
- * Uses the PDF command <code>Tm</code> to move the text state to the specified point from the origin of the page.
+ * Uses the PDF command {@code Tm} to move the text state to the specified point from the origin of the page.
  *
  * @see "ISO 32000-1:2008, 9.4.2"
  */

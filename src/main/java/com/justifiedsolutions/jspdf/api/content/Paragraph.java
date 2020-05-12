@@ -100,7 +100,7 @@ public class Paragraph implements TextContent {
     }
 
     /**
-     * Get the leading for the Paragraph. The default value is <code>0.0</code>.
+     * Get the leading for the Paragraph. The default value is {@code 0.0}.
      *
      * @return the leading
      */
@@ -110,7 +110,7 @@ public class Paragraph implements TextContent {
 
     /**
      * Set the leading for the Paragraph. You can have either leading or line height but not both. Setting one will set
-     * the other to <code>0.0</code>.
+     * the other to {@code 0.0}.
      *
      * @param leading the leading
      */
@@ -121,7 +121,7 @@ public class Paragraph implements TextContent {
 
     /**
      * Gets the line height for the Paragraph. This multiplied by the maximum height of the largest font on each line of
-     * the Paragraph. The default value is <code>0.0</code>.
+     * the Paragraph. The default value is {@code 0.0}.
      *
      * @return the line height
      */
@@ -131,8 +131,8 @@ public class Paragraph implements TextContent {
 
     /**
      * Sets the line height for the Paragraph. This multiplied by the maximum height of the largest font in the
-     * Paragraph. You can have either leading or line height but not both. Setting one will set the other to
-     * <code>0.0</code>.
+     * Paragraph. You can have either leading or line height but not both. Setting one will set the other to {@code
+     * 0.0}.
      *
      * @param lineHeight the line height
      */
@@ -152,7 +152,7 @@ public class Paragraph implements TextContent {
     }
 
     /**
-     * Gets the left indent of the Paragraph. The default is <code>0</code>.
+     * Gets the left indent of the Paragraph. The default is {@code 0}.
      *
      * @return left indent
      */
@@ -170,7 +170,7 @@ public class Paragraph implements TextContent {
     }
 
     /**
-     * Gets the right indent of the Paragraph. The default is <code>0</code>    .
+     * Gets the right indent of the Paragraph. The default is {@code 0}    .
      *
      * @return right indent
      */
@@ -188,7 +188,7 @@ public class Paragraph implements TextContent {
     }
 
     /**
-     * Specifies the amount of the first line indentation from the left indent. The default is <code>0</code>.
+     * Specifies the amount of the first line indentation from the left indent. The default is {@code 0}.
      *
      * @return the amount of indentation
      */
@@ -206,7 +206,7 @@ public class Paragraph implements TextContent {
     }
 
     /**
-     * Gets the amount of vertical spacing before the Paragraph. The default is <code>0</code>.
+     * Gets the amount of vertical spacing before the Paragraph. The default is {@code 0}.
      *
      * @return the amount of vertical spacing before the Paragraph
      */
@@ -224,7 +224,7 @@ public class Paragraph implements TextContent {
     }
 
     /**
-     * Gets the amount of vertical spacing after the Paragraph. The default is <code>0</code>.
+     * Gets the amount of vertical spacing after the Paragraph. The default is {@code 0}.
      *
      * @return the amount of vertical spacing after the Paragraph
      */
@@ -242,8 +242,7 @@ public class Paragraph implements TextContent {
     }
 
     /**
-     * Specifies if the Paragraph should be broken between pages. The default is
-     * <code>false</code>.
+     * Specifies if the Paragraph should be broken between pages. The default is {@code false}.
      *
      * @return true if the paragraph should be kept together
      */
@@ -263,7 +262,7 @@ public class Paragraph implements TextContent {
     /**
      * Gets the {@link HorizontalAlignment} of the Paragraph. Default is {@link HorizontalAlignment#LEFT}.
      *
-     * @return the alignment of the paragraph or <code>null</code> if it isn't specified
+     * @return the alignment of the paragraph or {@code null} if it isn't specified
      */
     public HorizontalAlignment getAlignment() {
         return alignment;
@@ -272,7 +271,7 @@ public class Paragraph implements TextContent {
     /**
      * Sets the {@link HorizontalAlignment} of the Paragraph.
      *
-     * @param alignment the alignment or <code>null</code> if it isn't specified
+     * @param alignment the alignment or {@code null} if it isn't specified
      */
     public void setAlignment(HorizontalAlignment alignment) {
         this.alignment = alignment;

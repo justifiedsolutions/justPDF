@@ -91,11 +91,8 @@ public class PDFFontType1 extends PDFFont {
             }
 
             PDFObject ascentObject = descriptor.get(PDFFontDescriptor.ASCENT);
-            PDFObject decentObject = descriptor.get(PDFFontDescriptor.DESCENT);
-            if (ascentObject instanceof PDFReal && decentObject instanceof PDFReal) {
+            if (ascentObject instanceof PDFReal) {
                 PDFReal ascent = (PDFReal) ascentObject;
-                PDFReal decent = (PDFReal) decentObject;
-                minimumLeading = ascent.getValue() - decent.getValue();
                 minimumLeading = ascent.getValue();
             }
 

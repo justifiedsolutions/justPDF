@@ -19,7 +19,7 @@ class PDFPages extends PDFDictionary {
     static final PDFName COUNT = new PDFName("Count");
     static final PDFName KIDS = new PDFName("Kids");
 
-    PDFArray kids = new PDFArray();
+    final PDFArray kids = new PDFArray();
 
     /**
      * Creates a new PDFPages node.

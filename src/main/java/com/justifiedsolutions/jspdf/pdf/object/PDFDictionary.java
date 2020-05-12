@@ -10,7 +10,7 @@ import java.io.OutputStream;
 import java.util.*;
 
 /**
- * Represents a <code>dictionary object</code> in a PDF document.
+ * Represents a {@code dictionary object} in a PDF document.
  *
  * @see "ISO 32000-1:2008, 7.3.7"
  */
@@ -47,11 +47,11 @@ public class PDFDictionary implements PDFObject {
     }
 
     /**
-     * Gets the value associated with the specified key. A return value of <code>null</code> could mean either the key
-     * exists and does not have a value, or the key did not exist in the dictionary.
+     * Gets the value associated with the specified key. A return value of {@code null} could mean either the key exists
+     * and does not have a value, or the key did not exist in the dictionary.
      *
      * @param key the key to get the value for
-     * @return the associated value or <code>null</code>
+     * @return the associated value or {@code null}
      */
     public PDFObject get(PDFName key) {
         return dictionary.get(key);

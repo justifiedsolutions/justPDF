@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
- * Implements the PDF command <code>k</code> to set the fill color in the CMYK color space in a content stream.
+ * Implements the PDF command {@code k} to set the fill color in the CMYK color space in a content stream.
  *
  * @see "ISO 32000-1:2008, 8.6.4.4"
  */

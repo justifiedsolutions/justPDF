@@ -56,7 +56,7 @@ class PDFTrailer {
     }
 
     /**
-     * Specifies if the PDFTrailer has an <code>Info</code> entry.
+     * Specifies if the PDFTrailer has an {@code Info} entry.
      *
      * @return true if Info is in the dictionary
      */

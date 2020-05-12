@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents an <code>array object</code> in a PDF document.
+ * Represents an {@code array object} in a PDF document.
  *
  * @see "ISO 32000-1:2008, 7.3.6"
  */

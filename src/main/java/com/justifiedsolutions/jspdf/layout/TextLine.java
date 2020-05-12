@@ -28,19 +28,9 @@ class TextLine implements ContentLine {
     private float leading = 0;
     private float lineHeight = 0;
     private HorizontalAlignment alignment = HorizontalAlignment.LEFT;
-    private float leftIndent;
+    private final float leftIndent;
     private int numSpaces = 0;
     private int numChars = 0;
-
-    /**
-     * Creates a new TextLine of the specified width.
-     *
-     * @param lineWidth the width of the line
-     */
-    TextLine(float lineWidth) {
-        this.lineWidth = lineWidth;
-        this.remainingWidth = lineWidth;
-    }
 
     /**
      * Creates a new TextLine of the specified width and indentations from the margin.
@@ -99,7 +89,7 @@ class TextLine implements ContentLine {
     }
 
     /**
-     * Gets the start of this line as indentation from <code>0</code>.
+     * Gets the start of this line as indentation from {@code 0}.
      *
      * @return the start of the line
      */
@@ -108,7 +98,7 @@ class TextLine implements ContentLine {
     }
 
     /**
-     * Gets the start of the previous line as indentation from <code>0</code>.
+     * Gets the start of the previous line as indentation from {@code 0}.
      *
      * @param previousLineStart the start of the previous line
      */
@@ -118,7 +108,7 @@ class TextLine implements ContentLine {
 
     /**
      * Attempts to append the specified {@link Chunk} to the line. Any part of the Chunk that couldn't fit is returned.
-     * If the entire Chunk could fit, then <code>null</code> is returned.
+     * If the entire Chunk could fit, then {@code null} is returned.
      *
      * @param chunk the Chunk to append
      * @return the remainder or null if it all fit

@@ -11,19 +11,19 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
- * Represents a <code>boolean object</code> in a PDF document.
+ * Represents a {@code boolean object} in a PDF document.
  *
  * @see "ISO 32000-1:2008, 7.3.2"
  */
 public class PDFBoolean implements PDFObject {
 
     /**
-     * The PDFBoolean representing <code>true</code>.
+     * The PDFBoolean representing {@code true}.
      */
     public static final PDFBoolean TRUE = new PDFBoolean(true);
 
     /**
-     * The PDFBoolean representing <code>false</code>.
+     * The PDFBoolean representing {@code false}.
      */
     public static final PDFBoolean FALSE = new PDFBoolean(false);
 

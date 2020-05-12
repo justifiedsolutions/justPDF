@@ -165,8 +165,8 @@ public class Cell {
     }
 
     /**
-     * Sets the padding for all four sides of the cell. This is a convenience method for setting all four
-     * <code>set*Padding</code> methods individually.
+     * Sets the padding for all four sides of the cell. This is a convenience method for setting all four {@code
+     * set*Padding} methods individually.
      *
      * @param padding the amount of padding
      */

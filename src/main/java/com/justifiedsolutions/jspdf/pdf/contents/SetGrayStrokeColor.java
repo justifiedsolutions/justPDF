@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
- * Implements the PDF command <code>G</code> to set the stroke color in the monochrome color space in a content stream.
+ * Implements the PDF command {@code G} to set the stroke color in the monochrome color space in a content stream.
  *
  * @see "ISO 32000-1:2008, 8.6.4.2"
  */

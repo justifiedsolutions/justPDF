@@ -21,7 +21,7 @@ public class DeviceCMYK extends DeviceColorSpace {
     private final PDFReal black;
 
     /**
-     * Creates a new DeviceCMYK ColorSpace. All values range from <code>0.0</code> to <code>1.0</code>.
+     * Creates a new DeviceCMYK ColorSpace. All values range from {@code 0.0} to {@code 1.0}.
      *
      * @param cyan    cyan color
      * @param magenta magenta color

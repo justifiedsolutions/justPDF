@@ -13,7 +13,7 @@ import java.text.DecimalFormat;
 import java.util.Objects;
 
 /**
- * Represents a <code>real object</code> inside a PDF document.
+ * Represents a {@code real object} inside a PDF document.
  *
  * @see "ISO 32000-1:2008, 7.3.3"
  */
@@ -31,7 +31,7 @@ public class PDFReal implements PDFObject {
     }
 
     /**
-     * Returns the value of the PDFReal as a Java <code>float</code>.
+     * Returns the value of the PDFReal as a Java {@code float}.
      *
      * @return the float value
      */

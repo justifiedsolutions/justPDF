@@ -7,7 +7,6 @@ package com.justifiedsolutions.jspdf.layout;
 
 import com.justifiedsolutions.jspdf.pdf.contents.GraphicsOperator;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Objects;
 
@@ -32,7 +31,7 @@ class FontWrapperOperator implements GraphicsOperator {
     }
 
     @Override
-    public void writeToPDF(OutputStream pdf) throws IOException {
+    public void writeToPDF(OutputStream pdf) {
         // no op
     }
 

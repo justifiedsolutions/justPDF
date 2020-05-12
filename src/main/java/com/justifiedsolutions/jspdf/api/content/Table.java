@@ -25,8 +25,8 @@ public class Table implements Content {
     private float spacingAfter = 0;
 
     /**
-     * Creates a Table with <code>relativeColumnWidths.length</code> number of columns. The widths should be specified
-     * as a percentage of the whole, with the values ranging between 0 and 1.
+     * Creates a Table with {@code relativeColumnWidths.length} number of columns. The widths should be specified as a
+     * percentage of the whole, with the values ranging between 0 and 1.
      *
      * @param relativeColumnWidths the relative widths of the columns
      * @throws IllegalArgumentException if an invalid width is passed
@@ -86,8 +86,7 @@ public class Table implements Content {
     }
 
     /**
-     * Specifies whether the entire Table should be kept together on the same page. The default value is
-     * <code>false</code>.
+     * Specifies whether the entire Table should be kept together on the same page. The default value is {@code false}.
      *
      * @return true if the table should be kept together on the same page
      */
@@ -106,7 +105,7 @@ public class Table implements Content {
 
     /**
      * Gets the percentage of the page width that the table should occupy. A value of 100 would go from left margin to
-     * right margin. The default value is <code>80</code>.
+     * right margin. The default value is {@code 80}.
      *
      * @return the width percentage
      */
@@ -125,7 +124,7 @@ public class Table implements Content {
     }
 
     /**
-     * Gets the amount of empty space above the table. The default value is <code>0</code>.
+     * Gets the amount of empty space above the table. The default value is {@code 0}.
      *
      * @return the spacing before the table
      */
@@ -143,7 +142,7 @@ public class Table implements Content {
     }
 
     /**
-     * Gets the amount of empty space below the table. The default value is <code>0</code>.
+     * Gets the amount of empty space below the table. The default value is {@code 0}.
      *
      * @return the spacing after the table
      */

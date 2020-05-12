@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
- * Implements the PDF command <code>Tc</code> to set the character spacing in a Text Object in a stream.
+ * Implements the PDF command {@code Tc} to set the character spacing in a Text Object in a stream.
  *
  * @see "ISO 32000-1:2008, 9.3.1"
  * @see "ISO 32000-1:2008, 9.3.2"

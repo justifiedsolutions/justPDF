@@ -20,7 +20,7 @@ public class DeviceRGB extends DeviceColorSpace {
     private final PDFReal blue;
 
     /**
-     * Creates a new DeviceRGB ColorSpace. All values range from <code>0.0</code> to <code>1.0</code>.
+     * Creates a new DeviceRGB ColorSpace. All values range from {@code 0.0} to {@code 1.0}.
      *
      * @param red   red color
      * @param green green color

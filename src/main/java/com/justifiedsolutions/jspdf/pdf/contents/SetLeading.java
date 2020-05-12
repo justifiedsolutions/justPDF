@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
- * Implements the PDF command <code>TL</code> to set the leading in a Text Object in a stream.
+ * Implements the PDF command {@code TL} to set the leading in a Text Object in a stream.
  *
  * @see "ISO 32000-1:2008, 9.3.1"
  * @see "ISO 32000-1:2008, 9.3.5"
