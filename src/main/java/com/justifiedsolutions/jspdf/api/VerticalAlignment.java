@@ -20,9 +20,5 @@ public enum VerticalAlignment {
     /**
      * Bottom aligned.
      */
-    BOTTOM,
-    /**
-     * Aligned with the baseline.
-     */
-    BASELINE
+    BOTTOM
 }
