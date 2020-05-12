@@ -5,9 +5,9 @@
 
 package com.justifiedsolutions.jspdf.layout;
 
-import com.justifiedsolutions.jspdf.api.DocumentException;
-import com.justifiedsolutions.jspdf.api.Margin;
+import com.justifiedsolutions.jspdf.api.*;
 import com.justifiedsolutions.jspdf.api.content.Content;
+import com.justifiedsolutions.jspdf.api.content.Paragraph;
 import com.justifiedsolutions.jspdf.api.content.TextContent;
 import com.justifiedsolutions.jspdf.pdf.contents.*;
 import com.justifiedsolutions.jspdf.pdf.doc.PDFDocument;
@@ -31,12 +31,15 @@ class PageLayout {
 
     private final Set<ContentLayoutFactory> factories = new HashSet<>();
 
+    private final int pageNumber;
     private final float width;
     private final float height;
     private final Margin margin;
     private float remainingHeight;
     private float currentVertPos;
     private float currentSpacingAfter = 0;
+    private Header header;
+    private Footer footer;
 
     /**
      * Creates a new PageLayout.
@@ -45,11 +48,13 @@ class PageLayout {
      * @param width       the width of the page
      * @param height      the height of the page
      * @param margin      the margin of the page
+     * @param pageNumber  the page number
      */
-    PageLayout(PDFDocument pdfDocument, float width, float height, Margin margin) {
+    PageLayout(PDFDocument pdfDocument, float width, float height, Margin margin, int pageNumber) {
         this.pdfDocument = pdfDocument;
         this.width = width;
         this.height = height;
+        this.pageNumber = pageNumber;
 
         PDFRectangle pageSize = new PDFRectangle(0, 0, width, height);
         this.pdfPage = pdfDocument.createPage(pageSize);
@@ -63,6 +68,24 @@ class PageLayout {
         currentVertPos = height - margin.getTop();
         factories.add(new TextContentLayoutFactory(lineWidth));
         factories.add(new TableLayoutFactory(margin, lineWidth));
+    }
+
+    /**
+     * Sets the page header.
+     *
+     * @param header the header
+     */
+    void setHeader(Header header) {
+        this.header = header;
+    }
+
+    /**
+     * Sets the page footer.
+     *
+     * @param footer the footer
+     */
+    void setFooter(Footer footer) {
+        this.footer = footer;
     }
 
     /**
@@ -141,6 +164,8 @@ class PageLayout {
      * Notifies the page that no more content will be added.
      */
     void complete() throws IOException {
+        drawHeader();
+        drawFooter();
         drawMargin();
         drawCenterLine();
         pdfPage.setContents(pdfBuilder.getStream());
@@ -167,6 +192,43 @@ class PageLayout {
             }
             pdfBuilder.addOperator(operator);
         }
+    }
+
+    private void drawHeader() {
+        if (header != null && header.isValidForPageNumber(pageNumber)) {
+            drawMarginal(header, height, margin.getTop());
+        }
+    }
+
+    private void drawFooter() {
+        if (footer != null && footer.isValidForPageNumber(pageNumber)) {
+            drawMarginal(footer, margin.getBottom(), margin.getBottom());
+        }
+    }
+
+    private void drawMarginal(RunningMarginal marginal, float marginTop, float marginHeight) {
+        Paragraph paragraph = marginal.getParagraph(pageNumber);
+        paragraph.setKeepTogether(true);
+        paragraph.setSpacingBefore(0);
+        paragraph.setSpacingAfter(0);
+        ContentLayout layout = getContentLayout(paragraph);
+        float contentHeight = layout.getMinimumHeight();
+        float diff = (marginHeight - contentHeight) / 2f;
+        if (diff < 1) { // too close to the margin
+            return;
+        }
+        float vPos = marginTop - diff;
+        pdfBuilder.addOperator(new PushGraphicsState());
+        pdfBuilder.addOperator(new BeginText());
+        pdfBuilder.addOperator(new PositionText(new PDFReal(margin.getLeft()), new PDFReal(vPos)));
+        ContentLine line = layout.getNextLine(vPos);
+        while (line != null) {
+            addLine(line);
+            vPos -= line.getHeight();
+            line = layout.getNextLine(vPos);
+        }
+        pdfBuilder.addOperator(new EndText());
+        pdfBuilder.addOperator(new PopGraphicsState());
     }
 
     private void drawMargin() {

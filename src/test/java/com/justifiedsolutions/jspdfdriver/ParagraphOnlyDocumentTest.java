@@ -5,6 +5,7 @@ import com.justifiedsolutions.jspdf.api.content.Paragraph;
 import com.justifiedsolutions.jspdf.api.font.PDFFont;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,6 +19,24 @@ public class ParagraphOnlyDocumentTest {
         document.setMetadata(Metadata.AUTHOR, "Jay Burgess");
         document.setMetadata(Metadata.CREATOR, "jsPDF");
         document.setMetadata(Metadata.SUBJECT, "Lorum Ipsum");
+        PageNumberFooter footer = new PageNumberFooter(false, HorizontalAlignment.RIGHT,
+                new PDFFont(PDFFont.FontName.HELVETICA, 10, Color.BLUE));
+        document.setFooter(footer);
+
+        document.setHeader(new Header() {
+            @Override
+            public boolean isValidForPageNumber(int pageNumber) {
+                return true;
+            }
+
+            @Override
+            public Paragraph getParagraph(int pageNumber) {
+                Paragraph text = new Paragraph("Lorum Ipsum Paper");
+                text.setFont(new PDFFont(PDFFont.FontName.HELVETICA_BOLD, 14, Color.BLUE));
+                text.setAlignment(HorizontalAlignment.CENTER);
+                return text;
+            }
+        });
 
         Paragraph title = new Paragraph("Lorum Ipsum", new PDFFont(PDFFont.FontName.HELVETICA_BOLD, 20));
         title.setAlignment(HorizontalAlignment.CENTER);

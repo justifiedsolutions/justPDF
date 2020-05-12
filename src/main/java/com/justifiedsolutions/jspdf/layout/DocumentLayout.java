@@ -27,6 +27,7 @@ public class DocumentLayout {
     private final Document document;
     private final PDFDocument pdfDocument = new PDFDocument();
     private PageLayout currentPage;
+    private int currentPageNumber = 0;
 
     /**
      * Creates a layout of the specified {@link Document}.
@@ -98,7 +99,9 @@ public class DocumentLayout {
         float width = document.getPageSize().width();
         float height = document.getPageSize().height();
         Margin margin = document.getMargin();
-        currentPage = new PageLayout(pdfDocument, width, height, margin);
+        currentPage = new PageLayout(pdfDocument, width, height, margin, ++currentPageNumber);
+        currentPage.setHeader(document.getHeader());
+        currentPage.setFooter(document.getFooter());
     }
 
     private void completePage() throws IOException {
