@@ -9,6 +9,15 @@ An Open Source library for creating basic PDF documents.
 ## License ##
 `SPDX-License-Identifier: Apache-2.0`
 
+## Maven Dependency ##
+Add this to your pom.xml file to use the latest version of OpenPDF:
+
+			    <dependency>
+			        <groupId>com.justifiedsolutions</groupId>
+			        <artifactId>jspdf</artifactId>
+			        <version>0.1.0</version>
+			    </dependency>
+
 ## Goals ##
 The primary goal for jsPDF is to provide a PDF library to support Justified Solution's other products. This doesn't require a particularly full-featured API. Features that are required:
 
