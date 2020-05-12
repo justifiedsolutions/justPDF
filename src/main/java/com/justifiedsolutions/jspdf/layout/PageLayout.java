@@ -105,8 +105,10 @@ class PageLayout {
             throw new DocumentException("Unsupported Content type: " + content.getClass().getSimpleName());
         }
 
-        remainingHeight -= Math.max(currentSpacingAfter, layout.getSpacingBefore());
-        currentVertPos -= Math.max(currentSpacingAfter, layout.getSpacingBefore());
+        if (!isEmpty()) {
+            remainingHeight -= Math.max(currentSpacingAfter, layout.getSpacingBefore());
+            currentVertPos -= Math.max(currentSpacingAfter, layout.getSpacingBefore());
+        }
 
         pdfBuilder.addOperator(new PushGraphicsState());
         if (content instanceof TextContent) {
