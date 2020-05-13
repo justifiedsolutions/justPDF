@@ -5,12 +5,12 @@ import com.justifiedsolutions.jspdf.api.content.Paragraph;
 import com.justifiedsolutions.jspdf.api.content.Phrase;
 import com.justifiedsolutions.jspdf.api.content.TextContent;
 
-import java.util.Objects;
-
 class TextContentUtility {
 
     static Paragraph getParagraph(TextContent content) {
-        Objects.requireNonNull(content);
+        if (content == null) {
+            return null;
+        }
         if (content instanceof Paragraph) {
             return (Paragraph) content;
         } else if (content instanceof Phrase) {

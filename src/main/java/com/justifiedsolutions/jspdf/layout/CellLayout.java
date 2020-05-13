@@ -122,10 +122,12 @@ class CellLayout {
 
     private void layoutContent() {
         ContentLayout contentLayout = getContentLayout();
-        ContentLine line = contentLayout.getNextLine(0);
-        while (line != null) {
-            contentLines.add(line);
-            line = contentLayout.getNextLine(0);
+        if (contentLayout != null) {
+            ContentLine line = contentLayout.getNextLine(0);
+            while (line != null) {
+                contentLines.add(line);
+                line = contentLayout.getNextLine(0);
+            }
         }
     }
 
@@ -133,10 +135,13 @@ class CellLayout {
         float contentWidth = cellWidth - (cell.getPaddingLeft() + cell.getPaddingRight());
 
         Paragraph content = TextContentUtility.getParagraph(cell.getContent());
-        content.setSpacingBefore(0);
-        content.setSpacingAfter(0);
-        content.setAlignment(cell.getHorizontalAlignment());
-        return new TextContentLayout(contentWidth, content);
+        if (content != null) {
+            content.setSpacingBefore(0);
+            content.setSpacingAfter(0);
+            content.setAlignment(cell.getHorizontalAlignment());
+            return new TextContentLayout(contentWidth, content);
+        }
+        return null;
     }
 
     private float getTextHeight() {
@@ -195,6 +200,9 @@ class CellLayout {
 
     private List<GraphicsOperator> drawCellContents() {
         List<GraphicsOperator> result = new ArrayList<>();
+        if (contentLines.isEmpty()) {
+            return result;
+        }
 
         float textHeight = getTextHeight();
 
@@ -207,22 +215,14 @@ class CellLayout {
         } else if (VerticalAlignment.BOTTOM == cell.getVerticalAlignment()) {
             startY = location.getLLy().getValue() + textHeight + cell.getPaddingBottom();
         }
-
         float startX = location.getLLx().getValue() + cell.getPaddingLeft();
-        boolean hasText = !contentLines.isEmpty();
 
-        if (hasText) {
-            result.add(new BeginText());
-            result.add(new AbsolutePositionText(new PDFReal(startX), new PDFReal(startY)));
-        }
-
+        result.add(new BeginText());
+        result.add(new AbsolutePositionText(new PDFReal(startX), new PDFReal(startY)));
         for (ContentLine line : contentLines) {
             result.addAll(line.getOperators());
         }
-
-        if (hasText) {
-            result.add(new EndText());
-        }
+        result.add(new EndText());
 
         return result;
     }
@@ -246,5 +246,4 @@ class CellLayout {
         }
         return result;
     }
-
 }
