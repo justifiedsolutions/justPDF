@@ -10,6 +10,7 @@ import com.justifiedsolutions.jspdf.api.font.PDFFont;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Lays out {@link TextContent} into a series of {@link ContentLine}s.
@@ -29,7 +30,7 @@ class TextContentLayout implements ContentLayout {
      * @param textContent the {@link TextContent} to layout
      */
     TextContentLayout(float lineWidth, TextContent textContent) {
-        this.paragraph = TextContentUtility.getParagraph(textContent);
+        this.paragraph = TextContentUtility.getParagraph(Objects.requireNonNull(textContent));
         this.lineWidth = lineWidth;
 
         this.spacingBefore = this.paragraph.getSpacingBefore();
