@@ -114,6 +114,10 @@ class TextLine implements ContentLine {
      * @return the remainder or null if it all fit
      */
     Chunk append(Chunk chunk) {
+        PDFFontWrapper wrapper = PDFFontWrapper.getInstance(chunk.getFont());
+        setLeading(wrapper.getMinimumLeading());
+        setLeading(lineHeight * wrapper.getSize().getValue());
+
         if (remainingWidth == 0) {
             return chunk;
         }
@@ -127,10 +131,6 @@ class TextLine implements ContentLine {
             return null;
         }
 
-        PDFFontWrapper wrapper = PDFFontWrapper.getInstance(chunk.getFont());
-        setLeading(wrapper.getMinimumLeading());
-        setLeading(lineHeight * wrapper.getSize().getValue());
-
         String chunkText;
         boolean firstWord = (lineWidth == remainingWidth);
         if (firstWord) {
@@ -140,6 +140,10 @@ class TextLine implements ContentLine {
         }
 
         List<String> split = splitText(chunkText, wrapper);
+
+        if (firstWord && split.get(0).isEmpty()) {
+            throw new IllegalArgumentException("Unable to format document. Content does not fit width.");
+        }
 
         if (!split.get(0).isEmpty()) {
             operators.add(new FontWrapperOperator(wrapper));
