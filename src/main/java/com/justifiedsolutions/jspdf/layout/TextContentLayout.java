@@ -64,7 +64,7 @@ class TextContentLayout implements ContentLayout {
             return null;
         }
 
-        List<Content> originalContent = new ArrayList<>(paragraph.getContent());
+        List<TextContent> originalContent = new ArrayList<>(paragraph.getContent());
 
         float leftIndent = paragraph.getLeftIndent();
         if (firstLine) {
@@ -77,7 +77,7 @@ class TextContentLayout implements ContentLayout {
         line.setLineHeight(paragraph.getLineHeight());
         line.setPreviousLineStart(lineStart);
 
-        for (Content content : paragraph.getContent()) {
+        for (TextContent content : paragraph.getContent()) {
             originalContent.remove(content);
             if (content instanceof Chunk) {
                 Chunk chunk = (Chunk) content;

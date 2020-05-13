@@ -19,7 +19,7 @@ import java.util.Objects;
  */
 public class Paragraph implements TextContent {
 
-    private final List<Content> content = new ArrayList<>();
+    private final List<TextContent> content = new ArrayList<>();
     private float leading = 0f;
     private float lineHeight = 0f;
     private Font font;
@@ -43,7 +43,7 @@ public class Paragraph implements TextContent {
      * @param content the content
      * @throws IllegalArgumentException if content is not a Chunk or Phrase
      */
-    public Paragraph(Content content) {
+    public Paragraph(TextContent content) {
         this(content, null);
     }
 
@@ -63,7 +63,7 @@ public class Paragraph implements TextContent {
      * @param font    the font
      * @throws IllegalArgumentException if content is not a Chunk or Phrase
      */
-    public Paragraph(Content content, Font font) {
+    public Paragraph(TextContent content, Font font) {
         add(content);
         setFont(font);
     }
@@ -85,7 +85,7 @@ public class Paragraph implements TextContent {
      * @param paragraph the Paragraph to copy
      * @param content   the content to copy
      */
-    public Paragraph(Paragraph paragraph, List<Content> content) {
+    public Paragraph(Paragraph paragraph, List<TextContent> content) {
         this.leading = paragraph.leading;
         this.lineHeight = paragraph.lineHeight;
         this.font = paragraph.font;
@@ -282,7 +282,7 @@ public class Paragraph implements TextContent {
      *
      * @return the list of Content
      */
-    public List<Content> getContent() {
+    public List<TextContent> getContent() {
         return Collections.unmodifiableList(content);
     }
 
@@ -292,7 +292,7 @@ public class Paragraph implements TextContent {
      * @param content the content
      * @throws IllegalArgumentException if content is not a Chunk or Phrase
      */
-    public void add(Content content) {
+    public void add(TextContent content) {
         if (content == null) {
             return;
         }

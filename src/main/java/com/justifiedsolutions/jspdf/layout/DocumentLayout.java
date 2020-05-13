@@ -5,12 +5,8 @@
 
 package com.justifiedsolutions.jspdf.layout;
 
-import com.justifiedsolutions.jspdf.api.Document;
-import com.justifiedsolutions.jspdf.api.DocumentException;
-import com.justifiedsolutions.jspdf.api.Margin;
-import com.justifiedsolutions.jspdf.api.Metadata;
-import com.justifiedsolutions.jspdf.api.content.Content;
-import com.justifiedsolutions.jspdf.api.content.PageBreak;
+import com.justifiedsolutions.jspdf.api.*;
+import com.justifiedsolutions.jspdf.api.content.*;
 import com.justifiedsolutions.jspdf.pdf.doc.PDFDocument;
 import com.justifiedsolutions.jspdf.pdf.doc.PDFInfoDictionary;
 import com.justifiedsolutions.jspdf.pdf.object.PDFDate;
@@ -19,6 +15,8 @@ import com.justifiedsolutions.jspdf.pdf.object.PDFString;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Lays out a specified {@link Document} as a {@link PDFDocument}. Takes care of pagination, etc.
@@ -142,8 +140,45 @@ public class DocumentLayout {
 
     }
 
-    private void layoutSections() {
-        //TODO layout sections
+    private void layoutSections() throws DocumentException {
+        String empty = "";
+        try {
+            createPage();
+            for (Section section : document.getSections()) {
+                layoutSection(empty, section);
+            }
+            completePage();
+        } catch (IOException e) {
+            throw new DocumentException("Error laying out page.", e);
+        }
     }
 
+    private void layoutSection(String parentSectionNumber, Section section) throws IOException, DocumentException {
+        List<TextContent> headerContent = new ArrayList<>();
+
+        String sectionNumber = "";
+        if (!parentSectionNumber.isEmpty()) {
+            sectionNumber = parentSectionNumber.trim() + ".";
+        }
+        sectionNumber += section.getSectionNumber() + " ";
+        if (section.isDisplaySectionNumber()) {
+            headerContent.add(new Chunk(sectionNumber));
+        }
+        headerContent.addAll(section.getTitle().getContent());
+
+        Paragraph header = new Paragraph(section.getTitle(), headerContent);
+
+        if (section.isStartsNewPage()) {
+            layoutContent(new PageBreak());
+        }
+        layoutContent(header);
+
+        for (Content content : section.getContent()) {
+            layoutContent(content);
+        }
+
+        for (Section child : section.getSections()) {
+            layoutSection(sectionNumber, child);
+        }
+    }
 }

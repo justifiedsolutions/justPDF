@@ -22,13 +22,13 @@ class TextLine implements ContentLine {
     private final List<GraphicsOperator> operators = new ArrayList<>();
 
     private final float lineWidth;
+    private final float leftIndent;
     private float remainingWidth;
     private float lineStart = 0;
     private float previousLineStart = 0;
     private float leading = 0;
     private float lineHeight = 0;
     private HorizontalAlignment alignment = HorizontalAlignment.LEFT;
-    private final float leftIndent;
     private int numSpaces = 0;
     private int numChars = 0;
 
@@ -193,13 +193,15 @@ class TextLine implements ContentLine {
             }
         }
 
-        numSpaces += (spaceCount - 1);
-        numChars += splitPoint;
         remainingWidth -= textWidth;
         calculateLineStart();
         if (!reachedEOL) {
+            numSpaces = spaceCount;
+            numChars += (chars.length - spaceCount);
             result.add(input);
         } else {
+            numSpaces = spaceCount - 1;
+            numChars += splitPoint;
             result.add(new String(chars, 0, splitPoint));
             result.add(new String(chars, splitPoint, (chars.length - splitPoint)));
         }
@@ -223,7 +225,7 @@ class TextLine implements ContentLine {
             operators.add(new PositionText(new PDFReal(start), new PDFReal(0)));
         }
         if (HorizontalAlignment.JUSTIFIED == alignment) {
-            if ((lineWidth * .25f) < remainingWidth) {
+            if ((lineWidth * .2f) < remainingWidth) {
                 operators.add(new SetWordSpacing(new PDFReal(0)));
                 operators.add(new SetCharacterSpacing(new PDFReal(0)));
             } else {

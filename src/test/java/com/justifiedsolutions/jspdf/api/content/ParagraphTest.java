@@ -115,7 +115,7 @@ public class ParagraphTest {
     public void addContentChunk() {
         Chunk input = new Chunk();
         paragraph.add(input);
-        List<Content> actual = paragraph.getContent();
+        List<TextContent> actual = paragraph.getContent();
         assertNotNull(actual);
         assertEquals(1, actual.size());
         assertEquals(input, actual.get(0));
@@ -125,7 +125,7 @@ public class ParagraphTest {
     public void addContentPhrase() {
         Phrase input = new Phrase();
         paragraph.add(input);
-        List<Content> actual = paragraph.getContent();
+        List<TextContent> actual = paragraph.getContent();
         assertNotNull(actual);
         assertEquals(1, actual.size());
         assertEquals(input, actual.get(0));
@@ -137,14 +137,9 @@ public class ParagraphTest {
     }
 
     @Test
-    public void addContentPageBreak() {
-        assertThrows(IllegalArgumentException.class, () -> paragraph.add(new PageBreak()));
-    }
-
-    @Test
     public void addContentNull() {
-        paragraph.add((Content) null);
-        List<Content> actual = paragraph.getContent();
+        paragraph.add((TextContent) null);
+        List<TextContent> actual = paragraph.getContent();
         assertNotNull(actual);
         assertEquals(0, actual.size());
     }
@@ -153,7 +148,7 @@ public class ParagraphTest {
     public void addString() {
         String input = "foo";
         paragraph.add(input);
-        List<Content> actual = paragraph.getContent();
+        List<TextContent> actual = paragraph.getContent();
         assertNotNull(actual);
         assertEquals(1, actual.size());
         assertEquals(new Chunk(input), actual.get(0));
@@ -162,7 +157,7 @@ public class ParagraphTest {
     @Test
     public void addStringNull() {
         paragraph.add((String) null);
-        List<Content> actual = paragraph.getContent();
+        List<TextContent> actual = paragraph.getContent();
         assertNotNull(actual);
         assertEquals(0, actual.size());
     }
