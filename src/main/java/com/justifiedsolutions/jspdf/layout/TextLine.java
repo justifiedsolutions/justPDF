@@ -142,7 +142,8 @@ class TextLine implements ContentLine {
         List<String> split = splitText(chunkText, wrapper);
 
         if (firstWord && split.get(0).isEmpty()) {
-            throw new IllegalArgumentException("Unable to format document. Content does not fit width.");
+            throw new IllegalArgumentException("Unable to format document. Content does not fit width.\n("
+                    + chunk.getText() + "), width = " + lineWidth);
         }
 
         if (!split.get(0).isEmpty()) {
