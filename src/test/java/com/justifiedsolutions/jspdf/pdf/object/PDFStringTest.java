@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
@@ -18,33 +17,36 @@ public class PDFStringTest {
     @Test
     public void writeToPDFString() throws IOException {
         String value = "string";
-        testPDFString(value, value);
+        byte[] expected = {'(', 0, (byte) 's', 0, (byte) 't', 0, (byte) 'r', 0, (byte) 'i', 0, (byte) 'n', 0, (byte) 'g', ')'};
+        testPDFString(value, expected);
     }
 
     @Test
     public void writeToPDFEmpty() throws IOException {
         String value = "";
-        testPDFString(value, value);
+        byte[] expected = {'(', ')'};
+        testPDFString(value, expected);
     }
 
     @Test
     public void writeToPDFNewLine() throws IOException {
-        testPDFString("foo\\nbar", "foo\nbar");
+        String value = "f\nb";
+        byte[] expected = {'(', 0, (byte) 'f', (byte) '\\', (byte) 'n', 0, (byte) 'b', ')'};
+        testPDFString(value, expected);
     }
 
-    private void testPDFString(String value, String input) throws IOException {
-        ByteArrayOutputStream expected = new ByteArrayOutputStream();
-        expected.write('(');
-        if (value != null && !value.isEmpty()) {
-            byte[] data = value.getBytes(StandardCharsets.UTF_16BE);
-            expected.writeBytes(data);
-        }
-        expected.write(')');
+    @Test
+    public void writeToPDFUnbalancedParen() throws IOException {
+        String value = "f(b";
+        byte[] expected = {'(', 0, (byte) 'f', (byte) '\\', (byte) '(', 0, (byte) 'b', ')'};
+        testPDFString(value, expected);
+    }
 
+    private void testPDFString(String input, byte[] expected) throws IOException {
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         PDFString string = new PDFString(input);
         string.writeToPDF(actual);
 
-        assertArrayEquals(expected.toByteArray(), actual.toByteArray());
+        assertArrayEquals(expected, actual.toByteArray());
     }
 }

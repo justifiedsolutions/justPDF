@@ -5,8 +5,10 @@
 
 package com.justifiedsolutions.jspdf.pdf.object;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
@@ -53,43 +55,43 @@ public class PDFString implements PDFObject {
     @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
         pdf.write('(');
-        byte[] bytes = escapeValue().getBytes(StandardCharsets.UTF_16BE);
-        if (bytes.length > 0) {
-            pdf.write(bytes);
+        for (char character : value.toCharArray()) {
+            byte[] bytes = escapeValue(character, StandardCharsets.UTF_16BE);
+            if (bytes.length > 0) {
+                pdf.write(bytes);
+            }
         }
         pdf.write(')');
     }
 
-    protected String escapeValue() {
-        StringBuilder result = new StringBuilder();
-        for (char c : value.toCharArray()) {
-            switch (c) {
-                case '\n':
-                    result.append("\\n");
-                    break;
-                case '\r':
-                    result.append("\\r");
-                    break;
-                case '\t':
-                    result.append("\\t");
-                    break;
-                case '\b':
-                    result.append("\\b");
-                    break;
-                case '\f':
-                    result.append("\\f");
-                    break;
-                case '(':
-                case ')':
-                case '\\':
-                    result.append('\\').append(c);
-                    break;
-                default:
-                    result.append(c);
-
-            }
+    protected byte[] escapeValue(char c, Charset charset) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        switch (c) {
+            case '\n':
+                bytes.writeBytes("\\n".getBytes(StandardCharsets.US_ASCII));
+                break;
+            case '\r':
+                bytes.writeBytes("\\r".getBytes(StandardCharsets.US_ASCII));
+                break;
+            case '\t':
+                bytes.writeBytes("\\t".getBytes(StandardCharsets.US_ASCII));
+                break;
+            case '\b':
+                bytes.writeBytes("\\b".getBytes(StandardCharsets.US_ASCII));
+                break;
+            case '\f':
+                bytes.writeBytes("\\f".getBytes(StandardCharsets.US_ASCII));
+                break;
+            case '(':
+            case ')':
+            case '\\':
+                String cString = "\\" + c;
+                bytes.writeBytes(cString.getBytes(StandardCharsets.US_ASCII));
+                break;
+            default:
+                bytes.writeBytes(String.valueOf(c).getBytes(charset));
         }
-        return result.toString();
+        return bytes.toByteArray();
     }
 
 }

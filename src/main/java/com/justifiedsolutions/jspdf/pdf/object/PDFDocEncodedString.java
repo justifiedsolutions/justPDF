@@ -8,6 +8,7 @@ package com.justifiedsolutions.jspdf.pdf.object;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,13 +68,20 @@ public class PDFDocEncodedString extends PDFString {
         super(value);
     }
 
-    private static byte[] encodeString(String text) {
+    @Override
+    public void writeToPDF(OutputStream pdf) throws IOException {
+        byte[] encodedValue = encodeString(getValue());
+        pdf.write('(');
+        pdf.write(encodedValue);
+        pdf.write(')');
+    }
+
+    private byte[] encodeString(String text) {
         ByteArrayOutputStream result = new ByteArrayOutputStream();
 
-        char[] textChars = text.toCharArray();
-        for (char character : textChars) {
+        for (char character : text.toCharArray()) {
             if (character < 128 || (character > 160 && character < 256)) {
-                result.write(character);
+                result.writeBytes(escapeValue(character, StandardCharsets.US_ASCII));
             } else {
                 Integer charCode = PDF_DOC_ENCODING.get(character);
                 if (charCode != null) {
@@ -82,14 +90,5 @@ public class PDFDocEncodedString extends PDFString {
             }
         }
         return result.toByteArray();
-    }
-
-    @Override
-    public void writeToPDF(OutputStream pdf) throws IOException {
-        String escapedValue = escapeValue();
-        byte[] encodedValue = encodeString(escapedValue);
-        pdf.write('(');
-        pdf.write(encodedValue);
-        pdf.write(')');
     }
 }
