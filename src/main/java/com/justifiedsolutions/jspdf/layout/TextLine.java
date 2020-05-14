@@ -127,6 +127,14 @@ class TextLine implements ContentLine {
             return null;
         }
 
+        if (chunk.getText().startsWith("\n")) {
+            remainingWidth = 0;
+            if (chunk.getText().length() == 1) {
+                return null;
+            }
+            return new Chunk(chunk.getText().substring(1), chunk.getFont());
+        }
+
         if (chunk.getText().isEmpty()) {
             return null;
         }
@@ -141,7 +149,7 @@ class TextLine implements ContentLine {
 
         List<String> split = splitText(chunkText, wrapper);
 
-        if (firstWord && split.get(0).isEmpty()) {
+        if (firstWord && split.get(0).isEmpty() && split.size() == 2) {
             throw new IllegalArgumentException("Unable to format document. Content does not fit width.\n("
                     + chunk.getText() + "), width = " + lineWidth);
         }
