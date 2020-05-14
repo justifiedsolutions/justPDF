@@ -191,6 +191,7 @@ class TextLine implements ContentLine {
                     splitPoint = lastWhitespace;
                     textWidth = textWidthAtLastWhitespace;
                     reachedEOL = true;
+                    chars[i] = ' ';
                     break;
                 }
             }
