@@ -1,7 +1,7 @@
 /**
  * This module allows you to model a PDF document and then write it out. Start by looking at creating a {@link
- * com.justifiedsolutions.jspdf.api.Document}. Then proceed by adding {@link com.justifiedsolutions.jspdf.api.Metadata}
- * and {@link com.justifiedsolutions.jspdf.api.content.Content} to the Document. Finally, the Document can be written to
+ * com.justifiedsolutions.justpdf.api.Document}. Then proceed by adding {@link com.justifiedsolutions.justpdf.api.Metadata}
+ * and {@link com.justifiedsolutions.justpdf.api.content.Content} to the Document. Finally, the Document can be written to
  * an {@link java.io.OutputStream}.
  *
  * <H2>Debugging Support</H2>
@@ -13,10 +13,10 @@
  * <LI>{@code DrawCellPadding} - Draws a box around the content area of a cell</LI>
  * </UL>
  */
-module com.justifiedsolutions.jspdf {
+module com.justifiedsolutions.justpdf {
     requires java.desktop;
 
-    exports com.justifiedsolutions.jspdf.api;
-    exports com.justifiedsolutions.jspdf.api.content;
-    exports com.justifiedsolutions.jspdf.api.font;
+    exports com.justifiedsolutions.justpdf.api;
+    exports com.justifiedsolutions.justpdf.api.content;
+    exports com.justifiedsolutions.justpdf.api.font;
 }

@@ -9,12 +9,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.justifiedsolutions</groupId>
-    <artifactId>jspdf</artifactId>
+    <artifactId>justPDF</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Justified Solutions PDF</name>
-    <url>https://github.com/justifiedsolutions/jspdf</url>
+    <url>https://github.com/justifiedsolutions/justPDF</url>
     <description>An Open Source library for creating PDF files</description>
 
     <licenses>
@@ -35,9 +35,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/justifiedsolutions/jspdf</connection>
-        <developerConnection>scm:git:ssh://github.com/justifiedsolutions/jspdf</developerConnection>
-        <url>https://github.com/justifiedsolutions/jspdf</url>
+        <connection>scm:git:git://github.com/justifiedsolutions/justPDF</connection>
+        <developerConnection>scm:git:ssh://github.com/justifiedsolutions/justPDF</developerConnection>
+        <url>https://github.com/justifiedsolutions/justPDF</url>
     </scm>
 
     <properties>
