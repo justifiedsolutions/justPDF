@@ -44,8 +44,7 @@ The primary goal for justPDF is to provide a PDF library to support Justified So
 ## TODOs ##
 
 * Content Object Filters
-	* ASCII85Decode
-	* LZWDecode or FlateDecode
+	* FlateEncode
 
 ## Unimplemented Features ##
 
