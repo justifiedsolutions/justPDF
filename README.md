@@ -15,7 +15,7 @@ Add this to your pom.xml file to use the latest version of OpenPDF:
 			    <dependency>
 			        <groupId>com.justifiedsolutions</groupId>
 			        <artifactId>justPDF</artifactId>
-			        <version>0.1.0</version>
+			        <version>1.0.0</version>
 			    </dependency>
 
 ## Goals ##
@@ -30,7 +30,12 @@ The primary goal for justPDF is to provide a PDF library to support Justified So
 
 ## Releases ##
 
-### justPDF 0.1.0 (2020-XX-XX) ###
+### justPDF 1.0.0 (2020-05-18) ###
+
+* Add DeflateFilter
+* Completes Initial Project Goals
+
+## justPDF 0.1.0 (2020-05-16) ###
 
 * Initial Release
 * Document Layout
@@ -41,18 +46,13 @@ The primary goal for justPDF is to provide a PDF library to support Justified So
 * Document Metadata
 * Standard 14 Fonts
 
-## TODOs ##
-
-* Content Object Filters
-	* FlateEncode
-
 ## Unimplemented Features ##
 
 These are PDF features that there are not currently plans to implement. If you would like to see any of these features added to the library, we're happy to accept pull requests. Alternatively, we can discuss a sponsorship to complete the feature.
 
-* TrueType Fonts
 * Document Outline
 * Image Support
+* TrueType Fonts
 * Encryption
 * Digital Signatures
 * Forms
