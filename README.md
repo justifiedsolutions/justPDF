@@ -35,7 +35,7 @@ The primary goal for justPDF is to provide a PDF library to support Justified So
 * Add DeflateFilter
 * Completes Initial Project Goals
 
-## justPDF 0.1.0 (2020-05-16) ###
+### justPDF 0.1.0 (2020-05-16) ###
 
 * Initial Release
 * Document Layout
