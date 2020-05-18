@@ -1,4 +1,14 @@
 language: java
 jdk:
-  - openjdk11
-  - openjdk14
+- openjdk11
+- openjdk14
+
+addons:
+  sonarcloud:
+    organization: "justifiedsolutions"
+    token:
+      secure: "CeYbXn0DKzKvdSTEJudCapKDG/OxbirlVuPTZlKv8+iPu9huJ6Hr/kxVHxtULRGWre5uuXt75So/07xJ4o5T8U5pRnsx82R0lJUQKvJmQyvjmiScIiu8rg3kLs+qSSqZ2pjb30Ql19iJtb+UJcb/ZBBjnZpDmpEjloU6AheH8HpN1rkaA2kAZXIuBK/uesgBHk2oL9pYIs/pSE1dSYiGkQmBxBOBcueFaZAqBnLLxSotYBEn5FYXZ8A7pgGSDCPY8VQzRvMRA7RglTCbIekOdS3IEb1F1K6pZmL8gMC7Z8vXQ6bDSW/JpU3neWGFT1f8FpyOunoqg0zkG6xFmPN0aYDTTgLozEbaNdy6WPJd44wXqLGTRwRRlaDSaffCUlOZceP5StBSRgDBiD1XmMO9LRzIfnK8bI/hLk/n9xBGCLoXJ5pD01sQJiq1ArcrOwx6pG8sv+YibUoMqzGPW7jC75Npq4rhxg5IZ0m3PLyyA2eo4UzqqtKPAWK0kDW0B8BJRWDgKPrPkQtNAK5kHzQlU/8QZ3RZZZPR2IhuefvF5PNeDyuCmxnhECkMCFGLX464D/pIVTpd3iQJx7r7f7X4wKvTvqL/SpO67TTdr814Dyh4QLKyoeU3PIBDhC5S47id5xnO+UNEFIep3B9KoSCs3Q4p0+sRmemzIDd8XZVEPYE="
+
+script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
