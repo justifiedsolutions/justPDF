@@ -6,6 +6,7 @@
 package com.justifiedsolutions.justpdf.pdf.doc;
 
 import com.justifiedsolutions.justpdf.pdf.contents.*;
+import com.justifiedsolutions.justpdf.pdf.filter.DeflateFilter;
 import com.justifiedsolutions.justpdf.pdf.font.PDFFont;
 import com.justifiedsolutions.justpdf.pdf.font.PDFFontType1;
 import com.justifiedsolutions.justpdf.pdf.object.*;
@@ -32,6 +33,7 @@ public class PDFDocumentTest {
             PDFPage page = doc.createPage(new PDFRectangle(0, 0, 612, 792));
             PDFName fontName = page.addFontReference(fontReference);
             PDFContentStreamBuilder builder = new PDFContentStreamBuilder();
+            builder.addFilter(new DeflateFilter());
             builder.addOperator(new SetLineWidth(new PDFReal(.5f)));
             builder.addOperator(new CreateRectangularPath(new PDFRectangle(70, 718, 235, 740)));
             builder.addOperator(new StrokePath());

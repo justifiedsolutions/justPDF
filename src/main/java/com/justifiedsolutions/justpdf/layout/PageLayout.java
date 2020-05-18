@@ -12,6 +12,7 @@ import com.justifiedsolutions.justpdf.api.content.TextContent;
 import com.justifiedsolutions.justpdf.pdf.contents.*;
 import com.justifiedsolutions.justpdf.pdf.doc.PDFDocument;
 import com.justifiedsolutions.justpdf.pdf.doc.PDFPage;
+import com.justifiedsolutions.justpdf.pdf.filter.DeflateFilter;
 import com.justifiedsolutions.justpdf.pdf.object.PDFIndirectObject;
 import com.justifiedsolutions.justpdf.pdf.object.PDFName;
 import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
@@ -60,6 +61,7 @@ class PageLayout {
         this.pdfPage = pdfDocument.createPage(pageSize);
 
         this.pdfBuilder = new PDFContentStreamBuilder();
+        this.pdfBuilder.addFilter(new DeflateFilter());
 
         this.margin = margin;
         this.remainingHeight = height - (margin.getTop() + margin.getBottom());

@@ -11,6 +11,7 @@
  * <LI>{@code DrawMargin} - Draws a box on every page at the margin</LI>
  * <LI>{@code DrawCenterLine} - Draws a vertical line thru the center of the page from top to bottom margin</LI>
  * <LI>{@code DrawCellPadding} - Draws a box around the content area of a cell</LI>
+ * <LI>{@code DisableContentFilters} - Disables all Filters in Content Streams</LI>
  * </UL>
  */
 module com.justifiedsolutions.justpdf {

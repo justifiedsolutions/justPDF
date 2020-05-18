@@ -5,6 +5,10 @@
 
 package com.justifiedsolutions.justpdf.pdf.contents;
 
+import com.justifiedsolutions.justpdf.pdf.filter.PDFFilter;
+import com.justifiedsolutions.justpdf.pdf.object.PDFArray;
+import com.justifiedsolutions.justpdf.pdf.object.PDFDictionary;
+import com.justifiedsolutions.justpdf.pdf.object.PDFName;
 import com.justifiedsolutions.justpdf.pdf.object.PDFStream;
 
 import java.io.ByteArrayOutputStream;
@@ -23,10 +27,17 @@ import java.util.List;
  */
 public class PDFContentStreamBuilder {
 
+    private final boolean disableFilters;
+    private final List<PDFFilter> filters = new ArrayList<>();
     private final List<GraphicsOperator> operators = new ArrayList<>();
     private final Deque<GraphicsState> graphicsStateStack = new ArrayDeque<>();
     private GraphicsState graphicsState = new GraphicsState();
     private GraphicsObject graphicsObject = new PageDescriptionObject();
+
+    public PDFContentStreamBuilder() {
+        Object debug = System.getProperties().get("DisableContentFilters");
+        disableFilters = (debug != null);
+    }
 
     /**
      * Checks to see if the stream is empty.
@@ -35,6 +46,22 @@ public class PDFContentStreamBuilder {
      */
     public boolean isEmpty() {
         return operators.isEmpty();
+    }
+
+    /**
+     * Adds the specified filter to the list of filters to apply to the content. If the filter has already been added,
+     * it will not be added again. Filters are executed in the order that they are added.
+     *
+     * @param filter the filter to add
+     */
+    public void addFilter(PDFFilter filter) {
+        if (disableFilters) {
+            return;
+        }
+
+        if (!filters.contains(filter)) {
+            filters.add(filter);
+        }
     }
 
     /**
@@ -104,9 +131,46 @@ public class PDFContentStreamBuilder {
      */
     public PDFStream getStream() throws IOException {
         if (graphicsStateStack.isEmpty() && (graphicsObject instanceof PageDescriptionObject) && !operators.isEmpty()) {
-            return new PDFStream(getByteArray());
+            PDFStream stream = new PDFStream(applyFilters(getByteArray()));
+            stream.addFilter(getDecodeFilterArray());
+            stream.addDecodeParams(getDecodeFilterParams());
+            return stream;
         }
         throw new IllegalStateException("Contents are not complete. Cannot create content stream.");
+    }
+
+    /**
+     * Gets the array of filter names required to decode this content stream.
+     *
+     * @return the PDFArray containing the filter names. The Array is empty if filters are applied
+     */
+    private PDFArray getDecodeFilterArray() {
+        PDFArray result = new PDFArray();
+        Deque<PDFName> names = new ArrayDeque<>();
+        for (PDFFilter filter : filters) {
+            names.push(filter.getDecodeFilterName());
+        }
+        while (!names.isEmpty()) {
+            PDFName name = names.pop();
+            result.add(name);
+        }
+        return result;
+    }
+
+    /**
+     * Gets the array of Decode Filter Parameters.
+     *
+     * @return the array or {@code null} if there are no parameters
+     */
+    private PDFArray getDecodeFilterParams() {
+        PDFArray result = new PDFArray();
+        for (PDFFilter filter : filters) {
+            PDFDictionary params = filter.getDecodeFilterParams();
+            if (params != null) {
+                result.add(params);
+            }
+        }
+        return (result.isEmpty() ? null : result);
     }
 
     private byte[] getByteArray() throws IOException {
@@ -115,5 +179,13 @@ public class PDFContentStreamBuilder {
             operator.writeToPDF(bytes);
         }
         return bytes.toByteArray();
+    }
+
+    private byte[] applyFilters(byte[] input) {
+        byte[] data = input;
+        for (PDFFilter filter : filters) {
+            data = filter.filter(data);
+        }
+        return data;
     }
 }

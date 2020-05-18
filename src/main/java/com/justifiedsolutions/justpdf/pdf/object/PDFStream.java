@@ -31,6 +31,28 @@ public class PDFStream implements PDFObject {
         dictionary.put(new PDFName("Length"), new PDFInteger(data.length));
     }
 
+    /**
+     * Adds a {@code Filter} entry to the stream dictionary.
+     *
+     * @param filters the {@link PDFArray} of filters
+     */
+    public void addFilter(PDFArray filters) {
+        if (filters != null && !filters.isEmpty()) {
+            dictionary.put(new PDFName("Filter"), filters);
+        }
+    }
+
+    public void addDecodeParams(PDFArray params) {
+        if (params != null && !params.isEmpty()) {
+            PDFName key = new PDFName("DecodeParms");
+            if (params.size() == 1) {
+                dictionary.put(key, params.get(0));
+            } else {
+                dictionary.put(key, params);
+            }
+        }
+    }
+
     @Override
     public int hashCode() {
         int result = Objects.hash(dictionary);
