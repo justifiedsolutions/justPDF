@@ -10,7 +10,7 @@ An Open Source library for creating basic PDF documents.
 `SPDX-License-Identifier: Apache-2.0`
 
 ## Maven Dependency ##
-Add this to your pom.xml file to use the latest version of OpenPDF:
+Add this to your pom.xml file to use the latest version of justPDF:
 
 			    <dependency>
 			        <groupId>com.justifiedsolutions</groupId>
