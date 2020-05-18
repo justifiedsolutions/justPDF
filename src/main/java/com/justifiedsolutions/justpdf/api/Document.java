@@ -22,7 +22,7 @@ public class Document {
 
     private final PageSize pageSize;
     private final Margin margin;
-    private final Map<Metadata, String> metadata = new HashMap<>();
+    private final Map<Metadata, String> metadata = new EnumMap<>(Metadata.class);
     private final List<Section> sections = new ArrayList<>();
     private final List<Content> content = new ArrayList<>();
     private Header header;
