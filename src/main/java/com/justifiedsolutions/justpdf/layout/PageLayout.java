@@ -214,6 +214,9 @@ class PageLayout {
         paragraph.setSpacingBefore(0);
         paragraph.setSpacingAfter(0);
         ContentLayout layout = getContentLayout(paragraph);
+        if (layout == null) {
+            return;
+        }
         float contentHeight = layout.getMinimumHeight();
         float diff = (marginHeight - contentHeight) / 2f;
         if (diff < 1) { // too close to the margin
