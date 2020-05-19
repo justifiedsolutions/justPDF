@@ -75,12 +75,10 @@ public class PDFFontType1 extends PDFFont {
         String location = String.format("/afm/%s.afm", fontName);
         InputStream is = PDFFontType1.class.getResourceAsStream(location);
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.US_ASCII))) {
-            while (true) {
-                String line = reader.readLine();
-                if (line.contains("StartCharMetrics")) {
-                    break;
-                }
+            String line = reader.readLine();
+            while (!line.contains("StartCharMetrics")) {
                 descriptor.parseAFMLine(line);
+                line = reader.readLine();
             }
 
             PDFObject ascentObject = descriptor.get(PDFFontDescriptor.ASCENT);
@@ -100,12 +98,8 @@ public class PDFFontType1 extends PDFFont {
             PDFArray widths = new PDFArray();
 
             boolean firstLine = true;
-            while (true) {
-                String line = reader.readLine();
-                if (line.contains("EndCharMetrics")) {
-                    break;
-                }
-
+            line = reader.readLine();
+            while (!line.contains("EndCharMetrics")) {
                 int character = parseCharacter(line);
                 if (character < lastChar) {
                     break;
@@ -118,6 +112,7 @@ public class PDFFontType1 extends PDFFont {
                 lastChar = character;
                 widths.add(new PDFInteger(width));
                 characterWidths.put(character, width);
+                line = reader.readLine();
             }
 
             put(FIRST_CHAR, new PDFInteger(firstChar));
