@@ -6,6 +6,8 @@ import com.justifiedsolutions.justpdf.api.content.Phrase;
 import com.justifiedsolutions.justpdf.api.content.TextContent;
 
 class TextContentUtility {
+    private TextContentUtility() {
+    }
 
     static Paragraph getParagraph(TextContent content) {
         if (content == null) {

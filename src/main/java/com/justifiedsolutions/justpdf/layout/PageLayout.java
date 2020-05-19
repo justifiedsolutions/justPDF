@@ -111,8 +111,8 @@ class PageLayout {
         if (layout == null) {
             throw new DocumentException("Unsupported Content type: " + content.getClass().getSimpleName());
         }
-        float height = layout.getMinimumHeight();
-        return (height <= remainingHeight);
+        float layoutMinimumHeight = layout.getMinimumHeight();
+        return (layoutMinimumHeight <= remainingHeight);
     }
 
     /**

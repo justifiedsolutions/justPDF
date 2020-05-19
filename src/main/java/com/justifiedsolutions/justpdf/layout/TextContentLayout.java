@@ -6,6 +6,7 @@
 package com.justifiedsolutions.justpdf.layout;
 
 import com.justifiedsolutions.justpdf.api.content.*;
+import com.justifiedsolutions.justpdf.api.font.Font;
 import com.justifiedsolutions.justpdf.api.font.PDFFont;
 
 import java.util.ArrayList;
@@ -80,28 +81,15 @@ class TextContentLayout implements ContentLayout {
 
         for (TextContent content : paragraph.getContent()) {
             originalContent.remove(content);
+            boolean lineComplete = false;
             if (content instanceof Chunk) {
-                Chunk chunk = (Chunk) content;
-                Chunk remainder = line.append(chunk);
-                if (remainder != null) {
-                    originalContent.add(0, remainder);
-                    paragraph = new Paragraph(paragraph, originalContent);
-                    break;
-                }
+                lineComplete = processChunk((Chunk) content, line, originalContent);
             } else if (content instanceof Phrase) {
-                Phrase phrase = (Phrase) content;
-                List<Chunk> originalChunks = new ArrayList<>(phrase.getChunks());
-                for (Chunk chunk : phrase.getChunks()) {
-                    originalChunks.remove(chunk);
-                    Chunk remainder = line.append(chunk);
-                    if (remainder != null) {
-                        originalChunks.add(0, remainder);
-                        phrase = new Phrase(phrase, originalChunks);
-                        originalContent.add(0, phrase);
-                        paragraph = new Paragraph(paragraph, originalContent);
-                        break;
-                    }
-                }
+                lineComplete = processPhrase((Phrase) content, line, originalContent);
+            }
+
+            if (lineComplete) {
+                break;
             }
         }
 
@@ -129,28 +117,58 @@ class TextContentLayout implements ContentLayout {
         return spacingAfter;
     }
 
+    private boolean processChunk(Chunk chunk, TextLine line, List<TextContent> originalContent) {
+        Chunk remainder = line.append(chunk);
+        if (remainder != null) {
+            originalContent.add(0, remainder);
+            paragraph = new Paragraph(paragraph, originalContent);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean processPhrase(Phrase phrase, TextLine line, List<TextContent> originalContent) {
+        List<Chunk> originalChunks = new ArrayList<>(phrase.getChunks());
+        for (Chunk chunk : phrase.getChunks()) {
+            originalChunks.remove(chunk);
+            Chunk remainder = line.append(chunk);
+            if (remainder != null) {
+                originalChunks.add(0, remainder);
+                phrase = new Phrase(phrase, originalChunks);
+                originalContent.add(0, phrase);
+                paragraph = new Paragraph(paragraph, originalContent);
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void initializeFonts() {
         if (paragraph.getFont() == null) {
             paragraph.setFont(new PDFFont());
         }
 
-        for (Content content : paragraph.getContent()) {
+        for (TextContent content : paragraph.getContent()) {
             if (content instanceof Chunk) {
-                Chunk chunk = (Chunk) content;
-                if (chunk.getFont() == null) {
-                    chunk.setFont(paragraph.getFont());
-                }
+                initializeChunkFont((Chunk) content, paragraph.getFont());
             } else if (content instanceof Phrase) {
-                Phrase phrase = (Phrase) content;
-                if (phrase.getFont() == null) {
-                    phrase.setFont(paragraph.getFont());
-                }
-                for (Chunk chunk : phrase.getChunks()) {
-                    if (chunk.getFont() == null) {
-                        chunk.setFont(phrase.getFont());
-                    }
-                }
+                initalizePhraseFonts((Phrase) content);
             }
+        }
+    }
+
+    private void initializeChunkFont(Chunk chunk, Font defaultFont) {
+        if (chunk.getFont() == null) {
+            chunk.setFont(defaultFont);
+        }
+    }
+
+    private void initalizePhraseFonts(Phrase phrase) {
+        if (phrase.getFont() == null) {
+            phrase.setFont(paragraph.getFont());
+        }
+        for (Chunk chunk : phrase.getChunks()) {
+            initializeChunkFont(chunk, phrase.getFont());
         }
     }
 }

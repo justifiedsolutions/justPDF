@@ -188,16 +188,13 @@ class TextLine implements ContentLine {
                     spaceCount++;
                 }
                 if (c == '\n') {
-                    splitPoint = lastWhitespace;
-                    textWidth = textWidthAtLastWhitespace;
-                    reachedEOL = true;
                     chars[i] = ' ';
-                    break;
+                    reachedEOL = true;
                 }
             }
 
             float charWidth = wrapper.getCharacterWidth(c);
-            if ((textWidth + charWidth) < remainingWidth) {
+            if (!reachedEOL && ((textWidth + charWidth) < remainingWidth)) {
                 textWidth += charWidth;
             } else {
                 splitPoint = lastWhitespace;
@@ -233,24 +230,24 @@ class TextLine implements ContentLine {
     }
 
     private List<GraphicsOperator> getAlignmentOperators() {
-        List<GraphicsOperator> operators = new ArrayList<>();
+        List<GraphicsOperator> result = new ArrayList<>();
         float start = (lineStart - previousLineStart);
         if (start != 0) {
-            operators.add(new PositionText(new PDFReal(start), new PDFReal(0)));
+            result.add(new PositionText(new PDFReal(start), new PDFReal(0)));
         }
         if (HorizontalAlignment.JUSTIFIED == alignment) {
             if ((lineWidth * .2f) < remainingWidth) {
-                operators.add(new SetWordSpacing(new PDFReal(0)));
-                operators.add(new SetCharacterSpacing(new PDFReal(0)));
+                result.add(new SetWordSpacing(new PDFReal(0)));
+                result.add(new SetCharacterSpacing(new PDFReal(0)));
             } else {
                 float wordSpacing = remainingWidth / (float) numSpaces;
-                operators.add(new SetWordSpacing(new PDFReal(wordSpacing)));
+                result.add(new SetWordSpacing(new PDFReal(wordSpacing)));
                 float remainder = remainingWidth - (wordSpacing * numSpaces);
                 float charSpacing = remainder / (float) numChars;
-                operators.add(new SetCharacterSpacing(new PDFReal(charSpacing)));
+                result.add(new SetCharacterSpacing(new PDFReal(charSpacing)));
             }
         }
-        return operators;
+        return result;
     }
 
     private GraphicsOperator getColorSpaceOperator(PDFFontWrapper wrapper) {
