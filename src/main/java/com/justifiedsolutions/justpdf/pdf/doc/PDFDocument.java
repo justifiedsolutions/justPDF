@@ -73,11 +73,7 @@ public class PDFDocument {
     }
 
     public PDFIndirectObject.Reference addFont(PDFFont font) {
-        PDFIndirectObject indirectFont = fonts.get(font);
-        if (indirectFont == null) {
-            indirectFont = createIndirectObject(font);
-            fonts.put(font, indirectFont);
-        }
+        PDFIndirectObject indirectFont = fonts.computeIfAbsent(font, this::createIndirectObject);
         return indirectFont.getReference();
     }
 

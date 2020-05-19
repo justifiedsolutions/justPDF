@@ -15,7 +15,10 @@ import java.util.Objects;
  * @see "ISO 32000-1:2008, 7.9.5"
  */
 public class PDFRectangle implements PDFObject {
-    private final PDFReal llx, lly, urx, ury;
+    private final PDFReal llx;
+    private final PDFReal lly;
+    private final PDFReal urx;
+    private final PDFReal ury;
 
     /**
      * Creates a rectangle given the x,y coordinates for the lower left and upper right corners of the rectangle.
