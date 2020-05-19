@@ -148,9 +148,9 @@ public class PDFIndirectObject implements PDFObject, Comparable<PDFIndirectObjec
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-            Reference reference = (Reference) o;
-            return objectNumber.equals(reference.getObjectNumber()) &&
-                    generationNumber.equals(reference.getGenerationNumber());
+            Reference other = (Reference) o;
+            return objectNumber.equals(other.getObjectNumber()) &&
+                    generationNumber.equals(other.getGenerationNumber());
         }
 
         @Override

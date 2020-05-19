@@ -15,6 +15,7 @@ public class PDFInfoDictionaryTest {
     @Test
     public void putThrowsException() {
         PDFInfoDictionary info = new PDFInfoDictionary();
-        assertThrows(IllegalArgumentException.class, () -> info.put(PDFInfoDictionary.TITLE, new PDFString("")));
+        PDFString value = new PDFString("");
+        assertThrows(IllegalArgumentException.class, () -> info.put(PDFInfoDictionary.TITLE, value));
     }
 }

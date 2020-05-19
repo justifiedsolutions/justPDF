@@ -7,11 +7,9 @@ package com.justifiedsolutions.justpdf.pdf.font;
 
 import com.justifiedsolutions.justpdf.pdf.object.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +27,7 @@ public class PDFFontType1 extends PDFFont {
     static final PDFName FONT_DESCRIPTOR = new PDFName("FontDescriptor");
     static final PDFName ENCODING = new PDFName("Encoding");
     static final PDFName WIN_ANSI_ENCODING = new PDFName("WinAnsiEncoding");
-    private static final Map<FontName, PDFFontType1> CACHE = new HashMap<>();
+    private static final Map<FontName, PDFFontType1> CACHE = new EnumMap<>(FontName.class);
     private static final int FLAG_NON_SYMBOLIC = 32;
 
     private final PDFFontDescriptor descriptor;
@@ -59,12 +57,7 @@ public class PDFFontType1 extends PDFFont {
      * @return the font
      */
     public static PDFFont getInstance(FontName fontName) {
-        PDFFontType1 result = CACHE.get(fontName);
-        if (result == null) {
-            result = new PDFFontType1(fontName);
-            CACHE.put(fontName, result);
-        }
-        return result;
+        return CACHE.computeIfAbsent(fontName, PDFFontType1::new);
     }
 
     @Override
@@ -133,7 +126,7 @@ public class PDFFontType1 extends PDFFont {
             put(FONT_DESCRIPTOR, descriptor);
 
         } catch (IOException e) {
-            System.err.println("Unable to read AFM file: " + location);
+            throw new UncheckedIOException("Unable to read AFM file: " + location, e);
         }
     }
 

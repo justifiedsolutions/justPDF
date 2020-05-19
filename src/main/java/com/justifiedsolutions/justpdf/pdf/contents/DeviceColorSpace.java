@@ -24,7 +24,7 @@ public abstract class DeviceColorSpace implements ColorSpace {
      * @throws NullPointerException     if the the color is null
      * @throws IllegalArgumentException if the color is not in range
      */
-    protected static PDFReal checkRange(PDFReal color) {
+    protected PDFReal checkRange(PDFReal color) {
         Objects.requireNonNull(color);
         float value = color.getValue();
         if (value < 0 || value > 1) {
