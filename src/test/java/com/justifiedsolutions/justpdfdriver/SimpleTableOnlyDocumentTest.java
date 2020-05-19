@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class SimpleTableOnlyDocumentTest {
 
     @Test
@@ -38,6 +40,7 @@ public class SimpleTableOnlyDocumentTest {
             document.write(pdf);
         }
 
+        assertEquals(6, document.getContent().size());
     }
 
     private void createTable1(Document document) throws DocumentException {

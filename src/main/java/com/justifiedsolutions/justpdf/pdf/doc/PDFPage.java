@@ -13,12 +13,12 @@ import com.justifiedsolutions.justpdf.pdf.object.*;
  * @see "ISO 32000-1:2008, 7.7.3.3"
  */
 public class PDFPage {
-    public static final PDFName TYPE = new PDFName("Type");
-    public static final PDFName PAGE = new PDFName("Page");
-    public static final PDFName MEDIA_BOX = new PDFName("MediaBox");
-    public static final PDFName RESOURCES = new PDFName("Resources");
-    public static final PDFName CONTENTS = new PDFName("Contents");
-    public static final PDFName PARENT = new PDFName("Parent");
+    public static final PDFName TYPE_NAME = new PDFName("Type");
+    public static final PDFName PAGE_NAME = new PDFName("Page");
+    public static final PDFName MEDIA_BOX_NAME = new PDFName("MediaBox");
+    public static final PDFName RESOURCES_NAME = new PDFName("Resources");
+    public static final PDFName CONTENTS_NAME = new PDFName("Contents");
+    public static final PDFName PARENT_NAME = new PDFName("Parent");
 
     private final Resources resources = new Resources();
 
@@ -35,9 +35,9 @@ public class PDFPage {
     PDFPage(PDFDocument document, PDFRectangle pageSize) {
         this.document = document;
         this.indirectPage = this.document.createIndirectObject(page);
-        page.put(TYPE, PAGE);
-        page.put(MEDIA_BOX, pageSize);
-        page.put(RESOURCES, resources);
+        page.put(TYPE_NAME, PAGE_NAME);
+        page.put(MEDIA_BOX_NAME, pageSize);
+        page.put(RESOURCES_NAME, resources);
     }
 
     /**
@@ -47,7 +47,7 @@ public class PDFPage {
      */
     public void setContents(PDFStream contents) {
         PDFIndirectObject indirectContents = document.createIndirectObject(contents);
-        page.put(CONTENTS, indirectContents.getReference());
+        page.put(CONTENTS_NAME, indirectContents.getReference());
     }
 
     /**
@@ -66,7 +66,7 @@ public class PDFPage {
      * @param parent the reference
      */
     void setParent(PDFIndirectObject.Reference parent) {
-        page.put(PARENT, parent);
+        page.put(PARENT_NAME, parent);
     }
 
     /**

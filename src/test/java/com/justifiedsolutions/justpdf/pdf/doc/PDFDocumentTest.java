@@ -17,6 +17,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class PDFDocumentTest {
 
     @Test
@@ -48,6 +50,8 @@ public class PDFDocumentTest {
             PDFStream contentStream = builder.getStream();
             page.setContents(contentStream);
         }
+
+        assertTrue(font instanceof PDFFontType1);
 
         doc.write(actual);
 

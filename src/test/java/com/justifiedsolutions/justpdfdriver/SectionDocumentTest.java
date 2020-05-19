@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class SectionDocumentTest {
 
     @Test
@@ -107,6 +109,7 @@ public class SectionDocumentTest {
         s31.addContent(p1);
         s31.addContent(p2);
 
+        assertTrue(document.hasSections());
 
         String targetDirectoryName = (String) System.getProperties().get("TargetDirectory");
         File targetDirectory = new File(targetDirectoryName);

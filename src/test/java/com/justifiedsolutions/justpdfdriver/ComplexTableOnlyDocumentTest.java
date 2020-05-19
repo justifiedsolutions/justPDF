@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import static com.justifiedsolutions.justpdf.api.font.PDFFont.FontName.HELVETICA;
 import static com.justifiedsolutions.justpdf.api.font.PDFFont.FontName.HELVETICA_BOLD;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ComplexTableOnlyDocumentTest {
 
@@ -55,6 +56,7 @@ public class ComplexTableOnlyDocumentTest {
             document.write(pdf);
         }
 
+        assertEquals(2, table.getNumberOfColumns());
     }
 
     private void addCourt(final Table table) {
