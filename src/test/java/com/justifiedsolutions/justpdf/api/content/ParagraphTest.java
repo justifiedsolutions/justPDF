@@ -133,7 +133,8 @@ public class ParagraphTest {
 
     @Test
     public void addContentParagraph() {
-        assertThrows(IllegalArgumentException.class, () -> paragraph.add(new Paragraph()));
+        TextContent content = new Paragraph();
+        assertThrows(IllegalArgumentException.class, () -> paragraph.add(content));
     }
 
     @Test

@@ -25,12 +25,14 @@ public class PDFContentStreamBuilderTest {
 
     @Test
     public void addOperatorNotValid() {
-        assertThrows(IllegalStateException.class, () -> builder.addOperator(new EndText()));
+        GraphicsOperator operator = new EndText();
+        assertThrows(IllegalStateException.class, () -> builder.addOperator(operator));
     }
 
     @Test
     public void addOperatorEmptyPop() {
-        assertThrows(IllegalStateException.class, () -> builder.addOperator(new PopGraphicsState()));
+        GraphicsOperator operator = new PopGraphicsState();
+        assertThrows(IllegalStateException.class, () -> builder.addOperator(operator));
     }
 
     @Test

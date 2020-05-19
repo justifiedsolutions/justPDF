@@ -91,28 +91,13 @@ public class PDFContentStreamBuilder {
             graphicsState = graphicsStateStack.pop();
         }
 
-        if (!operators.isEmpty()) {
-            GraphicsOperator lastOperator = operators.get(operators.size() - 1);
-            if (lastOperator instanceof CollapsableOperator) {
-                CollapsableOperator co = (CollapsableOperator) lastOperator;
-                if (co.isCollapsable(operator)) {
-                    operator = co.collapse(operator);
-                    operators.remove(operators.size() - 1);
-                }
-
-                if (operator == null) {
-                    return;
-                }
-            }
+        operator = collapseOperator(operator);
+        if (operator == null) {
+            return;
         }
 
-        if (operator instanceof GraphicsStateOperator) {
-            GraphicsStateOperator gso = (GraphicsStateOperator) operator;
-            if (gso.changesState(graphicsState)) {
-                gso.changeState(graphicsState);
-            } else {
-                return;
-            }
+        if (!modifyState(operator)) {
+            return;
         }
 
         if (graphicsObject.endsGraphicsObject(operator)) {
@@ -137,6 +122,47 @@ public class PDFContentStreamBuilder {
             return stream;
         }
         throw new IllegalStateException("Contents are not complete. Cannot create content stream.");
+    }
+
+    /**
+     * Attempts to modify the {@link GraphicsState} using the specified {@link GraphicsOperator}. Returns false if the
+     * operator was a {@link GraphicsStateOperator} but did not change the {@code GraphicsState}. Returns true
+     * otherwise.
+     *
+     * @param operator the operator to attempt to modify state
+     * @return Returns false if the operator was a {@link GraphicsStateOperator} but did not change the {@code
+     * GraphicsState}. Returns true otherwise.
+     */
+    private boolean modifyState(GraphicsOperator operator) {
+        if (operator instanceof GraphicsStateOperator) {
+            GraphicsStateOperator gso = (GraphicsStateOperator) operator;
+            if (gso.changesState(graphicsState)) {
+                gso.changeState(graphicsState);
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Attempts to collapse the specified operator with the previous operator.
+     *
+     * @param operator the operator to attempt to collapse
+     * @return the result of the collapse operation or the original operator if it couldn't be collapsed
+     */
+    private GraphicsOperator collapseOperator(GraphicsOperator operator) {
+        if (!operators.isEmpty()) {
+            GraphicsOperator lastOperator = operators.get(operators.size() - 1);
+            if (lastOperator instanceof CollapsableOperator) {
+                CollapsableOperator co = (CollapsableOperator) lastOperator;
+                if (co.isCollapsable(operator)) {
+                    operator = co.collapse(operator);
+                    operators.remove(operators.size() - 1);
+                }
+            }
+        }
+        return operator;
     }
 
     /**
