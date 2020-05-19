@@ -8,6 +8,11 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.zip.DeflaterOutputStream;
 
+/**
+ * A {@link PDFFilter} that applies the {@code Deflate} algorithm to the input.
+ *
+ * @see "ISO 32000-1:2008, 7.4.4"
+ */
 public class DeflateFilter implements PDFFilter {
     private static final PDFName DECODE_NAME = new PDFName("FlateDecode");
 

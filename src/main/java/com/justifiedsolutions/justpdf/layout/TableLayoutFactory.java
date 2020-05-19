@@ -17,7 +17,13 @@ class TableLayoutFactory implements ContentLayoutFactory {
     private final Margin margin;
     private final float lineWidth;
 
-    public TableLayoutFactory(Margin margin, float lineWidth) {
+    /**
+     * Creates a new TableLayoutFactory.
+     *
+     * @param margin    the margin of the page
+     * @param lineWidth the maximum width of content on the page
+     */
+    TableLayoutFactory(Margin margin, float lineWidth) {
         this.margin = margin;
         this.lineWidth = lineWidth;
     }

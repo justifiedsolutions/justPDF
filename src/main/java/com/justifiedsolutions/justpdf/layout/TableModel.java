@@ -4,6 +4,9 @@ import com.justifiedsolutions.justpdf.api.content.Cell;
 
 import java.util.*;
 
+/**
+ * Class that models a table, supporting the layout of cells.
+ */
 class TableModel {
     private final boolean keepTogether;
     private final Map<TableGridIndex, CellLayout> tableMap = new HashMap<>();
@@ -13,6 +16,12 @@ class TableModel {
     private final Deque<TableChunk> tableChunks = new ArrayDeque<>();
 
 
+    /**
+     * Creates a new TableModel with the specified number of columns and column widths.
+     *
+     * @param columnWidths the widths of each of the columns
+     * @param keepTogether true if the entire table should be kept together on a page, false otherwise
+     */
     TableModel(float[] columnWidths, boolean keepTogether) {
         this.keepTogether = keepTogether;
         for (int i = 0; i < columnWidths.length; i++) {
@@ -20,6 +29,11 @@ class TableModel {
         }
     }
 
+    /**
+     * Adds the specified Cell to the table model.
+     *
+     * @param cell the cell to add
+     */
     void add(Cell cell) {
         TableGridIndex beginningIndex = getNextIndex();
         List<TableGridIndex> cellIndices = CellLayout.getGridIndices(cell, beginningIndex);
@@ -43,6 +57,11 @@ class TableModel {
         tableMap.put(beginningIndex, layout);
     }
 
+    /**
+     * Informs the table model that the last cell has been added and the model can be verified.
+     *
+     * @throws IllegalStateException if an incorrect number of cells have been added to the table model
+     */
     void complete() {
         createRows();
         validateCells();
@@ -185,7 +204,6 @@ class TableModel {
             row = chunk.getLastRow().index + 1;
             chunk = createChunk(row);
         }
-
     }
 
     private TableChunk createChunk(int row) {
@@ -247,6 +265,9 @@ class TableModel {
         rowsToDo.addAll(rowsToCheck);
     }
 
+    /**
+     * Models a row in a table. Specifies the index and height of the row.
+     */
     static class Row implements Comparable<Row> {
         private final int index;
         private float height = 0;

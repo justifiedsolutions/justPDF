@@ -39,6 +39,12 @@ public class DocumentLayout {
         layout();
     }
 
+    /**
+     * Writes the PDF to the specified {@link OutputStream}.
+     *
+     * @param pdfOutputStream the stream to write to
+     * @throws IOException if there is an issue writing to the stream
+     */
     public void write(OutputStream pdfOutputStream) throws IOException {
         pdfDocument.write(pdfOutputStream);
     }

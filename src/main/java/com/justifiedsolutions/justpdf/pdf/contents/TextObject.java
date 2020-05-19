@@ -8,10 +8,11 @@ package com.justifiedsolutions.justpdf.pdf.contents;
 import java.util.Objects;
 
 /**
- * A TextObject encompasses a group of {@link TextOperator}s in a PDF stream.
+ * Specifies a graphics object which represents the Text Object state in the state diagram displayed in Figure 9 of the
+ * PDF specification.
  *
  * @see "ISO 32000-1:2008, 8.2"
- * @see "ISO 32000-1:2008, 9.4.1"
+ * @see "ISO 32000-1:2008, Figure 9"
  */
 class TextObject implements GraphicsObject {
     @Override

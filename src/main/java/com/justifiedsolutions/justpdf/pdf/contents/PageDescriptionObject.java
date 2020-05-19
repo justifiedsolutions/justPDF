@@ -7,6 +7,13 @@ package com.justifiedsolutions.justpdf.pdf.contents;
 
 import java.util.Objects;
 
+/**
+ * Specifies a graphics object which represents the Page Description state in the state diagram displayed in Figure 9 of
+ * the PDF specification.
+ *
+ * @see "ISO 32000-1:2008, 8.2"
+ * @see "ISO 32000-1:2008, Figure 9"
+ */
 class PageDescriptionObject implements GraphicsObject {
     @Override
     public int hashCode() {

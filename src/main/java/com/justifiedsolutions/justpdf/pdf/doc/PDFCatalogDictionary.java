@@ -21,6 +21,9 @@ public class PDFCatalogDictionary extends PDFDictionary {
     static final PDFName CATALOG = new PDFName("Catalog");
     static final PDFName VERSION_17 = new PDFName("1.7");
 
+    /**
+     * Creates a new PDFCatalogDictionary setting the {@code Type} and {@code Version} in the dictionary.
+     */
     public PDFCatalogDictionary() {
         put(TYPE, CATALOG);
         put(VERSION, VERSION_17);

@@ -7,6 +7,7 @@ package com.justifiedsolutions.justpdf.pdf.doc;
 
 import com.justifiedsolutions.justpdf.pdf.font.PDFFont;
 import com.justifiedsolutions.justpdf.pdf.object.*;
+import com.justifiedsolutions.justpdf.pdf.object.PDFIndirectObject.Reference;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -32,6 +33,9 @@ public class PDFDocument {
     private final PDFCatalogDictionary catalog = new PDFCatalogDictionary();
     private final Map<PDFFont, PDFIndirectObject> fonts = new HashMap<>();
 
+    /**
+     * Creates a new PDFDocument.
+     */
     public PDFDocument() {
         PDFIndirectObject.resetObjectNumber();
         PDFIndirectObject indirectCatalog = createIndirectObject(catalog);
@@ -59,7 +63,7 @@ public class PDFDocument {
      * @return the new PDFPage
      */
     public PDFPage createPage(PDFRectangle pageSize) {
-        PDFIndirectObject.Reference pagesReference = (PDFIndirectObject.Reference) catalog.get(PDFCatalogDictionary.PAGES);
+        Reference pagesReference = (Reference) catalog.get(PDFCatalogDictionary.PAGES);
         if (pagesReference == null) {
             PDFIndirectObject indirectObject = createIndirectObject(pages);
             pagesReference = indirectObject.getReference();
@@ -72,7 +76,14 @@ public class PDFDocument {
         return page;
     }
 
-    public PDFIndirectObject.Reference addFont(PDFFont font) {
+    /**
+     * Adds a PDFFont to the document if it has not already been added. Returns a {@link Reference} to the {@link
+     * PDFIndirectObject} that wraps the font in the PDFDocument.
+     *
+     * @param font the font to add to the document
+     * @return the reference to the font
+     */
+    public Reference addFont(PDFFont font) {
         PDFIndirectObject indirectFont = fonts.computeIfAbsent(font, this::createIndirectObject);
         return indirectFont.getReference();
     }
@@ -110,6 +121,10 @@ public class PDFDocument {
         return result;
     }
 
+    /**
+     * An {@link OutputStream} that wraps the supplied OutputStream in order to count the number of bytes written at any
+     * point of time. Allows the document to determine byte offsets of specific objects in the document.
+     */
     private static class CountingOutputStream extends OutputStream {
 
         private final OutputStream outputStream;
@@ -148,6 +163,11 @@ public class PDFDocument {
             outputStream.close();
         }
 
+        /**
+         * Gets the number of bytes written to the wrapped {@link OutputStream}.
+         *
+         * @return the number of bytes written
+         */
         public int getCounter() {
             return counter;
         }

@@ -27,11 +27,21 @@ public class PDFFontDescriptor extends PDFDictionary {
     static final PDFName STEM_V = new PDFName("StemV");
     static final PDFName STEM_H = new PDFName("StemH");
 
+    /**
+     * Creates a new Font Descriptor.
+     *
+     * @param flags the flags value for the specific font
+     */
     PDFFontDescriptor(int flags) {
         put(TYPE, FONT_DESCRIPTOR);
         put(FLAGS, new PDFInteger(flags));
     }
 
+    /**
+     * Parses a line of an AFM file and sets any values required from that line
+     *
+     * @param line the AFM file line
+     */
     void parseAFMLine(String line) {
         Objects.requireNonNull(line);
         if (line.contains("FontName")) {

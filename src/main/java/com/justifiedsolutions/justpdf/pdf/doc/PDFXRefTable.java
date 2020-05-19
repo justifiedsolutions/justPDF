@@ -5,6 +5,7 @@
 
 package com.justifiedsolutions.justpdf.pdf.doc;
 
+import com.justifiedsolutions.justpdf.pdf.PDFWritable;
 import com.justifiedsolutions.justpdf.pdf.object.PDFIndirectObject;
 
 import java.io.IOException;
@@ -20,17 +21,12 @@ import java.util.List;
  *
  * @see "ISO 32000-1:2008, 7.5.4"
  */
-class PDFXRefTable {
+class PDFXRefTable implements PDFWritable {
 
     private final List<PDFIndirectObject> indirectObjects = new ArrayList<>();
 
-    void setIndirectObjects(Collection<PDFIndirectObject> indirectObjects) {
-        this.indirectObjects.clear();
-        this.indirectObjects.addAll(indirectObjects);
-        Collections.sort(this.indirectObjects);
-    }
-
-    void writeToPDF(OutputStream pdf) throws IOException {
+    @Override
+    public void writeToPDF(OutputStream pdf) throws IOException {
         String line = String.format("xref\n0 %d\n", indirectObjects.size() + 1);
         pdf.write(line.getBytes(StandardCharsets.US_ASCII));
         new PDFXrefTableEntry().writeToPDF(pdf);
@@ -39,7 +35,18 @@ class PDFXRefTable {
         }
     }
 
-    private static class PDFXrefTableEntry {
+    /**
+     * Sets the list of {@link PDFIndirectObject}s used in the document.
+     *
+     * @param indirectObjects the list of indirect objects
+     */
+    void setIndirectObjects(Collection<PDFIndirectObject> indirectObjects) {
+        this.indirectObjects.clear();
+        this.indirectObjects.addAll(indirectObjects);
+        Collections.sort(this.indirectObjects);
+    }
+
+    private static class PDFXrefTableEntry implements PDFWritable {
         private final int byteOffset;
         private final int generationNumber;
         private final char state;
@@ -56,7 +63,8 @@ class PDFXRefTable {
             this.state = 'f';
         }
 
-        private void writeToPDF(OutputStream pdf) throws IOException {
+        @Override
+        public void writeToPDF(OutputStream pdf) throws IOException {
             String entry = String.format("%010d %05d %c \n", byteOffset, generationNumber, state);
             pdf.write(entry.getBytes(StandardCharsets.US_ASCII));
         }

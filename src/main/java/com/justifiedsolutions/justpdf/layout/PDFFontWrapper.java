@@ -15,6 +15,9 @@ import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 import java.awt.*;
 import java.util.Objects;
 
+/**
+ * Wrapper for a {@link PDFFont} that specifies not only the font, but the size and color as well.
+ */
 class PDFFontWrapper {
     private final PDFFont font;
     private final PDFReal size;
@@ -26,6 +29,12 @@ class PDFFontWrapper {
         this.color = Objects.requireNonNull(color);
     }
 
+    /**
+     * Gets an instance of a {@link PDFFontWrapper} given a specific API {@link com.justifiedsolutions.justpdf.api.font.Font}.
+     *
+     * @param apiFont the API Font
+     * @return the font wrapper that represents the font
+     */
     static PDFFontWrapper getInstance(com.justifiedsolutions.justpdf.api.font.Font apiFont) {
         if (apiFont instanceof com.justifiedsolutions.justpdf.api.font.PDFFont) {
             com.justifiedsolutions.justpdf.api.font.PDFFont apiPDFFont =
@@ -69,22 +78,48 @@ class PDFFontWrapper {
                 color.equals(wrapper.color);
     }
 
+    /**
+     * Gets the {@link PDFFont} being wrapped.
+     *
+     * @return the PDFFont
+     */
     PDFFont getFont() {
         return font;
     }
 
+    /**
+     * Gets the font size.
+     *
+     * @return the font size
+     */
     PDFReal getSize() {
         return size;
     }
 
+    /**
+     * Gets the font color.
+     *
+     * @return the font color
+     */
     ColorSpace getColor() {
         return color;
     }
 
+    /**
+     * Gets the width of the specified character using this font and font size.
+     *
+     * @param character the character
+     * @return the character width
+     */
     float getCharacterWidth(int character) {
         return size.getValue() * (font.getCharacterWidth(character) / 1000f);
     }
 
+    /**
+     * Gets the minimum leading required for this font in this font size.
+     *
+     * @return the minimum leading
+     */
     float getMinimumLeading() {
         return size.getValue() * (font.getMinimumLeading() / 1000f);
     }

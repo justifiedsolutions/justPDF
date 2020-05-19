@@ -19,6 +19,9 @@ public abstract class PDFFont extends PDFDictionary {
     static final PDFName SUBTYPE = new PDFName("Subtype");
     static final PDFName BASE_FONT = new PDFName("BaseFont");
 
+    /**
+     * Creates a new PDFFont.
+     */
     PDFFont() {
         put(TYPE, FONT);
     }

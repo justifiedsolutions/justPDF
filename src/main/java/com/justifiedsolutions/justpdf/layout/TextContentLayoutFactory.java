@@ -16,6 +16,11 @@ import com.justifiedsolutions.justpdf.api.content.TextContent;
 class TextContentLayoutFactory implements ContentLayoutFactory {
     private final float lineWidth;
 
+    /**
+     * Creates a new TextContentLayoutFactory for creating new TextContentLayouts.
+     *
+     * @param lineWidth the maximum width of a line of content on a page
+     */
     TextContentLayoutFactory(float lineWidth) {
         this.lineWidth = lineWidth;
     }

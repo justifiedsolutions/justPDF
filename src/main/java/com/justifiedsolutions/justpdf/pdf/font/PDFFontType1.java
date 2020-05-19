@@ -147,6 +147,9 @@ public class PDFFontType1 extends PDFFont {
         return result;
     }
 
+    /**
+     * Enumeration of the Standard 14 PDF fonts.
+     */
     public enum FontName {
         COURIER("Courier", 33),
         COURIER_BOLD("Courier-Bold", 33),

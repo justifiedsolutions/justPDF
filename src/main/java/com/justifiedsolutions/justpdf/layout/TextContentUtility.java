@@ -5,10 +5,20 @@ import com.justifiedsolutions.justpdf.api.content.Paragraph;
 import com.justifiedsolutions.justpdf.api.content.Phrase;
 import com.justifiedsolutions.justpdf.api.content.TextContent;
 
+/**
+ * A utility class for converting {@link TextContent} into a {@link Paragraph}.
+ */
 class TextContentUtility {
     private TextContentUtility() {
     }
 
+    /**
+     * Transforms any type of {@link TextContent} into a {@link Paragraph}.
+     *
+     * @param content the content to transform
+     * @return the {@link Paragraph}
+     * @throws IllegalArgumentException if an unknown type of TextContent is passed
+     */
     static Paragraph getParagraph(TextContent content) {
         if (content == null) {
             return null;
