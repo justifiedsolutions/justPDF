@@ -1,7 +1,7 @@
 # Justified Solutions PDF (justPDF) #
 An Open Source library for creating basic PDF documents.
 
-[![Build Status](https://travis-ci.org/justifiedsolutions/justPDF.svg?branch=master)](https://travis-ci.org/justifiedsolutions/justPDF)
+[![Build Status](https://travis-ci.com/justifiedsolutions/justPDF.svg?branch=master)](https://travis-ci.com/justifiedsolutions/justPDF)
 [![Maven Central](https://img.shields.io/maven-central/v/com.justifiedsolutions/justPDF?color=green)](https://maven-badges.herokuapp.com/maven-central/com.justifiedsolutions/justPDF)
 [![javadoc](https://javadoc.io/badge2/com.justifiedsolutions/justPDF/javadoc.svg)](https://javadoc.io/doc/com.justifiedsolutions/justPDF)
 [![License (Apache 2.0)](https://img.shields.io/badge/license-Apache%202.0-blue)](http://www.apache.org/licenses/LICENSE-2.0.txt) 
