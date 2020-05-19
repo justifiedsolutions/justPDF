@@ -14,20 +14,20 @@ import com.justifiedsolutions.justpdf.pdf.object.*;
  */
 class PDFPages extends PDFDictionary {
 
-    static final PDFName TYPE = new PDFName("Type");
-    static final PDFName PAGES = new PDFName("Pages");
-    static final PDFName COUNT = new PDFName("Count");
-    static final PDFName KIDS = new PDFName("Kids");
+    static final PDFName TYPE_NAME = new PDFName("Type");
+    static final PDFName PAGES_NAME = new PDFName("Pages");
+    static final PDFName COUNT_NAME = new PDFName("Count");
+    static final PDFName KIDS_NAME = new PDFName("Kids");
 
-    final PDFArray kids = new PDFArray();
+    private final PDFArray kids = new PDFArray();
 
     /**
      * Creates a new PDFPages node.
      */
     PDFPages() {
-        put(TYPE, PAGES);
-        put(COUNT, new PDFInteger(kids.size()));
-        put(KIDS, kids);
+        put(TYPE_NAME, PAGES_NAME);
+        put(COUNT_NAME, new PDFInteger(kids.size()));
+        put(KIDS_NAME, kids);
     }
 
     /**
@@ -37,6 +37,6 @@ class PDFPages extends PDFDictionary {
      */
     void addPage(PDFIndirectObject.Reference reference) {
         kids.add(reference);
-        put(COUNT, new PDFInteger(kids.size()));
+        put(COUNT_NAME, new PDFInteger(kids.size()));
     }
 }

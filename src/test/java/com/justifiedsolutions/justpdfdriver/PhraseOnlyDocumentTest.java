@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class PhraseOnlyDocumentTest {
 
     @Test
@@ -38,6 +40,8 @@ public class PhraseOnlyDocumentTest {
         document.setMetadata(Metadata.AUTHOR, "Jay Burgess");
         document.setMetadata(Metadata.CREATOR, "jsPDF");
         document.setMetadata(Metadata.SUBJECT, "Lorum Ipsum");
+
+        assertEquals(1, document.getContent().size());
 
         String targetDirectoryName = (String) System.getProperties().get("TargetDirectory");
         File targetDirectory = new File(targetDirectoryName);

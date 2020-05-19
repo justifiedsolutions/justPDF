@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 public class ParagraphOnlyDocumentTest {
 
     @Test
@@ -37,6 +39,9 @@ public class ParagraphOnlyDocumentTest {
                 return text;
             }
         });
+
+        assertNotNull(document.getHeader());
+        assertNotNull(document.getFooter());
 
         Paragraph title = new Paragraph("Lorum Ipsum", new PDFFont(PDFFont.FontName.HELVETICA_BOLD, 20));
         title.setAlignment(HorizontalAlignment.CENTER);
