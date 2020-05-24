@@ -11,6 +11,7 @@ import com.justifiedsolutions.justpdf.pdf.contents.*;
 import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 import com.justifiedsolutions.justpdf.pdf.object.PDFString;
 
+import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -169,53 +170,43 @@ class TextLine implements ContentLine {
     }
 
     private List<String> splitText(String input, PDFFontWrapper wrapper) {
-        List<String> result = new ArrayList<>();
+        BreakIterator breakDetector = BreakIterator.getLineInstance();
+        breakDetector.setText(input);
+
         char[] chars = input.toCharArray();
-
-        boolean reachedEOL = false;
-        int splitPoint = 0;
-        int lastWhitespace = 0;
-        int spaceCount = 0;
-        float textWidthAtLastWhitespace = 0;
-        float textWidth = 0;
-        for (int i = 0; i < chars.length; i++) {
-            char c = chars[i];
-
-            if (Character.isWhitespace(c)) {
-                lastWhitespace = i;
-                textWidthAtLastWhitespace = textWidth;
-                if (c == ' ') {
-                    spaceCount++;
-                }
-                if (c == '\n') {
-                    chars[i] = ' ';
-                    reachedEOL = true;
-                }
-            }
-
-            float charWidth = wrapper.getCharacterWidth(c);
-            if (!reachedEOL && ((textWidth + charWidth) < remainingWidth)) {
-                textWidth += charWidth;
-            } else {
-                splitPoint = lastWhitespace;
-                textWidth = textWidthAtLastWhitespace;
-                reachedEOL = true;
+        int boundary = breakDetector.next();
+        while (boundary != BreakIterator.DONE) {
+            String value = new String(chars, 0, boundary);
+            float valueWidth = getStringWidth(value, wrapper);
+            if (valueWidth > remainingWidth) {
+                boundary = breakDetector.previous();
                 break;
             }
+            boundary = breakDetector.next();
         }
 
-        remainingWidth -= textWidth;
-        calculateLineStart();
-        if (!reachedEOL) {
-            numSpaces = spaceCount;
-            numChars += (chars.length - spaceCount);
-            result.add(input);
+        String value;
+        String remainder = null;
+        if (boundary == BreakIterator.DONE) {
+            value = input;
         } else {
-            numSpaces = spaceCount - 1;
-            numChars += splitPoint;
-            result.add(new String(chars, 0, splitPoint));
-            result.add(new String(chars, splitPoint, (chars.length - splitPoint)));
+            value = new String(chars, 0, boundary);
+            remainder = new String(chars, boundary, chars.length - boundary);
         }
+        value = value.stripTrailing();
+        float valueWidth = getStringWidth(value, wrapper);
+        int valueSpaces = getNumberOfSpaces(value);
+        numSpaces += valueSpaces;
+        numChars += (value.length() - valueSpaces);
+        remainingWidth -= valueWidth;
+        calculateLineStart();
+
+        List<String> result = new ArrayList<>();
+        result.add(value);
+        if (remainder != null) {
+            result.add(remainder);
+        }
+
         return result;
     }
 
@@ -240,10 +231,10 @@ class TextLine implements ContentLine {
                 result.add(new SetWordSpacing(new PDFReal(0)));
                 result.add(new SetCharacterSpacing(new PDFReal(0)));
             } else {
-                float wordSpacing = remainingWidth / (float) numSpaces;
-                result.add(new SetWordSpacing(new PDFReal(wordSpacing)));
+                float wordSpacing = truncateFloat(remainingWidth / (float) numSpaces);
                 float remainder = remainingWidth - (wordSpacing * numSpaces);
-                float charSpacing = remainder / (float) numChars;
+                float charSpacing = truncateFloat(remainder / (float) numChars);
+                result.add(new SetWordSpacing(new PDFReal(wordSpacing)));
                 result.add(new SetCharacterSpacing(new PDFReal(charSpacing)));
             }
         }
@@ -262,4 +253,28 @@ class TextLine implements ContentLine {
         throw new IllegalArgumentException("Invalid ColorSpace");
     }
 
+    private float truncateFloat(float value) {
+        int tmpValue = (int) (value * 100000);
+        return (float) tmpValue / 100000f;
+    }
+
+    private float getStringWidth(String value, PDFFontWrapper fontWrapper) {
+        float result = 0f;
+        char[] chars = value.toCharArray();
+        for (char c : chars) {
+            result += fontWrapper.getCharacterWidth(c);
+        }
+        return result;
+    }
+
+    private int getNumberOfSpaces(String value) {
+        int result = 0;
+        char[] chars = value.toCharArray();
+        for (char c : chars) {
+            if (Character.isSpaceChar(c)) {
+                result++;
+            }
+        }
+        return result;
+    }
 }

@@ -30,6 +30,15 @@ public class SetWordSpacing implements TextStateOperator, CollapsableOperator {
         this.wordSpacing = Objects.requireNonNull(wordSpacing);
     }
 
+    /**
+     * Gets the word spacing
+     *
+     * @return the word spacing
+     */
+    public PDFReal getWordSpacing() {
+        return wordSpacing;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(wordSpacing);
