@@ -12,10 +12,10 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TextLineTest {
+public class TextLineTest {
 
     @Test
-    void append() {
+    public void append() {
         String text = "technology crossSome hyphenated, some open, some closed. Check the dictionary.";
         Chunk chunk = new Chunk(text);
         chunk.setFont(new PDFFont());
@@ -37,7 +37,7 @@ class TextLineTest {
     }
 
     @Test
-    void append2() {
+    public void append2() {
         String text = "AdjectiveAlways hyphenatetwo-year-old daughter sixty-five-year-old man two-and-a-half-year-old child";
         Chunk chunk = new Chunk(text);
         chunk.setFont(new PDFFont());
