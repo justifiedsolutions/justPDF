@@ -1,9 +1,15 @@
 /**
  * This module allows you to model a PDF document and then write it out. Start by looking at creating a {@link
  * com.justifiedsolutions.justpdf.api.Document}. Then proceed by adding {@link com.justifiedsolutions.justpdf.api.Metadata}
- * and {@link com.justifiedsolutions.justpdf.api.content.Content} to the Document. Finally, the Document can be written to
- * an {@link java.io.OutputStream}.
+ * and {@link com.justifiedsolutions.justpdf.api.content.Content} to the Document. Finally, the Document can be written
+ * to an {@link java.io.OutputStream}.
  *
+ * <H2>Optional Features</H2>
+ * You can set the following system properties to enable optional features. The values of the system properties do not
+ * matter.
+ * <UL>
+ * <LI>{@code EnableHyphenation} - Enables Auto-Hyphenation at line breaks using the Knuth-Liang algorithm.</LI>
+ * </UL>
  * <H2>Debugging Support</H2>
  * You can set any of the following system properties to help with debugging. The values of the system properties do not
  * matter.

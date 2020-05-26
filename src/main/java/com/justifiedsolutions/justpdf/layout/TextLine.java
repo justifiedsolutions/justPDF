@@ -173,13 +173,21 @@ class TextLine implements ContentLine {
         BreakIterator breakDetector = BreakIterator.getLineInstance();
         breakDetector.setText(input);
 
+        boolean hyphenate = false;
         char[] chars = input.toCharArray();
         int boundary = breakDetector.next();
         while (boundary != BreakIterator.DONE) {
             String value = new String(chars, 0, boundary);
             float valueWidth = getStringWidth(value, wrapper);
             if (valueWidth > remainingWidth) {
+                int end = boundary;
                 boundary = breakDetector.previous();
+                String tmp = new String(chars, boundary, (end - boundary)).stripTrailing();
+                int hyphenBoundary = hyphenate(tmp, wrapper, chars, boundary);
+                if (hyphenBoundary > boundary) {
+                    boundary = hyphenBoundary;
+                    hyphenate = true;
+                }
                 break;
             }
             boundary = breakDetector.next();
@@ -191,9 +199,12 @@ class TextLine implements ContentLine {
             value = input;
         } else {
             value = new String(chars, 0, boundary);
+            value = value.stripTrailing();
+            if (hyphenate) {
+                value += "-";
+            }
             remainder = new String(chars, boundary, chars.length - boundary);
         }
-        value = value.stripTrailing();
         float valueWidth = getStringWidth(value, wrapper);
         int valueSpaces = getNumberOfSpaces(value);
         numSpaces += valueSpaces;
@@ -273,6 +284,29 @@ class TextLine implements ContentLine {
         for (char c : chars) {
             if (Character.isSpaceChar(c)) {
                 result++;
+            }
+        }
+        return result;
+    }
+
+    private int hyphenate(String tmp, PDFFontWrapper wrapper, char[] chars, int boundary) {
+        int result = boundary;
+        Object enable = System.getProperties().get("EnableHyphenation");
+        if (enable == null) {
+            return result;
+        }
+        if (!tmp.matches(".*\\p{Punct}.*")) {
+            Hyphenator hyphenator = new Hyphenator();
+            hyphenator.setText(tmp);
+            int hyphenBreak = hyphenator.last();
+            while (hyphenBreak != Hyphenator.DONE) {
+                String tmpValue = new String(chars, 0, boundary + hyphenBreak) + "-";
+                float tmpValueWidth = getStringWidth(tmpValue, wrapper);
+                if (tmpValueWidth < remainingWidth) {
+                    result += hyphenBreak;
+                    break;
+                }
+                hyphenBreak = hyphenator.previous();
             }
         }
         return result;
