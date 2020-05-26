@@ -70,7 +70,7 @@ class Hyphenator {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.US_ASCII))) {
             String line = reader.readLine();
             while (line != null) {
-                String match = line.replaceAll("-", "");
+                String match = line.replace("-", "");
                 EXCEPTIONS.put(line, match);
                 line = reader.readLine();
             }
@@ -190,14 +190,12 @@ class Hyphenator {
     }
 
     private void processPatterns() {
-        List<String> patternList = new ArrayList<>();
         int[] hyphenMap = new int[text.length()];
 
         for (Map.Entry<String, String> entry : PATTERNS.entrySet()) {
             String hyphenPattern = entry.getKey();
             String regex = entry.getValue();
             if (text.matches(regex)) {
-                patternList.add(hyphenPattern);
                 processPattern(hyphenPattern, regex, hyphenMap);
             }
         }
