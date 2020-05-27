@@ -31,25 +31,28 @@
 
     <rule ref="category/java/codestyle.xml/LinguisticNaming">
         <properties>
-            <property name="violationSuppressXPath" value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
+            <property name="violationSuppressXPath"
+                      value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']"/>
         </properties>
     </rule>
 
     <rule ref="category/java/codestyle.xml/ShortClassName">
         <properties>
-            <property name="minimum" value="3" />
+            <property name="minimum" value="3"/>
         </properties>
     </rule>
 
     <rule ref="category/java/codestyle.xml/ShortMethodName">
         <properties>
-            <property name="violationSuppressXPath" value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
+            <property name="violationSuppressXPath"
+                      value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']"/>
         </properties>
     </rule>
 
     <rule ref="category/java/codestyle.xml/UseUnderscoresInNumericLiterals">
         <properties>
-            <property name="violationSuppressXPath" value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
+            <property name="violationSuppressXPath"
+                      value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']"/>
         </properties>
     </rule>
 
@@ -61,19 +64,22 @@
 
     <rule ref="category/java/design.xml/ExcessiveMethodLength">
         <properties>
-            <property name="violationSuppressXPath" value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
+            <property name="violationSuppressXPath"
+                      value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']"/>
         </properties>
     </rule>
 
     <rule ref="category/java/design.xml/NcssCount">
         <properties>
-            <property name="violationSuppressXPath" value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
+            <property name="violationSuppressXPath"
+                      value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']"/>
         </properties>
     </rule>
 
     <rule ref="category/java/design.xml/TooManyMethods">
         <properties>
-            <property name="violationSuppressXPath" value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
+            <property name="violationSuppressXPath"
+                      value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']"/>
         </properties>
     </rule>
 
@@ -81,23 +87,24 @@
 
     <rule ref="category/java/documentation.xml/CommentSize">
         <properties>
-            <property name="maxLines" value="25" />
-            <property name="maxLineLength" value="125" />
+            <property name="maxLines" value="25"/>
+            <property name="maxLineLength" value="125"/>
         </properties>
     </rule>
 
     <rule ref="category/java/documentation.xml/CommentRequired">
         <properties>
-            <property name="violationSuppressXPath" value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
-            <property name="methodWithOverrideCommentRequirement" value="Unwanted" />
-            <property name="accessorCommentRequirement" value="Ignored" />
-            <property name="classCommentRequirement" value="Required" />
-            <property name="fieldCommentRequirement" value="Ignored" />
-            <property name="publicMethodCommentRequirement" value="Required" />
-            <property name="protectedMethodCommentRequirement" value="Required" />
-            <property name="enumCommentRequirement" value="Required" />
-            <property name="serialVersionUIDCommentRequired" value="Ignored" />
-            <property name="serialPersistentFieldsCommentRequired" value="Ignored" />
+            <property name="violationSuppressXPath"
+                      value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']"/>
+            <property name="methodWithOverrideCommentRequirement" value="Unwanted"/>
+            <property name="accessorCommentRequirement" value="Ignored"/>
+            <property name="classCommentRequirement" value="Required"/>
+            <property name="fieldCommentRequirement" value="Ignored"/>
+            <property name="publicMethodCommentRequirement" value="Required"/>
+            <property name="protectedMethodCommentRequirement" value="Required"/>
+            <property name="enumCommentRequirement" value="Required"/>
+            <property name="serialVersionUIDCommentRequired" value="Ignored"/>
+            <property name="serialPersistentFieldsCommentRequired" value="Ignored"/>
         </properties>
     </rule>
 
@@ -113,7 +120,17 @@
     </rule>
 
     <rule ref="category/java/errorprone.xml/SuspiciousEqualsMethodName">
-        <property name="violationSuppressXPath" value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']"/>
+        <properties>
+            <property name="violationSuppressXPath"
+                      value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/errorprone.xml/EqualsNull">
+        <properties>
+            <property name="violationSuppressXPath"
+                      value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']"/>
+        </properties>
     </rule>
 
     <rule ref="category/java/performance.xml">
