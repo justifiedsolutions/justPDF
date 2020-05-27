@@ -17,11 +17,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SetCharacterSpacingTest {
 
+    private final PDFReal spacing = new PDFReal(12);
     private SetCharacterSpacing operator;
+    private GraphicsState graphicsState;
 
     @BeforeEach
     public void setup() {
-        operator = new SetCharacterSpacing(new PDFReal(12));
+        operator = new SetCharacterSpacing(spacing);
+        graphicsState = new GraphicsState();
     }
 
     @Test
@@ -44,9 +47,41 @@ public class SetCharacterSpacingTest {
     }
 
     @Test
+    public void changesStateFalse() {
+        graphicsState.setCharacterSpacing(spacing);
+        assertFalse(operator.changesState(graphicsState));
+    }
+
+    @Test
+    public void changesStateTrue() {
+        assertTrue(operator.changesState(graphicsState));
+    }
+
+    @Test
+    public void changeState() {
+        operator.changeState(graphicsState);
+        assertEquals(spacing, graphicsState.getCharacterSpacing());
+    }
+
+    @Test
     public void writeToPDF() throws IOException {
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         operator.writeToPDF(actual);
         assertArrayEquals("12 Tc\n".getBytes(StandardCharsets.US_ASCII), actual.toByteArray());
+    }
+
+    @Test
+    public void equals() {
+        PDFReal foo = new PDFReal(1);
+        PDFReal bar = new PDFReal(2);
+        SetCharacterSpacing operator = new SetCharacterSpacing(foo);
+        assertTrue(operator.equals(operator));
+        assertFalse(operator.equals(null));
+        assertFalse(operator.equals(Boolean.TRUE));
+        SetCharacterSpacing op1 = new SetCharacterSpacing(foo);
+        SetCharacterSpacing op2 = new SetCharacterSpacing(bar);
+        assertTrue(operator.equals(op1));
+        assertEquals(operator.hashCode(), op1.hashCode());
+        assertFalse(operator.equals(op2));
     }
 }

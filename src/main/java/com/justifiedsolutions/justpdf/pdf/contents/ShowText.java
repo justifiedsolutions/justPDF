@@ -17,7 +17,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 9.4.3"
  */
-public class ShowText implements TextShowingOperator, CollapsableOperator {
+public final class ShowText implements TextShowingOperator, CollapsableOperator {
     private final PDFString text;
 
     /**
@@ -36,8 +36,12 @@ public class ShowText implements TextShowingOperator, CollapsableOperator {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         ShowText showText = (ShowText) o;
         return text.equals(showText.text);
     }

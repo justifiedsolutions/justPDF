@@ -23,7 +23,6 @@ public class PathObjectTest {
         assertFalse(graphicsObject.isValidOperator(new BeginText()));
         assertTrue(graphicsObject.isValidOperator(new StartPath(new PDFReal(0), new PDFReal(0))));
         assertTrue(graphicsObject.isValidOperator(new CreateRectangularPath(new PDFRectangle(0, 0, 10, 10))));
-        assertTrue(graphicsObject.isValidOperator(new FillAndStrokePath()));
 
         assertFalse(graphicsObject.isValidOperator(new EndText()));
         assertTrue(graphicsObject.isValidOperator(new ClosePath()));
@@ -34,7 +33,6 @@ public class PathObjectTest {
         PathObject graphicsObject = new PathObject();
         assertTrue(graphicsObject.endsGraphicsObject(new FillPath()));
         assertTrue(graphicsObject.endsGraphicsObject(new StrokePath()));
-        assertTrue(graphicsObject.endsGraphicsObject(new FillAndStrokePath()));
 
         assertFalse(graphicsObject.endsGraphicsObject(new EndText()));
     }

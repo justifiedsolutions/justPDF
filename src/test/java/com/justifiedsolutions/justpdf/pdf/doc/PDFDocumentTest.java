@@ -12,10 +12,8 @@ import com.justifiedsolutions.justpdf.pdf.font.PDFFontType1;
 import com.justifiedsolutions.justpdf.pdf.object.*;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -60,8 +58,9 @@ public class PDFDocumentTest {
         File testOutputDirectory = new File(targetDirectory, "test-output");
         if (testOutputDirectory.isDirectory() || testOutputDirectory.mkdirs()) {
             File outputFile = new File(testOutputDirectory, "PDFDocumentTest.pdf");
-            FileOutputStream pdf = new FileOutputStream(outputFile);
-            actual.writeTo(pdf);
+            try (OutputStream pdf = Files.newOutputStream(outputFile.toPath())) {
+                actual.writeTo(pdf);
+            }
         }
     }
 }

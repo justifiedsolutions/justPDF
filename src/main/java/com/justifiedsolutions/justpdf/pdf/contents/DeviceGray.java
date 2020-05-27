@@ -14,7 +14,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 8.6.4.2"
  */
-public class DeviceGray extends DeviceColorSpace {
+public final class DeviceGray extends DeviceColorSpace {
     private final PDFReal gray;
 
     /**
@@ -42,8 +42,12 @@ public class DeviceGray extends DeviceColorSpace {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         DeviceGray that = (DeviceGray) o;
         return gray.equals(that.gray);
     }

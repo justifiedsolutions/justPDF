@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
  *
  * @see "ISO 32000-1:2008, 9.4.2"
  */
-public class MoveToNextLine implements TextPositioningOperator {
+public final class MoveToNextLine implements TextPositioningOperator {
     @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
         pdf.write("T*\n".getBytes(StandardCharsets.US_ASCII));

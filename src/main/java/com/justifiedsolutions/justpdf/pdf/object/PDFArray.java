@@ -90,8 +90,12 @@ public class PDFArray implements PDFObject {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         PDFArray pdfArray = (PDFArray) o;
         return objects.equals(pdfArray.objects);
     }

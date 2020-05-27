@@ -25,7 +25,7 @@ public class DocumentLayout {
     private final Document document;
     private final PDFDocument pdfDocument = new PDFDocument();
     private PageLayout currentPage;
-    private int currentPageNumber = 0;
+    private int currentPageNumber;
 
     /**
      * Creates a layout of the specified {@link Document}.
@@ -90,6 +90,11 @@ public class DocumentLayout {
                     break;
                 case PRODUCER:
                     pdfDocument.addInfo(PDFInfoDictionary.PRODUCER, pdfValue);
+                    break;
+                case CREATE_DATE:
+                    // do nothing. CREATE_DATE passed by user is ignored and set below even if it isn't specified
+                    break;
+                default:
                     break;
             }
         }

@@ -14,7 +14,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 8.6.4.3"
  */
-public class DeviceRGB extends DeviceColorSpace {
+public final class DeviceRGB extends DeviceColorSpace {
     private final PDFReal red;
     private final PDFReal green;
     private final PDFReal blue;
@@ -66,8 +66,12 @@ public class DeviceRGB extends DeviceColorSpace {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         DeviceRGB deviceRGB = (DeviceRGB) o;
         return red.equals(deviceRGB.red) &&
                 green.equals(deviceRGB.green) &&

@@ -8,7 +8,7 @@ import com.justifiedsolutions.justpdf.api.content.TextContent;
 /**
  * A utility class for converting {@link TextContent} into a {@link Paragraph}.
  */
-class TextContentUtility {
+final class TextContentUtility {
     private TextContentUtility() {
     }
 

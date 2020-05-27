@@ -10,16 +10,13 @@ import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 
 /**
  * Uses the PDF command {@code Tm} to move the text state to the specified point from the origin of the page.
  *
  * @see "ISO 32000-1:2008, 9.4.2"
  */
-public class AbsolutePositionText implements TextPositioningOperator, CollapsableOperator {
-    private final PDFReal tx;
-    private final PDFReal ty;
+public final class AbsolutePositionText extends LocationOperator implements TextPositioningOperator, CollapsableOperator {
 
     /**
      * Creates a new operator instance that translates the text position to Tx, Ty for the {@link TextObject}.
@@ -28,22 +25,7 @@ public class AbsolutePositionText implements TextPositioningOperator, Collapsabl
      * @param ty the distance on the y-axis from the origin
      */
     public AbsolutePositionText(PDFReal tx, PDFReal ty) {
-        this.tx = Objects.requireNonNull(tx);
-        this.ty = Objects.requireNonNull(ty);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(tx, ty);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AbsolutePositionText that = (AbsolutePositionText) o;
-        return tx.equals(that.tx) &&
-                ty.equals(that.ty);
+        super(tx, ty);
     }
 
     @Override
@@ -59,9 +41,9 @@ public class AbsolutePositionText implements TextPositioningOperator, Collapsabl
     @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
         pdf.write("1 0 0 1 ".getBytes(StandardCharsets.US_ASCII));
-        tx.writeToPDF(pdf);
+        getX().writeToPDF(pdf);
         pdf.write(' ');
-        ty.writeToPDF(pdf);
+        getY().writeToPDF(pdf);
         pdf.write(" Tm\n".getBytes(StandardCharsets.US_ASCII));
     }
 }

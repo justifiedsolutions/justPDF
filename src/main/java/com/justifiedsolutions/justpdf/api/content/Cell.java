@@ -15,7 +15,7 @@ import java.util.*;
  * the content embedded in the Cell. When adding a Paragraph to a Cell, if the Paragraph has a {@link
  * HorizontalAlignment} set, it will be overridden the HorizontalAlignment of the Cell.
  */
-public class Cell {
+public final class Cell {
 
     private final List<Border> borders = new ArrayList<>();
     private TextContent content;
@@ -23,7 +23,7 @@ public class Cell {
     private int columnSpan = 1;
     private HorizontalAlignment horizontalAlignment = HorizontalAlignment.LEFT;
     private VerticalAlignment verticalAlignment = VerticalAlignment.TOP;
-    private float minimumHeight = 0;
+    private float minimumHeight;
     private float paddingTop = 4;
     private float paddingBottom = 4;
     private float paddingLeft = 4;
@@ -323,8 +323,12 @@ public class Cell {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Cell cell = (Cell) o;
         return rowSpan == cell.rowSpan &&
                 columnSpan == cell.columnSpan &&

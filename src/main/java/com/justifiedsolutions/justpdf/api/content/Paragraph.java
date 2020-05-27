@@ -17,24 +17,25 @@ import java.util.Objects;
  * A Paragraph is a series of {@link Chunk}s and {@link Phrase}s. The Paragraph has an associated {@link Font} and any
  * Chunks or Phrases added to the Paragraph inherit the Font of the Paragraph unless they specify a Font themselves.
  */
-public class Paragraph implements TextContent {
+public final class Paragraph implements TextContent {
 
     private final List<TextContent> content = new ArrayList<>();
-    private float leading = 0f;
-    private float lineHeight = 0f;
+    private float leading;
+    private float lineHeight;
     private Font font;
-    private float leftIndent = 0f;
-    private float rightIndent = 0f;
-    private float firstLineIndent = 0f;
-    private float spacingBefore = 0f;
-    private float spacingAfter = 0f;
-    private boolean keepTogether = false;
+    private float leftIndent;
+    private float rightIndent;
+    private float firstLineIndent;
+    private float spacingBefore;
+    private float spacingAfter;
+    private boolean keepTogether;
     private HorizontalAlignment alignment = HorizontalAlignment.LEFT;
 
     /**
      * Creates an empty Paragraph with the default font.
      */
     public Paragraph() {
+        //default
     }
 
     /**

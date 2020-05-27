@@ -50,4 +50,22 @@ public class PositionTextTest {
         operator.writeToPDF(actual);
         assertArrayEquals("10 10 Td\n".getBytes(StandardCharsets.US_ASCII), actual.toByteArray());
     }
+
+    @Test
+    public void equals() {
+        PDFReal x = new PDFReal(1);
+        PDFReal y = new PDFReal(2);
+        PDFReal z = new PDFReal(3);
+        PositionText operator = new PositionText(x, y);
+        assertTrue(operator.equals(operator));
+        assertFalse(operator.equals(null));
+        assertFalse(operator.equals(Boolean.TRUE));
+        PositionText op1 = new PositionText(x, y);
+        PositionText op2 = new PositionText(x, z);
+        PositionText op3 = new PositionText(z, y);
+        assertTrue(operator.equals(op1));
+        assertEquals(operator.hashCode(), op1.hashCode());
+        assertFalse(operator.equals(op2));
+        assertFalse(operator.equals(op3));
+    }
 }

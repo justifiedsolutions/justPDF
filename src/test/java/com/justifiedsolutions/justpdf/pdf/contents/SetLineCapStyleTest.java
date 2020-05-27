@@ -5,41 +5,41 @@
 
 package com.justifiedsolutions.justpdf.pdf.contents;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
 public class SetLineCapStyleTest {
 
-    public final SetLineCapStyle operator = new SetLineCapStyle(LineCapStyle.ROUND_CAP);
-    @Mock
     public GraphicsState graphicsState;
+
+    @BeforeEach
+    public void setup() {
+        graphicsState = new GraphicsState();
+        graphicsState.setLineCap(LineCapStyle.ROUND_CAP);
+    }
 
     @Test
     public void changesStateFalse() {
-        when(graphicsState.getLineCap()).thenReturn(LineCapStyle.ROUND_CAP);
+        SetLineCapStyle operator = new SetLineCapStyle(LineCapStyle.ROUND_CAP);
         assertFalse(operator.changesState(graphicsState));
     }
 
     @Test
     public void changesStateTrue() {
-        when(graphicsState.getLineCap()).thenReturn(LineCapStyle.PROJECTING_SQUARE);
+        SetLineCapStyle operator = new SetLineCapStyle(LineCapStyle.PROJECTING_SQUARE);
         assertTrue(operator.changesState(graphicsState));
     }
 
     @Test
     public void changeState() {
+        SetLineCapStyle operator = new SetLineCapStyle(LineCapStyle.PROJECTING_SQUARE);
         operator.changeState(graphicsState);
-        verify(graphicsState).setLineCap(LineCapStyle.ROUND_CAP);
+        assertEquals(LineCapStyle.PROJECTING_SQUARE, graphicsState.getLineCap());
     }
 
     @Test
@@ -51,8 +51,22 @@ public class SetLineCapStyleTest {
         expected.write('\n');
 
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
+        SetLineCapStyle operator = new SetLineCapStyle(LineCapStyle.ROUND_CAP);
         operator.writeToPDF(actual);
 
         assertArrayEquals(expected.toByteArray(), actual.toByteArray());
+    }
+
+    @Test
+    public void equals() {
+        SetLineCapStyle operator = new SetLineCapStyle(LineCapStyle.ROUND_CAP);
+        assertTrue(operator.equals(operator));
+        assertFalse(operator.equals(null));
+        assertFalse(operator.equals(Boolean.TRUE));
+        SetLineCapStyle op1 = new SetLineCapStyle(LineCapStyle.ROUND_CAP);
+        SetLineCapStyle op2 = new SetLineCapStyle(LineCapStyle.PROJECTING_SQUARE);
+        assertTrue(operator.equals(op1));
+        assertEquals(operator.hashCode(), op1.hashCode());
+        assertFalse(operator.equals(op2));
     }
 }

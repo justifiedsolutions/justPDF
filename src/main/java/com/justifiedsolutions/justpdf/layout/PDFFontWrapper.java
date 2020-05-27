@@ -5,23 +5,26 @@
 
 package com.justifiedsolutions.justpdf.layout;
 
-import com.justifiedsolutions.justpdf.pdf.contents.ColorSpace;
-import com.justifiedsolutions.justpdf.pdf.contents.DeviceGray;
-import com.justifiedsolutions.justpdf.pdf.contents.DeviceRGB;
+import com.justifiedsolutions.justpdf.pdf.contents.*;
 import com.justifiedsolutions.justpdf.pdf.font.PDFFont;
 import com.justifiedsolutions.justpdf.pdf.font.PDFFontType1;
 import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
  * Wrapper for a {@link PDFFont} that specifies not only the font, but the size and color as well.
  */
-class PDFFontWrapper {
+final class PDFFontWrapper {
+    private static final Map<com.justifiedsolutions.justpdf.api.font.PDFFont, PDFFontWrapper> CACHE = new HashMap<>();
     private final PDFFont font;
     private final PDFReal size;
     private final ColorSpace color;
+
+    private final FontWrapperOperator operator = new FontWrapperOperator(this);
 
     private PDFFontWrapper(PDFFont font, PDFReal size, ColorSpace color) {
         this.font = Objects.requireNonNull(font);
@@ -39,10 +42,12 @@ class PDFFontWrapper {
         if (apiFont instanceof com.justifiedsolutions.justpdf.api.font.PDFFont) {
             com.justifiedsolutions.justpdf.api.font.PDFFont apiPDFFont =
                     (com.justifiedsolutions.justpdf.api.font.PDFFont) apiFont;
-            PDFFont font = getFont(apiPDFFont.getName());
-            PDFReal size = new PDFReal(apiPDFFont.getSize());
-            ColorSpace colorSpace = getColorSpace(apiPDFFont.getColor());
-            return new PDFFontWrapper(font, size, colorSpace);
+            return CACHE.computeIfAbsent(apiPDFFont, k -> {
+                PDFFont font = getFont(apiPDFFont.getName());
+                PDFReal size = new PDFReal(apiPDFFont.getSize());
+                ColorSpace colorSpace = getColorSpace(apiPDFFont.getColor());
+                return new PDFFontWrapper(font, size, colorSpace);
+            });
         }
         throw new IllegalArgumentException("Unsupported Font");
     }
@@ -70,8 +75,12 @@ class PDFFontWrapper {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         PDFFontWrapper wrapper = (PDFFontWrapper) o;
         return font.equals(wrapper.font) &&
                 size.equals(wrapper.size) &&
@@ -116,6 +125,21 @@ class PDFFontWrapper {
     }
 
     /**
+     * Gets the width of the specified string using this font and font size.
+     *
+     * @param string the string
+     * @return the string width
+     */
+    float getStringWidth(String string) {
+        float result = 0f;
+        char[] chars = string.toCharArray();
+        for (char c : chars) {
+            result += getCharacterWidth(c);
+        }
+        return result;
+    }
+
+    /**
      * Gets the minimum leading required for this font in this font size.
      *
      * @return the minimum leading
@@ -123,4 +147,29 @@ class PDFFontWrapper {
     float getMinimumLeading() {
         return size.getValue() * (font.getMinimumLeading() / 1000f);
     }
+
+    /**
+     * Gets the {@link GraphicsOperator} that represents this {@code PDFFontWrapper}.
+     *
+     * @return the operator
+     */
+    GraphicsOperator getOperator() {
+        return operator;
+    }
+
+    /**
+     * Gets the operator for setting the {@link ColorSpace} for this font.
+     *
+     * @return the operator to set the color
+     */
+    GraphicsOperator getColorSpaceOperator() {
+        ColorSpace colorSpace = getColor();
+        if (colorSpace instanceof DeviceGray) {
+            return new SetGrayFillColor((DeviceGray) colorSpace);
+        } else if (colorSpace instanceof DeviceRGB) {
+            return new SetRGBFillColor((DeviceRGB) colorSpace);
+        }
+        throw new IllegalArgumentException("Invalid ColorSpace");
+    }
+
 }

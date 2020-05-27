@@ -15,7 +15,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 7.3.2"
  */
-public class PDFBoolean implements PDFObject {
+public final class PDFBoolean implements PDFObject {
 
     /**
      * The PDFBoolean representing {@code true}.
@@ -40,8 +40,12 @@ public class PDFBoolean implements PDFObject {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         PDFBoolean that = (PDFBoolean) o;
         return value == that.value;
     }

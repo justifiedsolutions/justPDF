@@ -17,7 +17,7 @@ import java.nio.charset.StandardCharsets;
  *
  * @see "ISO 32000-1:2008, 7.5.2"
  */
-class PDFHeader implements PDFWritable {
+final class PDFHeader implements PDFWritable {
 
     @Override
     public void writeToPDF(OutputStream pdf) throws IOException {

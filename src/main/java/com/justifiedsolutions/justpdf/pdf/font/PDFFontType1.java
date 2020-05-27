@@ -18,7 +18,7 @@ import java.util.Map;
  *
  * @see "ISO 32000-1:2008, 9.6.2"
  */
-public class PDFFontType1 extends PDFFont {
+public final class PDFFontType1 extends PDFFont {
 
     static final PDFName TYPE1 = new PDFName("Type1");
     static final PDFName FIRST_CHAR = new PDFName("FirstChar");
@@ -33,7 +33,7 @@ public class PDFFontType1 extends PDFFont {
     private final PDFFontDescriptor descriptor;
 
     private final Map<Integer, Integer> characterWidths = new HashMap<>();
-    private float minimumLeading = 0;
+    private float minimumLeading;
 
     /**
      * Creates a new Type 1 font with the specified name. This supports the "standard 14" fonts in a PDF.
@@ -81,17 +81,7 @@ public class PDFFontType1 extends PDFFont {
                 line = reader.readLine();
             }
 
-            PDFObject ascentObject = descriptor.get(PDFFontDescriptor.ASCENT);
-            if (ascentObject instanceof PDFReal) {
-                PDFReal ascent = (PDFReal) ascentObject;
-                minimumLeading = ascent.getValue();
-            }
-
-            PDFObject bboxObject = descriptor.get(PDFFontDescriptor.FONT_BBOX);
-            if (minimumLeading == 0 && bboxObject instanceof PDFRectangle) {
-                PDFRectangle bboxRect = (PDFRectangle) bboxObject;
-                minimumLeading = bboxRect.getHeight().getValue();
-            }
+            determineMinimumLeading();
 
             int firstChar = 0;
             int lastChar = 0;
@@ -125,6 +115,20 @@ public class PDFFontType1 extends PDFFont {
         }
     }
 
+    private void determineMinimumLeading() {
+        PDFObject ascentObject = descriptor.get(PDFFontDescriptor.ASCENT);
+        if (ascentObject instanceof PDFReal) {
+            PDFReal ascent = (PDFReal) ascentObject;
+            minimumLeading = ascent.getValue();
+        }
+
+        PDFObject bboxObject = descriptor.get(PDFFontDescriptor.FONT_BBOX);
+        if (minimumLeading == 0 && bboxObject instanceof PDFRectangle) {
+            PDFRectangle bboxRect = (PDFRectangle) bboxObject;
+            minimumLeading = bboxRect.getHeight().getValue();
+        }
+    }
+
     private int parseCharacter(String line) {
         return parseKeyValue(line, "C", -1);
     }
@@ -137,8 +141,7 @@ public class PDFFontType1 extends PDFFont {
         int result = defaultResult;
         String[] kvPairs = line.split(";");
         for (String charString : kvPairs) {
-            charString = charString.trim();
-            String[] kv = charString.split("[ \t]");
+            String[] kv = charString.trim().split("[ \t]");
             if (kv.length == 2 && key.equals(kv[0])) {
                 result = Integer.parseInt(kv[1]);
                 break;

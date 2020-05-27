@@ -10,5 +10,5 @@ import com.justifiedsolutions.justpdf.api.Document;
 /**
  * A PageBreak is a special type of {@link Content} that can only be added to a {@link Document}.
  */
-public class PageBreak implements Content {
+public final class PageBreak implements Content {
 }

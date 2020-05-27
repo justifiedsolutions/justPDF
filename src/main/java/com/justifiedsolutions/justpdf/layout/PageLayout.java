@@ -38,7 +38,7 @@ class PageLayout {
     private final Margin margin;
     private float remainingHeight;
     private float currentVertPos;
-    private float currentSpacingAfter = 0;
+    private float currentSpacingAfter;
     private Header header;
     private Footer footer;
 
@@ -190,9 +190,10 @@ class PageLayout {
                 PDFFontWrapper wrapper = ((FontWrapperOperator) operator).getFontWrapper();
                 PDFIndirectObject.Reference reference = pdfDocument.addFont(wrapper.getFont());
                 PDFName fontAlias = pdfPage.addFontReference(reference);
-                operator = new SetFont(fontAlias, wrapper.getSize());
+                pdfBuilder.addOperator(new SetFont(fontAlias, wrapper.getSize()));
+            } else {
+                pdfBuilder.addOperator(operator);
             }
-            pdfBuilder.addOperator(operator);
         }
     }
 

@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
  *
  * @see "ISO 32000-1:2008, 7.3.9"
  */
-public class PDFNull implements PDFObject {
+public final class PDFNull implements PDFObject {
 
     /**
      * The null object.

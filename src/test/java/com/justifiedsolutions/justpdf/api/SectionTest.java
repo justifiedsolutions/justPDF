@@ -14,18 +14,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SectionTest {
 
-    private final int sectionNumber = 1;
+    private static final int SECTION_NUMBER = 1;
     private final Paragraph title = new Paragraph("title");
     private Section section;
 
     @BeforeEach
     public void setUp() {
-        section = new Section(sectionNumber, title);
+        section = new Section(SECTION_NUMBER, title);
     }
 
     @Test
     public void constructor() {
-        assertEquals(sectionNumber, section.getSectionNumber());
+        assertEquals(SECTION_NUMBER, section.getSectionNumber());
         assertEquals(title, section.getTitle());
     }
 
@@ -69,29 +69,29 @@ public class SectionTest {
         assertNotEquals(section, null);
         assertNotEquals(section, Boolean.TRUE);
 
-        Section s1 = new Section(sectionNumber, title);
+        Section s1 = new Section(SECTION_NUMBER, title);
         assertEquals(section, s1);
         assertEquals(section.hashCode(), s1.hashCode());
 
         Section s2 = new Section(2, title);
         assertNotEquals(section, s2);
 
-        Section s3 = new Section(sectionNumber, new Paragraph("foo"));
+        Section s3 = new Section(SECTION_NUMBER, new Paragraph("foo"));
         assertNotEquals(section, s3);
 
-        Section s4 = new Section(sectionNumber, title);
+        Section s4 = new Section(SECTION_NUMBER, title);
         s4.setStartsNewPage(!section.isStartsNewPage());
         assertNotEquals(section, s4);
 
-        Section s5 = new Section(sectionNumber, title);
+        Section s5 = new Section(SECTION_NUMBER, title);
         s5.setDisplaySectionNumber(!section.isDisplaySectionNumber());
         assertNotEquals(section, s5);
 
-        Section s6 = new Section(sectionNumber, title);
+        Section s6 = new Section(SECTION_NUMBER, title);
         s6.addContent(title);
         assertNotEquals(section, s6);
 
-        Section s7 = new Section(sectionNumber, title);
+        Section s7 = new Section(SECTION_NUMBER, title);
         s7.addSection(title);
         assertNotEquals(section, s7);
     }

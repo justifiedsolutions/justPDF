@@ -11,19 +11,29 @@ package com.justifiedsolutions.justpdf.api;
  */
 public class DocumentException extends Exception {
 
+    /**
+     * Creates a new {@code DocumentException}.
+     */
     public DocumentException() {
         super();
     }
 
+    /**
+     * Creates a new {@code DocumentException}.
+     *
+     * @param message message
+     */
     public DocumentException(String message) {
         super(message);
     }
 
+    /**
+     * Creates a new {@code DocumentException}.
+     *
+     * @param message message
+     * @param cause   exception that caused this one to be thrown
+     */
     public DocumentException(String message, Throwable cause) {
         super(message, cause);
-    }
-
-    public DocumentException(Throwable cause) {
-        super(cause);
     }
 }

@@ -13,7 +13,7 @@ import com.justifiedsolutions.justpdf.pdf.object.PDFName;
  *
  * @see "ISO 32000-1:2008, 7.7.2"
  */
-public class PDFCatalogDictionary extends PDFDictionary {
+final class PDFCatalogDictionary extends PDFDictionary {
     public static final PDFName TYPE = new PDFName("Type");
     public static final PDFName VERSION = new PDFName("Version");
     public static final PDFName PAGES = new PDFName("Pages");

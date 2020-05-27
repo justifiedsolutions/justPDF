@@ -34,8 +34,12 @@ class FontWrapperOperator implements GraphicsOperator {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         FontWrapperOperator that = (FontWrapperOperator) o;
         return fontWrapper.equals(that.fontWrapper);
     }

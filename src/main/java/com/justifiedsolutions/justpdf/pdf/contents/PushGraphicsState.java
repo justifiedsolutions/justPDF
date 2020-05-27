@@ -13,7 +13,7 @@ import java.io.OutputStream;
  *
  * @see "ISO 32000-1:2008, 8.4.2"
  */
-public class PushGraphicsState implements SpecialGraphicsOperator, CollapsableOperator {
+public final class PushGraphicsState implements SpecialGraphicsOperator, CollapsableOperator {
     @Override
     public boolean isCollapsable(GraphicsOperator operator) {
         // this means it's a push followed immediately by a pop

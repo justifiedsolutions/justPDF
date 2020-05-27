@@ -25,7 +25,7 @@ import java.util.List;
  *
  * @see "ISO 32000-1:2008, 7.8.2"
  */
-public class PDFContentStreamBuilder {
+public final class PDFContentStreamBuilder {
 
     private final boolean disableFilters;
     private final List<PDFFilter> filters = new ArrayList<>();
@@ -34,6 +34,9 @@ public class PDFContentStreamBuilder {
     private GraphicsState graphicsState = new GraphicsState();
     private GraphicsObject graphicsObject = new PageDescriptionObject();
 
+    /**
+     * Creates a new {@code PDFContentStreamBuilder}.
+     */
     public PDFContentStreamBuilder() {
         Object debug = System.getProperties().get("DisableContentFilters");
         disableFilters = (debug != null);
@@ -74,13 +77,7 @@ public class PDFContentStreamBuilder {
      * @throws IllegalStateException if the specified operator is invalid for the current state
      */
     public void addOperator(GraphicsOperator operator) {
-        if (!graphicsObject.isValidOperator(operator)) {
-            throw new IllegalStateException(operator.getClass().getSimpleName() + " is not allowed in " + graphicsObject.getClass().getSimpleName());
-        }
-
-        if ((operator instanceof PopGraphicsState) && graphicsStateStack.isEmpty()) {
-            throw new IllegalStateException("This operator is not allowed here.");
-        }
+        validate(operator);
 
         if (operator instanceof PushGraphicsState) {
             graphicsStateStack.push(graphicsState);
@@ -91,20 +88,20 @@ public class PDFContentStreamBuilder {
             graphicsState = graphicsStateStack.pop();
         }
 
-        operator = collapseOperator(operator);
-        if (operator == null) {
+        GraphicsOperator theOperator = collapseOperator(operator);
+        if (theOperator == null) {
             return;
         }
 
-        if (!modifyState(operator)) {
+        if (!modifyState(theOperator)) {
             return;
         }
 
-        if (graphicsObject.endsGraphicsObject(operator)) {
-            graphicsObject = graphicsObject.getNewGraphicsObject(operator);
+        if (graphicsObject.endsGraphicsObject(theOperator)) {
+            graphicsObject = graphicsObject.getNewGraphicsObject(theOperator);
         }
 
-        operators.add(operator);
+        operators.add(theOperator);
     }
 
     /**
@@ -112,7 +109,7 @@ public class PDFContentStreamBuilder {
      *
      * @return the {@link PDFStream} object that represents the contents
      * @throws IOException           if there was an issue creating the byte stream
-     * @throws IllegalStateException if the content stream is not in a valid state.
+     * @throws IllegalStateException if the content stream is not in a valid state
      */
     public PDFStream getStream() throws IOException {
         if (graphicsStateStack.isEmpty() && (graphicsObject instanceof PageDescriptionObject) && !operators.isEmpty()) {
@@ -122,6 +119,16 @@ public class PDFContentStreamBuilder {
             return stream;
         }
         throw new IllegalStateException("Contents are not complete. Cannot create content stream.");
+    }
+
+    private void validate(GraphicsOperator operator) {
+        if (!graphicsObject.isValidOperator(operator)) {
+            throw new IllegalStateException(operator.getClass().getSimpleName() + " is not allowed in " + graphicsObject.getClass().getSimpleName());
+        }
+
+        if ((operator instanceof PopGraphicsState) && graphicsStateStack.isEmpty()) {
+            throw new IllegalStateException("This operator is not allowed here.");
+        }
     }
 
     /**
@@ -152,17 +159,18 @@ public class PDFContentStreamBuilder {
      * @return the result of the collapse operation or the original operator if it couldn't be collapsed
      */
     private GraphicsOperator collapseOperator(GraphicsOperator operator) {
+        GraphicsOperator result = operator;
         if (!operators.isEmpty()) {
             GraphicsOperator lastOperator = operators.get(operators.size() - 1);
             if (lastOperator instanceof CollapsableOperator) {
                 CollapsableOperator co = (CollapsableOperator) lastOperator;
                 if (co.isCollapsable(operator)) {
-                    operator = co.collapse(operator);
+                    result = co.collapse(operator);
                     operators.remove(operators.size() - 1);
                 }
             }
         }
-        return operator;
+        return result;
     }
 
     /**

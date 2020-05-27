@@ -7,8 +7,9 @@ import com.justifiedsolutions.justpdf.api.font.PDFFont;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -69,8 +70,9 @@ public class PhraseOnlyDocumentTest {
         File testOutputDirectory = new File(targetDirectory, "test-output");
         if (testOutputDirectory.isDirectory() || testOutputDirectory.mkdirs()) {
             File outputFile = new File(testOutputDirectory, "PhraseOnlyDocumentTest.pdf");
-            FileOutputStream pdf = new FileOutputStream(outputFile);
-            document.write(pdf);
+            try (OutputStream pdf = Files.newOutputStream(outputFile.toPath())) {
+                document.write(pdf);
+            }
         }
     }
 }

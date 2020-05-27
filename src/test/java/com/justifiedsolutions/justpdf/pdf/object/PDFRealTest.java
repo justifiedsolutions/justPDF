@@ -11,8 +11,16 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PDFRealTest {
+
+    @Test
+    public void truncate() {
+        float input = .123456f;
+        float expected = .12345f;
+        assertEquals(expected,PDFReal.truncate(input));
+    }
 
     @Test
     public void writeToPDFPositive() throws IOException {

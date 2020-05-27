@@ -21,7 +21,7 @@ import java.util.Map;
  *
  * @see "ISO 32000-1:2008, 7.7"
  */
-public class PDFDocument {
+public final class PDFDocument {
     private final PDFHeader header = new PDFHeader();
     private final PDFXRefTable xrefTable = new PDFXRefTable();
     private final PDFTrailer trailer = new PDFTrailer();

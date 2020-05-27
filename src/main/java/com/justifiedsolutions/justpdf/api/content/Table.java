@@ -15,14 +15,14 @@ import java.util.List;
 /**
  * A Table is a type of {@link Content} that can be added to a PDF {@link Document}.
  */
-public class Table implements Content {
+public final class Table implements Content {
 
     private final float[] relativeColumnWidths;
     private final List<Cell> cells = new ArrayList<>();
-    private boolean keepTogether = false;
+    private boolean keepTogether;
     private float widthPercentage = 80;
-    private float spacingBefore = 0;
-    private float spacingAfter = 0;
+    private float spacingBefore;
+    private float spacingAfter;
     private float borderWidth = 1;
 
     /**
@@ -33,7 +33,7 @@ public class Table implements Content {
      * @throws IllegalArgumentException if an invalid width is passed
      */
     public Table(float[] relativeColumnWidths) {
-        this.relativeColumnWidths = relativeColumnWidths;
+        this.relativeColumnWidths = Arrays.copyOf(relativeColumnWidths, relativeColumnWidths.length);
         for (float width : this.relativeColumnWidths) {
             if (width < 0 || width > 1) {
                 throw new IllegalArgumentException("Widths should be between 0 and 1");

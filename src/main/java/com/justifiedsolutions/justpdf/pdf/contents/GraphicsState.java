@@ -5,7 +5,6 @@
 
 package com.justifiedsolutions.justpdf.pdf.contents;
 
-import com.justifiedsolutions.justpdf.pdf.doc.PDFPage;
 import com.justifiedsolutions.justpdf.pdf.font.PDFFont;
 import com.justifiedsolutions.justpdf.pdf.object.PDFName;
 import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
@@ -17,7 +16,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 8.4"
  */
-class GraphicsState {
+final class GraphicsState {
 
     // Graphics State
     private PDFReal lineWidth = new PDFReal(1);
@@ -38,6 +37,7 @@ class GraphicsState {
      * Default constructor.
      */
     GraphicsState() {
+        //default
     }
 
     /**
@@ -66,8 +66,12 @@ class GraphicsState {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         GraphicsState that = (GraphicsState) o;
         return lineWidth.equals(that.lineWidth) &&
                 lineCap.equals(that.lineCap) &&
@@ -207,7 +211,7 @@ class GraphicsState {
     }
 
     /**
-     * Gets the {@link PDFName} that identifies a {@link PDFFont} on a {@link PDFPage}.
+     * Gets the {@link PDFName} that identifies a {@link PDFFont} on a {@code PDFPage}.
      *
      * @return the name for the font
      */
@@ -216,7 +220,7 @@ class GraphicsState {
     }
 
     /**
-     * Sets the {@link PDFName} that identifies a {@link PDFFont} on a {@link PDFPage}.
+     * Sets the {@link PDFName} that identifies a {@link PDFFont} on a {@code PDFPage}.
      *
      * @param textFont the name for the font
      */

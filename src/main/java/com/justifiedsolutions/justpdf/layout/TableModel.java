@@ -270,7 +270,7 @@ class TableModel {
      */
     static class Row implements Comparable<Row> {
         private final int index;
-        private float height = 0;
+        private float height;
 
         private Row(int index) {
             this.index = index;
@@ -283,8 +283,12 @@ class TableModel {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
             Row row = (Row) o;
             return index == row.index;
         }
@@ -303,6 +307,9 @@ class TableModel {
         }
     }
 
+    /**
+     * Models a column in a table. Specifies the index and width of the column.
+     */
     private static class Column {
         private final int index;
         private final float width;
@@ -319,8 +326,12 @@ class TableModel {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
             Column column = (Column) o;
             return Float.compare(column.index, index) == 0;
         }

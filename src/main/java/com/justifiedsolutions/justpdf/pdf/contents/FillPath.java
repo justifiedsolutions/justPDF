@@ -14,7 +14,7 @@ import java.io.OutputStream;
  * @see "ISO 32000-1:2008, 8.5.3.1"
  * @see "ISO 32000-1:2008, 8.5.3.3"
  */
-public class FillPath implements PathPaintingGraphicsOperator {
+public final class FillPath implements PathPaintingGraphicsOperator {
     @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
         pdf.write('f');

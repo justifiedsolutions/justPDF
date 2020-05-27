@@ -11,7 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PDFBooleanTest {
 
@@ -35,5 +35,15 @@ public class PDFBooleanTest {
         PDFBoolean.FALSE.writeToPDF(actual);
 
         assertArrayEquals(expected.toByteArray(), actual.toByteArray());
+    }
+
+    @Test
+    public void equals() {
+        assertTrue(PDFBoolean.TRUE.equals(PDFBoolean.TRUE));
+        assertEquals(PDFBoolean.TRUE.hashCode(), PDFBoolean.TRUE.hashCode());
+        assertFalse(PDFBoolean.TRUE.equals(null));
+        assertFalse(PDFBoolean.TRUE.equals("true"));
+        assertFalse(PDFBoolean.TRUE.equals(PDFBoolean.FALSE));
+
     }
 }

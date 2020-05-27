@@ -109,8 +109,12 @@ public class PDFDictionary implements PDFObject {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         PDFDictionary that = (PDFDictionary) o;
         return dictionary.equals(that.dictionary);
     }

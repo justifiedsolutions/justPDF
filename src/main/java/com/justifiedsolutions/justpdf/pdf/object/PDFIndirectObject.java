@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @see "ISO 32000-1:2008, 7.3.10"
  */
-public class PDFIndirectObject implements PDFObject, Comparable<PDFIndirectObject> {
+public final class PDFIndirectObject implements PDFObject, Comparable<PDFIndirectObject> {
 
     private static final AtomicInteger LAST_USED_OBJECT_NUMBER = new AtomicInteger(0);
 
@@ -98,8 +98,12 @@ public class PDFIndirectObject implements PDFObject, Comparable<PDFIndirectObjec
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         PDFIndirectObject that = (PDFIndirectObject) o;
         return objectNumber.equals(that.objectNumber) &&
                 generationNumber.equals(that.generationNumber) &&
@@ -146,8 +150,12 @@ public class PDFIndirectObject implements PDFObject, Comparable<PDFIndirectObjec
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
             Reference other = (Reference) o;
             return objectNumber.equals(other.getObjectNumber()) &&
                     generationNumber.equals(other.getGenerationNumber());

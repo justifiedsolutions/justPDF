@@ -12,7 +12,7 @@ import com.justifiedsolutions.justpdf.pdf.object.*;
  *
  * @see "ISO 32000-1:2008, 7.7.3.3"
  */
-public class PDFPage {
+public final class PDFPage {
     public static final PDFName TYPE_NAME = new PDFName("Type");
     public static final PDFName PAGE_NAME = new PDFName("Page");
     public static final PDFName MEDIA_BOX_NAME = new PDFName("MediaBox");

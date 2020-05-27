@@ -18,7 +18,7 @@ import java.util.Objects;
  * @see "ISO 32000-1:2008, 9.3.1"
  * @see "ISO 32000-1:2008, 9.3.2"
  */
-public class SetCharacterSpacing implements TextStateOperator, CollapsableOperator {
+public final class SetCharacterSpacing implements TextStateOperator, CollapsableOperator {
     private final PDFReal charSpacing;
 
     /**
@@ -37,8 +37,12 @@ public class SetCharacterSpacing implements TextStateOperator, CollapsableOperat
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         SetCharacterSpacing that = (SetCharacterSpacing) o;
         return charSpacing.equals(that.charSpacing);
     }

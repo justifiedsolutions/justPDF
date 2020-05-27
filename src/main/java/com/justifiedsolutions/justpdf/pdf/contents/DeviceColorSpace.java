@@ -14,7 +14,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 8.6.4"
  */
-public abstract class DeviceColorSpace implements ColorSpace {
+abstract class DeviceColorSpace implements ColorSpace {
 
     /**
      * Checks the specified color is within the range of 0 to 1.

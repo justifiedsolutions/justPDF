@@ -8,14 +8,20 @@ package com.justifiedsolutions.justpdf.pdf.contents;
 import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DeviceRGBTest {
     private final PDFReal r = new PDFReal(0);
     private final PDFReal g = new PDFReal(.2f);
     private final PDFReal b = new PDFReal(.6f);
     private final PDFReal x = new PDFReal(0.1f);
+
+    @Test
+    public void equals() {
+        DeviceRGB rgb = new DeviceRGB(r, g, b);
+        assertFalse(rgb.equals(null));
+        assertFalse(rgb.equals(Boolean.TRUE));
+    }
 
     @Test
     public void testEquals() {

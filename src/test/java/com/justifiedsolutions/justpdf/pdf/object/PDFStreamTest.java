@@ -11,7 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PDFStreamTest {
 
@@ -31,5 +31,51 @@ public class PDFStreamTest {
         stream.writeToPDF(actual);
 
         assertArrayEquals(expected.toByteArray(), actual.toByteArray());
+    }
+
+    @Test
+    public void addFilters() {
+        PDFStream stream = new PDFStream(new byte[]{});
+        stream.addFilter(null);
+        assertNull(stream.getFilter());
+        stream.addFilter(new PDFArray());
+        assertNull(stream.getFilter());
+        PDFArray filter = new PDFArray();
+        filter.add(new PDFName("foo"));
+        stream.addFilter(filter);
+        assertEquals(filter, stream.getFilter());
+    }
+
+    @Test
+    public void addDecodeParams() {
+        PDFStream stream = new PDFStream(new byte[]{});
+        stream.addDecodeParams(null);
+        assertNull(stream.getDecodeParams());
+        stream.addDecodeParams(new PDFArray());
+        assertNull(stream.getDecodeParams());
+        PDFArray params = new PDFArray();
+        params.add(new PDFDictionary());
+        stream.addDecodeParams(params);
+        assertEquals(params, stream.getDecodeParams());
+        params.add(new PDFDictionary());
+        stream.addDecodeParams(params);
+        assertEquals(params, stream.getDecodeParams());
+    }
+
+    @Test
+    public void equals() {
+        byte[] b1 = {0, 1, 2, 3, 4};
+        byte[] b2 = {1, 2, 3, 4, 5};
+        PDFStream s1 = new PDFStream(b1);
+        assertTrue(s1.equals(s1));
+        assertFalse(s1.equals(null));
+        assertFalse(s1.equals(PDFBoolean.TRUE));
+
+        PDFStream s2 = new PDFStream(b1);
+        assertTrue(s1.equals(s2));
+        assertEquals(s1.hashCode(), s2.hashCode());
+
+        PDFStream s3 = new PDFStream(b2);
+        assertFalse(s1.equals(s3));
     }
 }

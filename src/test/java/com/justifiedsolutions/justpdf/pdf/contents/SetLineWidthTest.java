@@ -6,42 +6,42 @@
 package com.justifiedsolutions.justpdf.pdf.contents;
 
 import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
 public class SetLineWidthTest {
 
     public final PDFReal width = new PDFReal(.5f);
     public final SetLineWidth operator = new SetLineWidth(width);
-    @Mock
     public GraphicsState graphicsState;
+
+    @BeforeEach
+    public void setup() {
+        graphicsState = new GraphicsState();
+        graphicsState.setLineWidth(width);
+    }
 
     @Test
     public void changesStateFalse() {
-        when(graphicsState.getLineWidth()).thenReturn(width);
+        graphicsState.setLineWidth(width);
         assertFalse(operator.changesState(graphicsState));
     }
 
     @Test
     public void changesStateTrue() {
-        when(graphicsState.getLineWidth()).thenReturn(new PDFReal(.2f));
+        graphicsState.setLineWidth(new PDFReal(.2f));
         assertTrue(operator.changesState(graphicsState));
     }
 
     @Test
     public void changeState() {
         operator.changeState(graphicsState);
-        verify(graphicsState).setLineWidth(width);
+        assertEquals(width, graphicsState.getLineWidth());
     }
 
     @Test
@@ -56,5 +56,20 @@ public class SetLineWidthTest {
         operator.writeToPDF(actual);
 
         assertArrayEquals(expected.toByteArray(), actual.toByteArray());
+    }
+
+    @Test
+    public void equals() {
+        PDFReal foo = new PDFReal(1);
+        PDFReal bar = new PDFReal(2);
+        SetLineWidth operator = new SetLineWidth(foo);
+        assertTrue(operator.equals(operator));
+        assertFalse(operator.equals(null));
+        assertFalse(operator.equals(Boolean.TRUE));
+        SetLineWidth op1 = new SetLineWidth(foo);
+        SetLineWidth op2 = new SetLineWidth(bar);
+        assertTrue(operator.equals(op1));
+        assertEquals(operator.hashCode(), op1.hashCode());
+        assertFalse(operator.equals(op2));
     }
 }

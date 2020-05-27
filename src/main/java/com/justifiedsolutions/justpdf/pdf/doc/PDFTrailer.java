@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
  *
  * @see "ISO 32000-1:2008, 7.5.5"
  */
-class PDFTrailer {
+final class PDFTrailer {
 
     private static final PDFName ROOT = new PDFName("Root");
     private static final PDFName INFO = new PDFName("Info");

@@ -11,8 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PDFIndirectObjectTest {
 
@@ -56,5 +55,52 @@ public class PDFIndirectObjectTest {
         inObject.writeToPDF(actual);
 
         assertArrayEquals(expected.toByteArray(), actual.toByteArray());
+    }
+
+    @Test
+    public void compareTo() {
+        PDFIndirectObject.resetObjectNumber();
+        PDFIndirectObject io1 = new PDFIndirectObject(PDFBoolean.TRUE);
+        PDFIndirectObject.resetObjectNumber();
+        PDFIndirectObject io2 = new PDFIndirectObject(PDFBoolean.TRUE);
+        assertEquals(-1, io1.compareTo(null));
+        assertEquals(0, io1.compareTo(io2));
+    }
+
+    @Test
+    public void equals() {
+        PDFIndirectObject.resetObjectNumber();
+        PDFIndirectObject io1 = new PDFIndirectObject(PDFBoolean.TRUE);
+        PDFIndirectObject.resetObjectNumber();
+        PDFIndirectObject io2 = new PDFIndirectObject(PDFBoolean.TRUE);
+        PDFIndirectObject io3 = new PDFIndirectObject(PDFBoolean.TRUE);
+        PDFIndirectObject.resetObjectNumber();
+        PDFIndirectObject io4 = new PDFIndirectObject(PDFBoolean.FALSE);
+
+        assertTrue(io1.equals(io1));
+        assertFalse(io1.equals(null));
+        assertFalse(io1.equals(PDFBoolean.TRUE));
+
+        assertTrue(io1.equals(io2));
+        assertEquals(io1.hashCode(), io2.hashCode());
+        assertFalse(io1.equals(io3));
+        assertFalse(io1.equals(io4));
+    }
+
+    @Test
+    public void equalsReference() {
+        PDFIndirectObject.resetObjectNumber();
+        PDFIndirectObject.Reference io1 = new PDFIndirectObject(PDFBoolean.TRUE).getReference();
+        PDFIndirectObject.resetObjectNumber();
+        PDFIndirectObject.Reference io2 = new PDFIndirectObject(PDFBoolean.TRUE).getReference();
+        PDFIndirectObject.Reference io3 = new PDFIndirectObject(PDFBoolean.TRUE).getReference();
+
+        assertTrue(io1.equals(io1));
+        assertFalse(io1.equals(null));
+        assertFalse(io1.equals(PDFBoolean.TRUE));
+
+        assertTrue(io1.equals(io2));
+        assertEquals(io1.hashCode(), io2.hashCode());
+        assertFalse(io1.equals(io3));
     }
 }
