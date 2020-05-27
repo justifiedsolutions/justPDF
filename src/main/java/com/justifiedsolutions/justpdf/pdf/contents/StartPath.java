@@ -9,16 +9,13 @@ import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Objects;
 
 /**
  * Implements the PDF command {@code m} to start a new path in a content stream.
  *
  * @see "ISO 32000-1:2008, 8.5.2.1"
  */
-public final class StartPath implements PathConstructionGraphicsOperator, CollapsableOperator {
-    private final PDFReal x;
-    private final PDFReal y;
+public final class StartPath extends LocationOperator implements PathConstructionGraphicsOperator, CollapsableOperator {
 
     /**
      * Creates a new path starting at the specified point.
@@ -27,26 +24,7 @@ public final class StartPath implements PathConstructionGraphicsOperator, Collap
      * @param y the y value of the starting point
      */
     public StartPath(PDFReal x, PDFReal y) {
-        this.x = Objects.requireNonNull(x);
-        this.y = Objects.requireNonNull(y);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(x, y);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        StartPath startPath = (StartPath) o;
-        return x.equals(startPath.x) &&
-                y.equals(startPath.y);
+        super(x, y);
     }
 
     @Override
@@ -61,9 +39,9 @@ public final class StartPath implements PathConstructionGraphicsOperator, Collap
 
     @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
-        x.writeToPDF(pdf);
+        getX().writeToPDF(pdf);
         pdf.write(' ');
-        y.writeToPDF(pdf);
+        getY().writeToPDF(pdf);
         pdf.write(' ');
         pdf.write('m');
         pdf.write('\n');
