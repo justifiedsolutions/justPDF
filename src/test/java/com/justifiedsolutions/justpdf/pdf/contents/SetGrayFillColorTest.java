@@ -64,4 +64,17 @@ public class SetGrayFillColorTest {
 
         assertArrayEquals(expected.toByteArray(), actual.toByteArray());
     }
+
+    @Test
+    public void equals() {
+        SetGrayFillColor operator = new SetGrayFillColor(g);
+        assertTrue(operator.equals(operator));
+        assertFalse(operator.equals(null));
+        assertFalse(operator.equals(Boolean.TRUE));
+        SetGrayFillColor op1 = new SetGrayFillColor(g);
+        SetGrayFillColor op2 = new SetGrayFillColor(x);
+        assertTrue(operator.equals(op1));
+        assertEquals(operator.hashCode(), op1.hashCode());
+        assertFalse(operator.equals(op2));
+    }
 }

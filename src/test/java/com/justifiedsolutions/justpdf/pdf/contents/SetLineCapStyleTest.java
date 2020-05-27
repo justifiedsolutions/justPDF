@@ -56,4 +56,17 @@ public class SetLineCapStyleTest {
 
         assertArrayEquals(expected.toByteArray(), actual.toByteArray());
     }
+
+    @Test
+    public void equals() {
+        SetLineCapStyle operator = new SetLineCapStyle(LineCapStyle.ROUND_CAP);
+        assertTrue(operator.equals(operator));
+        assertFalse(operator.equals(null));
+        assertFalse(operator.equals(Boolean.TRUE));
+        SetLineCapStyle op1 = new SetLineCapStyle(LineCapStyle.ROUND_CAP);
+        SetLineCapStyle op2 = new SetLineCapStyle(LineCapStyle.PROJECTING_SQUARE);
+        assertTrue(operator.equals(op1));
+        assertEquals(operator.hashCode(), op1.hashCode());
+        assertFalse(operator.equals(op2));
+    }
 }

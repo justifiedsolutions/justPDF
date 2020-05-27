@@ -168,8 +168,6 @@ final class PDFFontWrapper {
             return new SetGrayFillColor((DeviceGray) colorSpace);
         } else if (colorSpace instanceof DeviceRGB) {
             return new SetRGBFillColor((DeviceRGB) colorSpace);
-        } else if (colorSpace instanceof DeviceCMYK) {
-            return new SetCMYKFillColor((DeviceCMYK) colorSpace);
         }
         throw new IllegalArgumentException("Invalid ColorSpace");
     }

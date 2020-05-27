@@ -12,7 +12,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AppendToPathTest {
 
@@ -25,5 +25,23 @@ public class AppendToPathTest {
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         new AppendToPath(x, y).writeToPDF(actual);
         assertArrayEquals(expected, actual.toByteArray());
+    }
+
+    @Test
+    public void equals() {
+        PDFReal x = new PDFReal(1);
+        PDFReal y = new PDFReal(2);
+        PDFReal z = new PDFReal(3);
+        AppendToPath operator = new AppendToPath(x, y);
+        assertTrue(operator.equals(operator));
+        assertFalse(operator.equals(null));
+        assertFalse(operator.equals(Boolean.TRUE));
+        AppendToPath op1 = new AppendToPath(x, y);
+        AppendToPath op2 = new AppendToPath(x, z);
+        AppendToPath op3 = new AppendToPath(z, y);
+        assertTrue(operator.equals(op1));
+        assertEquals(operator.hashCode(), op1.hashCode());
+        assertFalse(operator.equals(op2));
+        assertFalse(operator.equals(op3));
     }
 }

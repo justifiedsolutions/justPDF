@@ -49,4 +49,22 @@ public class AbsolutePositionTextTest {
         operator.writeToPDF(actual);
         assertArrayEquals("1 0 0 1 10 10 Tm\n".getBytes(StandardCharsets.US_ASCII), actual.toByteArray());
     }
+
+    @Test
+    public void equals() {
+        PDFReal x = new PDFReal(1);
+        PDFReal y = new PDFReal(2);
+        PDFReal z = new PDFReal(3);
+        AbsolutePositionText operator = new AbsolutePositionText(x, y);
+        assertTrue(operator.equals(operator));
+        assertFalse(operator.equals(null));
+        assertFalse(operator.equals(Boolean.TRUE));
+        AbsolutePositionText op1 = new AbsolutePositionText(x, y);
+        AbsolutePositionText op2 = new AbsolutePositionText(x, z);
+        AbsolutePositionText op3 = new AbsolutePositionText(z, y);
+        assertTrue(operator.equals(op1));
+        assertEquals(operator.hashCode(), op1.hashCode());
+        assertFalse(operator.equals(op2));
+        assertFalse(operator.equals(op3));
+    }
 }
