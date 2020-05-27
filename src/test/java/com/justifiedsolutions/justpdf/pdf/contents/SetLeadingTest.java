@@ -49,4 +49,19 @@ public class SetLeadingTest {
         operator.writeToPDF(actual);
         assertArrayEquals("12 TL\n".getBytes(StandardCharsets.US_ASCII), actual.toByteArray());
     }
+
+    @Test
+    public void equals() {
+        PDFReal foo = new PDFReal(1);
+        PDFReal bar = new PDFReal(2);
+        SetLeading operator = new SetLeading(foo);
+        assertTrue(operator.equals(operator));
+        assertFalse(operator.equals(null));
+        assertFalse(operator.equals(Boolean.TRUE));
+        SetLeading op1 = new SetLeading(foo);
+        SetLeading op2 = new SetLeading(bar);
+        assertTrue(operator.equals(op1));
+        assertEquals(operator.hashCode(), op1.hashCode());
+        assertFalse(operator.equals(op2));
+    }
 }
