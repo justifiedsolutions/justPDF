@@ -16,9 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SetLineWidthTest {
 
-    public final PDFReal width = new PDFReal(.5f);
-    public final SetLineWidth operator = new SetLineWidth(width);
-    public GraphicsState graphicsState;
+    private final PDFReal width = new PDFReal(.5f);
+    private final SetLineWidth operator = new SetLineWidth(width);
+    private GraphicsState graphicsState;
 
     @BeforeEach
     public void setup() {

@@ -155,7 +155,8 @@ class CellLayout {
         List<GraphicsOperator> result = new ArrayList<>();
 
         if (cell.getGrayFill() < 1) {
-            result.add(new SetGrayFillColor(new PDFReal(cell.getGrayFill())));
+            DeviceGray fill = new DeviceGray(new PDFReal(cell.getGrayFill()));
+            result.add(new SetGrayFillColor(fill));
             result.add(new CreateRectangularPath(location));
             result.add(new FillPath());
         }

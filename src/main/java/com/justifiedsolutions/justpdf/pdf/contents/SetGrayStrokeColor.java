@@ -5,8 +5,6 @@
 
 package com.justifiedsolutions.justpdf.pdf.contents;
 
-import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
-
 /**
  * Implements the PDF command {@code G} to set the stroke color in the monochrome color space in a content stream.
  *
@@ -18,19 +16,10 @@ public final class SetGrayStrokeColor extends DeviceGrayOperator {
     /**
      * Creates a new operator that sets the stroke color in the monochrome color space in a content stream.
      *
-     * @param gray gray
+     * @param gray the color space
      */
-    public SetGrayStrokeColor(PDFReal gray) {
-        super(new DeviceGray(gray));
-    }
-
-    /**
-     * Creates a new operator that sets the stroke color in the monochrome color space in a content stream.
-     *
-     * @param colorSpace the color space
-     */
-    public SetGrayStrokeColor(DeviceGray colorSpace) {
-        super(colorSpace);
+    public SetGrayStrokeColor(DeviceGray gray) {
+        super(gray);
     }
 
     @Override

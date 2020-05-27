@@ -5,8 +5,6 @@
 
 package com.justifiedsolutions.justpdf.pdf.contents;
 
-import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
-
 /**
  * Implements the PDF command {@code g} to set the fill color in the monochrome color space in a content stream.
  *
@@ -14,15 +12,6 @@ import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
  */
 public final class SetGrayFillColor extends DeviceGrayOperator {
     private static final String OPERATOR_CODE = "g";
-
-    /**
-     * Creates a new operator that sets the fill color in the monochrome color space in a content stream.
-     *
-     * @param gray gray
-     */
-    public SetGrayFillColor(PDFReal gray) {
-        super(new DeviceGray(gray));
-    }
 
     /**
      * Creates a new operator that sets the fill color in the monochrome color space in a content stream.

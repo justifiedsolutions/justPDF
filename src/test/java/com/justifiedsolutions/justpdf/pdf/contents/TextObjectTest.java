@@ -18,7 +18,7 @@ public class TextObjectTest {
         TextObject graphicsObject = new TextObject();
         assertTrue(graphicsObject.isValidOperator(new SetLineWidth(new PDFReal(0))));
         assertFalse(graphicsObject.isValidOperator(new PushGraphicsState()));
-        assertTrue(graphicsObject.isValidOperator(new SetGrayStrokeColor(new PDFReal(0))));
+        assertTrue(graphicsObject.isValidOperator(new SetGrayStrokeColor(new DeviceGray(new PDFReal(0)))));
         assertTrue(graphicsObject.isValidOperator(new SetLeading(new PDFReal(0))));
         assertFalse(graphicsObject.isValidOperator(new BeginText()));
         assertFalse(graphicsObject.isValidOperator(new StartPath(new PDFReal(0), new PDFReal(0))));

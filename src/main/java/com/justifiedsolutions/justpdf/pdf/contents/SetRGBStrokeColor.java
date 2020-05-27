@@ -5,8 +5,6 @@
 
 package com.justifiedsolutions.justpdf.pdf.contents;
 
-import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
-
 /**
  * Implements the PDF command {@code RG} to set the stroke color in the RGB color space in a content stream.
  *
@@ -14,17 +12,6 @@ import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
  */
 public final class SetRGBStrokeColor extends DeviceRGBOperator {
     private static final String OPERATOR_CODE = "RG";
-
-    /**
-     * Creates a new operator that sets the stroke color in the RGB color space in a content stream.
-     *
-     * @param red   red
-     * @param green green
-     * @param blue  blue
-     */
-    public SetRGBStrokeColor(PDFReal red, PDFReal green, PDFReal blue) {
-        super(new DeviceRGB(red, green, blue));
-    }
 
     /**
      * Creates a new operator that sets the stroke color in the RGB color space in a content stream.

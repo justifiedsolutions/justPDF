@@ -15,17 +15,17 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SetRGBFillColorTest {
-    public final PDFReal r = new PDFReal(0);
-    public final PDFReal g = new PDFReal(.2f);
-    public final PDFReal b = new PDFReal(.6f);
-    public final PDFReal x = new PDFReal(.9f);
+    private final PDFReal r = new PDFReal(0);
+    private final PDFReal g = new PDFReal(.2f);
+    private final PDFReal b = new PDFReal(.6f);
+    private final PDFReal x = new PDFReal(.9f);
 
-    public SetRGBFillColor operator;
-    public GraphicsState graphicsState;
+    private SetRGBFillColor operator;
+    private GraphicsState graphicsState;
 
     @BeforeEach
     public void setup() {
-        operator = new SetRGBFillColor(r, g, b);
+        operator = new SetRGBFillColor(new DeviceRGB(r, g, b));
         graphicsState = new GraphicsState();
     }
 

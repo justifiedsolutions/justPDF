@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SetLineCapStyleTest {
 
-    public GraphicsState graphicsState;
+    private GraphicsState graphicsState;
 
     @BeforeEach
     public void setup() {

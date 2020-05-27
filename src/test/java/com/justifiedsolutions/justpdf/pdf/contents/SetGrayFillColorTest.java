@@ -8,47 +8,43 @@ package com.justifiedsolutions.justpdf.pdf.contents;
 import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(MockitoExtension.class)
 public class SetGrayFillColorTest {
-    public final PDFReal g = new PDFReal(.2f);
-    public final PDFReal x = new PDFReal(.9f);
+    private final PDFReal g = new PDFReal(.2f);
+    private final PDFReal x = new PDFReal(.9f);
+    private final DeviceGray gColorSpace = new DeviceGray(g);
+    private final DeviceGray xColorSpace = new DeviceGray(x);
 
-    public SetGrayFillColor operator;
-    public GraphicsState graphicsState;
+    private SetGrayFillColor operator;
+    private GraphicsState graphicsState;
 
     @BeforeEach
     public void setup() {
         graphicsState = new GraphicsState();
-        operator = new SetGrayFillColor(g);
+        operator = new SetGrayFillColor(gColorSpace);
     }
 
     @Test
     public void changesStateFalse() {
-        DeviceGray colorSpace = new DeviceGray(g);
-        graphicsState.setFillColorSpace(colorSpace);
+        graphicsState.setFillColorSpace(gColorSpace);
         assertFalse(operator.changesState(graphicsState));
     }
 
     @Test
     public void changesStateTrue() {
-        DeviceGray colorSpace = new DeviceGray(x);
-        graphicsState.setFillColorSpace(colorSpace);
+        graphicsState.setFillColorSpace(xColorSpace);
         assertTrue(operator.changesState(graphicsState));
     }
 
     @Test
     public void changeState() {
-        DeviceGray colorSpace = new DeviceGray(g);
         operator.changeState(graphicsState);
-        assertEquals(colorSpace, graphicsState.getFillColorSpace());
+        assertEquals(gColorSpace, graphicsState.getFillColorSpace());
     }
 
     @Test
@@ -67,12 +63,12 @@ public class SetGrayFillColorTest {
 
     @Test
     public void equals() {
-        SetGrayFillColor operator = new SetGrayFillColor(g);
+        SetGrayFillColor operator = new SetGrayFillColor(gColorSpace);
         assertTrue(operator.equals(operator));
         assertFalse(operator.equals(null));
         assertFalse(operator.equals(Boolean.TRUE));
-        SetGrayFillColor op1 = new SetGrayFillColor(g);
-        SetGrayFillColor op2 = new SetGrayFillColor(x);
+        SetGrayFillColor op1 = new SetGrayFillColor(gColorSpace);
+        SetGrayFillColor op2 = new SetGrayFillColor(xColorSpace);
         assertTrue(operator.equals(op1));
         assertEquals(operator.hashCode(), op1.hashCode());
         assertFalse(operator.equals(op2));

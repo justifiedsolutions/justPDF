@@ -15,37 +15,36 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SetGrayStrokeColorTest {
-    public final PDFReal g = new PDFReal(.2f);
-    public final PDFReal x = new PDFReal(.9f);
+    private final PDFReal g = new PDFReal(.2f);
+    private final PDFReal x = new PDFReal(.9f);
+    private final DeviceGray gColorSpace = new DeviceGray(g);
+    private final DeviceGray xColorSpace = new DeviceGray(x);
 
-    public SetGrayStrokeColor operator;
-    public GraphicsState graphicsState;
+    private SetGrayStrokeColor operator;
+    private GraphicsState graphicsState;
 
     @BeforeEach
     public void setup() {
         graphicsState = new GraphicsState();
-        operator = new SetGrayStrokeColor(g);
+        operator = new SetGrayStrokeColor(gColorSpace);
     }
 
     @Test
     public void changesStateFalse() {
-        DeviceGray colorSpace = new DeviceGray(g);
-        graphicsState.setStrokeColorSpace(colorSpace);
+        graphicsState.setStrokeColorSpace(gColorSpace);
         assertFalse(operator.changesState(graphicsState));
     }
 
     @Test
     public void changesStateTrue() {
-        DeviceGray colorSpace = new DeviceGray(x);
-        graphicsState.setStrokeColorSpace(colorSpace);
+        graphicsState.setStrokeColorSpace(xColorSpace);
         assertTrue(operator.changesState(graphicsState));
     }
 
     @Test
     public void changeState() {
-        DeviceGray colorSpace = new DeviceGray(g);
         operator.changeState(graphicsState);
-        assertEquals(colorSpace, graphicsState.getStrokeColorSpace());
+        assertEquals(gColorSpace, graphicsState.getStrokeColorSpace());
     }
 
     @Test

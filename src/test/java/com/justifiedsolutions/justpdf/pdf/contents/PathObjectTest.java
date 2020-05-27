@@ -18,7 +18,7 @@ public class PathObjectTest {
         PathObject graphicsObject = new PathObject();
         assertFalse(graphicsObject.isValidOperator(new SetLineWidth(new PDFReal(0))));
         assertFalse(graphicsObject.isValidOperator(new PushGraphicsState()));
-        assertFalse(graphicsObject.isValidOperator(new SetGrayStrokeColor(new PDFReal(0))));
+        assertFalse(graphicsObject.isValidOperator(new SetGrayStrokeColor(new DeviceGray(new PDFReal(0)))));
         assertFalse(graphicsObject.isValidOperator(new SetLeading(new PDFReal(0))));
         assertFalse(graphicsObject.isValidOperator(new BeginText()));
         assertTrue(graphicsObject.isValidOperator(new StartPath(new PDFReal(0), new PDFReal(0))));
