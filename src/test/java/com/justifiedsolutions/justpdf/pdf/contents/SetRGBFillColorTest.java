@@ -68,4 +68,19 @@ public class SetRGBFillColorTest {
 
         assertArrayEquals(expected.toByteArray(), actual.toByteArray());
     }
+
+    @Test
+    public void equals() {
+        DeviceRGB foo = new DeviceRGB(r, g, b);
+        DeviceRGB bar = new DeviceRGB(r, g, x);
+        SetRGBFillColor operator = new SetRGBFillColor(foo);
+        assertTrue(operator.equals(operator));
+        assertFalse(operator.equals(null));
+        assertFalse(operator.equals(Boolean.TRUE));
+        SetRGBFillColor op1 = new SetRGBFillColor(foo);
+        SetRGBFillColor op2 = new SetRGBFillColor(bar);
+        assertTrue(operator.equals(op1));
+        assertEquals(operator.hashCode(), op1.hashCode());
+        assertFalse(operator.equals(op2));
+    }
 }

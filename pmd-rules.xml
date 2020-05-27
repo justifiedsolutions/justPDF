@@ -11,6 +11,7 @@
         <exclude name="JUnitAssertionsShouldIncludeMessage"/>
         <exclude name="JUnitTestContainsTooManyAsserts"/>
         <exclude name="JUnitTestsShouldIncludeAssert"/>
+        <exclude name="UseAssertEqualsInsteadOfAssertTrue"/>
         <exclude name="UseVarargs"/>
     </rule>
 
@@ -109,6 +110,10 @@
         <exclude name="MissingSerialVersionUID"/>
         <exclude name="NullAssignment"/>
         <exclude name="ReturnEmptyArrayRatherThanNull"/>
+    </rule>
+
+    <rule ref="category/java/errorprone.xml/SuspiciousEqualsMethodName">
+        <property name="violationSuppressXPath" value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']"/>
     </rule>
 
     <rule ref="category/java/performance.xml">

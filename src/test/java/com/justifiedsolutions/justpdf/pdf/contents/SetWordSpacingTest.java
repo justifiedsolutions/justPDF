@@ -44,9 +44,38 @@ public class SetWordSpacingTest {
     }
 
     @Test
+    public void changeState() {
+        PDFReal foo = new PDFReal(1);
+        PDFReal bar = new PDFReal(2);
+        GraphicsState graphicsState = new GraphicsState();
+        graphicsState.setWordSpacing(foo);
+        SetWordSpacing operator = new SetWordSpacing(foo);
+        assertFalse(operator.changesState(graphicsState));
+        graphicsState.setWordSpacing(bar);
+        assertTrue(operator.changesState(graphicsState));
+        operator.changeState(graphicsState);
+        assertEquals(foo, graphicsState.getWordSpacing());
+    }
+
+    @Test
     public void writeToPDF() throws IOException {
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         operator.writeToPDF(actual);
         assertArrayEquals("12 Tw\n".getBytes(StandardCharsets.US_ASCII), actual.toByteArray());
+    }
+
+    @Test
+    public void equals() {
+        PDFReal foo = new PDFReal(1);
+        PDFReal bar = new PDFReal(2);
+        SetWordSpacing operator = new SetWordSpacing(foo);
+        assertTrue(operator.equals(operator));
+        assertFalse(operator.equals(null));
+        assertFalse(operator.equals(Boolean.TRUE));
+        SetWordSpacing op1 = new SetWordSpacing(foo);
+        SetWordSpacing op2 = new SetWordSpacing(bar);
+        assertTrue(operator.equals(op1));
+        assertEquals(operator.hashCode(), op1.hashCode());
+        assertFalse(operator.equals(op2));
     }
 }

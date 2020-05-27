@@ -54,4 +54,19 @@ public class ShowTextTest {
         expected.writeBytes("Tj\n".getBytes(StandardCharsets.US_ASCII));
         assertArrayEquals(expected.toByteArray(), actual.toByteArray());
     }
+
+    @Test
+    public void equals() {
+        PDFString foo = new PDFString("foo");
+        PDFString bar = new PDFString("bar");
+        ShowText operator = new ShowText(foo);
+        assertTrue(operator.equals(operator));
+        assertFalse(operator.equals(null));
+        assertFalse(operator.equals(Boolean.TRUE));
+        ShowText op1 = new ShowText(foo);
+        ShowText op2 = new ShowText(bar);
+        assertTrue(operator.equals(op1));
+        assertEquals(operator.hashCode(), op1.hashCode());
+        assertFalse(operator.equals(op2));
+    }
 }
