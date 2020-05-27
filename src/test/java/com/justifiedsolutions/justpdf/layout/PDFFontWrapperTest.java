@@ -6,9 +6,7 @@
 package com.justifiedsolutions.justpdf.layout;
 
 import com.justifiedsolutions.justpdf.api.font.PDFFont;
-import com.justifiedsolutions.justpdf.pdf.contents.ColorSpace;
-import com.justifiedsolutions.justpdf.pdf.contents.DeviceGray;
-import com.justifiedsolutions.justpdf.pdf.contents.DeviceRGB;
+import com.justifiedsolutions.justpdf.pdf.contents.*;
 import com.justifiedsolutions.justpdf.pdf.object.PDFName;
 import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 import org.junit.jupiter.api.Test;
@@ -98,6 +96,23 @@ public class PDFFontWrapperTest {
         PDFFontWrapper wrapper = PDFFontWrapper.getInstance(new PDFFont(PDFFont.FontName.COURIER, size));
         float expected = 7.2f * 3f;
         assertEquals(expected, wrapper.getStringWidth("cat"), .00001);
+    }
+
+    @Test
+    public void getColorSpaceOperatorRGB() {
+        PDFReal zero = new PDFReal(0);
+        PDFReal one = new PDFReal(1);
+        DeviceRGB blue = new DeviceRGB(zero, zero, one);
+        SetRGBFillColor operator = new SetRGBFillColor(blue);
+        PDFFontWrapper wrapper = PDFFontWrapper.getInstance(new PDFFont(PDFFont.FontName.COURIER, 12f, Color.BLUE));
+        assertEquals(operator, wrapper.getColorSpaceOperator());
+    }
+
+    @Test
+    public void getColorSpaceOperatorGray() {
+        SetGrayFillColor operator = new SetGrayFillColor(new DeviceGray(new PDFReal(0)));
+        PDFFontWrapper wrapper = PDFFontWrapper.getInstance(new PDFFont(PDFFont.FontName.COURIER, 12f, Color.BLACK));
+        assertEquals(operator, wrapper.getColorSpaceOperator());
     }
 
     @Test

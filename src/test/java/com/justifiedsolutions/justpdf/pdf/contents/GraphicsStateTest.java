@@ -10,7 +10,7 @@ import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GraphicsStateTest {
 
@@ -99,5 +99,54 @@ public class GraphicsStateTest {
         state.setTextFontSize(size);
         assertEquals(name, state.getTextFont());
         assertEquals(size, state.getTextFontSize());
+    }
+
+    @Test
+    public void equals() {
+        PDFReal one = new PDFReal(1);
+        GraphicsState gs = new GraphicsState();
+        assertTrue(gs.equals(gs));
+        assertFalse(gs.equals(null));
+        assertFalse(gs.equals(Boolean.TRUE));
+
+        GraphicsState gs1 = new GraphicsState();
+        assertTrue(gs.equals(gs1));
+        assertEquals(gs.hashCode(), gs1.hashCode());
+
+        GraphicsState gs2 = new GraphicsState();
+        gs2.setCharacterSpacing(one);
+        assertFalse(gs.equals(gs2));
+
+        GraphicsState gs3 = new GraphicsState();
+        gs3.setWordSpacing(one);
+        assertFalse(gs.equals(gs3));
+
+        GraphicsState gs4 = new GraphicsState();
+        gs4.setLeading(one);
+        assertFalse(gs.equals(gs4));
+
+        GraphicsState gs5 = new GraphicsState();
+        gs5.setLineWidth(new PDFReal(.5f));
+        assertFalse(gs.equals(gs5));
+
+        GraphicsState gs6 = new GraphicsState();
+        gs6.setFillColorSpace(new DeviceGray(one));
+        assertFalse(gs.equals(gs6));
+
+        GraphicsState gs7 = new GraphicsState();
+        gs7.setStrokeColorSpace(new DeviceGray(one));
+        assertFalse(gs.equals(gs7));
+
+        GraphicsState gs8 = new GraphicsState();
+        gs8.setLineCap(LineCapStyle.ROUND_CAP);
+        assertFalse(gs.equals(gs8));
+
+        GraphicsState gs9 = new GraphicsState();
+        gs9.setTextFont(new PDFName("foo"));
+        assertFalse(gs.equals(gs9));
+
+        GraphicsState gs0 = new GraphicsState();
+        gs0.setTextFontSize(one);
+        assertFalse(gs.equals(gs0));
     }
 }

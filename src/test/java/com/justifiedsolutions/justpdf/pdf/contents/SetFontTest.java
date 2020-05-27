@@ -50,4 +50,23 @@ public class SetFontTest {
         operator.writeToPDF(actual);
         assertArrayEquals("/F1 12 Tf\n".getBytes(StandardCharsets.US_ASCII), actual.toByteArray());
     }
+
+    @Test
+    public void equals() {
+        PDFReal small = new PDFReal(8);
+        PDFReal large = new PDFReal(12);
+        PDFName foo = new PDFName("foo");
+        PDFName bar = new PDFName("bar");
+        SetFont operator = new SetFont(foo, large);
+        assertTrue(operator.equals(operator));
+        assertFalse(operator.equals(null));
+        assertFalse(operator.equals(Boolean.TRUE));
+        SetFont op1 = new SetFont(foo, large);
+        SetFont op2 = new SetFont(bar, large);
+        SetFont op3 = new SetFont(foo, small);
+        assertTrue(operator.equals(op1));
+        assertEquals(operator.hashCode(), op1.hashCode());
+        assertFalse(operator.equals(op2));
+        assertFalse(operator.equals(op3));
+    }
 }
