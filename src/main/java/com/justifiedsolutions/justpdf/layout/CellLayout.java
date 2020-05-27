@@ -132,13 +132,12 @@ class CellLayout {
     }
 
     private ContentLayout getContentLayout() {
-        float contentWidth = cellWidth - (cell.getPaddingLeft() + cell.getPaddingRight());
-
         Paragraph content = TextContentUtility.getParagraph(cell.getContent());
         if (content != null) {
             content.setSpacingBefore(0);
             content.setSpacingAfter(0);
             content.setAlignment(cell.getHorizontalAlignment());
+            float contentWidth = cellWidth - (cell.getPaddingLeft() + cell.getPaddingRight());
             return new TextContentLayout(contentWidth, content);
         }
         return null;

@@ -17,7 +17,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 8.6.4.2"
  */
-public class SetGrayStrokeColor implements ColorGraphicsOperator {
+public final class SetGrayStrokeColor implements ColorGraphicsOperator {
     private final DeviceGray colorSpace;
 
     /**

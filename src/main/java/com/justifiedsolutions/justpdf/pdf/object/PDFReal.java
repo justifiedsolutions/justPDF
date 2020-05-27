@@ -17,7 +17,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 7.3.3"
  */
-public class PDFReal implements PDFObject {
+public final class PDFReal implements PDFObject {
 
     private final float value;
 
@@ -28,6 +28,17 @@ public class PDFReal implements PDFObject {
      */
     public PDFReal(float value) {
         this.value = value;
+    }
+
+    /**
+     * Trucates the specified floating-point value to 5 decimal places as specified in the PDF specification.
+     *
+     * @param value the value to truncate
+     * @return the truncated value
+     */
+    public static float truncate(float value) {
+        int tmpValue = (int) (value * 100_000);
+        return (float) tmpValue / 100_000f;
     }
 
     /**
@@ -46,8 +57,12 @@ public class PDFReal implements PDFObject {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         PDFReal pdfReal = (PDFReal) o;
         return Float.compare(pdfReal.value, value) == 0;
     }

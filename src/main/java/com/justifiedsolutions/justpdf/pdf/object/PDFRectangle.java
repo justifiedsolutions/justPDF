@@ -14,7 +14,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 7.9.5"
  */
-public class PDFRectangle implements PDFObject {
+public final class PDFRectangle implements PDFObject {
     private final PDFReal llx;
     private final PDFReal lly;
     private final PDFReal urx;
@@ -50,27 +50,57 @@ public class PDFRectangle implements PDFObject {
         this.ury = new PDFReal(ury);
     }
 
+    /**
+     * Gets the lower left x coordinate.
+     *
+     * @return llx
+     */
     public PDFReal getLLx() {
         return llx;
     }
 
+    /**
+     * Gets the lower left y coordinate.
+     *
+     * @return lly
+     */
     public PDFReal getLLy() {
         return lly;
     }
 
+    /**
+     * Gets the upper right x coordinate.
+     *
+     * @return urx
+     */
     public PDFReal getURx() {
         return urx;
     }
 
+    /**
+     * Gets the upper right y coordinate.
+     *
+     * @return ury
+     */
     public PDFReal getURy() {
         return ury;
     }
 
+    /**
+     * Gets the width of the rectangle.
+     *
+     * @return the width
+     */
     public PDFReal getWidth() {
         float width = Math.max(llx.getValue(), urx.getValue()) - Math.min(llx.getValue(), urx.getValue());
         return new PDFReal(width);
     }
 
+    /**
+     * Gets the height of the rectangle.
+     *
+     * @return the height
+     */
     public PDFReal getHeight() {
         float height = Math.max(lly.getValue(), ury.getValue()) - Math.min(lly.getValue(), ury.getValue());
         return new PDFReal(height);
@@ -83,8 +113,12 @@ public class PDFRectangle implements PDFObject {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         PDFRectangle that = (PDFRectangle) o;
         return llx.equals(that.llx) &&
                 lly.equals(that.lly) &&

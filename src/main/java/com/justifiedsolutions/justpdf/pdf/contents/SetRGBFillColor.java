@@ -17,7 +17,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 8.6.4.3"
  */
-public class SetRGBFillColor implements ColorGraphicsOperator {
+public final class SetRGBFillColor implements ColorGraphicsOperator {
     private final DeviceRGB colorSpace;
 
     /**
@@ -47,8 +47,12 @@ public class SetRGBFillColor implements ColorGraphicsOperator {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         SetRGBFillColor that = (SetRGBFillColor) o;
         return colorSpace.equals(that.colorSpace);
     }

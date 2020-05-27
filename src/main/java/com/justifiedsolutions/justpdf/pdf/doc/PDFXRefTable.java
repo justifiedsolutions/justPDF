@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @see "ISO 32000-1:2008, 7.5.4"
  */
-class PDFXRefTable implements PDFWritable {
+final class PDFXRefTable implements PDFWritable {
 
     private final List<PDFIndirectObject> indirectObjects = new ArrayList<>();
 
@@ -46,6 +46,9 @@ class PDFXRefTable implements PDFWritable {
         Collections.sort(this.indirectObjects);
     }
 
+    /**
+     * Represents an entry in the Xref table.
+     */
     private static class PDFXrefTableEntry implements PDFWritable {
         private final int byteOffset;
         private final int generationNumber;
@@ -59,7 +62,7 @@ class PDFXRefTable implements PDFWritable {
 
         private PDFXrefTableEntry() {
             this.byteOffset = 0;
-            this.generationNumber = 65535;
+            this.generationNumber = 65_535;
             this.state = 'f';
         }
 

@@ -18,7 +18,7 @@ import java.util.Objects;
  * @see "ISO 32000-1:2008, 9.3.1"
  * @see "ISO 32000-1:2008, 9.3.5"
  */
-public class SetLeading implements TextStateOperator, CollapsableOperator {
+public final class SetLeading implements TextStateOperator, CollapsableOperator {
     private final PDFReal leading;
 
     /**
@@ -37,8 +37,12 @@ public class SetLeading implements TextStateOperator, CollapsableOperator {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         SetLeading that = (SetLeading) o;
         return leading.equals(that.leading);
     }

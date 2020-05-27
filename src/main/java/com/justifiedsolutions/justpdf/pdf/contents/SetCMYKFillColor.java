@@ -17,7 +17,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 8.6.4.4"
  */
-public class SetCMYKFillColor implements ColorGraphicsOperator {
+public final class SetCMYKFillColor implements ColorGraphicsOperator {
     private final DeviceCMYK colorSpace;
 
     /**
@@ -48,8 +48,12 @@ public class SetCMYKFillColor implements ColorGraphicsOperator {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         SetCMYKFillColor that = (SetCMYKFillColor) o;
         return colorSpace.equals(that.colorSpace);
     }

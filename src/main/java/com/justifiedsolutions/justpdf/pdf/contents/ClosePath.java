@@ -14,7 +14,7 @@ import java.io.OutputStream;
  *
  * @see "ISO 32000-1:2008, 8.5.2.1"
  */
-public class ClosePath implements PathConstructionGraphicsOperator {
+public final class ClosePath implements PathConstructionGraphicsOperator {
     @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
         pdf.write('h');

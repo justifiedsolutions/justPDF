@@ -14,7 +14,7 @@ import java.util.Objects;
 /**
  * Smallest part of text that can be added to a {@link Document}.
  */
-public class Chunk implements TextContent {
+public final class Chunk implements TextContent {
 
     /**
      * Adds a line break into a piece of content.
@@ -79,20 +79,12 @@ public class Chunk implements TextContent {
         this.text = (text != null) ? text : "";
     }
 
-    /**
-     * Gets the font associated with this Chunk.
-     *
-     * @return the font
-     */
+    @Override
     public Font getFont() {
         return this.font;
     }
 
-    /**
-     * Sets the font associated with this Chunk
-     *
-     * @param font the new font
-     */
+    @Override
     public void setFont(Font font) {
         this.font = font;
     }
@@ -104,8 +96,12 @@ public class Chunk implements TextContent {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Chunk chunk = (Chunk) o;
         return Objects.equals(text, chunk.text) &&
                 Objects.equals(font, chunk.font);

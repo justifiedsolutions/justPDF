@@ -16,7 +16,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 7.3.8"
  */
-public class PDFStream implements PDFObject {
+public final class PDFStream implements PDFObject {
 
     private final PDFDictionary dictionary = new PDFDictionary();
     private final byte[] data;
@@ -42,6 +42,12 @@ public class PDFStream implements PDFObject {
         }
     }
 
+    /**
+     * Adds the {@code DecodeParams} to the stream dictionary. The argument is a {@link PDFArray} of {@link
+     * PDFDictionary}s. If the array contains a single element, just that element will be added.
+     *
+     * @param params the array of {@code DecodeParams} for the stream
+     */
     public void addDecodeParams(PDFArray params) {
         if (params != null && !params.isEmpty()) {
             PDFName key = new PDFName("DecodeParms");
@@ -62,8 +68,12 @@ public class PDFStream implements PDFObject {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         PDFStream pdfStream = (PDFStream) o;
         return dictionary.equals(pdfStream.dictionary) &&
                 Arrays.equals(data, pdfStream.data);

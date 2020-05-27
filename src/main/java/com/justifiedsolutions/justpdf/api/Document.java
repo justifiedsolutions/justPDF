@@ -18,7 +18,7 @@ import java.util.*;
  * initialized with both a {@link PageSize} and a {@link Margin}. A Document can contain either a list of {@link
  * Section}s or {@link Content}, such as {@link Paragraph}s, but not both.
  */
-public class Document {
+public final class Document {
 
     private final PageSize pageSize;
     private final Margin margin;

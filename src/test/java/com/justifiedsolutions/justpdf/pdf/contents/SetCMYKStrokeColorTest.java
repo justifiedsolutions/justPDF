@@ -9,15 +9,12 @@ import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class SetCMYKStrokeColorTest {
@@ -28,26 +25,25 @@ public class SetCMYKStrokeColorTest {
     public final PDFReal x = new PDFReal(.9f);
 
     public SetCMYKStrokeColor operator;
-
-    @Mock
     public GraphicsState graphicsState;
 
     @BeforeEach
     public void setup() {
         operator = new SetCMYKStrokeColor(c, m, y, k);
+        graphicsState = new GraphicsState();
     }
 
     @Test
     public void changesStateFalse() {
         DeviceCMYK colorSpace = new DeviceCMYK(c, m, y, k);
-        when(graphicsState.getStrokeColorSpace()).thenReturn(colorSpace);
+        graphicsState.setStrokeColorSpace(colorSpace);
         assertFalse(operator.changesState(graphicsState));
     }
 
     @Test
     public void changesStateTrue() {
         DeviceCMYK colorSpace = new DeviceCMYK(c, m, y, x);
-        when(graphicsState.getStrokeColorSpace()).thenReturn(colorSpace);
+        graphicsState.setStrokeColorSpace(colorSpace);
         assertTrue(operator.changesState(graphicsState));
     }
 
@@ -55,7 +51,7 @@ public class SetCMYKStrokeColorTest {
     public void changeState() {
         DeviceCMYK colorSpace = new DeviceCMYK(c, m, y, k);
         operator.changeState(graphicsState);
-        verify(graphicsState).setStrokeColorSpace(colorSpace);
+        assertEquals(colorSpace, graphicsState.getStrokeColorSpace());
     }
 
     @Test

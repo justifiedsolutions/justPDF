@@ -18,10 +18,10 @@ import java.util.Objects;
  *
  * @see <a href="https://techterms.com/definition/leading">Leading</a>
  */
-public class Phrase implements TextContent {
+public final class Phrase implements TextContent {
 
     private final List<Chunk> chunks = new ArrayList<>();
-    private float leading = 0f;
+    private float leading;
     private Font font;
 
     /**
@@ -73,7 +73,8 @@ public class Phrase implements TextContent {
     }
 
     /**
-     * This copy constructor will copy all fields except for the list of Chunks. That will be set with the specified list of Chunks.
+     * This copy constructor will copy all fields except for the list of Chunks. That will be set with the specified
+     * list of Chunks.
      *
      * @param phrase the phrase to copy
      * @param chunks the chunks to copy

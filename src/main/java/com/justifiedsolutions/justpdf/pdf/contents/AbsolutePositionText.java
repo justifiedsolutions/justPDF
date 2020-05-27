@@ -17,7 +17,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 9.4.2"
  */
-public class AbsolutePositionText implements TextPositioningOperator, CollapsableOperator {
+public final class AbsolutePositionText implements TextPositioningOperator, CollapsableOperator {
     private final PDFReal tx;
     private final PDFReal ty;
 
@@ -39,8 +39,12 @@ public class AbsolutePositionText implements TextPositioningOperator, Collapsabl
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         AbsolutePositionText that = (AbsolutePositionText) o;
         return tx.equals(that.tx) &&
                 ty.equals(that.ty);

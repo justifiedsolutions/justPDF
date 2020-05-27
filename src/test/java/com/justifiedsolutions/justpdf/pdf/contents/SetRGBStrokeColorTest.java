@@ -8,18 +8,12 @@ package com.justifiedsolutions.justpdf.pdf.contents;
 import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
 public class SetRGBStrokeColorTest {
     public final PDFReal r = new PDFReal(0);
     public final PDFReal g = new PDFReal(.2f);
@@ -27,26 +21,25 @@ public class SetRGBStrokeColorTest {
     public final PDFReal x = new PDFReal(.9f);
 
     public SetRGBStrokeColor operator;
-
-    @Mock
     public GraphicsState graphicsState;
 
     @BeforeEach
     public void setup() {
         operator = new SetRGBStrokeColor(r, g, b);
+        graphicsState = new GraphicsState();
     }
 
     @Test
     public void changesStateFalse() {
         DeviceRGB colorSpace = new DeviceRGB(r, g, b);
-        when(graphicsState.getStrokeColorSpace()).thenReturn(colorSpace);
+        graphicsState.setStrokeColorSpace(colorSpace);
         assertFalse(operator.changesState(graphicsState));
     }
 
     @Test
     public void changesStateTrue() {
         DeviceRGB colorSpace = new DeviceRGB(r, g, x);
-        when(graphicsState.getStrokeColorSpace()).thenReturn(colorSpace);
+        graphicsState.setStrokeColorSpace(colorSpace);
         assertTrue(operator.changesState(graphicsState));
     }
 
@@ -54,7 +47,7 @@ public class SetRGBStrokeColorTest {
     public void changeState() {
         DeviceRGB colorSpace = new DeviceRGB(r, g, b);
         operator.changeState(graphicsState);
-        verify(graphicsState).setStrokeColorSpace(colorSpace);
+        assertEquals(colorSpace, graphicsState.getStrokeColorSpace());
     }
 
     @Test

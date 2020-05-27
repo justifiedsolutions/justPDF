@@ -82,7 +82,7 @@ public final class Margin {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        com.justifiedsolutions.justpdf.api.Margin margin = (com.justifiedsolutions.justpdf.api.Margin) o;
+        Margin margin = (Margin) o;
         return Float.compare(margin.top, top) == 0 &&
                 Float.compare(margin.bottom, bottom) == 0 &&
                 Float.compare(margin.left, left) == 0 &&

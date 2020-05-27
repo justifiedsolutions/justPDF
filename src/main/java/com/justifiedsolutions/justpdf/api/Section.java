@@ -23,13 +23,13 @@ import java.util.Objects;
  *     ...
  * </pre>
  */
-public class Section {
+public final class Section {
 
     private final int sectionNumber;
     private final Paragraph title;
     private final List<Content> content = new ArrayList<>();
     private final List<Section> sections = new ArrayList<>();
-    private boolean startsNewPage = false;
+    private boolean startsNewPage;
     private boolean displaySectionNumber = true;
 
     /**

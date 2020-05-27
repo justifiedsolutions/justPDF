@@ -14,7 +14,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 7.9.4"
  */
-public class PDFDate extends PDFDocEncodedString {
+public final class PDFDate extends PDFDocEncodedString {
 
     /**
      * Creates a new PDFDate representing the current date/time in the local time zone.

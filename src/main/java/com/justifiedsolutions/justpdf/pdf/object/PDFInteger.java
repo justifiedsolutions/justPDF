@@ -15,7 +15,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 7.3.3"
  */
-public class PDFInteger implements PDFObject, Comparable<PDFInteger> {
+public final class PDFInteger implements PDFObject, Comparable<PDFInteger> {
 
     private final int value;
 
@@ -44,8 +44,12 @@ public class PDFInteger implements PDFObject, Comparable<PDFInteger> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         PDFInteger that = (PDFInteger) o;
         return value == that.value;
     }

@@ -13,7 +13,7 @@ import java.util.zip.DeflaterOutputStream;
  *
  * @see "ISO 32000-1:2008, 7.4.4"
  */
-public class DeflateFilter implements PDFFilter {
+public final class DeflateFilter implements PDFFilter {
     private static final PDFName DECODE_NAME = new PDFName("FlateDecode");
 
     @Override

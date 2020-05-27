@@ -22,8 +22,8 @@ class TableLayout implements ContentLayout {
     private final float spacingAfter;
 
     private final float tableLeft;
-    private Table table;
     private final TableModel tableModel;
+    private Table table;
 
     /**
      * Creates a new TableLayout. This should only be called by {@link TableLayoutFactory#getContentLayout(Content)}.

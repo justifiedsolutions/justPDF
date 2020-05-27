@@ -18,20 +18,20 @@ import java.util.List;
 /**
  * Lays out a line of text.
  */
-class TextLine implements ContentLine {
+final class TextLine implements ContentLine {
 
     private final List<GraphicsOperator> operators = new ArrayList<>();
 
     private final float lineWidth;
     private final float leftIndent;
     private float remainingWidth;
-    private float lineStart = 0;
-    private float previousLineStart = 0;
-    private float leading = 0;
-    private float lineHeight = 0;
+    private float lineStart;
+    private float previousLineStart;
+    private float leading;
+    private float lineHeight;
     private HorizontalAlignment alignment = HorizontalAlignment.LEFT;
-    private int numSpaces = 0;
-    private int numChars = 0;
+    private int numSpaces;
+    private int numChars;
 
     /**
      * Creates a new TextLine of the specified width and indentations from the margin.
@@ -119,15 +119,12 @@ class TextLine implements ContentLine {
         setLeading(wrapper.getMinimumLeading());
         setLeading(lineHeight * wrapper.getSize().getValue());
 
+        // no room, it's all remainder
         if (remainingWidth == 0) {
             return chunk;
         }
 
-        if (Chunk.LINE_BREAK.equals(chunk)) {
-            remainingWidth = 0;
-            return null;
-        }
-
+        // end the line and return any remainder
         if (chunk.getText().startsWith("\n")) {
             remainingWidth = 0;
             if (chunk.getText().length() == 1) {
@@ -136,12 +133,18 @@ class TextLine implements ContentLine {
             return new Chunk(chunk.getText().substring(1), chunk.getFont());
         }
 
+        // ignore empty chunk
         if (chunk.getText().isEmpty()) {
             return null;
         }
 
-        String chunkText;
+        return doAppend(chunk, wrapper);
+    }
+
+    private Chunk doAppend(Chunk chunk, PDFFontWrapper wrapper) {
         boolean firstWord = (lineWidth == remainingWidth);
+
+        String chunkText;
         if (firstWord) {
             chunkText = chunk.getText().stripLeading();
         } else {
@@ -156,8 +159,8 @@ class TextLine implements ContentLine {
         }
 
         if (!split.get(0).isEmpty()) {
-            operators.add(new FontWrapperOperator(wrapper));
-            operators.add(getColorSpaceOperator(wrapper));
+            operators.add(wrapper.getOperator());
+            operators.add(wrapper.getColorSpaceOperator());
             operators.add(new ShowText(new PDFString(split.get(0))));
         } else {
             return chunk;
@@ -178,7 +181,7 @@ class TextLine implements ContentLine {
         int boundary = breakDetector.next();
         while (boundary != BreakIterator.DONE) {
             String value = new String(chars, 0, boundary);
-            float valueWidth = getStringWidth(value, wrapper);
+            float valueWidth = wrapper.getStringWidth(value);
             if (valueWidth > remainingWidth) {
                 int end = boundary;
                 boundary = breakDetector.previous();
@@ -205,7 +208,7 @@ class TextLine implements ContentLine {
             }
             remainder = new String(chars, boundary, chars.length - boundary);
         }
-        float valueWidth = getStringWidth(value, wrapper);
+        float valueWidth = wrapper.getStringWidth(value);
         int valueSpaces = getNumberOfSpaces(value);
         numSpaces += valueSpaces;
         numChars += (value.length() - valueSpaces);
@@ -242,38 +245,12 @@ class TextLine implements ContentLine {
                 result.add(new SetWordSpacing(new PDFReal(0)));
                 result.add(new SetCharacterSpacing(new PDFReal(0)));
             } else {
-                float wordSpacing = truncateFloat(remainingWidth / (float) numSpaces);
+                float wordSpacing = PDFReal.truncate(remainingWidth / (float) numSpaces);
                 float remainder = remainingWidth - (wordSpacing * numSpaces);
-                float charSpacing = truncateFloat(remainder / (float) numChars);
+                float charSpacing = PDFReal.truncate(remainder / (float) numChars);
                 result.add(new SetWordSpacing(new PDFReal(wordSpacing)));
                 result.add(new SetCharacterSpacing(new PDFReal(charSpacing)));
             }
-        }
-        return result;
-    }
-
-    private GraphicsOperator getColorSpaceOperator(PDFFontWrapper wrapper) {
-        ColorSpace colorSpace = wrapper.getColor();
-        if (colorSpace instanceof DeviceGray) {
-            return new SetGrayFillColor((DeviceGray) colorSpace);
-        } else if (colorSpace instanceof DeviceRGB) {
-            return new SetRGBFillColor((DeviceRGB) colorSpace);
-        } else if (colorSpace instanceof DeviceCMYK) {
-            return new SetCMYKFillColor((DeviceCMYK) colorSpace);
-        }
-        throw new IllegalArgumentException("Invalid ColorSpace");
-    }
-
-    private float truncateFloat(float value) {
-        int tmpValue = (int) (value * 100000);
-        return (float) tmpValue / 100000f;
-    }
-
-    private float getStringWidth(String value, PDFFontWrapper fontWrapper) {
-        float result = 0f;
-        char[] chars = value.toCharArray();
-        for (char c : chars) {
-            result += fontWrapper.getCharacterWidth(c);
         }
         return result;
     }
@@ -295,13 +272,14 @@ class TextLine implements ContentLine {
         if (enable == null) {
             return result;
         }
+
         if (!tmp.matches(".*\\p{Punct}.*")) {
             Hyphenator hyphenator = new Hyphenator();
             hyphenator.setText(tmp);
             int hyphenBreak = hyphenator.last();
             while (hyphenBreak != Hyphenator.DONE) {
                 String tmpValue = new String(chars, 0, boundary + hyphenBreak) + "-";
-                float tmpValueWidth = getStringWidth(tmpValue, wrapper);
+                float tmpValueWidth = wrapper.getStringWidth(tmpValue);
                 if (tmpValueWidth < remainingWidth) {
                     result += hyphenBreak;
                     break;

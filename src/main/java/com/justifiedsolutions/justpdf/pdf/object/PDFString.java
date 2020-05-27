@@ -46,8 +46,12 @@ public class PDFString implements PDFObject {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         PDFString pdfString = (PDFString) o;
         return value.equals(pdfString.value);
     }
@@ -64,6 +68,14 @@ public class PDFString implements PDFObject {
         pdf.write(')');
     }
 
+    /**
+     * Escapes the specified character using PDF string escape rules. All unescaped characters will be encoded using the
+     * specified {@link Charset}.
+     *
+     * @param c       the character to escape
+     * @param charset the Charset to use on un-escaped chars
+     * @return the escaped char
+     */
     protected byte[] escapeValue(char c, Charset charset) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         switch (c) {
@@ -90,6 +102,7 @@ public class PDFString implements PDFObject {
                 break;
             default:
                 bytes.writeBytes(String.valueOf(c).getBytes(charset));
+                break;
         }
         return bytes.toByteArray();
     }

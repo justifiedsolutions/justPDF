@@ -18,7 +18,7 @@ import java.util.Objects;
  * @see "ISO 32000-1:2008, 8.4"
  * @see "ISO 32000-1:2008, 8.4.3.2"
  */
-public class SetLineWidth implements GeneralGraphicsOperator {
+public final class SetLineWidth implements GeneralGraphicsOperator {
     private final PDFReal width;
 
     /**
@@ -37,8 +37,12 @@ public class SetLineWidth implements GeneralGraphicsOperator {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         SetLineWidth that = (SetLineWidth) o;
         return width.equals(that.width);
     }

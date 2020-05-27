@@ -16,7 +16,7 @@ import java.util.Objects;
  * @see "ISO 32000-1:2008, 8.4"
  * @see "ISO 32000-1:2008, 8.4.3.3"
  */
-public class SetLineCapStyle implements GeneralGraphicsOperator {
+public final class SetLineCapStyle implements GeneralGraphicsOperator {
     private final LineCapStyle lineCapStyle;
 
     /**
@@ -35,8 +35,12 @@ public class SetLineCapStyle implements GeneralGraphicsOperator {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         SetLineCapStyle that = (SetLineCapStyle) o;
         return lineCapStyle.equals(that.lineCapStyle);
     }

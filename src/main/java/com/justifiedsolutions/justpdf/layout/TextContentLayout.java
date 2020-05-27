@@ -21,7 +21,7 @@ class TextContentLayout implements ContentLayout {
     private final float spacingBefore;
     private final float spacingAfter;
     private Paragraph paragraph;
-    private float lineStart = 0;
+    private float lineStart;
     private boolean firstLine = true;
 
     /**
@@ -134,8 +134,8 @@ class TextContentLayout implements ContentLayout {
             Chunk remainder = line.append(chunk);
             if (remainder != null) {
                 originalChunks.add(0, remainder);
-                phrase = new Phrase(phrase, originalChunks);
-                originalContent.add(0, phrase);
+                Phrase newPhrase = new Phrase(phrase, originalChunks);
+                originalContent.add(0, newPhrase);
                 paragraph = new Paragraph(paragraph, originalContent);
                 return true;
             }

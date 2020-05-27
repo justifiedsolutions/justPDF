@@ -17,7 +17,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 8.5.2.1"
  */
-public class CreateRectangularPath implements PathConstructionGraphicsOperator {
+public final class CreateRectangularPath implements PathConstructionGraphicsOperator {
     private final PDFRectangle rectangle;
 
     /**

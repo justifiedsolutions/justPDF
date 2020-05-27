@@ -12,7 +12,7 @@ import java.util.Objects;
 /**
  * Represents the 14 fonts native to a PDF document.
  */
-public class PDFFont implements Font {
+public final class PDFFont implements Font {
 
     /**
      * The default font name (Helvetica).

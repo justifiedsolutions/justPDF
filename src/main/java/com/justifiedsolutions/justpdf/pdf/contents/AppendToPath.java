@@ -16,7 +16,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 8.5.2.1"
  */
-public class AppendToPath implements PathConstructionGraphicsOperator {
+public final class AppendToPath implements PathConstructionGraphicsOperator {
     private final PDFReal x;
     private final PDFReal y;
 
@@ -38,8 +38,12 @@ public class AppendToPath implements PathConstructionGraphicsOperator {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         AppendToPath startPath = (AppendToPath) o;
         return x.equals(startPath.x) &&
                 y.equals(startPath.y);

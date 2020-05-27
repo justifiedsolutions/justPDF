@@ -76,7 +76,7 @@ public class PDFDictionaryTest {
         Set<PDFName> keys = dict.keySet();
         assertNotNull(keys);
         assertEquals(1, keys.size());
-        PDFName[] keysArray = keys.toArray(new PDFName[1]);
+        PDFName[] keysArray = keys.toArray(new PDFName[0]);
         assertEquals(new PDFName("key"), keysArray[0]);
     }
 
@@ -87,7 +87,7 @@ public class PDFDictionaryTest {
         Collection<PDFObject> values = dict.values();
         assertNotNull(values);
         assertEquals(1, values.size());
-        PDFObject[] valuesArray = values.toArray(new PDFObject[1]);
+        PDFObject[] valuesArray = values.toArray(new PDFObject[0]);
         assertEquals(PDFBoolean.TRUE, valuesArray[0]);
     }
 

@@ -17,7 +17,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 8.6.4.2"
  */
-public class SetGrayFillColor implements ColorGraphicsOperator {
+public final class SetGrayFillColor implements ColorGraphicsOperator {
     private final DeviceGray colorSpace;
 
     /**
@@ -45,8 +45,12 @@ public class SetGrayFillColor implements ColorGraphicsOperator {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         SetGrayFillColor that = (SetGrayFillColor) o;
         return colorSpace.equals(that.colorSpace);
     }

@@ -14,7 +14,7 @@ import java.util.Objects;
  * @see "ISO 32000-1:2008, 8.2"
  * @see "ISO 32000-1:2008, Figure 9"
  */
-class PathObject implements GraphicsObject {
+final class PathObject implements GraphicsObject {
     @Override
     public int hashCode() {
         return Objects.hashCode("PathObject");

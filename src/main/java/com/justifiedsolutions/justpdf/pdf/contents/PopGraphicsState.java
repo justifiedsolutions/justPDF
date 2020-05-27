@@ -13,7 +13,7 @@ import java.io.OutputStream;
  *
  * @see "ISO 32000-1:2008, 8.4.2"
  */
-public class PopGraphicsState implements SpecialGraphicsOperator {
+public final class PopGraphicsState implements SpecialGraphicsOperator {
     @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
         pdf.write('Q');

@@ -14,7 +14,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 9.8"
  */
-public class PDFFontDescriptor extends PDFDictionary {
+public final class PDFFontDescriptor extends PDFDictionary {
     static final PDFName TYPE = new PDFName("Type");
     static final PDFName FONT_DESCRIPTOR = new PDFName("FontDescriptor");
     static final PDFName FONT_NAME = new PDFName("FontName");

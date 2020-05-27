@@ -9,15 +9,12 @@ import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class SetGrayFillColorTest {
@@ -25,26 +22,25 @@ public class SetGrayFillColorTest {
     public final PDFReal x = new PDFReal(.9f);
 
     public SetGrayFillColor operator;
-
-    @Mock
     public GraphicsState graphicsState;
 
     @BeforeEach
     public void setup() {
+        graphicsState = new GraphicsState();
         operator = new SetGrayFillColor(g);
     }
 
     @Test
     public void changesStateFalse() {
         DeviceGray colorSpace = new DeviceGray(g);
-        when(graphicsState.getFillColorSpace()).thenReturn(colorSpace);
+        graphicsState.setFillColorSpace(colorSpace);
         assertFalse(operator.changesState(graphicsState));
     }
 
     @Test
     public void changesStateTrue() {
         DeviceGray colorSpace = new DeviceGray(x);
-        when(graphicsState.getFillColorSpace()).thenReturn(colorSpace);
+        graphicsState.setFillColorSpace(colorSpace);
         assertTrue(operator.changesState(graphicsState));
     }
 
@@ -52,7 +48,7 @@ public class SetGrayFillColorTest {
     public void changeState() {
         DeviceGray colorSpace = new DeviceGray(g);
         operator.changeState(graphicsState);
-        verify(graphicsState).setFillColorSpace(colorSpace);
+        assertEquals(colorSpace, graphicsState.getFillColorSpace());
     }
 
     @Test

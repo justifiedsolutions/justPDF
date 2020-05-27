@@ -8,7 +8,7 @@ import java.util.Objects;
 class TableGridIndex implements Comparable<TableGridIndex> {
     private final int row;
     private final int column;
-    private boolean span = false;
+    private boolean span;
 
     /**
      * Creates a new index in the table grid.
@@ -28,8 +28,12 @@ class TableGridIndex implements Comparable<TableGridIndex> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         TableGridIndex that = (TableGridIndex) o;
         return row == that.row &&
                 column == that.column;

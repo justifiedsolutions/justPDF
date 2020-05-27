@@ -93,6 +93,14 @@ public class PDFFontWrapperTest {
     }
 
     @Test
+    public void getStringWidth() {
+        float size = 12f;
+        PDFFontWrapper wrapper = PDFFontWrapper.getInstance(new PDFFont(PDFFont.FontName.COURIER, size));
+        float expected = 7.2f * 3f;
+        assertEquals(expected, wrapper.getStringWidth("cat"), .00001);
+    }
+
+    @Test
     public void getMinimumLeading() {
         float size = 12f;
         PDFFontWrapper wrapper = PDFFontWrapper.getInstance(new PDFFont(PDFFont.FontName.HELVETICA, size));

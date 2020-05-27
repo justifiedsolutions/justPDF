@@ -15,7 +15,7 @@ import com.justifiedsolutions.justpdf.api.font.Font;
 public class PageNumberFooter implements Footer {
 
     private final boolean validForFirstPage;
-    private final com.justifiedsolutions.justpdf.api.HorizontalAlignment alignment;
+    private final HorizontalAlignment alignment;
     private final Font font;
 
     /**
@@ -25,7 +25,7 @@ public class PageNumberFooter implements Footer {
      * @param alignment         where on the line the page number should appear
      * @param font              the font to use for the text
      */
-    public PageNumberFooter(boolean validForFirstPage, com.justifiedsolutions.justpdf.api.HorizontalAlignment alignment, Font font) {
+    public PageNumberFooter(boolean validForFirstPage, HorizontalAlignment alignment, Font font) {
         this.validForFirstPage = validForFirstPage;
         this.alignment = alignment;
         this.font = font;
@@ -41,11 +41,11 @@ public class PageNumberFooter implements Footer {
     }
 
     /**
-     * Specifies the {@link com.justifiedsolutions.justpdf.api.HorizontalAlignment} of the page number on the page
+     * Specifies the {@link HorizontalAlignment} of the page number on the page
      *
      * @return the alignment
      */
-    public com.justifiedsolutions.justpdf.api.HorizontalAlignment getAlignment() {
+    public HorizontalAlignment getAlignment() {
         return alignment;
     }
 

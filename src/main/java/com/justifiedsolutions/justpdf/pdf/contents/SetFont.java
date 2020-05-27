@@ -18,7 +18,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 9.2.2"
  */
-public class SetFont implements TextStateOperator, CollapsableOperator {
+public final class SetFont implements TextStateOperator, CollapsableOperator {
     private final PDFName font;
     private final PDFReal size;
 
@@ -40,8 +40,12 @@ public class SetFont implements TextStateOperator, CollapsableOperator {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         SetFont setFont = (SetFont) o;
         return font.equals(setFont.font) &&
                 size.equals(setFont.size);

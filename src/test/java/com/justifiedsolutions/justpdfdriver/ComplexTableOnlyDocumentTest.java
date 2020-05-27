@@ -7,8 +7,9 @@ import com.justifiedsolutions.justpdf.api.font.PDFFont;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
 
 import static com.justifiedsolutions.justpdf.api.font.PDFFont.FontName.HELVETICA;
 import static com.justifiedsolutions.justpdf.api.font.PDFFont.FontName.HELVETICA_BOLD;
@@ -52,8 +53,9 @@ public class ComplexTableOnlyDocumentTest {
         File testOutputDirectory = new File(targetDirectory, "test-output");
         if (testOutputDirectory.isDirectory() || testOutputDirectory.mkdirs()) {
             File outputFile = new File(testOutputDirectory, "ComplexTableOnlyDocumentTest.pdf");
-            FileOutputStream pdf = new FileOutputStream(outputFile);
-            document.write(pdf);
+            try (OutputStream pdf = Files.newOutputStream(outputFile.toPath())) {
+                document.write(pdf);
+            }
         }
 
         assertEquals(2, table.getNumberOfColumns());
@@ -68,7 +70,7 @@ public class ComplexTableOnlyDocumentTest {
         content.add(courtTypeChunk);
         content.add("DENVER COUNTY, ");
         final String state = "CO";
-        content.add(state.toUpperCase());
+        content.add(state);
         content.add(Chunk.LINE_BREAK);
 
         content.add("123 Main St.\nSuite 555\nDenver, CO 80202");
@@ -129,7 +131,7 @@ public class ComplexTableOnlyDocumentTest {
         content.add(Chunk.LINE_BREAK);
         content.add("321 High St.\nSuite 300\nDenver, CO 80202");
         content.add(Chunk.LINE_BREAK);
-        content.add("Phone: " + "(555) 555-5555" + "  Fax: " + "");
+        content.add("Phone: " + "(555) 555-5555" + "  Fax: ");
         content.add(Chunk.LINE_BREAK);
         content.add("lisa@myfirm.com");
         content.add(Chunk.LINE_BREAK);

@@ -14,7 +14,7 @@ import java.util.Objects;
  * @see "ISO 32000-1:2008, 8.2"
  * @see "ISO 32000-1:2008, Figure 9"
  */
-class TextObject implements GraphicsObject {
+final class TextObject implements GraphicsObject {
     @Override
     public int hashCode() {
         return Objects.hashCode("TextObject");

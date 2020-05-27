@@ -14,7 +14,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 8.6.4.4"
  */
-public class DeviceCMYK extends DeviceColorSpace {
+public final class DeviceCMYK extends DeviceColorSpace {
     private final PDFReal cyan;
     private final PDFReal magenta;
     private final PDFReal yellow;
@@ -78,8 +78,12 @@ public class DeviceCMYK extends DeviceColorSpace {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         DeviceCMYK that = (DeviceCMYK) o;
         return cyan.equals(that.cyan) &&
                 magenta.equals(that.magenta) &&

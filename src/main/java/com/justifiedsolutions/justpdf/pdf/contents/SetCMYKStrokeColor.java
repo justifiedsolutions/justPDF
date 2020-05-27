@@ -17,7 +17,7 @@ import java.util.Objects;
  *
  * @see "ISO 32000-1:2008, 8.6.4.4"
  */
-public class SetCMYKStrokeColor implements ColorGraphicsOperator {
+public final class SetCMYKStrokeColor implements ColorGraphicsOperator {
     private final DeviceCMYK colorSpace;
 
     /**
@@ -48,8 +48,12 @@ public class SetCMYKStrokeColor implements ColorGraphicsOperator {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         SetCMYKStrokeColor that = (SetCMYKStrokeColor) o;
         return colorSpace.equals(that.colorSpace);
     }
