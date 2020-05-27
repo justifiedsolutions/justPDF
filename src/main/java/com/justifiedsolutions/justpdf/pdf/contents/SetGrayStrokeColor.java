@@ -7,18 +7,13 @@ package com.justifiedsolutions.justpdf.pdf.contents;
 
 import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.Objects;
-
 /**
  * Implements the PDF command {@code G} to set the stroke color in the monochrome color space in a content stream.
  *
  * @see "ISO 32000-1:2008, 8.6.4.2"
  */
-public final class SetGrayStrokeColor implements ColorGraphicsOperator {
-    private final DeviceGray colorSpace;
+public final class SetGrayStrokeColor extends DeviceGrayOperator {
+    private static final String OPERATOR_CODE = "G";
 
     /**
      * Creates a new operator that sets the stroke color in the monochrome color space in a content stream.
@@ -26,7 +21,7 @@ public final class SetGrayStrokeColor implements ColorGraphicsOperator {
      * @param gray gray
      */
     public SetGrayStrokeColor(PDFReal gray) {
-        this(new DeviceGray(gray));
+        super(new DeviceGray(gray));
     }
 
     /**
@@ -35,22 +30,21 @@ public final class SetGrayStrokeColor implements ColorGraphicsOperator {
      * @param colorSpace the color space
      */
     public SetGrayStrokeColor(DeviceGray colorSpace) {
-        this.colorSpace = Objects.requireNonNull(colorSpace);
+        super(colorSpace);
     }
 
     @Override
     public boolean changesState(GraphicsState state) {
-        return !colorSpace.equals(state.getStrokeColorSpace());
+        return !getColorSpace().equals(state.getStrokeColorSpace());
     }
 
     @Override
     public void changeState(GraphicsState state) {
-        state.setStrokeColorSpace(colorSpace);
+        state.setStrokeColorSpace(getColorSpace());
     }
 
     @Override
-    public void writeToPDF(OutputStream pdf) throws IOException {
-        colorSpace.getGray().writeToPDF(pdf);
-        pdf.write(" G\n".getBytes(StandardCharsets.US_ASCII));
+    protected String getOperatorCode() {
+        return OPERATOR_CODE;
     }
 }
