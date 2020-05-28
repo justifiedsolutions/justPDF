@@ -29,7 +29,8 @@ public final class PDFStream implements PDFObject {
      * @param data the data for the stream
      */
     public PDFStream(byte[] data) {
-        this.data = Objects.requireNonNull(data);
+        Objects.requireNonNull(data);
+        this.data = Arrays.copyOf(data, data.length);
         dictionary.put(new PDFName("Length"), new PDFInteger(data.length));
     }
 

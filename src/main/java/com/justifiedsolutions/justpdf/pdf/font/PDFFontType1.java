@@ -76,7 +76,7 @@ public final class PDFFontType1 extends PDFFont {
         InputStream is = PDFFontType1.class.getResourceAsStream(location);
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.US_ASCII))) {
             String line = reader.readLine();
-            while (!line.contains("StartCharMetrics")) {
+            while ((line != null) && !line.contains("StartCharMetrics")) {
                 descriptor.parseAFMLine(line);
                 line = reader.readLine();
             }
@@ -89,7 +89,7 @@ public final class PDFFontType1 extends PDFFont {
 
             boolean firstLine = true;
             line = reader.readLine();
-            while (!line.contains("EndCharMetrics")) {
+            while ((line != null) && !line.contains("EndCharMetrics")) {
                 int character = parseCharacter(line);
                 if (character < lastChar) {
                     break;
