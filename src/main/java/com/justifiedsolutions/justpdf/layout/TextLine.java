@@ -42,7 +42,7 @@ final class TextLine implements ContentLine {
      */
     TextLine(float lineWidth, float leftIndent, float rightIndent) {
         this.lineWidth = (lineWidth - (leftIndent + rightIndent));
-        this.remainingWidth = (lineWidth - (leftIndent + rightIndent));
+        this.remainingWidth = this.lineWidth;
         this.leftIndent = leftIndent;
     }
 
