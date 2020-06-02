@@ -320,7 +320,7 @@ public final class Paragraph extends Outlineable implements TextContent {
     @Override
     public String toString() {
         StringBuilder text = new StringBuilder();
-        content.forEach(content -> text.append(content.toString()));
+        content.forEach(textContent -> text.append(textContent.toString()));
         return text.toString();
     }
 

@@ -44,7 +44,7 @@ public class TextContentUtilityTest {
 
     @Test
     public void getParagraphUnknown() {
-        assertThrows(IllegalArgumentException.class, () -> TextContentUtility.getParagraph(new TextContent() {
+        TextContent unknown = new TextContent() {
             @Override
             public Font getFont() {
                 return null;
@@ -52,9 +52,10 @@ public class TextContentUtilityTest {
 
             @Override
             public void setFont(Font font) {
-                // do nothing
+                //do nothing
             }
-        }));
+        };
+        assertThrows(IllegalArgumentException.class, () -> TextContentUtility.getParagraph(unknown));
     }
 
     @Test
