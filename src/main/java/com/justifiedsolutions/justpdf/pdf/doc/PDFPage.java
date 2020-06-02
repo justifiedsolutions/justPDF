@@ -61,21 +61,21 @@ public final class PDFPage {
     }
 
     /**
+     * Gets a reference to this PDFPage.
+     *
+     * @return the reference to the PDFIndirectObject that wraps this page
+     */
+    public PDFIndirectObject.Reference getReference() {
+        return this.indirectPage.getReference();
+    }
+
+    /**
      * Sets the reference to the {@code Parent} Pages node.
      *
      * @param parent the reference
      */
     void setParent(PDFIndirectObject.Reference parent) {
         page.put(PARENT_NAME, parent);
-    }
-
-    /**
-     * Gets a reference to this PDFPage.
-     *
-     * @return the reference to the PDFIndirectObject that wraps this page
-     */
-    PDFIndirectObject.Reference getReference() {
-        return this.indirectPage.getReference();
     }
 
     /**

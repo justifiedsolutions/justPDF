@@ -5,8 +5,10 @@
 
 package com.justifiedsolutions.justpdf.api;
 
+import com.justifiedsolutions.justpdf.api.content.Chunk;
 import com.justifiedsolutions.justpdf.api.content.Content;
 import com.justifiedsolutions.justpdf.api.content.Paragraph;
+import com.justifiedsolutions.justpdf.api.content.TextContent;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +27,7 @@ import java.util.Objects;
  */
 public final class Section {
 
-    private final int sectionNumber;
+    private final String sectionNumber;
     private final Paragraph title;
     private final List<Content> content = new ArrayList<>();
     private final List<Section> sections = new ArrayList<>();
@@ -38,9 +40,9 @@ public final class Section {
      * @param sectionNumber the section number
      * @param title         the title
      */
-    Section(int sectionNumber, Paragraph title) {
-        this.sectionNumber = sectionNumber;
-        this.title = title;
+    Section(String sectionNumber, Paragraph title) {
+        this.sectionNumber = Objects.requireNonNull(sectionNumber);
+        this.title = Objects.requireNonNull(title);
     }
 
     /**
@@ -48,7 +50,7 @@ public final class Section {
      *
      * @return the section number
      */
-    public int getSectionNumber() {
+    public String getSectionNumber() {
         return sectionNumber;
     }
 
@@ -59,6 +61,22 @@ public final class Section {
      */
     public Paragraph getTitle() {
         return title;
+    }
+
+    /**
+     * Gets the title of the section as it should be displayed.
+     *
+     * @return the title
+     */
+    public Paragraph getDisplayTitle() {
+        if (displaySectionNumber) {
+            List<TextContent> headerContent = new ArrayList<>();
+            headerContent.add(new Chunk(sectionNumber));
+            headerContent.add(new Chunk(" "));
+            headerContent.addAll(getTitle().getContent());
+            return new Paragraph(getTitle(), headerContent);
+        }
+        return getTitle();
     }
 
     /**
@@ -127,7 +145,8 @@ public final class Section {
     public Section addSection(Paragraph title) {
         Objects.requireNonNull(title);
         int num = sections.size() + 1;
-        Section section = new Section(num, title);
+        String snText = sectionNumber + "." + num;
+        Section section = new Section(snText, title);
         sections.add(section);
         return section;
     }
@@ -144,8 +163,7 @@ public final class Section {
 
     @Override
     public int hashCode() {
-        return Objects.hash(sectionNumber, title, content, sections, startsNewPage,
-                displaySectionNumber);
+        return Objects.hash(sectionNumber, title, content, sections, startsNewPage, displaySectionNumber);
     }
 
     @Override
@@ -157,9 +175,9 @@ public final class Section {
             return false;
         }
         Section section = (Section) o;
-        return sectionNumber == section.sectionNumber &&
-                startsNewPage == section.startsNewPage &&
+        return startsNewPage == section.startsNewPage &&
                 displaySectionNumber == section.displaySectionNumber &&
+                sectionNumber.equals(section.sectionNumber) &&
                 title.equals(section.title) &&
                 content.equals(section.content) &&
                 sections.equals(section.sections);

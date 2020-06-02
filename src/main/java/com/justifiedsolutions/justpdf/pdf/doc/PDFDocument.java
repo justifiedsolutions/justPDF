@@ -28,6 +28,7 @@ public final class PDFDocument {
 
     private final List<PDFIndirectObject> indirectObjects = new ArrayList<>();
 
+    private PDFOutlineDictionary outline;
     private final PDFPages pages = new PDFPages();
     private final PDFInfoDictionary info = new PDFInfoDictionary();
     private final PDFCatalogDictionary catalog = new PDFCatalogDictionary();
@@ -86,6 +87,19 @@ public final class PDFDocument {
     public Reference addFont(PDFFont font) {
         PDFIndirectObject indirectFont = fonts.computeIfAbsent(font, this::createIndirectObject);
         return indirectFont.getReference();
+    }
+
+    /**
+     * Gets the {@link PDFOutlineDictionary} for the document.
+     *
+     * @return the outline dictionary
+     */
+    public PDFOutlineDictionary getOutline() {
+        if (outline == null) {
+            outline = new PDFOutlineDictionary(this);
+            catalog.put(PDFCatalogDictionary.OUTLINES, outline.getReference());
+        }
+        return outline;
     }
 
     /**

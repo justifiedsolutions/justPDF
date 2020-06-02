@@ -12,6 +12,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TableTest {
 
     @Test
+    public void copyConstructor() {
+        Table table = new Table(3);
+        Table copy = new Table(table, table.getCells());
+        assertEquals(table, copy);
+    }
+
+    @Test
     public void createWithBadWidthPositive() {
         float[] columns = {25f, 25f, 25f, 25f};
         assertThrows(IllegalArgumentException.class, () -> new Table(columns));
@@ -99,5 +106,42 @@ public class TableTest {
         assertEquals(1, table.getCells().size());
         assertEquals(cell, table.getCells().get(0));
         assertEquals(content, cell.getContent());
+    }
+
+    @Test
+    public void testEquals() {
+        Table t0 = new Table(2);
+
+        assertTrue(t0.equals(t0));
+        assertFalse(t0.equals(null));
+        assertFalse(t0.equals(Boolean.TRUE));
+
+        Table t1 = new Table(t0, t0.getCells());
+        assertTrue(t0.equals(t1));
+        assertEquals(t0.hashCode(), t1.hashCode());
+
+        Table t3 = new Table(t0, t0.getCells());
+        t3.setKeepTogether(true);
+        assertFalse(t0.equals(t3));
+
+        Table t4 = new Table(t0, t0.getCells());
+        t4.setWidthPercentage(10);
+        assertFalse(t0.equals(t4));
+
+        Table t5 = new Table(t0, t0.getCells());
+        t5.setSpacingBefore(10);
+        assertFalse(t0.equals(t5));
+
+        Table t6 = new Table(t0, t0.getCells());
+        t6.setSpacingAfter(10);
+        assertFalse(t0.equals(t6));
+
+        Table t7 = new Table(t0, t0.getCells());
+        t7.setBorderWidth(10);
+        assertFalse(t0.equals(t7));
+
+        Table t9 = new Table(t0, t0.getCells());
+        t9.createCell();
+        assertFalse(t0.equals(t9));
     }
 }

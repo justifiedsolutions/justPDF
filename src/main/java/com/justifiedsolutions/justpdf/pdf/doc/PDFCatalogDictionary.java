@@ -17,6 +17,7 @@ final class PDFCatalogDictionary extends PDFDictionary {
     public static final PDFName TYPE = new PDFName("Type");
     public static final PDFName VERSION = new PDFName("Version");
     public static final PDFName PAGES = new PDFName("Pages");
+    public static final PDFName OUTLINES = new PDFName("Outlines");
 
     static final PDFName CATALOG = new PDFName("Catalog");
     static final PDFName VERSION_17 = new PDFName("1.7");

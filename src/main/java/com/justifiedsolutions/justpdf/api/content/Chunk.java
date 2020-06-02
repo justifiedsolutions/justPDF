@@ -90,6 +90,11 @@ public final class Chunk implements TextContent {
     }
 
     @Override
+    public String toString() {
+        return text;
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(text, font);
     }

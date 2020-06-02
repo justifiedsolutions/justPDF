@@ -1,6 +1,7 @@
 package com.justifiedsolutions.justpdfdriver;
 
 import com.justifiedsolutions.justpdf.api.*;
+import com.justifiedsolutions.justpdf.api.content.PageBreak;
 import com.justifiedsolutions.justpdf.api.content.Paragraph;
 import com.justifiedsolutions.justpdf.api.font.PDFFont;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,9 @@ public class ParagraphOnlyDocumentTest {
         document.setMetadata(Metadata.AUTHOR, "Jay Burgess");
         document.setMetadata(Metadata.CREATOR, "jsPDF");
         document.setMetadata(Metadata.SUBJECT, "Lorum Ipsum");
+        document.setMetadata(Metadata.KEYWORDS, "fubar");
+        document.setMetadata(Metadata.PRODUCER, "producer");
+        document.setMetadata(Metadata.CREATE_DATE, "does nothing");
         PageNumberFooter footer = new PageNumberFooter(false, HorizontalAlignment.RIGHT,
                 new PDFFont(PDFFont.FontName.HELVETICA, 10, Color.BLUE));
         document.setFooter(footer);
@@ -72,6 +76,9 @@ public class ParagraphOnlyDocumentTest {
         p3.setSpacingAfter(9);
         p3.add("Purus non enim praesent elementum facilisis. Ornare arcu dui vivamus arcu felis bibendum ut tristique. Adipiscing vitae proin sagittis nisl. A iaculis at erat pellentesque adipiscing. Lorem donec massa sapien faucibus et. Eget est lorem ipsum dolor sit amet. Sed felis eget velit aliquet sagittis id consectetur. Adipiscing tristique risus nec feugiat in fermentum posuere. Fermentum odio eu feugiat pretium nibh ipsum consequat nisl vel. Turpis egestas sed tempus urna et. Mauris rhoncus aenean vel elit scelerisque mauris pellentesque. Lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt. Nisl nisi scelerisque eu ultrices vitae auctor eu augue. Suscipit tellus mauris a diam maecenas. Erat velit scelerisque in dictum. Condimentum mattis pellentesque id nibh tortor. Nunc scelerisque viverra mauris in aliquam. Lorem ipsum dolor sit amet consectetur adipiscing elit.");
         document.add(p3);
+
+        document.add(new PageBreak());
+        document.add(new PageBreak());
 
         Paragraph p4 = new Paragraph();
         p4.setSpacingBefore(5);

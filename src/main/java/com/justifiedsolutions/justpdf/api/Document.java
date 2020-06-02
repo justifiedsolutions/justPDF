@@ -27,6 +27,7 @@ public final class Document {
     private final List<Content> content = new ArrayList<>();
     private Header header;
     private Footer footer;
+    private Outline outline;
 
     /**
      * Creates a new instance of a Document with the specified {@link PageSize} and {@link Margin}. These values are
@@ -133,6 +134,24 @@ public final class Document {
     }
 
     /**
+     * Gets the document outline.
+     *
+     * @return the outline
+     */
+    public Outline getOutline() {
+        return outline;
+    }
+
+    /**
+     * Sets the document outline.
+     *
+     * @param outline the outline
+     */
+    public void setOutline(Outline outline) {
+        this.outline = outline;
+    }
+
+    /**
      * Specifies if the Document has any {@link Section}s.
      *
      * @return true if there is a Section in the Document
@@ -165,7 +184,7 @@ public final class Document {
         }
         Objects.requireNonNull(title);
         int num = sections.size() + 1;
-        Section section = new Section(num, title);
+        Section section = new Section(String.valueOf(num), title);
         sections.add(section);
         return section;
     }

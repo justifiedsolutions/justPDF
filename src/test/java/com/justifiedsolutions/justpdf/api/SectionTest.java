@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SectionTest {
 
-    private static final int SECTION_NUMBER = 1;
+    private static final String SECTION_NUMBER = "1";
     private final Paragraph title = new Paragraph("title");
     private Section section;
 
@@ -46,6 +46,12 @@ public class SectionTest {
     }
 
     @Test
+    public void getDisplayTextHideSection() {
+        section.setDisplaySectionNumber(false);
+        assertEquals(section.getTitle(), section.getDisplayTitle());
+    }
+
+    @Test
     public void addContent() {
         Phrase phrase = new Phrase("test");
         section.addContent(phrase);
@@ -56,7 +62,7 @@ public class SectionTest {
     public void addSection() {
         Paragraph t2 = new Paragraph("t2");
         Section s1 = section.addSection(t2);
-        assertEquals(1, s1.getSectionNumber());
+        assertEquals("1.1", s1.getSectionNumber());
         assertEquals(t2, s1.getTitle());
         assertEquals(s1, section.getSections().get(0));
     }
@@ -73,7 +79,7 @@ public class SectionTest {
         assertEquals(section, s1);
         assertEquals(section.hashCode(), s1.hashCode());
 
-        Section s2 = new Section(2, title);
+        Section s2 = new Section("2", title);
         assertNotEquals(section, s2);
 
         Section s3 = new Section(SECTION_NUMBER, new Paragraph("foo"));
