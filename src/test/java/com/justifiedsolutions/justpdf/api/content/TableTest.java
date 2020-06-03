@@ -140,6 +140,9 @@ public class TableTest {
         t7.setBorderWidth(10);
         assertFalse(t0.equals(t7));
 
+        Table t8 = new Table(2);
+        assertFalse(t0.equals(t8));
+
         Table t9 = new Table(t0, t0.getCells());
         t9.createCell();
         assertFalse(t0.equals(t9));

@@ -5,13 +5,20 @@ import java.util.*;
 /**
  * Models the outline of a PDF document. To create a viable outline, call {@link Outlineable#setOutlineText(String)} on
  * all items you want represented in the outline. Then, create the outline heirarchy utilizing the {@link
- * #createEntry(Outlineable)} and {@link Entry#createEntry(Outlineable)} methods. Finally, add the {@code Outline} to
- * the {@link Document}. These calls do not need to be made in a specific order. You can add an empty {@code Outline} to
- * the {@code Document} first, and then interleve calls to setting the text and creating entries.
+ * #createEntry(Outlineable)} and {@link Entry#createEntry(Outlineable)} methods. You can get the instance of the
+ * Outline by calling {@link Document#getOutline()}. These calls do not need to be made in a specific order. Calls to
+ * setting the text and creating entries can be interleved in any order.
  */
 public final class Outline {
 
     private final List<Entry> entries = new ArrayList<>();
+
+    /**
+     * Created automatically by the Document.
+     */
+    Outline() {
+        //do nothing
+    }
 
     /**
      * Gets the list of top level {@link Entry}s in the {@code Outline}.

@@ -24,6 +24,8 @@ import java.util.Objects;
  *     [SubSection Content]
  *     ...
  * </pre>
+ * <p>
+ * A document outline is automatically created using the text from {@link #getDisplayTitle()}.
  */
 public final class Section {
 
@@ -67,7 +69,19 @@ public final class Section {
     }
 
     /**
-     * Gets the title of the section as it should be displayed.
+     * Gets the outline entry for this section. This can be used to create new child entries in the outline for
+     * important {@link Outlineable} content in this section.
+     *
+     * @return the outline entry
+     */
+    public Outline.Entry getEntry() {
+        return entry;
+    }
+
+    /**
+     * Gets the title of the section as it should be displayed. If {@link #isDisplaySectionNumber()} is {@code true},
+     * then this will return a {@link Paragraph} in the form of {@code sectionNumber title}. Otherwise, it just returns
+     * {@link #getTitle()}.
      *
      * @return the title
      */
