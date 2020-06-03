@@ -23,9 +23,9 @@ import java.io.OutputStream;
 public class DocumentLayout {
     private final Document document;
     private final PDFDocument pdfDocument = new PDFDocument();
+    private final OutlineLayout outlineLayout;
     private PageLayout currentPage;
     private int currentPageNumber;
-    private final OutlineLayout outlineLayout;
 
     /**
      * Creates a layout of the specified {@link Document}.
@@ -36,11 +36,7 @@ public class DocumentLayout {
      */
     public DocumentLayout(Document document) throws DocumentException {
         this.document = document;
-        if (this.document.getOutline() != null) {
-            outlineLayout = new OutlineLayout(this.document.getOutline(), this.pdfDocument);
-        } else {
-            outlineLayout = null;
-        }
+        outlineLayout = new OutlineLayout(this.document.getOutline(), this.pdfDocument);
         layout();
     }
 
@@ -68,9 +64,7 @@ public class DocumentLayout {
         } else {
             throw new IllegalStateException("There is no data in the document.");
         }
-        if (outlineLayout != null) {
-            outlineLayout.populatePDFOutlineDictionary();
-        }
+        outlineLayout.populatePDFOutlineDictionary();
     }
 
     /**

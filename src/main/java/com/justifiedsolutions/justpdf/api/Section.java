@@ -31,6 +31,7 @@ public final class Section {
     private final Paragraph title;
     private final List<Content> content = new ArrayList<>();
     private final List<Section> sections = new ArrayList<>();
+    private final Outline.Entry entry;
     private boolean startsNewPage;
     private boolean displaySectionNumber = true;
 
@@ -40,9 +41,11 @@ public final class Section {
      * @param sectionNumber the section number
      * @param title         the title
      */
-    Section(String sectionNumber, Paragraph title) {
+    Section(String sectionNumber, Paragraph title, Outline.Entry entry) {
         this.sectionNumber = Objects.requireNonNull(sectionNumber);
         this.title = Objects.requireNonNull(title);
+        this.entry = entry;
+        this.title.setOutlineText(getDisplayTitle().toString());
     }
 
     /**
@@ -113,6 +116,7 @@ public final class Section {
      */
     public void setDisplaySectionNumber(boolean displaySectionNumber) {
         this.displaySectionNumber = displaySectionNumber;
+        this.title.setOutlineText(getDisplayTitle().toString());
     }
 
     /**
@@ -146,7 +150,7 @@ public final class Section {
         Objects.requireNonNull(title);
         int num = sections.size() + 1;
         String snText = sectionNumber + "." + num;
-        Section section = new Section(snText, title);
+        Section section = new Section(snText, title, entry.createEntry(title));
         sections.add(section);
         return section;
     }

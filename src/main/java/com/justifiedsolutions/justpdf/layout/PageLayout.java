@@ -210,7 +210,7 @@ class PageLayout {
     }
 
     private void updateOutline(Content content) {
-        if (outlineLayout != null && content instanceof Outlineable) {
+        if (content instanceof Outlineable) {
             Outlineable outlineable = (Outlineable) content;
             if (outlineLayout.getOutlineIds().contains(outlineable.getOutlineId())) {
                 outlineLayout.setContentLocation(outlineable, pdfPage.getReference(), currentVertPos);

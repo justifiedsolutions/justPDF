@@ -41,31 +41,21 @@ public class SectionDocumentTest {
             }
         });
 
-        Outline outline = new Outline();
-
         Paragraph ps1 = new Paragraph("Section One");
         ps1.setFont(new PDFFont(PDFFont.FontName.HELVETICA_BOLD, 16));
         ps1.setSpacingBefore(15);
-        Outline.Entry e1 = outline.createEntry(ps1);
 
         Paragraph ps2 = new Paragraph("Section Two");
         ps2.setFont(new PDFFont(PDFFont.FontName.HELVETICA_BOLD, 16));
         ps2.setSpacingBefore(15);
-        outline.createEntry(ps2);
 
         Paragraph ps3 = new Paragraph("Section Three");
         ps3.setFont(new PDFFont(PDFFont.FontName.HELVETICA_BOLD, 16));
         ps3.setSpacingBefore(15);
-        Outline.Entry e3 = outline.createEntry(ps3);
 
         Section s1 = document.createSection(ps1);
-        ps1.setOutlineText(s1.getDisplayTitle().toString());
-
         Section s2 = document.createSection(ps2);
-        ps2.setOutlineText(s2.getDisplayTitle().toString());
-
         Section s3 = document.createSection(ps3);
-        ps3.setOutlineText(s3.getDisplayTitle().toString());
 
         Paragraph p1 = new Paragraph();
         p1.setFont(new PDFFont(PDFFont.FontName.HELVETICA, 14));
@@ -103,8 +93,6 @@ public class SectionDocumentTest {
         ps11.setFont(new PDFFont(PDFFont.FontName.HELVETICA_BOLD, 16));
         ps11.setSpacingBefore(15);
         Section s11 = s1.addSection(ps11);
-        ps11.setOutlineText(s11.getDisplayTitle().toString());
-        Outline.Entry e11 = e1.createEntry(ps11);
         s11.addContent(p3);
         s11.addContent(p4);
 
@@ -112,8 +100,6 @@ public class SectionDocumentTest {
         ps12.setFont(new PDFFont(PDFFont.FontName.HELVETICA_BOLD, 16));
         ps12.setSpacingBefore(15);
         Section s12 = s1.addSection(ps12);
-        ps12.setOutlineText(s12.getDisplayTitle().toString());
-        e1.createEntry(ps12);
         s12.addContent(p3);
         s12.addContent(p4);
 
@@ -121,8 +107,6 @@ public class SectionDocumentTest {
         ps111.setFont(new PDFFont(PDFFont.FontName.HELVETICA_BOLD, 16));
         ps111.setSpacingBefore(15);
         Section s111 = s11.addSection(ps111);
-        ps111.setOutlineText(s111.getDisplayTitle().toString());
-        e11.createEntry(ps111);
         s111.addContent(p3);
         s111.addContent(p4);
 
@@ -130,12 +114,9 @@ public class SectionDocumentTest {
         ps31.setFont(new PDFFont(PDFFont.FontName.HELVETICA_BOLD, 16));
         ps31.setSpacingBefore(15);
         Section s31 = s3.addSection(ps31);
-        ps31.setOutlineText(s31.getDisplayTitle().toString());
-        e3.createEntry(ps31);
         s31.addContent(p1);
         s31.addContent(p2);
 
-        document.setOutline(outline);
         assertTrue(document.hasSections());
 
         String targetDirectoryName = (String) System.getProperties().get("TargetDirectory");

@@ -44,9 +44,11 @@ final class OutlineLayout {
      * the {@link PDFOutlineDictionary}.
      */
     void populatePDFOutlineDictionary() {
-        PDFOutlineDictionary outlineDictionary = pdfDocument.getOutline();
-        for (Outline.Entry entry : outlineModel.getEntries()) {
-            createTopLevelOutlineItems(outlineDictionary, entry);
+        if (!outlineModel.getEntries().isEmpty()) {
+            PDFOutlineDictionary outlineDictionary = pdfDocument.getOutline();
+            for (Outline.Entry entry : outlineModel.getEntries()) {
+                createTopLevelOutlineItems(outlineDictionary, entry);
+            }
         }
     }
 

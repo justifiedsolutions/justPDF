@@ -25,9 +25,9 @@ public final class Document {
     private final Map<Metadata, String> metadata = new EnumMap<>(Metadata.class);
     private final List<Section> sections = new ArrayList<>();
     private final List<Content> content = new ArrayList<>();
+    private final Outline outline = new Outline();
     private Header header;
     private Footer footer;
-    private Outline outline;
 
     /**
      * Creates a new instance of a Document with the specified {@link PageSize} and {@link Margin}. These values are
@@ -143,15 +143,6 @@ public final class Document {
     }
 
     /**
-     * Sets the document outline.
-     *
-     * @param outline the outline
-     */
-    public void setOutline(Outline outline) {
-        this.outline = outline;
-    }
-
-    /**
      * Specifies if the Document has any {@link Section}s.
      *
      * @return true if there is a Section in the Document
@@ -184,7 +175,7 @@ public final class Document {
         }
         Objects.requireNonNull(title);
         int num = sections.size() + 1;
-        Section section = new Section(String.valueOf(num), title);
+        Section section = new Section(String.valueOf(num), title, outline.createEntry(title));
         sections.add(section);
         return section;
     }

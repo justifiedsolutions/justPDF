@@ -85,11 +85,4 @@ public class DocumentTest {
         document.setFooter(footer);
         assertSame(footer, document.getFooter());
     }
-
-    @Test
-    public void setOutline() {
-        Outline outline = new Outline();
-        document.setOutline(outline);
-        assertSame(outline, document.getOutline());
-    }
 }
