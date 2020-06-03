@@ -63,6 +63,8 @@ final class OutlineLayout {
         if (outlineIds.contains(content.getOutlineId())) {
             ContentLocation location = new ContentLocation(page, top, content.getOutlineText());
             locationMap.put(content.getOutlineId(), location);
+        } else {
+            throw new IllegalArgumentException("Content is not an entry in outline.");
         }
     }
 

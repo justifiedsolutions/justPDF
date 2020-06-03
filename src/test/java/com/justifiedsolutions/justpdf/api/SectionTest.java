@@ -49,6 +49,11 @@ public class SectionTest {
     }
 
     @Test
+    public void testGetEntry() {
+        assertSame(entry, section.getEntry());
+    }
+
+    @Test
     public void getDisplayTextHideSection() {
         section.setDisplaySectionNumber(false);
         assertEquals(section.getTitle(), section.getDisplayTitle());
