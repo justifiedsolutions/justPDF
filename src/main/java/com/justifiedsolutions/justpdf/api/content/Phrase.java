@@ -5,6 +5,7 @@
 
 package com.justifiedsolutions.justpdf.api.content;
 
+import com.justifiedsolutions.justpdf.api.Outlineable;
 import com.justifiedsolutions.justpdf.api.font.Font;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.Objects;
  *
  * @see <a href="https://techterms.com/definition/leading">Leading</a>
  */
-public final class Phrase implements TextContent {
+public final class Phrase extends Outlineable implements TextContent {
 
     private final List<Chunk> chunks = new ArrayList<>();
     private float leading;
@@ -80,6 +81,7 @@ public final class Phrase implements TextContent {
      * @param chunks the chunks to copy
      */
     public Phrase(Phrase phrase, List<Chunk> chunks) {
+        super(phrase);
         this.leading = phrase.leading;
         this.font = phrase.font;
         this.chunks.addAll(chunks);
@@ -146,8 +148,15 @@ public final class Phrase implements TextContent {
     }
 
     @Override
+    public String toString() {
+        StringBuilder text = new StringBuilder();
+        chunks.forEach(chunk -> text.append(chunk.toString()));
+        return text.toString();
+    }
+
+    @Override
     public int hashCode() {
-        return Objects.hash(chunks, leading, font);
+        return Objects.hash(super.hashCode(), chunks, leading, font);
     }
 
     @Override
@@ -156,6 +165,9 @@ public final class Phrase implements TextContent {
             return true;
         }
         if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
             return false;
         }
         Phrase phrase = (Phrase) o;

@@ -6,6 +6,7 @@
 package com.justifiedsolutions.justpdf.api.content;
 
 import com.justifiedsolutions.justpdf.api.HorizontalAlignment;
+import com.justifiedsolutions.justpdf.api.Outlineable;
 import com.justifiedsolutions.justpdf.api.font.Font;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.Objects;
  * A Paragraph is a series of {@link Chunk}s and {@link Phrase}s. The Paragraph has an associated {@link Font} and any
  * Chunks or Phrases added to the Paragraph inherit the Font of the Paragraph unless they specify a Font themselves.
  */
-public final class Paragraph implements TextContent {
+public final class Paragraph extends Outlineable implements TextContent {
 
     private final List<TextContent> content = new ArrayList<>();
     private float leading;
@@ -87,6 +88,7 @@ public final class Paragraph implements TextContent {
      * @param content   the content to copy
      */
     public Paragraph(Paragraph paragraph, List<TextContent> content) {
+        super(paragraph);
         this.leading = paragraph.leading;
         this.lineHeight = paragraph.lineHeight;
         this.font = paragraph.font;
@@ -316,10 +318,15 @@ public final class Paragraph implements TextContent {
     }
 
     @Override
+    public String toString() {
+        StringBuilder text = new StringBuilder();
+        content.forEach(textContent -> text.append(textContent.toString()));
+        return text.toString();
+    }
+
+    @Override
     public int hashCode() {
-        return Objects
-                .hash(content, leading, lineHeight, font, leftIndent, rightIndent, firstLineIndent,
-                        spacingBefore, spacingAfter, keepTogether, alignment);
+        return Objects.hash(super.hashCode(), content, leading, lineHeight, font, leftIndent, rightIndent, firstLineIndent, spacingBefore, spacingAfter, keepTogether, alignment);
     }
 
     @Override
@@ -328,6 +335,9 @@ public final class Paragraph implements TextContent {
             return true;
         }
         if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
             return false;
         }
         Paragraph paragraph = (Paragraph) o;

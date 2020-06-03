@@ -96,6 +96,13 @@ public class SectionDocumentTest {
         s11.addContent(p3);
         s11.addContent(p4);
 
+        Paragraph ps12 = new Paragraph("Section One-Two");
+        ps12.setFont(new PDFFont(PDFFont.FontName.HELVETICA_BOLD, 16));
+        ps12.setSpacingBefore(15);
+        Section s12 = s1.addSection(ps12);
+        s12.addContent(p3);
+        s12.addContent(p4);
+
         Paragraph ps111 = new Paragraph("Section One-One-One");
         ps111.setFont(new PDFFont(PDFFont.FontName.HELVETICA_BOLD, 16));
         ps111.setSpacingBefore(15);

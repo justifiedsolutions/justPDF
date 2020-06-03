@@ -6,8 +6,6 @@
 package com.justifiedsolutions.justpdf.layout;
 
 import com.justifiedsolutions.justpdf.api.content.*;
-import com.justifiedsolutions.justpdf.api.font.Font;
-import com.justifiedsolutions.justpdf.api.font.PDFFont;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +35,7 @@ class TextContentLayout implements ContentLayout {
         this.spacingBefore = this.paragraph.getSpacingBefore();
         this.spacingAfter = this.paragraph.getSpacingAfter();
 
-        initializeFonts();
+        TextContentUtility.initializeFonts(this.paragraph);
     }
 
     @Override
@@ -141,34 +139,5 @@ class TextContentLayout implements ContentLayout {
             }
         }
         return false;
-    }
-
-    private void initializeFonts() {
-        if (paragraph.getFont() == null) {
-            paragraph.setFont(new PDFFont());
-        }
-
-        for (TextContent content : paragraph.getContent()) {
-            if (content instanceof Chunk) {
-                initializeChunkFont((Chunk) content, paragraph.getFont());
-            } else if (content instanceof Phrase) {
-                initalizePhraseFonts((Phrase) content);
-            }
-        }
-    }
-
-    private void initializeChunkFont(Chunk chunk, Font defaultFont) {
-        if (chunk.getFont() == null) {
-            chunk.setFont(defaultFont);
-        }
-    }
-
-    private void initalizePhraseFonts(Phrase phrase) {
-        if (phrase.getFont() == null) {
-            phrase.setFont(paragraph.getFont());
-        }
-        for (Chunk chunk : phrase.getChunks()) {
-            initializeChunkFont(chunk, phrase.getFont());
-        }
     }
 }

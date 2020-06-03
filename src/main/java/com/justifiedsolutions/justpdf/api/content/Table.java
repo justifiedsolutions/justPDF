@@ -6,16 +6,14 @@
 package com.justifiedsolutions.justpdf.api.content;
 
 import com.justifiedsolutions.justpdf.api.Document;
+import com.justifiedsolutions.justpdf.api.Outlineable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * A Table is a type of {@link Content} that can be added to a PDF {@link Document}.
  */
-public final class Table implements Content {
+public final class Table extends Outlineable implements Content {
 
     private final float[] relativeColumnWidths;
     private final List<Cell> cells = new ArrayList<>();
@@ -60,6 +58,7 @@ public final class Table implements Content {
      * @param cells the cells to copy
      */
     public Table(Table table, List<Cell> cells) {
+        super(table);
         this.relativeColumnWidths = table.relativeColumnWidths;
         this.keepTogether = table.keepTogether;
         this.widthPercentage = table.widthPercentage;
@@ -214,5 +213,33 @@ public final class Table implements Content {
      */
     public List<Cell> getCells() {
         return Collections.unmodifiableList(cells);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(super.hashCode(), cells, keepTogether, widthPercentage, spacingBefore, spacingAfter, borderWidth);
+        result = 31 * result + Arrays.hashCode(relativeColumnWidths);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        Table table = (Table) o;
+        return keepTogether == table.keepTogether &&
+                Float.compare(table.widthPercentage, widthPercentage) == 0 &&
+                Float.compare(table.spacingBefore, spacingBefore) == 0 &&
+                Float.compare(table.spacingAfter, spacingAfter) == 0 &&
+                Float.compare(table.borderWidth, borderWidth) == 0 &&
+                Arrays.equals(relativeColumnWidths, table.relativeColumnWidths) &&
+                cells.equals(table.cells);
     }
 }

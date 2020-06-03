@@ -43,6 +43,9 @@ public class PhraseTest {
         p = new Phrase(content, font);
         assertEquals(content, p.getChunks().get(0));
         assertEquals(font, p.getFont());
+
+        Phrase copy = new Phrase(p, p.getChunks());
+        assertEquals(p, copy);
     }
 
     @Test
@@ -86,8 +89,17 @@ public class PhraseTest {
     }
 
     @Test
+    public void testToString() {
+        String text = "Welcome to the jungle!";
+        phrase.add("Welcome ");
+        phrase.add("to ");
+        phrase.add("the jungle!");
+        assertEquals(text, phrase.toString());
+    }
+
+    @Test
     public void testEqualsHashCode() {
-        Phrase phrase2 = new Phrase();
+        Phrase phrase2 = new Phrase(phrase, phrase.getChunks());
 
         assertEquals(phrase, phrase);
         assertEquals(phrase.hashCode(), phrase.hashCode());
@@ -96,5 +108,17 @@ public class PhraseTest {
 
         assertNotEquals(phrase, new Chunk());
         assertNotEquals(phrase, null);
+
+        Phrase p4 = new Phrase(phrase, phrase.getChunks());
+        p4.setLeading(5);
+        assertNotEquals(phrase, p4);
+
+        Phrase p5 = new Phrase(phrase, phrase.getChunks());
+        p5.add("foo");
+        assertNotEquals(phrase, p5);
+
+        Phrase p6 = new Phrase(phrase, phrase.getChunks());
+        p6.setFont(new PDFFont(PDFFont.FontName.COURIER));
+        assertNotEquals(phrase, p6);
     }
 }

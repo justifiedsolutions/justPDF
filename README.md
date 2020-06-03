@@ -37,6 +37,8 @@ The primary goal for justPDF is to provide a PDF library to support Justified So
 * Improve line break code
 	* Utilize BreakIterator to find line break points
 	* Add optional auto-hyphenate using Knuth-Liang algorithm (see module javadoc)
+* Document Outline
+	* Outlines are automatic with section documents
 * Add PMD to build
 * Add additional javadoc to code
 
@@ -65,7 +67,6 @@ The primary goal for justPDF is to provide a PDF library to support Justified So
 
 These are PDF features that there are not currently plans to implement. If you would like to see any of these features added to the library, we're happy to accept pull requests. Alternatively, we can discuss a sponsorship to complete the feature.
 
-* Document Outline
 * Image Support
 * TrueType Fonts
 * Encryption

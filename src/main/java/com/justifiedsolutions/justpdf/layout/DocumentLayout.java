@@ -6,7 +6,8 @@
 package com.justifiedsolutions.justpdf.layout;
 
 import com.justifiedsolutions.justpdf.api.*;
-import com.justifiedsolutions.justpdf.api.content.*;
+import com.justifiedsolutions.justpdf.api.content.Content;
+import com.justifiedsolutions.justpdf.api.content.PageBreak;
 import com.justifiedsolutions.justpdf.pdf.doc.PDFDocument;
 import com.justifiedsolutions.justpdf.pdf.doc.PDFInfoDictionary;
 import com.justifiedsolutions.justpdf.pdf.object.PDFDate;
@@ -15,8 +16,6 @@ import com.justifiedsolutions.justpdf.pdf.object.PDFString;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Lays out a specified {@link Document} as a {@link PDFDocument}. Takes care of pagination, etc.
@@ -24,6 +23,7 @@ import java.util.List;
 public class DocumentLayout {
     private final Document document;
     private final PDFDocument pdfDocument = new PDFDocument();
+    private final OutlineLayout outlineLayout;
     private PageLayout currentPage;
     private int currentPageNumber;
 
@@ -36,6 +36,7 @@ public class DocumentLayout {
      */
     public DocumentLayout(Document document) throws DocumentException {
         this.document = document;
+        outlineLayout = new OutlineLayout(this.document.getOutline(), this.pdfDocument);
         layout();
     }
 
@@ -63,6 +64,7 @@ public class DocumentLayout {
         } else {
             throw new IllegalStateException("There is no data in the document.");
         }
+        outlineLayout.populatePDFOutlineDictionary();
     }
 
     /**
@@ -111,6 +113,7 @@ public class DocumentLayout {
         currentPage = new PageLayout(pdfDocument, width, height, margin, ++currentPageNumber);
         currentPage.setHeader(document.getHeader());
         currentPage.setFooter(document.getFooter());
+        currentPage.setOutlineLayout(outlineLayout);
     }
 
     private void completePage() throws IOException {
@@ -148,15 +151,13 @@ public class DocumentLayout {
         } else {
             throw new DocumentException("Unable to paginate document. Content cannot fit single page.");
         }
-
     }
 
     private void layoutSections() throws DocumentException {
-        String empty = "";
         try {
             createPage();
             for (Section section : document.getSections()) {
-                layoutSection(empty, section);
+                layoutSection(section);
             }
             completePage();
         } catch (IOException e) {
@@ -164,32 +165,19 @@ public class DocumentLayout {
         }
     }
 
-    private void layoutSection(String parentSectionNumber, Section section) throws IOException, DocumentException {
-        List<TextContent> headerContent = new ArrayList<>();
-
-        String sectionNumber = "";
-        if (!parentSectionNumber.isEmpty()) {
-            sectionNumber = parentSectionNumber.trim() + ".";
-        }
-        sectionNumber += section.getSectionNumber() + " ";
-        if (section.isDisplaySectionNumber()) {
-            headerContent.add(new Chunk(sectionNumber));
-        }
-        headerContent.addAll(section.getTitle().getContent());
-
-        Paragraph header = new Paragraph(section.getTitle(), headerContent);
-
+    private void layoutSection(Section section) throws IOException, DocumentException {
         if (section.isStartsNewPage()) {
             layoutContent(new PageBreak());
         }
-        layoutContent(header);
+
+        layoutContent(section.getDisplayTitle());
 
         for (Content content : section.getContent()) {
             layoutContent(content);
         }
 
         for (Section child : section.getSections()) {
-            layoutSection(sectionNumber, child);
+            layoutSection(child);
         }
     }
 }

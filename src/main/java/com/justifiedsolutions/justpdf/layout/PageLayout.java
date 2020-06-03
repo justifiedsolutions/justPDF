@@ -41,6 +41,7 @@ class PageLayout {
     private float currentSpacingAfter;
     private Header header;
     private Footer footer;
+    private OutlineLayout outlineLayout;
 
     /**
      * Creates a new PageLayout.
@@ -91,6 +92,15 @@ class PageLayout {
     }
 
     /**
+     * Sets the document outline layout.
+     *
+     * @param outlineLayout the outline layout
+     */
+    void setOutlineLayout(OutlineLayout outlineLayout) {
+        this.outlineLayout = outlineLayout;
+    }
+
+    /**
      * Checks to see if there has been any content added to the page.
      *
      * @return true if there has been no content added to the page
@@ -133,6 +143,8 @@ class PageLayout {
             remainingHeight -= Math.max(currentSpacingAfter, layout.getSpacingBefore());
             currentVertPos -= Math.max(currentSpacingAfter, layout.getSpacingBefore());
         }
+
+        updateOutline(content);
 
         pdfBuilder.addOperator(new PushGraphicsState());
         if (content instanceof TextContent) {
@@ -193,6 +205,15 @@ class PageLayout {
                 pdfBuilder.addOperator(new SetFont(fontAlias, wrapper.getSize()));
             } else {
                 pdfBuilder.addOperator(operator);
+            }
+        }
+    }
+
+    private void updateOutline(Content content) {
+        if (content instanceof Outlineable) {
+            Outlineable outlineable = (Outlineable) content;
+            if (outlineLayout.getOutlineIds().contains(outlineable.getOutlineId())) {
+                outlineLayout.setContentLocation(outlineable, pdfPage.getReference(), currentVertPos);
             }
         }
     }

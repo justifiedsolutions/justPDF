@@ -37,6 +37,9 @@ public class ParagraphTest {
         Paragraph p2 = new Paragraph(content, font);
         assertEquals(content, p2.getContent().get(0));
         assertEquals(font, p2.getFont());
+
+        Paragraph copy = new Paragraph(paragraph, paragraph.getContent());
+        assertEquals(paragraph, copy);
     }
 
     @Test
@@ -165,7 +168,7 @@ public class ParagraphTest {
 
     @Test
     public void testEqualsHashCode() {
-        Paragraph paragraph2 = new Paragraph();
+        Paragraph paragraph2 = new Paragraph(paragraph, paragraph.getContent());
 
         assertEquals(paragraph, paragraph);
         assertEquals(paragraph.hashCode(), paragraph.hashCode());
@@ -174,5 +177,49 @@ public class ParagraphTest {
 
         assertNotEquals(paragraph, new Phrase(""));
         assertNotEquals(paragraph, null);
+
+        Paragraph p4 = new Paragraph(paragraph, paragraph.getContent());
+        p4.setLeading(10);
+        assertNotEquals(paragraph, p4);
+
+        Paragraph p5 = new Paragraph(paragraph, paragraph.getContent());
+        p5.setLineHeight(10);
+        assertNotEquals(paragraph, p5);
+
+        Paragraph p6 = new Paragraph(paragraph, paragraph.getContent());
+        p6.setLeftIndent(10);
+        assertNotEquals(paragraph, p6);
+
+        Paragraph p7 = new Paragraph(paragraph, paragraph.getContent());
+        p7.setRightIndent(10);
+        assertNotEquals(paragraph, p7);
+
+        Paragraph p8 = new Paragraph(paragraph, paragraph.getContent());
+        p8.setFirstLineIndent(10);
+        assertNotEquals(paragraph, p8);
+
+        Paragraph p9 = new Paragraph(paragraph, paragraph.getContent());
+        p9.setSpacingBefore(10);
+        assertNotEquals(paragraph, p9);
+
+        Paragraph p10 = new Paragraph(paragraph, paragraph.getContent());
+        p10.setSpacingAfter(10);
+        assertNotEquals(paragraph, p10);
+
+        Paragraph p11 = new Paragraph(paragraph, paragraph.getContent());
+        p11.setKeepTogether(true);
+        assertNotEquals(paragraph, p11);
+
+        Paragraph p12 = new Paragraph(paragraph, paragraph.getContent());
+        p12.add("foo");
+        assertNotEquals(paragraph, p12);
+
+        Paragraph p13 = new Paragraph(paragraph, paragraph.getContent());
+        p13.setFont(new PDFFont(PDFFont.FontName.COURIER));
+        assertNotEquals(paragraph, p13);
+
+        Paragraph p14 = new Paragraph(paragraph, paragraph.getContent());
+        p14.setAlignment(HorizontalAlignment.JUSTIFIED);
+        assertNotEquals(paragraph, p14);
     }
 }

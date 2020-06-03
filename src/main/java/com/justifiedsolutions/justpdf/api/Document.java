@@ -25,6 +25,7 @@ public final class Document {
     private final Map<Metadata, String> metadata = new EnumMap<>(Metadata.class);
     private final List<Section> sections = new ArrayList<>();
     private final List<Content> content = new ArrayList<>();
+    private final Outline outline = new Outline();
     private Header header;
     private Footer footer;
 
@@ -133,6 +134,15 @@ public final class Document {
     }
 
     /**
+     * Gets the document outline.
+     *
+     * @return the outline
+     */
+    public Outline getOutline() {
+        return outline;
+    }
+
+    /**
      * Specifies if the Document has any {@link Section}s.
      *
      * @return true if there is a Section in the Document
@@ -165,7 +175,7 @@ public final class Document {
         }
         Objects.requireNonNull(title);
         int num = sections.size() + 1;
-        Section section = new Section(num, title);
+        Section section = new Section(String.valueOf(num), title, outline.createEntry(title));
         sections.add(section);
         return section;
     }

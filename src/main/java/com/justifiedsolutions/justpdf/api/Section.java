@@ -5,8 +5,10 @@
 
 package com.justifiedsolutions.justpdf.api;
 
+import com.justifiedsolutions.justpdf.api.content.Chunk;
 import com.justifiedsolutions.justpdf.api.content.Content;
 import com.justifiedsolutions.justpdf.api.content.Paragraph;
+import com.justifiedsolutions.justpdf.api.content.TextContent;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,13 +24,16 @@ import java.util.Objects;
  *     [SubSection Content]
  *     ...
  * </pre>
+ * <p>
+ * A document outline is automatically created using the text from {@link #getDisplayTitle()}.
  */
 public final class Section {
 
-    private final int sectionNumber;
+    private final String sectionNumber;
     private final Paragraph title;
     private final List<Content> content = new ArrayList<>();
     private final List<Section> sections = new ArrayList<>();
+    private final Outline.Entry entry;
     private boolean startsNewPage;
     private boolean displaySectionNumber = true;
 
@@ -38,9 +43,11 @@ public final class Section {
      * @param sectionNumber the section number
      * @param title         the title
      */
-    Section(int sectionNumber, Paragraph title) {
-        this.sectionNumber = sectionNumber;
-        this.title = title;
+    Section(String sectionNumber, Paragraph title, Outline.Entry entry) {
+        this.sectionNumber = Objects.requireNonNull(sectionNumber);
+        this.title = Objects.requireNonNull(title);
+        this.entry = entry;
+        this.title.setOutlineText(getDisplayTitle().toString());
     }
 
     /**
@@ -48,7 +55,7 @@ public final class Section {
      *
      * @return the section number
      */
-    public int getSectionNumber() {
+    public String getSectionNumber() {
         return sectionNumber;
     }
 
@@ -59,6 +66,34 @@ public final class Section {
      */
     public Paragraph getTitle() {
         return title;
+    }
+
+    /**
+     * Gets the outline entry for this section. This can be used to create new child entries in the outline for
+     * important {@link Outlineable} content in this section.
+     *
+     * @return the outline entry
+     */
+    public Outline.Entry getEntry() {
+        return entry;
+    }
+
+    /**
+     * Gets the title of the section as it should be displayed. If {@link #isDisplaySectionNumber()} is {@code true},
+     * then this will return a {@link Paragraph} in the form of {@code sectionNumber title}. Otherwise, it just returns
+     * {@link #getTitle()}.
+     *
+     * @return the title
+     */
+    public Paragraph getDisplayTitle() {
+        if (displaySectionNumber) {
+            List<TextContent> headerContent = new ArrayList<>();
+            headerContent.add(new Chunk(sectionNumber));
+            headerContent.add(new Chunk(" "));
+            headerContent.addAll(getTitle().getContent());
+            return new Paragraph(getTitle(), headerContent);
+        }
+        return getTitle();
     }
 
     /**
@@ -95,6 +130,7 @@ public final class Section {
      */
     public void setDisplaySectionNumber(boolean displaySectionNumber) {
         this.displaySectionNumber = displaySectionNumber;
+        this.title.setOutlineText(getDisplayTitle().toString());
     }
 
     /**
@@ -127,7 +163,8 @@ public final class Section {
     public Section addSection(Paragraph title) {
         Objects.requireNonNull(title);
         int num = sections.size() + 1;
-        Section section = new Section(num, title);
+        String snText = sectionNumber + "." + num;
+        Section section = new Section(snText, title, entry.createEntry(title));
         sections.add(section);
         return section;
     }
@@ -144,8 +181,7 @@ public final class Section {
 
     @Override
     public int hashCode() {
-        return Objects.hash(sectionNumber, title, content, sections, startsNewPage,
-                displaySectionNumber);
+        return Objects.hash(sectionNumber, title, content, sections, startsNewPage, displaySectionNumber);
     }
 
     @Override
@@ -157,9 +193,9 @@ public final class Section {
             return false;
         }
         Section section = (Section) o;
-        return sectionNumber == section.sectionNumber &&
-                startsNewPage == section.startsNewPage &&
+        return startsNewPage == section.startsNewPage &&
                 displaySectionNumber == section.displaySectionNumber &&
+                sectionNumber.equals(section.sectionNumber) &&
                 title.equals(section.title) &&
                 content.equals(section.content) &&
                 sections.equals(section.sections);
