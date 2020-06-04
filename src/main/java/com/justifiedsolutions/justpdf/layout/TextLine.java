@@ -150,6 +150,7 @@ final class TextLine implements ContentLine {
         } else {
             chunkText = chunk.getText();
         }
+        chunkText = chunkText.replaceAll("\\r?\\n", "\n");
 
         List<String> split = splitText(chunkText, wrapper);
 
@@ -176,10 +177,15 @@ final class TextLine implements ContentLine {
         BreakIterator breakDetector = BreakIterator.getLineInstance();
         breakDetector.setText(input);
 
+        int newlineIndex = input.indexOf('\n');
+        if (newlineIndex < 0) {
+            newlineIndex = Integer.MAX_VALUE;
+        }
+
         boolean hyphenate = false;
         char[] chars = input.toCharArray();
         int boundary = breakDetector.next();
-        while (boundary != BreakIterator.DONE) {
+        while ((boundary != BreakIterator.DONE) && (boundary < newlineIndex)) {
             String value = new String(chars, 0, boundary);
             float valueWidth = wrapper.getStringWidth(value);
             if (valueWidth > remainingWidth) {
