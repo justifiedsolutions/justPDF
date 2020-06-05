@@ -17,7 +17,7 @@ Add this to your pom.xml file to use the latest version of justPDF:
 			    <dependency>
 			        <groupId>com.justifiedsolutions</groupId>
 			        <artifactId>justPDF</artifactId>
-			        <version>1.0.1</version>
+			        <version>1.1.0</version>
 			    </dependency>
 
 ## Goals ##
@@ -32,7 +32,7 @@ The primary goal for justPDF is to provide a PDF library to support Justified So
 
 ## Releases ##
 
-### justPDF 1.1.0 (2020-06-XX) ###
+### justPDF 1.1.0 (2020-06-05) ###
 
 * Improve line break code
 	* Utilize BreakIterator to find line break points
