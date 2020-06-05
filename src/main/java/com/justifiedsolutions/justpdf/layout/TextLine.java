@@ -11,7 +11,6 @@ import com.justifiedsolutions.justpdf.pdf.contents.*;
 import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 import com.justifiedsolutions.justpdf.pdf.object.PDFString;
 
-import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -150,78 +149,57 @@ final class TextLine implements ContentLine {
         } else {
             chunkText = chunk.getText();
         }
+        Chunk alteredChunk = new Chunk(chunkText, chunk.getFont());
 
-        List<String> split = splitText(chunkText, wrapper);
+        String[] lineSplit = chunkText.split("\\R", 2);
+        if (lineSplit.length == 2) {
+            chunkText = lineSplit[0];
+        }
 
-        if (firstWord && split.get(0).isEmpty() && split.size() == 2) {
+        String split = splitText(chunkText, wrapper);
+        Chunk remainder = getRemainingChunk(alteredChunk, split);
+
+        if (firstWord && split.isEmpty() && remainder != null) {
             throw new IllegalArgumentException("Unable to format document. Content does not fit width.\n("
                     + chunk.getText() + "), width = " + lineWidth);
         }
 
-        if (!split.get(0).isEmpty()) {
+        if (!split.isEmpty()) {
             operators.add(wrapper.getOperator());
             operators.add(wrapper.getColorSpaceOperator());
-            operators.add(new ShowText(new PDFString(split.get(0))));
-        } else {
-            return chunk;
+            operators.add(new ShowText(new PDFString(split)));
         }
 
-        if (split.size() == 2) {
-            return new Chunk(split.get(1), chunk.getFont());
-        }
-        return null;
+        return remainder;
     }
 
-    private List<String> splitText(String input, PDFFontWrapper wrapper) {
-        BreakIterator breakDetector = BreakIterator.getLineInstance();
-        breakDetector.setText(input);
-
-        boolean hyphenate = false;
-        char[] chars = input.toCharArray();
-        int boundary = breakDetector.next();
-        while (boundary != BreakIterator.DONE) {
-            String value = new String(chars, 0, boundary);
-            float valueWidth = wrapper.getStringWidth(value);
-            if (valueWidth > remainingWidth) {
-                int end = boundary;
-                boundary = breakDetector.previous();
-                String tmp = new String(chars, boundary, (end - boundary)).stripTrailing();
-                int hyphenBoundary = hyphenate(tmp, wrapper, chars, boundary);
-                if (hyphenBoundary > boundary) {
-                    boundary = hyphenBoundary;
-                    hyphenate = true;
-                }
-                break;
-            }
-            boundary = breakDetector.next();
+    private Chunk getRemainingChunk(Chunk chunk, String lineText) {
+        String chunkText = chunk.getText();
+        int length = lineText.length();
+        if (lineText.endsWith("-")) {
+            length--;
         }
-
-        String value;
-        String remainder = null;
-        if (boundary == BreakIterator.DONE) {
-            value = input;
-        } else {
-            value = new String(chars, 0, boundary);
-            value = value.stripTrailing();
-            if (hyphenate) {
-                value += "-";
-            }
-            remainder = new String(chars, boundary, chars.length - boundary);
+        String text = chunkText.substring(length);
+        if (text.startsWith("\n") || text.startsWith("-")) {
+            text = text.substring(1);
         }
+        Chunk result = null;
+        if (!text.isEmpty()) {
+            result = new Chunk(text, chunk.getFont());
+        }
+        return result;
+    }
+
+    private String splitText(String input, PDFFontWrapper wrapper) {
+        TextSplitter splitter = new TextSplitter(remainingWidth);
+        String value = splitter.split(input, wrapper);
         float valueWidth = wrapper.getStringWidth(value);
         int valueSpaces = getNumberOfSpaces(value);
         numSpaces += valueSpaces;
         numChars += (value.length() - valueSpaces);
         remainingWidth -= valueWidth;
         calculateLineStart();
-
-        List<String> result = new ArrayList<>();
-        result.add(value);
-        if (remainder != null) {
-            result.add(remainder);
-        }
-
-        return result;
+        return value;
     }
 
     private void calculateLineStart() {
@@ -261,30 +239,6 @@ final class TextLine implements ContentLine {
         for (char c : chars) {
             if (Character.isSpaceChar(c)) {
                 result++;
-            }
-        }
-        return result;
-    }
-
-    private int hyphenate(String tmp, PDFFontWrapper wrapper, char[] chars, int boundary) {
-        int result = boundary;
-        Object enable = System.getProperties().get("EnableHyphenation");
-        if (enable == null) {
-            return result;
-        }
-
-        if (!tmp.matches(".*\\p{Punct}.*")) {
-            Hyphenator hyphenator = new Hyphenator();
-            hyphenator.setText(tmp);
-            int hyphenBreak = hyphenator.last();
-            while (hyphenBreak != Hyphenator.DONE) {
-                String tmpValue = new String(chars, 0, boundary + hyphenBreak) + "-";
-                float tmpValueWidth = wrapper.getStringWidth(tmpValue);
-                if (tmpValueWidth < remainingWidth) {
-                    result += hyphenBreak;
-                    break;
-                }
-                hyphenBreak = hyphenator.previous();
             }
         }
         return result;

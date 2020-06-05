@@ -14,9 +14,11 @@ import java.io.OutputStream;
 import java.util.*;
 
 /**
- * Represents a PDF document. A document can contain {@link Metadata}, {@link Section}s, and {@link Content}. It
- * initialized with both a {@link PageSize} and a {@link Margin}. A Document can contain either a list of {@link
- * Section}s or {@link Content}, such as {@link Paragraph}s, but not both.
+ * Represents a PDF document. A document can contain {@link Metadata}, {@link Section}s, and {@link Content}. It is
+ * initialized with both a {@link PageSize} and a {@link Margin}. The {@code Document} will maintain the same {@code
+ * PageSize} and {@code Margin} for all pages. A {@code Document} can contain either a list of {@link Section}s or
+ * {@link Content}, such as {@link Paragraph}s, but not both. When a {@code Document} contains {@code Section}s, an
+ * {@link Outline} is created automatically for it.
  */
 public final class Document {
 

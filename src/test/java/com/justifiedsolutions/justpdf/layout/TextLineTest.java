@@ -57,4 +57,37 @@ public class TextLineTest {
             assertEquals(4.10401f, ws, .00001f);
         }
     }
+
+    @Test
+    public void appendLeadingNewline() {
+        Chunk input = new Chunk("\nfoo", new PDFFont());
+        TextLine line = new TextLine(468, 0, 0);
+        Chunk remainder = line.append(input);
+        Chunk expected = new Chunk("foo", new PDFFont());
+        assertEquals(expected, remainder);
+    }
+
+    @Test
+    public void appendEmptyString() {
+        Chunk input = new Chunk("", new PDFFont());
+        TextLine line = new TextLine(468, 0, 0);
+        assertNull(line.append(input));
+    }
+
+    @Test
+    public void appendWillNotFit() {
+        Chunk input = new Chunk("reallylongword", new PDFFont());
+        TextLine line = new TextLine(10, 0, 0);
+        assertThrows(IllegalArgumentException.class, () -> line.append(input));
+    }
+
+    @Test
+    public void appendSecondChunkWillNotFit() {
+        TextLine line = new TextLine(50, 0, 0);
+        Chunk input1 = new Chunk("short", new PDFFont());
+        line.append(input1);
+        Chunk input2 = new Chunk("reallylongword", new PDFFont());
+        Chunk remainder = line.append(input2);
+        assertEquals(input2, remainder);
+    }
 }
