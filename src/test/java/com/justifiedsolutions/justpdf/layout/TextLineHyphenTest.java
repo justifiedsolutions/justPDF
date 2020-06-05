@@ -11,12 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TextLineHyphenTest {
 
     @BeforeAll
-    static void beforeAll() {
+    public static void beforeAll() {
         System.setProperty("EnableHyphenation", "true");
     }
 
     @AfterAll
-    static void afterAll() {
+    public static void afterAll() {
         System.clearProperty("EnableHyphenation");
     }
 
