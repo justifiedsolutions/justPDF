@@ -11,7 +11,6 @@ import com.justifiedsolutions.justpdf.pdf.contents.*;
 import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 import com.justifiedsolutions.justpdf.pdf.object.PDFString;
 
-import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -192,39 +191,8 @@ final class TextLine implements ContentLine {
     }
 
     private String splitText(String input, PDFFontWrapper wrapper) {
-        BreakIterator breakDetector = BreakIterator.getLineInstance();
-        breakDetector.setText(input);
-
-        boolean hyphenate = false;
-        char[] chars = input.toCharArray();
-        int boundary = breakDetector.next();
-        while (boundary != BreakIterator.DONE) {
-            String value = new String(chars, 0, boundary);
-            float valueWidth = wrapper.getStringWidth(value);
-            if (valueWidth > remainingWidth) {
-                int end = boundary;
-                boundary = breakDetector.previous();
-                String tmp = new String(chars, boundary, (end - boundary)).stripTrailing();
-                int hyphenBoundary = hyphenate(tmp, wrapper, chars, boundary);
-                if (hyphenBoundary > boundary) {
-                    boundary = hyphenBoundary;
-                    hyphenate = true;
-                }
-                break;
-            }
-            boundary = breakDetector.next();
-        }
-
-        String value;
-        if (boundary == BreakIterator.DONE) {
-            value = input;
-        } else {
-            value = new String(chars, 0, boundary);
-            value = value.stripTrailing();
-            if (hyphenate) {
-                value += "-";
-            }
-        }
+        TextSplitter splitter = new TextSplitter(remainingWidth);
+        String value = splitter.split(input, wrapper);
         float valueWidth = wrapper.getStringWidth(value);
         int valueSpaces = getNumberOfSpaces(value);
         numSpaces += valueSpaces;
@@ -271,30 +239,6 @@ final class TextLine implements ContentLine {
         for (char c : chars) {
             if (Character.isSpaceChar(c)) {
                 result++;
-            }
-        }
-        return result;
-    }
-
-    private int hyphenate(String tmp, PDFFontWrapper wrapper, char[] chars, int boundary) {
-        int result = boundary;
-        Object enable = System.getProperties().get("EnableHyphenation");
-        if (enable == null) {
-            return result;
-        }
-
-        if (!tmp.matches(".*\\p{Punct}.*")) {
-            Hyphenator hyphenator = new Hyphenator();
-            hyphenator.setText(tmp);
-            int hyphenBreak = hyphenator.last();
-            while (hyphenBreak != Hyphenator.DONE) {
-                String tmpValue = new String(chars, 0, boundary + hyphenBreak) + "-";
-                float tmpValueWidth = wrapper.getStringWidth(tmpValue);
-                if (tmpValueWidth < remainingWidth) {
-                    result += hyphenBreak;
-                    break;
-                }
-                hyphenBreak = hyphenator.previous();
             }
         }
         return result;
