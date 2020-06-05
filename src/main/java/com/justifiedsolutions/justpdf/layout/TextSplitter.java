@@ -61,7 +61,7 @@ class TextSplitter {
 
     private int hyphenate(String tmp, PDFFontWrapper wrapper, char[] chars, int boundary) {
         int result = boundary;
-        Object enable = System.getProperties().get("EnableHyphenation");
+        String enable = System.getProperty("EnableHyphenation");
         if (enable == null) {
             return result;
         }

@@ -234,7 +234,7 @@ class CellLayout {
      */
     private List<GraphicsOperator> drawCellPadding() {
         List<GraphicsOperator> result = new ArrayList<>();
-        Object debug = System.getProperties().get("DrawCellPadding");
+        String debug = System.getProperty("DrawCellPadding");
         if (debug != null) {
             float textLLx = location.getLLx().getValue() + cell.getPaddingLeft();
             float textLLy = location.getLLy().getValue() + cell.getPaddingBottom();

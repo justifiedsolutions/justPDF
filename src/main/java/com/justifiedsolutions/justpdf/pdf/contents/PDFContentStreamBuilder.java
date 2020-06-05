@@ -38,7 +38,7 @@ public final class PDFContentStreamBuilder {
      * Creates a new {@code PDFContentStreamBuilder}.
      */
     public PDFContentStreamBuilder() {
-        Object debug = System.getProperties().get("DisableContentFilters");
+        String debug = System.getProperty("DisableContentFilters");
         disableFilters = (debug != null);
     }
 

@@ -115,7 +115,7 @@ public class ParagraphOnlyDocumentTest {
         document.add(p5);
 
 
-        String targetDirectoryName = (String) System.getProperties().get("TargetDirectory");
+        String targetDirectoryName = System.getProperty("TargetDirectory");
         File targetDirectory = new File(targetDirectoryName);
         File testOutputDirectory = new File(targetDirectory, "test-output");
         if (testOutputDirectory.isDirectory() || testOutputDirectory.mkdirs()) {

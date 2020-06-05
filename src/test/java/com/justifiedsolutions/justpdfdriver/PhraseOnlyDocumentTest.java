@@ -65,7 +65,7 @@ public class PhraseOnlyDocumentTest {
 
         assertEquals(1, document.getContent().size());
 
-        String targetDirectoryName = (String) System.getProperties().get("TargetDirectory");
+        String targetDirectoryName = System.getProperty("TargetDirectory");
         File targetDirectory = new File(targetDirectoryName);
         File testOutputDirectory = new File(targetDirectory, "test-output");
         if (testOutputDirectory.isDirectory() || testOutputDirectory.mkdirs()) {

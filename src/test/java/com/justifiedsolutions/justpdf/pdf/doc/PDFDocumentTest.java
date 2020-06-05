@@ -12,7 +12,10 @@ import com.justifiedsolutions.justpdf.pdf.font.PDFFontType1;
 import com.justifiedsolutions.justpdf.pdf.object.*;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Files;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -53,7 +56,7 @@ public class PDFDocumentTest {
 
         doc.write(actual);
 
-        String targetDirectoryName = (String) System.getProperties().get("TargetDirectory");
+        String targetDirectoryName = System.getProperty("TargetDirectory");
         File targetDirectory = new File(targetDirectoryName);
         File testOutputDirectory = new File(targetDirectory, "test-output");
         if (testOutputDirectory.isDirectory() || testOutputDirectory.mkdirs()) {

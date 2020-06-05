@@ -259,7 +259,7 @@ class PageLayout {
     }
 
     private void drawMargin() {
-        Object debug = System.getProperties().get("DrawMargin");
+        String debug = System.getProperty("DrawMargin");
         if (debug == null) {
             return;
         }
@@ -275,7 +275,7 @@ class PageLayout {
     }
 
     private void drawCenterLine() {
-        Object debug = System.getProperties().get("DrawCenterLine");
+        String debug = System.getProperty("DrawCenterLine");
         if (debug == null) {
             return;
         }
