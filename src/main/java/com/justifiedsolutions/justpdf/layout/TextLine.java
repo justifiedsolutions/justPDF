@@ -176,8 +176,12 @@ final class TextLine implements ContentLine {
 
     private Chunk getRemainingChunk(Chunk chunk, String lineText) {
         String chunkText = chunk.getText();
-        String text = chunkText.substring(lineText.length());
-        if (text.startsWith("\n")) {
+        int length = lineText.length();
+        if (lineText.endsWith("-")) {
+            length--;
+        }
+        String text = chunkText.substring(length);
+        if (text.startsWith("\n") || text.startsWith("-")) {
             text = text.substring(1);
         }
         Chunk result = null;
