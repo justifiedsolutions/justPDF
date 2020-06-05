@@ -150,42 +150,51 @@ final class TextLine implements ContentLine {
         } else {
             chunkText = chunk.getText();
         }
-        chunkText = chunkText.replaceAll("\\r?\\n", "\n");
+        Chunk alteredChunk = new Chunk(chunkText, chunk.getFont());
 
-        List<String> split = splitText(chunkText, wrapper);
+        String[] lineSplit = chunkText.split("\\R", 2);
+        if (lineSplit.length == 2) {
+            chunkText = lineSplit[0];
+        }
 
-        if (firstWord && split.get(0).isEmpty() && split.size() == 2) {
+        String split = splitText(chunkText, wrapper);
+        Chunk remainder = getRemainingChunk(alteredChunk, split);
+
+        if (firstWord && split.isEmpty() && remainder != null) {
             throw new IllegalArgumentException("Unable to format document. Content does not fit width.\n("
                     + chunk.getText() + "), width = " + lineWidth);
         }
 
-        if (!split.get(0).isEmpty()) {
+        if (!split.isEmpty()) {
             operators.add(wrapper.getOperator());
             operators.add(wrapper.getColorSpaceOperator());
-            operators.add(new ShowText(new PDFString(split.get(0))));
-        } else {
-            return chunk;
+            operators.add(new ShowText(new PDFString(split)));
         }
 
-        if (split.size() == 2) {
-            return new Chunk(split.get(1), chunk.getFont());
-        }
-        return null;
+        return remainder;
     }
 
-    private List<String> splitText(String input, PDFFontWrapper wrapper) {
+    private Chunk getRemainingChunk(Chunk chunk, String lineText) {
+        String chunkText = chunk.getText();
+        String text = chunkText.substring(lineText.length());
+        if (text.startsWith("\n")) {
+            text = text.substring(1);
+        }
+        Chunk result = null;
+        if (!text.isEmpty()) {
+            result = new Chunk(text, chunk.getFont());
+        }
+        return result;
+    }
+
+    private String splitText(String input, PDFFontWrapper wrapper) {
         BreakIterator breakDetector = BreakIterator.getLineInstance();
         breakDetector.setText(input);
-
-        int newlineIndex = input.indexOf('\n');
-        if (newlineIndex < 0) {
-            newlineIndex = Integer.MAX_VALUE;
-        }
 
         boolean hyphenate = false;
         char[] chars = input.toCharArray();
         int boundary = breakDetector.next();
-        while ((boundary != BreakIterator.DONE) && (boundary < newlineIndex)) {
+        while (boundary != BreakIterator.DONE) {
             String value = new String(chars, 0, boundary);
             float valueWidth = wrapper.getStringWidth(value);
             if (valueWidth > remainingWidth) {
@@ -203,7 +212,6 @@ final class TextLine implements ContentLine {
         }
 
         String value;
-        String remainder = null;
         if (boundary == BreakIterator.DONE) {
             value = input;
         } else {
@@ -212,7 +220,6 @@ final class TextLine implements ContentLine {
             if (hyphenate) {
                 value += "-";
             }
-            remainder = new String(chars, boundary, chars.length - boundary);
         }
         float valueWidth = wrapper.getStringWidth(value);
         int valueSpaces = getNumberOfSpaces(value);
@@ -220,14 +227,7 @@ final class TextLine implements ContentLine {
         numChars += (value.length() - valueSpaces);
         remainingWidth -= valueWidth;
         calculateLineStart();
-
-        List<String> result = new ArrayList<>();
-        result.add(value);
-        if (remainder != null) {
-            result.add(remainder);
-        }
-
-        return result;
+        return value;
     }
 
     private void calculateLineStart() {
