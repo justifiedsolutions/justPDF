@@ -127,7 +127,7 @@ final class HyphenProcessor {
     }
 
     private void processPattern(String text, String pattern, String regex, int[] hyphenMap) {
-        Matcher matcher = Pattern.compile(regex.replaceAll("[.*^$+]", "")).matcher(text);
+        Matcher matcher = Pattern.compile(regex.replaceAll("[.*+]", "")).matcher(text);
         List<HyphenDescriptor> descriptors = getHyphenIndexesFromPattern(pattern.replace(".", ""));
         while (matcher.find()) {
             int start = matcher.start();
