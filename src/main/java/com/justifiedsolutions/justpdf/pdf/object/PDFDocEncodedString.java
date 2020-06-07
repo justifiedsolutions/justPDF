@@ -8,7 +8,6 @@ package com.justifiedsolutions.justpdf.pdf.object;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -81,7 +80,7 @@ public class PDFDocEncodedString extends PDFString {
 
         for (char character : text.toCharArray()) {
             if (character < 128 || (character > 160 && character < 256)) {
-                result.writeBytes(escapeValue(character, StandardCharsets.US_ASCII));
+                result.writeBytes(escapeValue(character));
             } else {
                 Integer charCode = PDF_DOC_ENCODING.get(character);
                 if (charCode != null) {
@@ -90,5 +89,14 @@ public class PDFDocEncodedString extends PDFString {
             }
         }
         return result.toByteArray();
+    }
+
+    private byte[] escapeValue(char c) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        if (ESCAPED_CHARACTERS.contains(c)) {
+            bytes.write('\\');
+        }
+        bytes.write(c);
+        return bytes.toByteArray();
     }
 }

@@ -5,11 +5,11 @@
 
 package com.justifiedsolutions.justpdf.pdf.object;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -18,6 +18,22 @@ import java.util.Objects;
  * @see "ISO 32000-1:2008, 7.3.4"
  */
 public class PDFString implements PDFObject {
+
+    /**
+     * A list of characters that must be escaped when used in any kind of PDF string.
+     */
+    protected static final List<Character> ESCAPED_CHARACTERS = new ArrayList<>();
+
+    static {
+        ESCAPED_CHARACTERS.add('\n');
+        ESCAPED_CHARACTERS.add('\r');
+        ESCAPED_CHARACTERS.add('\t');
+        ESCAPED_CHARACTERS.add('\b');
+        ESCAPED_CHARACTERS.add('\f');
+        ESCAPED_CHARACTERS.add('(');
+        ESCAPED_CHARACTERS.add(')');
+        ESCAPED_CHARACTERS.add('\\');
+    }
 
     private final String value;
 
@@ -58,53 +74,19 @@ public class PDFString implements PDFObject {
 
     @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
-        pdf.write('(');
-        for (char character : value.toCharArray()) {
-            byte[] bytes = escapeValue(character, StandardCharsets.UTF_16BE);
-            if (bytes.length > 0) {
-                pdf.write(bytes);
-            }
-        }
-        pdf.write(')');
+        String text = "(" + escape(value) + ")";
+        pdf.write(text.getBytes(StandardCharsets.UTF_16));
     }
 
-    /**
-     * Escapes the specified character using PDF string escape rules. All unescaped characters will be encoded using the
-     * specified {@link Charset}.
-     *
-     * @param c       the character to escape
-     * @param charset the Charset to use on un-escaped chars
-     * @return the escaped char
-     */
-    protected byte[] escapeValue(char c, Charset charset) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        switch (c) {
-            case '\n':
-                bytes.writeBytes("\\n".getBytes(StandardCharsets.US_ASCII));
-                break;
-            case '\r':
-                bytes.writeBytes("\\r".getBytes(StandardCharsets.US_ASCII));
-                break;
-            case '\t':
-                bytes.writeBytes("\\t".getBytes(StandardCharsets.US_ASCII));
-                break;
-            case '\b':
-                bytes.writeBytes("\\b".getBytes(StandardCharsets.US_ASCII));
-                break;
-            case '\f':
-                bytes.writeBytes("\\f".getBytes(StandardCharsets.US_ASCII));
-                break;
-            case '(':
-            case ')':
-            case '\\':
-                String cString = "\\" + c;
-                bytes.writeBytes(cString.getBytes(StandardCharsets.US_ASCII));
-                break;
-            default:
-                bytes.writeBytes(String.valueOf(c).getBytes(charset));
-                break;
+    private String escape(String text) {
+        StringBuilder result = new StringBuilder();
+        for (char c : text.toCharArray()) {
+            if (ESCAPED_CHARACTERS.contains(c)) {
+                result.append('\\');
+            }
+            result.append(c);
         }
-        return bytes.toByteArray();
+        return result.toString();
     }
 
 }

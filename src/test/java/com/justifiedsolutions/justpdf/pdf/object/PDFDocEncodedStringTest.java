@@ -34,7 +34,7 @@ public class PDFDocEncodedStringTest {
 
     @Test
     public void writeToPDFNewLine() throws IOException {
-        testPDFString("foo\nbar", "(foo\\nbar)");
+        testPDFString("foo\nbar", "(foo\\\nbar)");
     }
 
     private void testPDFString(String input, String expected) throws IOException {
