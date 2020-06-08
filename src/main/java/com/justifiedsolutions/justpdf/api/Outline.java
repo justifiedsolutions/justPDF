@@ -9,7 +9,7 @@ import java.util.*;
  * Outline by calling {@link Document#getOutline()}. These calls do not need to be made in a specific order. Calls to
  * setting the text and creating entries can be interleved in any order.
  */
-public final class Outline {
+public class Outline {
 
     private final List<Entry> entries = new ArrayList<>();
 
@@ -44,7 +44,7 @@ public final class Outline {
     /**
      * An entry in the document outline.
      */
-    public static final class Entry {
+    public static class Entry {
         private final UUID outlineId;
         private final List<Entry> entries = new ArrayList<>();
 

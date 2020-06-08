@@ -21,7 +21,7 @@ import java.util.Map;
  *
  * @see "ISO 32000-1:2008, 7.7"
  */
-public final class PDFDocument {
+public class PDFDocument {
     private final PDFHeader header = new PDFHeader();
     private final PDFXRefTable xrefTable = new PDFXRefTable();
     private final PDFTrailer trailer = new PDFTrailer();
@@ -129,7 +129,7 @@ public final class PDFDocument {
      * @param object the object to wrap
      * @return the PDFIndirectObject
      */
-    PDFIndirectObject createIndirectObject(PDFObject object) {
+    final PDFIndirectObject createIndirectObject(PDFObject object) {
         PDFIndirectObject result = new PDFIndirectObject(object);
         this.indirectObjects.add(result);
         return result;
