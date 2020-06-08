@@ -13,7 +13,7 @@ import java.util.*;
 /**
  * A Table is a type of {@link Content} that can be added to a PDF {@link Document}.
  */
-public final class Table extends Outlineable implements Content {
+public final class Table extends Outlineable implements Content, KeepTogetherCapable {
 
     private final float[] relativeColumnWidths;
     private final List<Cell> cells = new ArrayList<>();
@@ -85,20 +85,12 @@ public final class Table extends Outlineable implements Content {
         return Arrays.copyOf(this.relativeColumnWidths, this.relativeColumnWidths.length);
     }
 
-    /**
-     * Specifies whether the entire Table should be kept together on the same page. The default value is {@code false}.
-     *
-     * @return true if the table should be kept together on the same page
-     */
+    @Override
     public boolean isKeepTogether() {
         return keepTogether;
     }
 
-    /**
-     * Specifies whether the entire Table should be kept together on the same page.
-     *
-     * @param keepTogether true if the table should be kept together
-     */
+    @Override
     public void setKeepTogether(boolean keepTogether) {
         this.keepTogether = keepTogether;
     }
