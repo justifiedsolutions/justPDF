@@ -17,21 +17,21 @@ public class PDFStringTest {
     @Test
     public void writeToPDFApostrophe() throws IOException {
         String value = "it's";
-        byte[] expected = {-2, -1, 0, '(', 0, (byte) 'i', 0, (byte) 't', 0, (byte) '\'', 0, (byte) 's', 0, ')'};
+        byte[] expected = {'(', (byte) 'i', (byte) 't', (byte) '\'', (byte) 's', ')'};
         testPDFString(value, expected);
     }
 
     @Test
     public void writeToPDFString() throws IOException {
         String value = "string";
-        byte[] expected = {-2, -1, 0, '(', 0, (byte) 's', 0, (byte) 't', 0, (byte) 'r', 0, (byte) 'i', 0, (byte) 'n', 0, (byte) 'g', 0, ')'};
+        byte[] expected = {'(', (byte) 's', (byte) 't', (byte) 'r', (byte) 'i', (byte) 'n', (byte) 'g', ')'};
         testPDFString(value, expected);
     }
 
     @Test
     public void writeToPDFEmpty() throws IOException {
         String value = "";
-        byte[] expected = {-2, -1, 0, '(', 0, ')'};
+        byte[] expected = {'(', ')'};
         testPDFString(value, expected);
     }
 
@@ -40,17 +40,9 @@ public class PDFStringTest {
         char[] special = {'\n', '\r', '\t', '\b', '\f', '(', ')', '\\'};
         for (char c : special) {
             String input = String.format("f%cb", c);
-            byte[] expected = {-2, -1, 0, '(', 0, (byte) 'f', 0, (byte) '\\', 0, (byte) c, 0, (byte) 'b', 0, ')'};
+            byte[] expected = {'(', (byte) 'f', (byte) '\\', (byte) c, (byte) 'b', ')'};
             testPDFString(input, expected);
         }
-    }
-
-    private void testPDFString(String input, byte[] expected) throws IOException {
-        ByteArrayOutputStream actual = new ByteArrayOutputStream();
-        PDFString string = new PDFString(input);
-        string.writeToPDF(actual);
-
-        assertArrayEquals(expected, actual.toByteArray());
     }
 
     @Test
@@ -66,5 +58,13 @@ public class PDFStringTest {
 
         PDFString s2 = new PDFString("bar");
         assertFalse(s0.equals(s2));
+    }
+
+    private void testPDFString(String input, byte[] expected) throws IOException {
+        ByteArrayOutputStream actual = new ByteArrayOutputStream();
+        PDFString string = new PDFString(input);
+        string.writeToPDF(actual);
+
+        assertArrayEquals(expected, actual.toByteArray());
     }
 }
