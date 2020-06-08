@@ -75,7 +75,7 @@ public class PDFString implements PDFObject {
     @Override
     public void writeToPDF(OutputStream pdf) throws IOException {
         String text = "(" + escape(value) + ")";
-        pdf.write(text.getBytes(StandardCharsets.UTF_16));
+        pdf.write(text.getBytes(StandardCharsets.ISO_8859_1));
     }
 
     private String escape(String text) {

@@ -18,7 +18,7 @@ import java.util.Objects;
  * A Paragraph is a series of {@link Chunk}s and {@link Phrase}s. The Paragraph has an associated {@link Font} and any
  * Chunks or Phrases added to the Paragraph inherit the Font of the Paragraph unless they specify a Font themselves.
  */
-public final class Paragraph extends Outlineable implements TextContent {
+public final class Paragraph extends Outlineable implements TextContent, KeepTogetherCapable {
 
     private final List<TextContent> content = new ArrayList<>();
     private float leading;
@@ -244,20 +244,12 @@ public final class Paragraph extends Outlineable implements TextContent {
         this.spacingAfter = spacingAfter;
     }
 
-    /**
-     * Specifies if the Paragraph should be broken between pages. The default is {@code false}.
-     *
-     * @return true if the paragraph should be kept together
-     */
+    @Override
     public boolean isKeepTogether() {
         return keepTogether;
     }
 
-    /**
-     * Specifies if the Paragraph should be broken between pages.
-     *
-     * @param keepTogether true if the paragraph should be kept together
-     */
+    @Override
     public void setKeepTogether(boolean keepTogether) {
         this.keepTogether = keepTogether;
     }

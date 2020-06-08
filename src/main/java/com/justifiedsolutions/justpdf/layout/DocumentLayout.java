@@ -7,6 +7,7 @@ package com.justifiedsolutions.justpdf.layout;
 
 import com.justifiedsolutions.justpdf.api.*;
 import com.justifiedsolutions.justpdf.api.content.Content;
+import com.justifiedsolutions.justpdf.api.content.KeepTogetherCapable;
 import com.justifiedsolutions.justpdf.api.content.PageBreak;
 import com.justifiedsolutions.justpdf.pdf.doc.PDFDocument;
 import com.justifiedsolutions.justpdf.pdf.doc.PDFInfoDictionary;
@@ -148,6 +149,15 @@ public class DocumentLayout {
         } else if (!currentPage.isEmpty()) {
             createPage();
             layoutContent(content);
+        } else if (content instanceof KeepTogetherCapable) {
+            layoutKeepTogetherContent((KeepTogetherCapable) content);
+        }
+    }
+
+    private void layoutKeepTogetherContent(KeepTogetherCapable ktc) throws DocumentException, IOException {
+        if (ktc.isKeepTogether()) {
+            ktc.setKeepTogether(false);
+            layoutContent(ktc);
         } else {
             throw new DocumentException("Unable to paginate document. Content cannot fit single page.");
         }
