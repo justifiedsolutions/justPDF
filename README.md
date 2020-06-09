@@ -32,11 +32,11 @@ The primary goal for justPDF is to provide a PDF library to support Justified So
 
 ## Releases ##
 
-### justPDF 1.1.0 (2020-06-05) ###
+### justPDF 1.1.0 (2020-06-09) ###
 
 * Improve line break code
 	* Utilize BreakIterator to find line break points
-	* Add optional auto-hyphenate using Knuth-Liang algorithm (see module javadoc)
+	* Add auto-hyphenate property to TextContent. Enabled by default.
 * Document Outline
 	* Outlines are automatic with section documents
 * Add PMD to build
