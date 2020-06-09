@@ -31,6 +31,7 @@ public final class Paragraph extends Outlineable implements TextContent, KeepTog
     private float spacingAfter;
     private boolean keepTogether;
     private HorizontalAlignment alignment = HorizontalAlignment.LEFT;
+    private boolean hyphenate = true;
 
     /**
      * Creates an empty Paragraph with the default font.
@@ -92,6 +93,7 @@ public final class Paragraph extends Outlineable implements TextContent, KeepTog
         this.leading = paragraph.leading;
         this.lineHeight = paragraph.lineHeight;
         this.font = paragraph.font;
+        this.hyphenate = paragraph.hyphenate;
         this.leftIndent = paragraph.leftIndent;
         this.rightIndent = paragraph.rightIndent;
         this.firstLineIndent = paragraph.firstLineIndent;
@@ -152,6 +154,19 @@ public final class Paragraph extends Outlineable implements TextContent, KeepTog
     @Override
     public void setFont(Font font) {
         this.font = font;
+    }
+
+    @Override
+    public boolean isHyphenate() {
+        return hyphenate;
+    }
+
+    @Override
+    public void setHyphenate(boolean hyphenate) {
+        this.hyphenate = hyphenate;
+        for (TextContent textContent : content) {
+            textContent.setHyphenate(this.hyphenate);
+        }
     }
 
     /**
@@ -292,6 +307,7 @@ public final class Paragraph extends Outlineable implements TextContent, KeepTog
             return;
         }
         if ((content instanceof Chunk) || (content instanceof Phrase)) {
+            content.setHyphenate(isHyphenate());
             this.content.add(content);
         } else {
             throw new IllegalArgumentException("Invalid content type: " + content.getClass());
@@ -310,15 +326,8 @@ public final class Paragraph extends Outlineable implements TextContent, KeepTog
     }
 
     @Override
-    public String toString() {
-        StringBuilder text = new StringBuilder();
-        content.forEach(textContent -> text.append(textContent.toString()));
-        return text.toString();
-    }
-
-    @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), content, leading, lineHeight, font, leftIndent, rightIndent, firstLineIndent, spacingBefore, spacingAfter, keepTogether, alignment);
+        return Objects.hash(super.hashCode(), content, leading, lineHeight, font, leftIndent, rightIndent, firstLineIndent, spacingBefore, spacingAfter, keepTogether, alignment, hyphenate);
     }
 
     @Override
@@ -341,8 +350,17 @@ public final class Paragraph extends Outlineable implements TextContent, KeepTog
                 Float.compare(paragraph.spacingBefore, spacingBefore) == 0 &&
                 Float.compare(paragraph.spacingAfter, spacingAfter) == 0 &&
                 keepTogether == paragraph.keepTogether &&
+                hyphenate == paragraph.hyphenate &&
                 content.equals(paragraph.content) &&
                 Objects.equals(font, paragraph.font) &&
                 alignment == paragraph.alignment;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder text = new StringBuilder();
+        content.forEach(textContent -> text.append(textContent.toString()));
+        return text.toString();
+    }
+
 }

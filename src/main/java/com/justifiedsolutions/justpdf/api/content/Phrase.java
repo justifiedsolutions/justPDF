@@ -24,6 +24,7 @@ public final class Phrase extends Outlineable implements TextContent {
     private final List<Chunk> chunks = new ArrayList<>();
     private float leading;
     private Font font;
+    private boolean hyphenate = true;
 
     /**
      * Creates an empty Phrase.
@@ -84,6 +85,7 @@ public final class Phrase extends Outlineable implements TextContent {
         super(phrase);
         this.leading = phrase.leading;
         this.font = phrase.font;
+        this.hyphenate = phrase.hyphenate;
         this.chunks.addAll(chunks);
     }
 
@@ -115,6 +117,19 @@ public final class Phrase extends Outlineable implements TextContent {
         this.font = font;
     }
 
+    @Override
+    public boolean isHyphenate() {
+        return hyphenate;
+    }
+
+    @Override
+    public void setHyphenate(boolean hyphenate) {
+        this.hyphenate = hyphenate;
+        for (Chunk chunk : chunks) {
+            chunk.setHyphenate(this.hyphenate);
+        }
+    }
+
     /**
      * Get an {@linkplain Collections#unmodifiableList(List) unmodifiable list} of {@link Chunk}s for the Phrase.
      *
@@ -131,6 +146,7 @@ public final class Phrase extends Outlineable implements TextContent {
      */
     public void add(Chunk chunk) {
         if (chunk != null) {
+            chunk.setHyphenate(isHyphenate());
             chunks.add(chunk);
         }
     }
@@ -148,15 +164,8 @@ public final class Phrase extends Outlineable implements TextContent {
     }
 
     @Override
-    public String toString() {
-        StringBuilder text = new StringBuilder();
-        chunks.forEach(chunk -> text.append(chunk.toString()));
-        return text.toString();
-    }
-
-    @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), chunks, leading, font);
+        return Objects.hash(super.hashCode(), chunks, leading, font, hyphenate);
     }
 
     @Override
@@ -172,7 +181,16 @@ public final class Phrase extends Outlineable implements TextContent {
         }
         Phrase phrase = (Phrase) o;
         return Float.compare(phrase.leading, leading) == 0 &&
+                hyphenate == phrase.hyphenate &&
                 chunks.equals(phrase.chunks) &&
                 Objects.equals(font, phrase.font);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder text = new StringBuilder();
+        chunks.forEach(chunk -> text.append(chunk.toString()));
+        return text.toString();
+    }
+
 }

@@ -107,6 +107,13 @@ public class ParagraphTest {
     }
 
     @Test
+    public void setHyphenate() {
+        assertTrue(paragraph.isHyphenate());
+        paragraph.setHyphenate(false);
+        assertFalse(paragraph.isHyphenate());
+    }
+
+    @Test
     public void setAlignment() {
         assertEquals(HorizontalAlignment.LEFT, paragraph.getAlignment());
         HorizontalAlignment input = HorizontalAlignment.JUSTIFIED;
@@ -221,5 +228,9 @@ public class ParagraphTest {
         Paragraph p14 = new Paragraph(paragraph, paragraph.getContent());
         p14.setAlignment(HorizontalAlignment.JUSTIFIED);
         assertNotEquals(paragraph, p14);
+
+        Paragraph p15 = new Paragraph(paragraph, paragraph.getContent());
+        p15.setHyphenate(false);
+        assertNotEquals(paragraph, p15);
     }
 }

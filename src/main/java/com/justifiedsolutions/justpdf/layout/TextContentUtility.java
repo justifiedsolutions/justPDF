@@ -87,6 +87,7 @@ final class TextContentUtility {
         Paragraph content = new Paragraph();
         content.setFont(phrase.getFont());
         content.setLeading(phrase.getLeading());
+        content.setHyphenate(phrase.isHyphenate());
         for (Chunk chunk : phrase.getChunks()) {
             content.add(chunk);
         }
@@ -95,6 +96,8 @@ final class TextContentUtility {
 
     private static Paragraph toParagraph(Chunk chunk) {
         Paragraph content = new Paragraph();
+        content.setFont(chunk.getFont());
+        content.setHyphenate(chunk.isHyphenate());
         content.add(chunk);
         return content;
     }
