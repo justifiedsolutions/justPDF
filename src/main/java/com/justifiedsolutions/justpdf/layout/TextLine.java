@@ -150,13 +150,14 @@ final class TextLine implements ContentLine {
             chunkText = chunk.getText();
         }
         Chunk alteredChunk = new Chunk(chunkText, chunk.getFont());
+        alteredChunk.setHyphenate(chunk.isHyphenate());
 
         String[] lineSplit = chunkText.split("\\R", 2);
         if (lineSplit.length == 2) {
             chunkText = lineSplit[0];
         }
 
-        String split = splitText(chunkText, wrapper);
+        String split = splitText(chunkText, wrapper, chunk.isHyphenate());
         Chunk remainder = getRemainingChunk(alteredChunk, split);
 
         if (firstWord && split.isEmpty() && remainder != null) {
@@ -186,13 +187,14 @@ final class TextLine implements ContentLine {
         Chunk result = null;
         if (!text.isEmpty()) {
             result = new Chunk(text, chunk.getFont());
+            result.setHyphenate(chunk.isHyphenate());
         }
         return result;
     }
 
-    private String splitText(String input, PDFFontWrapper wrapper) {
+    private String splitText(String input, PDFFontWrapper wrapper, boolean doHyphenation) {
         TextSplitter splitter = new TextSplitter(remainingWidth);
-        String value = splitter.split(input, wrapper);
+        String value = splitter.split(input, wrapper, doHyphenation);
         float valueWidth = wrapper.getStringWidth(value);
         int valueSpaces = getNumberOfSpaces(value);
         numSpaces += valueSpaces;

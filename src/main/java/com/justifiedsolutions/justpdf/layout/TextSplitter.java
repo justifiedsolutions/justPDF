@@ -20,11 +20,12 @@ class TextSplitter {
     /**
      * Splits the specified string and returns the longest substring that will fit on the line.
      *
-     * @param input   the input to split
-     * @param wrapper the font for the text
+     * @param input         the input to split
+     * @param wrapper       the font for the text
+     * @param doHyphenation true if the input should be hyphenated if it doesn't fit on the line
      * @return the longest substring
      */
-    String split(String input, PDFFontWrapper wrapper) {
+    String split(String input, PDFFontWrapper wrapper, boolean doHyphenation) {
         BreakIterator breakDetector = BreakIterator.getLineInstance();
         breakDetector.setText(input);
 
@@ -37,11 +38,13 @@ class TextSplitter {
             if (valueWidth > lineWidth) {
                 int end = boundary;
                 boundary = breakDetector.previous();
-                String tmp = new String(chars, boundary, (end - boundary)).stripTrailing();
-                int hyphenBoundary = hyphenate(tmp, wrapper, chars, boundary);
-                if (hyphenBoundary > boundary) {
-                    boundary = hyphenBoundary;
-                    hyphenate = true;
+                if (doHyphenation) {
+                    String tmp = new String(chars, boundary, (end - boundary)).stripTrailing();
+                    int hyphenBoundary = hyphenate(tmp, wrapper, chars, boundary);
+                    if (hyphenBoundary > boundary) {
+                        boundary = hyphenBoundary;
+                        hyphenate = true;
+                    }
                 }
                 break;
             }
@@ -61,11 +64,6 @@ class TextSplitter {
 
     private int hyphenate(String tmp, PDFFontWrapper wrapper, char[] chars, int boundary) {
         int result = boundary;
-        String enable = System.getProperty("EnableHyphenation");
-        if (enable == null) {
-            return result;
-        }
-
         if (!tmp.matches(".*\\p{Punct}.*")) {
             Hyphenator hyphenator = new Hyphenator();
             hyphenator.setText(tmp);

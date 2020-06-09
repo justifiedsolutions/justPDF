@@ -33,6 +33,8 @@ public class TextContentUtilityTest {
         Font defaultFont = new PDFFont();
         Chunk chunk = new Chunk("foo", defaultFont);
         Paragraph actual = TextContentUtility.getParagraph(chunk);
+        assertEquals(chunk.getFont(), actual.getFont());
+        assertEquals(chunk.isHyphenate(), actual.isHyphenate());
         assertEquals(1, actual.getContent().size());
         assertEquals(chunk, actual.getContent().get(0));
     }
@@ -52,6 +54,16 @@ public class TextContentUtilityTest {
 
             @Override
             public void setFont(Font font) {
+                //do nothing
+            }
+
+            @Override
+            public boolean isHyphenate() {
+                return false;
+            }
+
+            @Override
+            public void setHyphenate(boolean hyphenate) {
                 //do nothing
             }
         };

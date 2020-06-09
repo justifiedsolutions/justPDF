@@ -10,8 +10,7 @@ import com.justifiedsolutions.justpdf.api.font.PDFFont;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ChunkTest {
 
@@ -49,20 +48,31 @@ public class ChunkTest {
     }
 
     @Test
+    public void setHyphenate() {
+        chunk.setHyphenate(false);
+        assertFalse(chunk.isHyphenate());
+    }
+
+    @Test
     public void equalsHashCode() {
         Chunk chunk2 = new Chunk();
 
-        assertEquals(chunk, chunk);
-        assertEquals(chunk.hashCode(), chunk.hashCode());
-        assertEquals(chunk2, chunk);
-        assertEquals(chunk2.hashCode(), chunk.hashCode());
-        chunk2.append("foo");
-        assertNotEquals(chunk2, chunk);
-        chunk2.setText("");
-        chunk2.setFont(new PDFFont());
-        assertNotEquals(chunk2, chunk);
+        assertTrue(chunk.equals(chunk));
+        assertFalse(chunk.equals(null));
+        assertFalse(chunk.equals(Boolean.TRUE));
 
-        assertNotEquals(chunk, new Phrase(""));
-        assertNotEquals(chunk, null);
+        assertTrue(chunk.equals(chunk2));
+        assertEquals(chunk.hashCode(), chunk2.hashCode());
+
+        Chunk chunk3 = new Chunk("foo");
+        assertFalse(chunk.equals(chunk3));
+
+        Chunk chunk4 = new Chunk();
+        chunk4.setFont(new PDFFont(PDFFont.FontName.COURIER));
+        assertFalse(chunk.equals(chunk4));
+
+        Chunk chunk5 = new Chunk();
+        chunk5.setHyphenate(false);
+        assertFalse(chunk.equals(chunk5));
     }
 }

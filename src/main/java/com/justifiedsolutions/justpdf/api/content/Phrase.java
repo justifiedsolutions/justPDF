@@ -5,7 +5,6 @@
 
 package com.justifiedsolutions.justpdf.api.content;
 
-import com.justifiedsolutions.justpdf.api.Outlineable;
 import com.justifiedsolutions.justpdf.api.font.Font;
 
 import java.util.ArrayList;
@@ -19,11 +18,10 @@ import java.util.Objects;
  *
  * @see <a href="https://techterms.com/definition/leading">Leading</a>
  */
-public final class Phrase extends Outlineable implements TextContent {
+public final class Phrase extends OutlineableTextContent {
 
     private final List<Chunk> chunks = new ArrayList<>();
     private float leading;
-    private Font font;
 
     /**
      * Creates an empty Phrase.
@@ -83,7 +81,6 @@ public final class Phrase extends Outlineable implements TextContent {
     public Phrase(Phrase phrase, List<Chunk> chunks) {
         super(phrase);
         this.leading = phrase.leading;
-        this.font = phrase.font;
         this.chunks.addAll(chunks);
     }
 
@@ -105,16 +102,6 @@ public final class Phrase extends Outlineable implements TextContent {
         this.leading = leading;
     }
 
-    @Override
-    public Font getFont() {
-        return font;
-    }
-
-    @Override
-    public void setFont(Font font) {
-        this.font = font;
-    }
-
     /**
      * Get an {@linkplain Collections#unmodifiableList(List) unmodifiable list} of {@link Chunk}s for the Phrase.
      *
@@ -131,6 +118,7 @@ public final class Phrase extends Outlineable implements TextContent {
      */
     public void add(Chunk chunk) {
         if (chunk != null) {
+            chunk.setHyphenate(isHyphenate());
             chunks.add(chunk);
         }
     }
@@ -148,15 +136,16 @@ public final class Phrase extends Outlineable implements TextContent {
     }
 
     @Override
-    public String toString() {
-        StringBuilder text = new StringBuilder();
-        chunks.forEach(chunk -> text.append(chunk.toString()));
-        return text.toString();
+    public void setHyphenate(boolean hyphenate) {
+        super.setHyphenate(hyphenate);
+        for (Chunk chunk : chunks) {
+            chunk.setHyphenate(isHyphenate());
+        }
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), chunks, leading, font);
+        return Objects.hash(super.hashCode(), chunks, leading);
     }
 
     @Override
@@ -172,7 +161,14 @@ public final class Phrase extends Outlineable implements TextContent {
         }
         Phrase phrase = (Phrase) o;
         return Float.compare(phrase.leading, leading) == 0 &&
-                chunks.equals(phrase.chunks) &&
-                Objects.equals(font, phrase.font);
+                chunks.equals(phrase.chunks);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder text = new StringBuilder();
+        chunks.forEach(chunk -> text.append(chunk.toString()));
+        return text.toString();
+    }
+
 }

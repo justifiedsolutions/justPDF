@@ -27,4 +27,19 @@ public interface TextContent extends Content {
      */
     void setFont(Font font);
 
+    /**
+     * Specifies if the content should be hyphenated automatically. Defaults to {@code true}. When a {@code TextContent}
+     * item added to a larger {@code TextContent} item, this item will take on the hyphenation state of the wrapping
+     * item.
+     *
+     * @return true if the content should be auto-hyphenated.
+     */
+    boolean isHyphenate();
+
+    /**
+     * Specifies if the content should be hyphenated automatically. Defaults to {@code true}.
+     *
+     * @param hyphenate true if the content should be auto-hyphenated.
+     */
+    void setHyphenate(boolean hyphenate);
 }

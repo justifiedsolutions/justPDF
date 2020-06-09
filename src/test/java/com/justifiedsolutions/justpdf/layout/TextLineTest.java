@@ -87,6 +87,7 @@ public class TextLineTest {
         Chunk input1 = new Chunk("short", new PDFFont());
         line.append(input1);
         Chunk input2 = new Chunk("reallylongword", new PDFFont());
+        input2.setHyphenate(false);
         Chunk remainder = line.append(input2);
         assertEquals(input2, remainder);
     }

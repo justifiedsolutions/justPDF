@@ -10,8 +10,7 @@ import com.justifiedsolutions.justpdf.api.font.PDFFont;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PhraseTest {
 
@@ -63,6 +62,13 @@ public class PhraseTest {
     }
 
     @Test
+    public void setHyphenate() {
+        assertTrue(phrase.isHyphenate());
+        phrase.setHyphenate(false);
+        assertFalse(phrase.isHyphenate());
+    }
+
+    @Test
     public void addContentChunk() {
         Chunk input = new Chunk();
         phrase.add(input);
@@ -101,24 +107,26 @@ public class PhraseTest {
     public void testEqualsHashCode() {
         Phrase phrase2 = new Phrase(phrase, phrase.getChunks());
 
-        assertEquals(phrase, phrase);
-        assertEquals(phrase.hashCode(), phrase.hashCode());
-        assertEquals(phrase2, phrase);
-        assertEquals(phrase2.hashCode(), phrase.hashCode());
+        assertTrue(phrase.equals(phrase));
+        assertFalse(phrase.equals(null));
+        assertFalse(phrase.equals(Boolean.TRUE));
 
-        assertNotEquals(phrase, new Chunk());
-        assertNotEquals(phrase, null);
+        assertEquals(phrase.hashCode(), phrase2.hashCode());
 
         Phrase p4 = new Phrase(phrase, phrase.getChunks());
         p4.setLeading(5);
-        assertNotEquals(phrase, p4);
+        assertFalse(phrase.equals(p4));
 
         Phrase p5 = new Phrase(phrase, phrase.getChunks());
         p5.add("foo");
-        assertNotEquals(phrase, p5);
+        assertFalse(phrase.equals(p5));
 
         Phrase p6 = new Phrase(phrase, phrase.getChunks());
         p6.setFont(new PDFFont(PDFFont.FontName.COURIER));
-        assertNotEquals(phrase, p6);
+        assertFalse(phrase.equals(p6));
+
+        Phrase p7 = new Phrase(phrase, phrase.getChunks());
+        p7.setHyphenate(false);
+        assertFalse(phrase.equals(p7));
     }
 }

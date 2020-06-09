@@ -22,6 +22,7 @@ public final class Chunk implements TextContent {
     public static final Chunk LINE_BREAK = new Chunk("\n");
     private String text;
     private Font font;
+    private boolean hyphenate = true;
 
     /**
      * Creates an empty Chunk.
@@ -90,13 +91,18 @@ public final class Chunk implements TextContent {
     }
 
     @Override
-    public String toString() {
-        return text;
+    public boolean isHyphenate() {
+        return hyphenate;
+    }
+
+    @Override
+    public void setHyphenate(boolean hyphenate) {
+        this.hyphenate = hyphenate;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(text, font);
+        return Objects.hash(text, font, hyphenate);
     }
 
     @Override
@@ -108,7 +114,13 @@ public final class Chunk implements TextContent {
             return false;
         }
         Chunk chunk = (Chunk) o;
-        return Objects.equals(text, chunk.text) &&
+        return hyphenate == chunk.hyphenate &&
+                text.equals(chunk.text) &&
                 Objects.equals(font, chunk.font);
+    }
+
+    @Override
+    public String toString() {
+        return text;
     }
 }
