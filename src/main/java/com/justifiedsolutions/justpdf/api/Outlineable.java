@@ -56,7 +56,7 @@ public class Outlineable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(outlineId);
+        return Objects.hash(outlineId, outlineText);
     }
 
     @Override
@@ -68,6 +68,7 @@ public class Outlineable {
             return false;
         }
         Outlineable that = (Outlineable) o;
-        return outlineId.equals(that.outlineId);
+        return outlineId.equals(that.outlineId) &&
+                Objects.equals(outlineText, that.outlineText);
     }
 }

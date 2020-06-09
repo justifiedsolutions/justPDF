@@ -6,7 +6,6 @@
 package com.justifiedsolutions.justpdf.api.content;
 
 import com.justifiedsolutions.justpdf.api.HorizontalAlignment;
-import com.justifiedsolutions.justpdf.api.Outlineable;
 import com.justifiedsolutions.justpdf.api.font.Font;
 
 import java.util.ArrayList;
@@ -18,12 +17,11 @@ import java.util.Objects;
  * A Paragraph is a series of {@link Chunk}s and {@link Phrase}s. The Paragraph has an associated {@link Font} and any
  * Chunks or Phrases added to the Paragraph inherit the Font of the Paragraph unless they specify a Font themselves.
  */
-public final class Paragraph extends Outlineable implements TextContent, KeepTogetherCapable {
+public final class Paragraph extends OutlineableTextContent implements KeepTogetherCapable {
 
     private final List<TextContent> content = new ArrayList<>();
     private float leading;
     private float lineHeight;
-    private Font font;
     private float leftIndent;
     private float rightIndent;
     private float firstLineIndent;
@@ -31,7 +29,6 @@ public final class Paragraph extends Outlineable implements TextContent, KeepTog
     private float spacingAfter;
     private boolean keepTogether;
     private HorizontalAlignment alignment = HorizontalAlignment.LEFT;
-    private boolean hyphenate = true;
 
     /**
      * Creates an empty Paragraph with the default font.
@@ -92,8 +89,6 @@ public final class Paragraph extends Outlineable implements TextContent, KeepTog
         super(paragraph);
         this.leading = paragraph.leading;
         this.lineHeight = paragraph.lineHeight;
-        this.font = paragraph.font;
-        this.hyphenate = paragraph.hyphenate;
         this.leftIndent = paragraph.leftIndent;
         this.rightIndent = paragraph.rightIndent;
         this.firstLineIndent = paragraph.firstLineIndent;
@@ -144,29 +139,6 @@ public final class Paragraph extends Outlineable implements TextContent, KeepTog
     public void setLineHeight(float lineHeight) {
         this.lineHeight = lineHeight;
         this.leading = 0;
-    }
-
-    @Override
-    public Font getFont() {
-        return font;
-    }
-
-    @Override
-    public void setFont(Font font) {
-        this.font = font;
-    }
-
-    @Override
-    public boolean isHyphenate() {
-        return hyphenate;
-    }
-
-    @Override
-    public void setHyphenate(boolean hyphenate) {
-        this.hyphenate = hyphenate;
-        for (TextContent textContent : content) {
-            textContent.setHyphenate(this.hyphenate);
-        }
     }
 
     /**
@@ -259,16 +231,6 @@ public final class Paragraph extends Outlineable implements TextContent, KeepTog
         this.spacingAfter = spacingAfter;
     }
 
-    @Override
-    public boolean isKeepTogether() {
-        return keepTogether;
-    }
-
-    @Override
-    public void setKeepTogether(boolean keepTogether) {
-        this.keepTogether = keepTogether;
-    }
-
     /**
      * Gets the {@link HorizontalAlignment} of the Paragraph. Default is {@link HorizontalAlignment#LEFT}.
      *
@@ -326,8 +288,26 @@ public final class Paragraph extends Outlineable implements TextContent, KeepTog
     }
 
     @Override
+    public boolean isKeepTogether() {
+        return keepTogether;
+    }
+
+    @Override
+    public void setKeepTogether(boolean keepTogether) {
+        this.keepTogether = keepTogether;
+    }
+
+    @Override
+    public void setHyphenate(boolean hyphenate) {
+        super.setHyphenate(hyphenate);
+        for (TextContent textContent : content) {
+            textContent.setHyphenate(isHyphenate());
+        }
+    }
+
+    @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), content, leading, lineHeight, font, leftIndent, rightIndent, firstLineIndent, spacingBefore, spacingAfter, keepTogether, alignment, hyphenate);
+        return Objects.hash(super.hashCode(), content, leading, lineHeight, leftIndent, rightIndent, firstLineIndent, spacingBefore, spacingAfter, keepTogether, alignment);
     }
 
     @Override
@@ -350,9 +330,7 @@ public final class Paragraph extends Outlineable implements TextContent, KeepTog
                 Float.compare(paragraph.spacingBefore, spacingBefore) == 0 &&
                 Float.compare(paragraph.spacingAfter, spacingAfter) == 0 &&
                 keepTogether == paragraph.keepTogether &&
-                hyphenate == paragraph.hyphenate &&
                 content.equals(paragraph.content) &&
-                Objects.equals(font, paragraph.font) &&
                 alignment == paragraph.alignment;
     }
 
