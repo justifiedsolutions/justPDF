@@ -10,7 +10,7 @@
 
     <groupId>com.justifiedsolutions</groupId>
     <artifactId>justPDF</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Justified Solutions PDF</name>
@@ -78,7 +78,7 @@
                         <configuration>
                             <rules>
                                 <requireMavenVersion>
-                                    <version>3.0.5</version>
+                                    <version>3.6.3</version>
                                 </requireMavenVersion>
                             </rules>
                         </configuration>
@@ -256,7 +256,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.6.1</version>
+            <version>5.6.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
