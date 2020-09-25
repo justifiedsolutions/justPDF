@@ -120,19 +120,61 @@ public final class PDFFont implements Font {
      * Represents the 14 font names native to a PDF document.
      */
     public enum FontName {
+        /**
+         * Courier Regular
+         */
         COURIER,
+        /**
+         * Courier Bold
+         */
         COURIER_BOLD,
+        /**
+         * Courier Oblique
+         */
         COURIER_OBLIQUE,
+        /**
+         * Courier Bold Oblique
+         */
         COURIER_BOLD_OBLIQUE,
+        /**
+         * Helvetica
+         */
         HELVETICA,
+        /**
+         * Helvetica Bold
+         */
         HELVETICA_BOLD,
+        /**
+         * Helvetica Oblique
+         */
         HELVETICA_OBLIQUE,
+        /**
+         * Helvetica Bold Oblique
+         */
         HELVETICA_BOLD_OBLIQUE,
+        /**
+         * Times Roman
+         */
         TIMES_ROMAN,
+        /**
+         * Times Roman Bold
+         */
         TIMES_BOLD,
+        /**
+         * Times Roman Italic
+         */
         TIMES_ITALIC,
+        /**
+         * Times Roman Bold Italic
+         */
         TIMES_BOLD_ITALIC,
+        /**
+         * Symbol
+         */
         SYMBOL,
+        /**
+         * Zapdingbats
+         */
         ZAPFDINGBATS
     }
 }

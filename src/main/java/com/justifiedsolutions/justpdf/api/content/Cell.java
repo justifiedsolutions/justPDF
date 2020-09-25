@@ -349,10 +349,25 @@ public final class Cell {
      * A Border represents the sides of the {@link Cell} that should have a border.
      */
     public enum Border {
+        /**
+         * The top border.
+         */
         TOP,
+        /**
+         * The bottom border.
+         */
         BOTTOM,
+        /**
+         * The left border.
+         */
         LEFT,
+        /**
+         * The right border.
+         */
         RIGHT,
+        /**
+         * All borders.
+         */
         ALL
     }
 }
