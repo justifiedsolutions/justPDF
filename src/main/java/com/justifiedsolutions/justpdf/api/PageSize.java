@@ -62,10 +62,20 @@ public enum PageSize {
         this.height = height;
     }
 
+    /**
+     * Returns the width of the page.
+     *
+     * @return the page width
+     */
     public float width() {
         return width;
     }
 
+    /**
+     * Returns the height of the page.
+     *
+     * @return the page height
+     */
     public float height() {
         return height;
     }
