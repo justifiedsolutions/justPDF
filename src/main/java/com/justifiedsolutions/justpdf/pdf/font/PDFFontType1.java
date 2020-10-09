@@ -21,10 +21,6 @@ import java.util.Map;
 public final class PDFFontType1 extends PDFFont {
 
     static final PDFName TYPE1 = new PDFName("Type1");
-    static final PDFName FIRST_CHAR = new PDFName("FirstChar");
-    static final PDFName LAST_CHAR = new PDFName("LastChar");
-    static final PDFName WIDTHS = new PDFName("Widths");
-    static final PDFName FONT_DESCRIPTOR = new PDFName("FontDescriptor");
     static final PDFName ENCODING = new PDFName("Encoding");
     static final PDFName WIN_ANSI_ENCODING = new PDFName("WinAnsiEncoding");
     private static final Map<FontName, PDFFontType1> CACHE = new EnumMap<>(FontName.class);
@@ -83,7 +79,6 @@ public final class PDFFontType1 extends PDFFont {
 
             determineMinimumLeading();
 
-            int firstChar = 0;
             int lastChar = 0;
             PDFArray widths = new PDFArray();
 
@@ -96,7 +91,6 @@ public final class PDFFontType1 extends PDFFont {
                 }
                 int width = parseWidth(line);
                 if (firstLine) {
-                    firstChar = character;
                     firstLine = false;
                 }
                 lastChar = character;
@@ -104,12 +98,6 @@ public final class PDFFontType1 extends PDFFont {
                 characterWidths.put(character, width);
                 line = reader.readLine();
             }
-
-            put(FIRST_CHAR, new PDFInteger(firstChar));
-            put(LAST_CHAR, new PDFInteger(lastChar));
-            put(WIDTHS, widths);
-            put(FONT_DESCRIPTOR, descriptor);
-
         } catch (IOException e) {
             throw new UncheckedIOException("Unable to read AFM file: " + location, e);
         }

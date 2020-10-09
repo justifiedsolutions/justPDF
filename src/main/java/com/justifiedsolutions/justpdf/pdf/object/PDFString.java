@@ -7,9 +7,6 @@ package com.justifiedsolutions.justpdf.pdf.object;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -19,21 +16,7 @@ import java.util.Objects;
  */
 public class PDFString implements PDFObject {
 
-    /**
-     * A list of characters that must be escaped when used in any kind of PDF string.
-     */
-    protected static final List<Character> ESCAPED_CHARACTERS = new ArrayList<>();
-
-    static {
-        ESCAPED_CHARACTERS.add('\n');
-        ESCAPED_CHARACTERS.add('\r');
-        ESCAPED_CHARACTERS.add('\t');
-        ESCAPED_CHARACTERS.add('\b');
-        ESCAPED_CHARACTERS.add('\f');
-        ESCAPED_CHARACTERS.add('(');
-        ESCAPED_CHARACTERS.add(')');
-        ESCAPED_CHARACTERS.add('\\');
-    }
+    private static final Encoding WIN_ANSI_ENCODING = new WinAnsiEncoding();
 
     private final String value;
 
@@ -56,6 +39,13 @@ public class PDFString implements PDFObject {
     }
 
     @Override
+    public void writeToPDF(OutputStream pdf) throws IOException {
+        pdf.write('(');
+        pdf.write(encode());
+        pdf.write(')');
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(value);
     }
@@ -72,21 +62,12 @@ public class PDFString implements PDFObject {
         return value.equals(pdfString.value);
     }
 
-    @Override
-    public void writeToPDF(OutputStream pdf) throws IOException {
-        String text = "(" + escape(value) + ")";
-        pdf.write(text.getBytes(StandardCharsets.ISO_8859_1));
+    /**
+     * Encodes the value into a byte array.
+     *
+     * @return the encoded value
+     */
+    protected byte[] encode() {
+        return WIN_ANSI_ENCODING.encodeString(getValue());
     }
-
-    private String escape(String text) {
-        StringBuilder result = new StringBuilder();
-        for (char c : text.toCharArray()) {
-            if (ESCAPED_CHARACTERS.contains(c)) {
-                result.append('\\');
-            }
-            result.append(c);
-        }
-        return result.toString();
-    }
-
 }
