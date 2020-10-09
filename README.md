@@ -17,7 +17,7 @@ Add this to your pom.xml file to use the latest version of justPDF:
 			    <dependency>
 			        <groupId>com.justifiedsolutions</groupId>
 			        <artifactId>justPDF</artifactId>
-			        <version>1.1.0</version>
+			        <version>1.1.1</version>
 			    </dependency>
 
 ## Goals ##
@@ -31,6 +31,10 @@ The primary goal for justPDF is to provide a PDF library to support Justified So
 * Commercial Friendly License
 
 ## Releases ##
+
+### justPDF 1.1.1 (2020-10-09) ###
+
+* Fix issue with extended characters in WinAnsiEncoding
 
 ### justPDF 1.1.0 (2020-06-09) ###
 
