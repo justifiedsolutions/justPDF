@@ -23,7 +23,8 @@ class TextContentLayout implements ContentLayout {
     private boolean firstLine = true;
 
     /**
-     * Creates a new ParagraphLayout. This should only be called by {@link TextContentLayoutFactory#getContentLayout(Content)}.
+     * Creates a new {@code TextContentLayout}. This should only be called by {@link
+     * TextContentLayoutFactory#getContentLayout(Content)}.
      *
      * @param lineWidth   the width of the lines to be created by this {@link ContentLayout}
      * @param textContent the {@link TextContent} to layout
