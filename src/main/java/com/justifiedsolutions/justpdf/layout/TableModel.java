@@ -15,6 +15,7 @@ import java.util.*;
 class TableModel {
     private final boolean keepTogether;
     private final Map<TableGridIndex, CellLayout> tableMap = new HashMap<>();
+    private final Map<TableGridIndex, Cell> cellMap = new HashMap<>();
     private final List<TableGridIndex> indices = new ArrayList<>();
     private final List<Column> columns = new ArrayList<>();
     private final List<Row> rows = new ArrayList<>();
@@ -41,33 +42,28 @@ class TableModel {
      */
     void add(Cell cell) {
         TableGridIndex beginningIndex = getNextIndex();
+        cellMap.put(beginningIndex, cell);
+
         List<TableGridIndex> cellIndices = CellLayout.getGridIndices(cell, beginningIndex);
         if (cellIndices.size() > 1) {
             beginningIndex.setSpan();
+        } else {
+            Column column = columns.get(beginningIndex.getColumn());
+            column.setMinWidth(CellWidthHelper.getMinimumWidth(cell));
         }
         indices.addAll(cellIndices);
         Collections.sort(indices);
-
-        Set<Column> cellColumns = new HashSet<>();
-        for (TableGridIndex index : cellIndices) {
-            cellColumns.add(columns.get(index.getColumn()));
-        }
-
-        float width = 0;
-        for (Column column : cellColumns) {
-            width += column.width;
-        }
-
-        CellLayout layout = new CellLayout(cell, width);
-        tableMap.put(beginningIndex, layout);
     }
 
     /**
      * Informs the table model that the last cell has been added and the model can be verified.
      *
-     * @throws IllegalStateException if an incorrect number of cells have been added to the table model
+     * @throws IllegalStateException if an incorrect number of cells have been added to the table model or if the width
+     *                               required for the columns is less than the width available
      */
     void complete() {
+        CellWidthHelper.calculateColumnWidths(columns);
+        createTableMap();
         createRows();
         validateCells();
         computeNonSpanMinimumRowHeights();
@@ -98,7 +94,7 @@ class TableModel {
                 if (layout != null) {
                     layout.setLocation(upperLeftX, upperLeftY);
                 }
-                upperLeftX += column.width;
+                upperLeftX += column.getActualWidth();
             }
             upperLeftY -= row.height;
         }
@@ -116,6 +112,26 @@ class TableModel {
                 }
             }
             row++;
+        }
+    }
+
+    private void createTableMap() {
+        for (TableGridIndex beginIndex : cellMap.keySet()) {
+            Cell cell = cellMap.get(beginIndex);
+            List<TableGridIndex> cellIndices = CellLayout.getGridIndices(cell, beginIndex);
+
+            Set<Column> cellColumns = new HashSet<>();
+            for (TableGridIndex index : cellIndices) {
+                cellColumns.add(columns.get(index.getColumn()));
+            }
+
+            float width = 0;
+            for (Column column : cellColumns) {
+                width += column.getActualWidth();
+            }
+
+            CellLayout layout = new CellLayout(cell, width);
+            tableMap.put(beginIndex, layout);
         }
     }
 
@@ -312,33 +328,4 @@ class TableModel {
         }
     }
 
-    /**
-     * Models a column in a table. Specifies the index and width of the column.
-     */
-    private static class Column {
-        private final int index;
-        private final float width;
-
-        private Column(int index, float width) {
-            this.index = index;
-            this.width = width;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(index);
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-            Column column = (Column) o;
-            return Float.compare(column.index, index) == 0;
-        }
-    }
 }
