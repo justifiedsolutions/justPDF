@@ -161,8 +161,9 @@ final class TextLine implements ContentLine {
         Chunk remainder = getRemainingChunk(alteredChunk, split);
 
         if (firstWord && split.isEmpty() && remainder != null) {
-            throw new IllegalArgumentException("Unable to format document. Content does not fit width.\n("
-                    + chunk.getText() + "), width = " + lineWidth);
+            float textWidth = wrapper.getStringWidth(chunk.getText());
+            throw new IllegalArgumentException(String.format("Unable to format document. Content does not fit width" +
+                    ".%n(%s), text width = %f, line width = %f", chunk.getText(), textWidth, lineWidth));
         }
 
         if (!split.isEmpty()) {

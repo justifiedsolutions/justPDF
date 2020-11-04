@@ -15,6 +15,7 @@ import java.util.*;
 class TableModel {
     private final boolean keepTogether;
     private final Map<TableGridIndex, CellLayout> tableMap = new HashMap<>();
+    private final Map<TableGridIndex, Cell> cellMap = new HashMap<>();
     private final List<TableGridIndex> indices = new ArrayList<>();
     private final List<Column> columns = new ArrayList<>();
     private final List<Row> rows = new ArrayList<>();
@@ -41,39 +42,34 @@ class TableModel {
      */
     void add(Cell cell) {
         TableGridIndex beginningIndex = getNextIndex();
+        cellMap.put(beginningIndex, cell);
+
         List<TableGridIndex> cellIndices = CellLayout.getGridIndices(cell, beginningIndex);
         if (cellIndices.size() > 1) {
             beginningIndex.setSpan();
+        } else {
+            Column column = columns.get(beginningIndex.getColumn());
+            column.setMinWidth(CellWidthHelper.getMinimumWidth(cell));
         }
         indices.addAll(cellIndices);
         Collections.sort(indices);
-
-        Set<Column> cellColumns = new HashSet<>();
-        for (TableGridIndex index : cellIndices) {
-            cellColumns.add(columns.get(index.getColumn()));
-        }
-
-        float width = 0;
-        for (Column column : cellColumns) {
-            width += column.width;
-        }
-
-        CellLayout layout = new CellLayout(cell, width);
-        tableMap.put(beginningIndex, layout);
     }
 
     /**
      * Informs the table model that the last cell has been added and the model can be verified.
      *
-     * @throws IllegalStateException if an incorrect number of cells have been added to the table model
+     * @throws IllegalStateException if an incorrect number of cells have been added to the table model or if the width
+     *                               required for the columns is less than the width available
      */
     void complete() {
+        CellWidthHelper.calculateColumnWidths(columns);
+        createTableMap();
         createRows();
         validateCells();
         computeNonSpanMinimumRowHeights();
         computeRowSpanMinimumHeights();
         setNonSpanRowHeights();
-        chunkContent();
+        TableModelChunkHelper.chunkContent(keepTogether, columns, rows, tableMap, tableChunks);
     }
 
     float getNextTableChunkHeight() {
@@ -93,14 +89,14 @@ class TableModel {
             float upperLeftX = ulx;
             for (int col = 0; col < columns.size(); col++) {
                 Column column = columns.get(col);
-                TableGridIndex index = new TableGridIndex(row.index, col);
+                TableGridIndex index = new TableGridIndex(row.getIndex(), col);
                 CellLayout layout = tableMap.get(index);
                 if (layout != null) {
                     layout.setLocation(upperLeftX, upperLeftY);
                 }
-                upperLeftX += column.width;
+                upperLeftX += column.getActualWidth();
             }
-            upperLeftY -= row.height;
+            upperLeftY -= row.getHeight();
         }
 
         return result;
@@ -116,6 +112,27 @@ class TableModel {
                 }
             }
             row++;
+        }
+    }
+
+    private void createTableMap() {
+        for (Map.Entry<TableGridIndex, Cell> entry : cellMap.entrySet()) {
+            TableGridIndex beginIndex = entry.getKey();
+            Cell cell = entry.getValue();
+            List<TableGridIndex> cellIndices = CellLayout.getGridIndices(cell, beginIndex);
+
+            Set<Column> cellColumns = new HashSet<>();
+            for (TableGridIndex index : cellIndices) {
+                cellColumns.add(columns.get(index.getColumn()));
+            }
+
+            float width = 0;
+            for (Column column : cellColumns) {
+                width += column.getActualWidth();
+            }
+
+            CellLayout layout = new CellLayout(cell, width);
+            tableMap.put(beginIndex, layout);
         }
     }
 
@@ -156,7 +173,7 @@ class TableModel {
                     layout.setCellHeight(layout.getMinimumCellHeight());
                     float diff = ((layout.getMinimumCellHeight() - height) / (float) rowSet.size());
                     for (Row row : rowSet) {
-                        row.height += diff;
+                        row.setHeight(row.getHeight() + diff);
                     }
                 } else {
                     layout.setCellHeight(height);
@@ -179,7 +196,7 @@ class TableModel {
     private float getHeightOfRows(Set<Row> rowSet) {
         float height = 0;
         for (Row row : rowSet) {
-            height += row.height;
+            height += row.getHeight();
         }
         return height;
     }
@@ -190,155 +207,8 @@ class TableModel {
             CellLayout layout = entry.getValue();
             if (!index.isSpan()) {
                 Row row = rows.get(index.getRow());
-                layout.setCellHeight(row.height);
+                layout.setCellHeight(row.getHeight());
             }
-        }
-    }
-
-    private void chunkContent() {
-        if (keepTogether) {
-            TableChunk chunk = new TableChunk(new TreeSet<>(rows), new ArrayList<>(tableMap.values()));
-            tableChunks.add(chunk);
-            return;
-        }
-
-        int row = 0;
-        TableChunk chunk = createChunk(row);
-        while (chunk != null) {
-            tableChunks.add(chunk);
-            row = chunk.getLastRow().index + 1;
-            chunk = createChunk(row);
-        }
-    }
-
-    private TableChunk createChunk(int row) {
-        if (row >= rows.size()) {
-            return null;
-        }
-
-        SortedSet<Row> chunkRows = new TreeSet<>();
-        List<CellLayout> layouts = new ArrayList<>();
-
-        Deque<Row> rowsToDo = new ArrayDeque<>();
-        rowsToDo.add(rows.get(row));
-        while (!rowsToDo.isEmpty()) {
-            Row currentRow = rowsToDo.remove();
-            createChunkProcessRow(currentRow, chunkRows, rowsToDo, layouts);
-        }
-        return new TableChunk(chunkRows, layouts);
-    }
-
-    /**
-     * Processes a specific row of a chunk to add all {@link CellLayout}s and look for more rows to check.
-     *
-     * @param currentRow the row being processed
-     * @param chunkRows  the set of rows already included in the chunk
-     * @param rowsToDo   the queue of rows that need to be checked
-     * @param layouts    the list of layouts that are included in the chunk
-     */
-    private void createChunkProcessRow(Row currentRow, SortedSet<Row> chunkRows, Deque<Row> rowsToDo, List<CellLayout> layouts) {
-        for (int col = 0; col < columns.size(); col++) {
-            TableGridIndex index = new TableGridIndex(currentRow.index, col);
-            CellLayout layout = tableMap.get(index);
-            if (layout != null) {
-                layouts.add(layout);
-                addMoreRowsToCheck(currentRow, chunkRows, rowsToDo, index, layout);
-            }
-        }
-        chunkRows.add(currentRow);
-    }
-
-    /**
-     * Goes through all rows involved in the specified cell, and adds any rows that haven't been checked to the queue to
-     * check. Adding the rows to a {@link SortedSet} first eliminates dupes for spans that are multi row and column.
-     *
-     * @param currentRow the current row
-     * @param chunkRows  the set of rows already included in the TableChunk
-     * @param rowsToDo   the queue of rows to check
-     * @param index      the starting index of the cell
-     * @param layout     the cell
-     */
-    private void addMoreRowsToCheck(Row currentRow, SortedSet<Row> chunkRows, Deque<Row> rowsToDo, TableGridIndex index, CellLayout layout) {
-        SortedSet<Row> rowsToCheck = new TreeSet<>();
-        List<TableGridIndex> layoutIndices = CellLayout.getGridIndices(layout.getCell(), index);
-        for (TableGridIndex cellIndex : layoutIndices) {
-            Row cellRow = rows.get(cellIndex.getRow());
-            if (!currentRow.equals(cellRow) && !chunkRows.contains(cellRow)) {
-                rowsToCheck.add(cellRow);
-            }
-        }
-        rowsToDo.addAll(rowsToCheck);
-    }
-
-    /**
-     * Models a row in a table. Specifies the index and height of the row.
-     */
-    static class Row implements Comparable<Row> {
-        private final int index;
-        private float height;
-
-        private Row(int index) {
-            this.index = index;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(index);
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-            Row row = (Row) o;
-            return index == row.index;
-        }
-
-        @Override
-        public int compareTo(Row o) {
-            return Integer.compare(this.index, o.index);
-        }
-
-        float getHeight() {
-            return height;
-        }
-
-        private void setHeight(float height) {
-            this.height = Math.max(this.height, height);
-        }
-    }
-
-    /**
-     * Models a column in a table. Specifies the index and width of the column.
-     */
-    private static class Column {
-        private final int index;
-        private final float width;
-
-        private Column(int index, float width) {
-            this.index = index;
-            this.width = width;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(index);
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-            Column column = (Column) o;
-            return Float.compare(column.index, index) == 0;
         }
     }
 }

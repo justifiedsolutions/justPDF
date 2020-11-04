@@ -69,19 +69,17 @@ class TextSplitter {
 
     private int hyphenate(String tmp, PDFFontWrapper wrapper, char[] chars, int boundary) {
         int result = boundary;
-        if (!tmp.matches(".*\\p{Punct}.*")) {
-            Hyphenator hyphenator = new Hyphenator();
-            hyphenator.setText(tmp);
-            int hyphenBreak = hyphenator.last();
-            while (hyphenBreak != Hyphenator.DONE) {
-                String tmpValue = new String(chars, 0, boundary + hyphenBreak) + "-";
-                float tmpValueWidth = wrapper.getStringWidth(tmpValue);
-                if (tmpValueWidth < lineWidth) {
-                    result += hyphenBreak;
-                    break;
-                }
-                hyphenBreak = hyphenator.previous();
+        Hyphenator hyphenator = new Hyphenator();
+        hyphenator.setText(tmp);
+        int hyphenBreak = hyphenator.last();
+        while (hyphenBreak != Hyphenator.DONE) {
+            String tmpValue = new String(chars, 0, boundary + hyphenBreak) + "-";
+            float tmpValueWidth = wrapper.getStringWidth(tmpValue);
+            if (tmpValueWidth < lineWidth) {
+                result += hyphenBreak;
+                break;
             }
+            hyphenBreak = hyphenator.previous();
         }
         return result;
     }

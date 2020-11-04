@@ -17,7 +17,7 @@ import java.util.SortedSet;
  * necessary rows to show all of the multi-row cells in their entirty.
  */
 class TableChunk implements ContentLine {
-    private final SortedSet<TableModel.Row> rows;
+    private final SortedSet<Row> rows;
     private final List<CellLayout> cellLayouts;
 
     /**
@@ -26,7 +26,7 @@ class TableChunk implements ContentLine {
      * @param rows        the rows included in the chunk
      * @param cellLayouts all of the cells included in the chunk
      */
-    TableChunk(SortedSet<TableModel.Row> rows, List<CellLayout> cellLayouts) {
+    TableChunk(SortedSet<Row> rows, List<CellLayout> cellLayouts) {
         this.rows = rows;
         this.cellLayouts = cellLayouts;
     }
@@ -34,7 +34,7 @@ class TableChunk implements ContentLine {
     @Override
     public float getHeight() {
         float height = 0;
-        for (TableModel.Row row : rows) {
+        for (Row row : rows) {
             height += row.getHeight();
         }
         return height;
@@ -50,12 +50,11 @@ class TableChunk implements ContentLine {
     }
 
     /**
-     * Gets the {@link SortedSet} of {@link com.justifiedsolutions.justpdf.layout.TableModel.Row}s included in the
-     * chunk.
+     * Gets the {@link SortedSet} of {@link Row}s included in the chunk.
      *
      * @return the set of one or more rows included in the chunk
      */
-    SortedSet<TableModel.Row> getRows() {
+    SortedSet<Row> getRows() {
         return rows;
     }
 
@@ -73,7 +72,7 @@ class TableChunk implements ContentLine {
      *
      * @return the last row
      */
-    TableModel.Row getLastRow() {
+    Row getLastRow() {
         return rows.last();
     }
 
