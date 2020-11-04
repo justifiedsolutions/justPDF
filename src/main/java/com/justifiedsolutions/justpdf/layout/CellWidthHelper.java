@@ -93,7 +93,7 @@ final class CellWidthHelper {
         int prevBoundary = 0;
         int boundary = breaker.next();
         while (boundary != BreakIterator.DONE) {
-            String substring = text.substring(prevBoundary, boundary);
+            String substring = text.substring(prevBoundary, boundary).stripTrailing();
             float width;
             if (hyphenate) {
                 width = hyphenate(substring, fontWrapper);
@@ -182,6 +182,9 @@ final class CellWidthHelper {
         for (Column column : columns) {
             if ((column.getMinWidth() > column.getPreferredWidth()) && (column.getActualWidth() == 0)) {
                 result += (column.getMinWidth() - column.getPreferredWidth());
+            } else if ((column.getPreferredWidth() > column.getActualWidth()) && (column.getActualWidth() > 0)) {
+                float widthTaken = column.getPreferredWidth() - column.getActualWidth();
+                result -= widthTaken;
             }
         }
         return result;
@@ -198,7 +201,7 @@ final class CellWidthHelper {
         do {
             changedColumn = false;
             int numColumnsWithAvailWidth = getNumColumnsWithAvailableWidth(columns);
-            if (numColumnsWithAvailWidth > 0) {
+            if (numColumnsWithAvailWidth > 1) {
                 float avgWidth = getTotalRequiredExtraWidth(columns) / (float) numColumnsWithAvailWidth;
                 for (Column column : columns) {
                     if (columnHasAvailableWidth(column)) {
