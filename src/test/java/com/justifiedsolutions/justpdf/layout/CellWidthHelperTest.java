@@ -97,7 +97,9 @@ public class CellWidthHelperTest {
         col1.setMinWidth(11);
         col2.setMinWidth(11);
 
-        assertThrows(IllegalStateException.class, () -> CellWidthHelper.calculateColumnWidths(List.of(col1, col2)));
+        List<Column> columns = List.of(col1, col2);
+
+        assertThrows(IllegalStateException.class, () -> CellWidthHelper.calculateColumnWidths(columns));
     }
 
     @Test
