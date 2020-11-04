@@ -17,7 +17,7 @@ Add this to your pom.xml file to use the latest version of justPDF:
 			    <dependency>
 			        <groupId>com.justifiedsolutions</groupId>
 			        <artifactId>justPDF</artifactId>
-			        <version>1.1.1</version>
+			        <version>1.2.1</version>
 			    </dependency>
 
 ## Goals
@@ -31,6 +31,10 @@ The primary goal for justPDF is to provide a PDF library to support Justified So
 * Commercial Friendly License
 
 ## Releases
+
+### justPDF 1.2.1 (2020-11-04)
+
+* Fix critical bug with hyphenating slash separated words
 
 ### justPDF 1.2.0 (2020-11-04)
 
