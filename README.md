@@ -32,6 +32,11 @@ The primary goal for justPDF is to provide a PDF library to support Justified So
 
 ## Releases
 
+### justPDF 1.2.0 (2020-11-04)
+
+* New flexible table layout
+	* Adjusts column widths automatically if some content cannot fit in specified widths
+
 ### justPDF 1.1.1 (2020-10-09)
 
 * Fix issue with extended characters in WinAnsiEncoding
