@@ -197,13 +197,16 @@ final class CellWidthHelper {
         boolean changedColumn;
         do {
             changedColumn = false;
-            float avgWidth = getTotalRequiredExtraWidth(columns) / (float) getNumColumnsWithAvailableWidth(columns);
-            for (Column column : columns) {
-                if ((column.getMinWidth() < column.getPreferredWidth()) && (column.getActualWidth() == 0)) {
-                    float availableWidth = column.getPreferredWidth() - column.getMinWidth();
-                    if (availableWidth < avgWidth) {
-                        column.setActualWidth(column.getMinWidth());
-                        changedColumn = true;
+            int numColumnsWithAvailWidth = getNumColumnsWithAvailableWidth(columns);
+            if (numColumnsWithAvailWidth > 0) {
+                float avgWidth = getTotalRequiredExtraWidth(columns) / (float) numColumnsWithAvailWidth;
+                for (Column column : columns) {
+                    if ((column.getMinWidth() < column.getPreferredWidth()) && (column.getActualWidth() == 0)) {
+                        float availableWidth = column.getPreferredWidth() - column.getMinWidth();
+                        if (availableWidth < avgWidth) {
+                            column.setActualWidth(column.getMinWidth());
+                            changedColumn = true;
+                        }
                     }
                 }
             }
@@ -216,10 +219,13 @@ final class CellWidthHelper {
      * @param columns the columns of the table
      */
     private static void setWidthsWhereAvailGreaterThanAvg(List<Column> columns) {
-        float avgWidth = getTotalRequiredExtraWidth(columns) / (float) getNumColumnsWithAvailableWidth(columns);
-        for (Column column : columns) {
-            if ((column.getMinWidth() < column.getPreferredWidth()) && (column.getActualWidth() == 0)) {
-                column.setActualWidth(column.getPreferredWidth() - avgWidth);
+        int numColumnsWithAvailWidth = getNumColumnsWithAvailableWidth(columns);
+        if (numColumnsWithAvailWidth > 0) {
+            float avgWidth = getTotalRequiredExtraWidth(columns) / (float) numColumnsWithAvailWidth;
+            for (Column column : columns) {
+                if ((column.getMinWidth() < column.getPreferredWidth()) && (column.getActualWidth() == 0)) {
+                    column.setActualWidth(column.getPreferredWidth() - avgWidth);
+                }
             }
         }
     }

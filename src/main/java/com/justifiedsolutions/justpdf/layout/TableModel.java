@@ -116,8 +116,9 @@ class TableModel {
     }
 
     private void createTableMap() {
-        for (TableGridIndex beginIndex : cellMap.keySet()) {
-            Cell cell = cellMap.get(beginIndex);
+        for (Map.Entry<TableGridIndex, Cell> entry : cellMap.entrySet()) {
+            TableGridIndex beginIndex = entry.getKey();
+            Cell cell = entry.getValue();
             List<TableGridIndex> cellIndices = CellLayout.getGridIndices(cell, beginIndex);
 
             Set<Column> cellColumns = new HashSet<>();
