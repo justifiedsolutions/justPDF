@@ -147,7 +147,7 @@ final class CellWidthHelper {
     private static int getNumColumnsWithAvailableWidth(List<Column> columns) {
         int result = 0;
         for (Column column : columns) {
-            if ((column.getMinWidth() < column.getPreferredWidth()) && (column.getActualWidth() == 0)) {
+            if (columnHasAvailableWidth(column)) {
                 result++;
             }
         }
@@ -163,7 +163,7 @@ final class CellWidthHelper {
     private static float getTotalAvailableWidth(List<Column> columns) {
         float result = 0f;
         for (Column column : columns) {
-            if ((column.getMinWidth() < column.getPreferredWidth()) && (column.getActualWidth() == 0)) {
+            if (columnHasAvailableWidth(column)) {
                 result += (column.getPreferredWidth() - column.getMinWidth());
             }
         }
@@ -201,7 +201,7 @@ final class CellWidthHelper {
             if (numColumnsWithAvailWidth > 0) {
                 float avgWidth = getTotalRequiredExtraWidth(columns) / (float) numColumnsWithAvailWidth;
                 for (Column column : columns) {
-                    if ((column.getMinWidth() < column.getPreferredWidth()) && (column.getActualWidth() == 0)) {
+                    if (columnHasAvailableWidth(column)) {
                         float availableWidth = column.getPreferredWidth() - column.getMinWidth();
                         if (availableWidth < avgWidth) {
                             column.setActualWidth(column.getMinWidth());
@@ -223,7 +223,7 @@ final class CellWidthHelper {
         if (numColumnsWithAvailWidth > 0) {
             float avgWidth = getTotalRequiredExtraWidth(columns) / (float) numColumnsWithAvailWidth;
             for (Column column : columns) {
-                if ((column.getMinWidth() < column.getPreferredWidth()) && (column.getActualWidth() == 0)) {
+                if (columnHasAvailableWidth(column)) {
                     column.setActualWidth(column.getPreferredWidth() - avgWidth);
                 }
             }
@@ -241,5 +241,9 @@ final class CellWidthHelper {
                 column.setActualWidth(column.getMinWidth());
             }
         }
+    }
+
+    private static boolean columnHasAvailableWidth(Column column) {
+        return (column.getMinWidth() < column.getPreferredWidth()) && (column.getActualWidth() == 0);
     }
 }
