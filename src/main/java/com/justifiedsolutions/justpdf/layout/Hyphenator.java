@@ -5,7 +5,9 @@
 
 package com.justifiedsolutions.justpdf.layout;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -29,7 +31,11 @@ class Hyphenator {
      */
     void setText(String text) {
         Objects.requireNonNull(text);
-        hyphens = PROCESSOR.hyphenate(text);
+        if (text.contains("/")) {
+            handleSlashedWords(text);
+        } else {
+            hyphens = PROCESSOR.hyphenate(text);
+        }
         first();
     }
 
@@ -107,6 +113,21 @@ class Hyphenator {
      */
     int[] all() {
         return Arrays.copyOf(hyphens, hyphens.length);
+    }
+
+    private void handleSlashedWords(String text) {
+        int length = 0;
+        String[] words = text.split("/");
+        List<Integer> indexes = new ArrayList<>();
+        for (String word : words) {
+            int[] tmpIndexes = PROCESSOR.hyphenate(word);
+            for (int tmpIndex : tmpIndexes) {
+                indexes.add(tmpIndex + length);
+            }
+            length += word.length(); //add last word length
+            length++; //add trailing slash
+        }
+        hyphens = indexes.stream().mapToInt(Integer::intValue).toArray();
     }
 
 }

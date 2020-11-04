@@ -16,6 +16,27 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class HyphenatorTest {
 
     @Test
+    public void rugsSlashFurnishings() {
+        String text = "Rugs/furnishings";
+        int[] expected = {8, 12};
+        testHyphenation(text, expected);
+    }
+
+    @Test
+    public void rugsSlashFurnishingsSlashSomething() {
+        String text = "Rugs/furnishings/Something";
+        int[] expected = {8, 12, 21};
+        testHyphenation(text, expected);
+    }
+
+    @Test
+    public void checkingSlashSavings() {
+        String text = "Checking/Savings";
+        int[] expected = {5, 12};
+        testHyphenation(text, expected);
+    }
+
+    @Test
     public void test() {
         String text = "test";
         int[] expected = {};

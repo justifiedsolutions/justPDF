@@ -138,7 +138,9 @@ final class HyphenProcessor {
             int start = matcher.start();
             for (HyphenDescriptor descriptor : descriptors) {
                 int tmpIndex = start + descriptor.textIndex;
-                hyphenMap[tmpIndex] = Math.max(hyphenMap[tmpIndex], descriptor.value);
+                if (tmpIndex < hyphenMap.length) {
+                    hyphenMap[tmpIndex] = Math.max(hyphenMap[tmpIndex], descriptor.value);
+                }
             }
         }
     }
