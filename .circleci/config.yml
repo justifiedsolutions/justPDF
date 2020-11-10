@@ -7,5 +7,5 @@ workflows:
   maven_test:
     jobs:
       - maven/test:
-          executor: 11.0
+          executor: "11.0"
 
