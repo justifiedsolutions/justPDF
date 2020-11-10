@@ -1,18 +1,11 @@
 version: 2.1
 
 orbs:
-  maven: circleci/maven@0.0.12
-
-jobs:
-  build:
-    docker:
-      - image: adoptopenjdk:11-jdk-hotspot-focal
-    resource_class: small
-    steps:
-      - maven/test
+  maven: circleci/maven@1.0.3
 
 workflows:
   maven_test:
     jobs:
-      - build
+      - maven/test:
+          executor: 11.0
 
