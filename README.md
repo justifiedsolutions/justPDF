@@ -13,12 +13,13 @@ An Open Source library for creating basic PDF documents.
 
 ## Maven Dependency
 Add this to your pom.xml file to use the latest version of justPDF:
-
-			    <dependency>
-			        <groupId>com.justifiedsolutions</groupId>
-			        <artifactId>justPDF</artifactId>
-			        <version>1.2.1</version>
-			    </dependency>
+```
+<dependency>
+    <groupId>com.justifiedsolutions</groupId>
+    <artifactId>justPDF</artifactId>
+    <version>1.2.1</version>
+</dependency>
+```
 
 ## Goals
 The primary goal for justPDF is to provide a PDF library to support Justified Solution's other products. This doesn't require a particularly full-featured API. Features that are required:
