@@ -13,13 +13,7 @@
         <exclude name="JUnitTestsShouldIncludeAssert"/>
         <exclude name="UseAssertEqualsInsteadOfAssertTrue"/>
         <exclude name="UseVarargs"/>
-    </rule>
-
-    <rule ref="category/java/bestpractices.xml/PositionLiteralsFirstInComparisons">
-        <properties>
-            <property name="violationSuppressXPath"
-                      value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']"/>
-        </properties>
+        <exclude name="PositionLiteralsFirstInComparisons"/>
     </rule>
 
     <rule ref="category/java/codestyle.xml">
