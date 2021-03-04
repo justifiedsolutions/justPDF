@@ -15,7 +15,8 @@ workflows:
   maven_test:
     jobs:
       - maven/test:
-          command: 'verify sonar:sonar -Dsonar.login=$SONAR_TOKEN'
+          context: sonarcloud
+          command: 'verify sonar:sonar -Dsonar.login=${SONAR_TOKEN}'
           matrix:
             parameters:
               executor:
