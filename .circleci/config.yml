@@ -15,8 +15,10 @@ workflows:
   maven_test:
     jobs:
       - maven/test:
+          command: 'verify sonar:sonar'
           matrix:
             parameters:
               executor:
                 - jdk11
                 - jdk15
+
