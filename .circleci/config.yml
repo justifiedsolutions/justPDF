@@ -1,6 +1,9 @@
 version: 2.1
 
 executors:
+  jdk11:
+    docker:
+      - image: 'cimg/openjdk:11.0'
   jdk15:
     docker:
       - image: 'cimg/openjdk:15.0'
@@ -12,4 +15,8 @@ workflows:
   maven_test:
     jobs:
       - maven/test:
-          executor: jdk15
+          matrix:
+            parameters:
+              executor:
+                - jdk11
+                - jdk15
