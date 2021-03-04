@@ -1,0 +1,17 @@
+version: 2.1
+
+executors:
+  jdk11:
+    docker:
+      - image: 'cimg/openjdk:11.0'
+
+orbs:
+  maven: circleci/maven@1.1.1
+
+workflows:
+  maven_test:
+    jobs:
+      - maven/test:
+          context: sonarcloud
+          command: 'verify sonar:sonar'
+          executor: jdk11
