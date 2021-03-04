@@ -15,7 +15,7 @@ workflows:
   maven_test:
     jobs:
       - maven/test:
-          command: 'verify sonar:sonar'
+          command: 'verify sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=justifiedsolutions -Dsonar.projectKey=com.justifiedsolutions:justPDF'
           matrix:
             parameters:
               executor:
