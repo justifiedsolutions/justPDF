@@ -1,7 +1,7 @@
 # Justified Solutions PDF (justPDF)
 An Open Source library for creating basic PDF documents.
 
-[![Build Status](https://travis-ci.com/justifiedsolutions/justPDF.svg?branch=master)](https://travis-ci.com/justifiedsolutions/justPDF)
+[![justPDF](https://circleci.com/gh/justifiedsolutions/justPDF.svg?style=shield)](https://app.circleci.com/pipelines/github/justifiedsolutions/justPDF?branch=main)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.justifiedsolutions%3AjustPDF&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.justifiedsolutions%3AjustPDF)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=com.justifiedsolutions%3AjustPDF&metric=coverage)](https://sonarcloud.io/dashboard?id=com.justifiedsolutions%3AjustPDF)
 [![Maven Central](https://img.shields.io/maven-central/v/com.justifiedsolutions/justPDF?color=green)](https://maven-badges.herokuapp.com/maven-central/com.justifiedsolutions/justPDF)
