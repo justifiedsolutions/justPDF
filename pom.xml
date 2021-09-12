@@ -150,7 +150,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.6</version>
+                <version>0.8.7</version>
                 <executions>
                     <execution>
                         <id>default-instrument</id>
@@ -278,7 +278,7 @@
         <dependency>
             <groupId>org.jacoco</groupId>
             <artifactId>org.jacoco.agent</artifactId>
-            <version>0.8.6</version>
+            <version>0.8.7</version>
             <classifier>runtime</classifier>
             <scope>test</scope>
         </dependency>
