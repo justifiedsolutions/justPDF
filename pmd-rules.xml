@@ -11,9 +11,11 @@
         <exclude name="JUnitAssertionsShouldIncludeMessage"/>
         <exclude name="JUnitTestContainsTooManyAsserts"/>
         <exclude name="JUnitTestsShouldIncludeAssert"/>
+        <exclude name="PositionLiteralsFirstInComparisons"/>
+        <exclude name="SwitchStmtsShouldHaveDefault"/>
+        <exclude name="UnusedPrivateMethod"/>
         <exclude name="UseAssertEqualsInsteadOfAssertTrue"/>
         <exclude name="UseVarargs"/>
-        <exclude name="PositionLiteralsFirstInComparisons"/>
     </rule>
 
     <rule ref="category/java/codestyle.xml">
@@ -68,6 +70,14 @@
             <property name="problemDepth" value="4"/>
         </properties>
     </rule>
+
+    <!--
+    <rule ref="category/java/design.xml/CognitiveComplexity">
+        <properties>
+            <property name="reportLevel" value="16"/>
+        </properties>
+    </rule>
+    -->
 
     <rule ref="category/java/design.xml/ExcessiveMethodLength">
         <properties>
@@ -124,6 +134,7 @@
         <exclude name="MissingSerialVersionUID"/>
         <exclude name="NullAssignment"/>
         <exclude name="ReturnEmptyArrayRatherThanNull"/>
+        <!--<exclude name="ReturnEmptyCollectionRatherThanNull"/>-->
     </rule>
 
     <rule ref="category/java/errorprone.xml/SuspiciousEqualsMethodName">
