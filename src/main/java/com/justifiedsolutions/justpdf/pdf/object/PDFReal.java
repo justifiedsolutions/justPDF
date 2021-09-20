@@ -38,7 +38,7 @@ public final class PDFReal implements PDFObject {
      */
     public static float truncate(float value) {
         int tmpValue = (int) (value * 100_000);
-        return (float) tmpValue / 100_000f;
+        return tmpValue / 100_000f;
     }
 
     /**

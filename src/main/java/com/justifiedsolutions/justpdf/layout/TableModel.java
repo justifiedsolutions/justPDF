@@ -171,7 +171,7 @@ class TableModel {
                 float height = getHeightOfRows(rowSet);
                 if (height < layout.getMinimumCellHeight()) {
                     layout.setCellHeight(layout.getMinimumCellHeight());
-                    float diff = ((layout.getMinimumCellHeight() - height) / (float) rowSet.size());
+                    float diff = ((layout.getMinimumCellHeight() - height) / rowSet.size());
                     for (Row row : rowSet) {
                         row.setHeight(row.getHeight() + diff);
                     }
