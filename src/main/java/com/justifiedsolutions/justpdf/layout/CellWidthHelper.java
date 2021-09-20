@@ -202,7 +202,7 @@ final class CellWidthHelper {
             changedColumn = false;
             int numColumnsWithAvailWidth = getNumColumnsWithAvailableWidth(columns);
             if (numColumnsWithAvailWidth > 1) {
-                float avgWidth = getTotalRequiredExtraWidth(columns) / (float) numColumnsWithAvailWidth;
+                float avgWidth = getTotalRequiredExtraWidth(columns) / numColumnsWithAvailWidth;
                 for (Column column : columns) {
                     if (columnHasAvailableWidth(column)) {
                         float availableWidth = column.getPreferredWidth() - column.getMinWidth();
@@ -224,7 +224,7 @@ final class CellWidthHelper {
     private static void setWidthsWhereAvailGreaterThanAvg(List<Column> columns) {
         int numColumnsWithAvailWidth = getNumColumnsWithAvailableWidth(columns);
         if (numColumnsWithAvailWidth > 0) {
-            float avgWidth = getTotalRequiredExtraWidth(columns) / (float) numColumnsWithAvailWidth;
+            float avgWidth = getTotalRequiredExtraWidth(columns) / numColumnsWithAvailWidth;
             for (Column column : columns) {
                 if (columnHasAvailableWidth(column)) {
                     column.setActualWidth(column.getPreferredWidth() - avgWidth);

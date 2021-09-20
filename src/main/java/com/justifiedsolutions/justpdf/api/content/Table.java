@@ -46,7 +46,7 @@ public final class Table extends Outlineable implements Content, KeepTogetherCap
      */
     public Table(int numberOfColumns) {
         relativeColumnWidths = new float[numberOfColumns];
-        float widthPercent = (1f / (float) numberOfColumns) * 100f;
+        float widthPercent = (1f / numberOfColumns) * 100f;
         Arrays.fill(relativeColumnWidths, widthPercent);
     }
 

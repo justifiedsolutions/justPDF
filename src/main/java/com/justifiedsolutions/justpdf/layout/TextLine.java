@@ -226,9 +226,9 @@ final class TextLine implements ContentLine {
                 result.add(new SetWordSpacing(new PDFReal(0)));
                 result.add(new SetCharacterSpacing(new PDFReal(0)));
             } else {
-                float wordSpacing = PDFReal.truncate(remainingWidth / (float) numSpaces);
+                float wordSpacing = PDFReal.truncate(remainingWidth / numSpaces);
                 float remainder = remainingWidth - (wordSpacing * numSpaces);
-                float charSpacing = PDFReal.truncate(remainder / (float) numChars);
+                float charSpacing = PDFReal.truncate(remainder / numChars);
                 result.add(new SetWordSpacing(new PDFReal(wordSpacing)));
                 result.add(new SetCharacterSpacing(new PDFReal(charSpacing)));
             }
