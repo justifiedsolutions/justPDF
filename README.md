@@ -13,7 +13,7 @@ An Open Source library for creating basic PDF documents.
 
 ## Maven Dependency
 Add this to your pom.xml file to use the latest version of justPDF:
-```
+```xml
 <dependency>
     <groupId>com.justifiedsolutions</groupId>
     <artifactId>justPDF</artifactId>
@@ -40,7 +40,7 @@ The primary goal for justPDF is to provide a PDF library to support Justified So
 ### justPDF 1.2.0 (2020-11-04)
 
 * New flexible table layout
-	* Adjusts column widths automatically if some content cannot fit in specified widths
+  * Adjusts column widths automatically if some content cannot fit in specified widths
 
 ### justPDF 1.1.1 (2020-10-09)
 
@@ -49,10 +49,10 @@ The primary goal for justPDF is to provide a PDF library to support Justified So
 ### justPDF 1.1.0 (2020-06-09)
 
 * Improve line break code
-	* Utilize BreakIterator to find line break points
-	* Add auto-hyphenate property to TextContent. Enabled by default.
+  * Utilize BreakIterator to find line break points
+  * Add auto-hyphenate property to TextContent. Enabled by default.
 * Document Outline
-	* Outlines are automatic with section documents
+  * Outlines are automatic with section documents
 * Add PMD to build
 * Add additional javadoc to code
 
