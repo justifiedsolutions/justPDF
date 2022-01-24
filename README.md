@@ -35,7 +35,7 @@ The primary goal for justPDF is to provide a PDF library to support Justified So
 
 ### justPDF 1.2.2 (2022-01-24)
 
-* Migrate to CircleCI
+* Migrate Build to CircleCI
 * Enable Dependabot Version Updates
 * Update dependency versions
 
