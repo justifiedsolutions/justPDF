@@ -48,15 +48,10 @@ workflows:
           context: sonarcloud
           command: 'verify sonar:sonar'
           executor: jdk11
-          filters:
-            branches:
-              only: /.*/
-            tags:
-              only: /^v.*/
+  deploy:
+    jobs:
       - maven-deploy:
           name: 'Maven Deploy'
-          requires:
-            - 'Maven Validation'
           context:
             - gpg
             - nexus
