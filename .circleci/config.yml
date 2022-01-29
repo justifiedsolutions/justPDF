@@ -7,11 +7,11 @@ commands:
   configure-gpg:
     description: 'Configure GPG Private Key'
     steps:
-      - run
-        command: |
-          echo ${GPG_KEY_BASE64} | \
-          base64 --decode | \
-          gpg --batch --no-tty --import --yes
+      - run:
+          command: |
+            echo ${GPG_KEY_BASE64} | \
+            base64 --decode | \
+            gpg --batch --no-tty --import --yes
 
 executors:
   jdk11:
@@ -26,18 +26,18 @@ jobs:
       - configure-gpg
       - checkout
       - maven/with_cache:
-        steps:
-          - run:
-            name: 'Maven Deploy'
-            command: |
-              mvn \
-              -s .circleci/maven-release-settings.xml \
-              clean deploy \
-              -DskipTests=true \
-              -Dpmd.skip=true \
-              -Djacoco.skip=true \
-              -Dgpg.passphrase=${GPG_PASS} \
-              -Prelease
+          steps:
+            - run:
+                name: 'Maven Deploy'
+                command: |
+                  mvn \
+                  -s .circleci/maven-release-settings.xml \
+                  clean deploy \
+                  -DskipTests=true \
+                  -Dpmd.skip=true \
+                  -Djacoco.skip=true \
+                  -Dgpg.passphrase=${GPG_PASS} \
+                  -Prelease
 
 workflows:
   validation:
