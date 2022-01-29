@@ -1,18 +1,60 @@
 version: 2.1
 
+orbs:
+  maven: circleci/maven@1.3.0
+
+commands:
+  configure-gpg:
+    description: 'Configure GPG Private Key'
+    steps:
+      - run
+        command: |
+          echo ${GPG_KEY_BASE64} | \
+          base64 --decode | \
+          gpg --batch --no-tty --import --yes
+
 executors:
   jdk11:
     docker:
       - image: 'cimg/openjdk:11.0'
     resource_class: small
 
-orbs:
-  maven: circleci/maven@1.1.1
+jobs:
+  maven-deploy:
+    executor: jdk11
+    steps:
+      - configure-gpg
+      - checkout
+      - maven/with_cache:
+        steps:
+          - run:
+            name: 'Maven Deploy'
+            command: |
+              mvn \
+              -s .circleci/maven-release-settings.xml \
+              clean deploy \
+              -DskipTests=true \
+              -Dpmd.skip=true \
+              -Djacoco.skip=true \
+              -Dgpg.passphrase=${GPG_PASS} \
+              -Prelease
 
 workflows:
-  maven_test:
+  validation:
     jobs:
       - maven/test:
+          name: 'Maven Validation'
           context: sonarcloud
           command: 'verify sonar:sonar'
           executor: jdk11
+  deploy:
+    jobs:
+      - maven-deploy:
+          context:
+            - gpg
+            - nexus
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
