@@ -5,10 +5,10 @@ orbs:
 
 commands:
   configure-gpg:
-    description: 'Configure GPG Private Key'
+    description: 'Configure GPG'
     steps:
       - run:
-          name: 'Configure GPG Private Key'
+          name: 'Configure GPG'
           command: |
             echo ${GPG_KEY_BASE64} | \
             base64 --decode | \
@@ -55,8 +55,8 @@ workflows:
           context:
             - gpg
             - nexus
-#          filters:
-#            branches:
-#              ignore: /.*/
-#            tags:
-#              only: /^v.*/
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
