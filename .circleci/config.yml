@@ -49,6 +49,8 @@ workflows:
           command: 'verify sonar:sonar'
           executor: jdk11
           filters:
+            branches:
+              only: /.*/
             tags:
               only: /^v.*/
       - maven-deploy:
