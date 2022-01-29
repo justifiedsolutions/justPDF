@@ -49,6 +49,7 @@ workflows:
           command: 'verify sonar:sonar'
           executor: jdk11
       - maven-deploy:
+          name: 'Maven Deploy'
           requires:
             - 'Maven Validation'
           context:
