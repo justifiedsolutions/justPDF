@@ -48,6 +48,9 @@ workflows:
           context: sonarcloud
           command: 'verify sonar:sonar'
           executor: jdk11
+          filters:
+            tags:
+              only: /^v.*/
       - maven-deploy:
           name: 'Maven Deploy'
           requires:
