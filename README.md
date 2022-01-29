@@ -17,7 +17,7 @@ Add this to your pom.xml file to use the latest version of justPDF:
 <dependency>
     <groupId>com.justifiedsolutions</groupId>
     <artifactId>justPDF</artifactId>
-    <version>1.2.2</version>
+    <version>1.2.3</version>
 </dependency>
 ```
 
@@ -32,6 +32,11 @@ The primary goal for justPDF is to provide a PDF library to support Justified So
 * Commercial Friendly License
 
 ## Releases
+
+### justPDF 1.2.3 (2022-01-29)
+
+* Update Release Process
+* Update dependency versions
 
 ### justPDF 1.2.2 (2022-01-24)
 
