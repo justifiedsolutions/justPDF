@@ -10,7 +10,7 @@
 
     <groupId>com.justifiedsolutions</groupId>
     <artifactId>justPDF</artifactId>
-    <version>1.2.5</version>
+    <version>1.2.6-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Justified Solutions PDF</name>
