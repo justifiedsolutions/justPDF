@@ -10,7 +10,7 @@
 
     <groupId>com.justifiedsolutions</groupId>
     <artifactId>justPDF</artifactId>
-    <version>1.2.4</version>
+    <version>1.2.5-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Justified Solutions PDF</name>
@@ -44,7 +44,7 @@
         <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        
+
         <sonar.organization>justifiedsolutions</sonar.organization>
         <sonar.projectKey>com.justifiedsolutions:justPDF</sonar.projectKey>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -247,7 +247,7 @@
                         <configuration>
                             <serverId>ossrh</serverId>
                             <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
                         </configuration>
                     </plugin>
                 </plugins>
