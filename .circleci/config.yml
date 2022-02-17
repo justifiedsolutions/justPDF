@@ -18,7 +18,7 @@ executors:
   jdk11:
     docker:
       - image: 'cimg/openjdk:11.0'
-    resource_class: medium
+    resource_class: 'medium+'
 
 jobs:
   maven-deploy:
