@@ -196,6 +196,7 @@ final class CellWidthHelper {
      *
      * @param columns the columns of the table
      */
+    @SuppressWarnings("PMD.CognitiveComplexity")
     private static void setWidthsWhereAvailLessThanAvg(List<Column> columns) {
         boolean changedColumn;
         do {
