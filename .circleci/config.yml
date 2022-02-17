@@ -18,7 +18,7 @@ executors:
   jdk11:
     docker:
       - image: 'cimg/openjdk:11.0'
-    resource_class: 'medium+'
+    resource_class: 'small'
     
 
 jobs:
@@ -44,12 +44,11 @@ jobs:
 workflows:
   validation:
     jobs:
-      - maven/parallel_test:
+      - maven/test:
           name: 'Maven Validation'
           context: sonarcloud
           command: 'verify sonar:sonar'
           executor: jdk11
-          parallelism: 4
 
   deploy:
     jobs:
