@@ -102,6 +102,7 @@ final class HyphenProcessor {
         return result;
     }
 
+    @SuppressWarnings("PMD.ReturnEmptyCollectionRatherThanNull")
     private int[] processExceptions(String text) {
         for (Map.Entry<String, String> entry : EXCEPTIONS.entrySet()) {
             if (Objects.equals(entry.getValue(), text)) {
