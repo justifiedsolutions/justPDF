@@ -33,6 +33,20 @@ The primary goal for justPDF is to provide a PDF library to support Justified So
 
 ## Releases
 
+### justPDF 1.2.6 (2022-06-13)
+
+* Increase unit test coverage
+* Bump jacoco from 0.8.7 to 0.8.8
+* Bump maven-compiler-plugin from 3.9.0 to 3.10.1
+* Bump maven-enforcer-plugin from 3.0.0 to 3.1.0
+* Bump maven-javadoc-plugin from 3.3.1 to 3.4.0
+* Bump maven-pmd-plugin from 3.14.0 to 3.17.0
+* Suppress a couple of PMD warnings
+* Bump maven-surefire-plugin from 3.0.0-M5 to 3.0.0-M7
+* Bump mockito-core from 4.3.1 to 4.6.1
+* Bump mockito-junit-jupiter from 4.3.1 to 4.6.1
+* Bump nexus-staging-maven-plugin from 1.6.8 to 1.6.13
+
 ### justPDF 1.2.5 (2022-01-29)
 
 * Test auto release process
