@@ -15,7 +15,7 @@
  * </UL>
  */
 module com.justifiedsolutions.justpdf {
-    requires java.desktop;
+    requires transitive java.desktop;
 
     exports com.justifiedsolutions.justpdf.api;
     exports com.justifiedsolutions.justpdf.api.content;

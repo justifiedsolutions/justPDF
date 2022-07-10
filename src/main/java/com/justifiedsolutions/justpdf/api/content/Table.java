@@ -13,7 +13,7 @@ import java.util.*;
 /**
  * A Table is a type of {@link Content} that can be added to a PDF {@link Document}.
  */
-public final class Table extends Outlineable implements Content, KeepTogetherCapable {
+public final class Table extends Outlineable implements KeepTogetherCapable {
 
     private final float[] relativeColumnWidths;
     private final List<Cell> cells = new ArrayList<>();
