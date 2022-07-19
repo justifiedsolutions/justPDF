@@ -43,6 +43,7 @@ public class OutlineTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void testEquals() {
         Outline outline = new Outline();
         Phrase content = new Phrase();

@@ -20,6 +20,7 @@ public class OutlineableTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void testEquals() {
         Outlineable o1 = new Outlineable();
         Outlineable o2 = new Outlineable(o1);

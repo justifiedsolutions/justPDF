@@ -102,6 +102,7 @@ public class GraphicsStateTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void equals() {
         PDFReal one = new PDFReal(1);
         GraphicsState gs = new GraphicsState();

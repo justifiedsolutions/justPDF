@@ -109,6 +109,7 @@ public class TableTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void testEquals() {
         Table t0 = new Table(2);
 

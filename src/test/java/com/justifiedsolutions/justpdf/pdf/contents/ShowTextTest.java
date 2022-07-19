@@ -56,6 +56,7 @@ public class ShowTextTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void equals() {
         PDFString foo = new PDFString("foo");
         PDFString bar = new PDFString("bar");

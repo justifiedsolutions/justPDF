@@ -38,6 +38,7 @@ public class PDFBooleanTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void equals() {
         assertTrue(PDFBoolean.TRUE.equals(PDFBoolean.TRUE));
         assertEquals(PDFBoolean.TRUE.hashCode(), PDFBoolean.TRUE.hashCode());

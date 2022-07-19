@@ -41,6 +41,7 @@ public class StartPathTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void equals() {
         StartPath operator = new StartPath(x, y);
         assertTrue(operator.equals(operator));

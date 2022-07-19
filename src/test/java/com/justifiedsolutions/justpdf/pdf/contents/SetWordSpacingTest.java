@@ -65,6 +65,7 @@ public class SetWordSpacingTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void equals() {
         PDFReal foo = new PDFReal(1);
         PDFReal bar = new PDFReal(2);

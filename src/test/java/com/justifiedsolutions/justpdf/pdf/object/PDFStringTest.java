@@ -46,6 +46,7 @@ public class PDFStringTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void testEquals() {
         PDFString s0 = new PDFString("foo");
         assertTrue(s0.equals(s0));

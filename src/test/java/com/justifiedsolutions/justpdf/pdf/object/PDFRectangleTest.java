@@ -33,6 +33,7 @@ public class PDFRectangleTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void equals() {
         PDFRectangle r1 = new PDFRectangle(0, 0, 10, 10);
 

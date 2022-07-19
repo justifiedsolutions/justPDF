@@ -70,6 +70,7 @@ public class SetRGBFillColorTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void equals() {
         DeviceRGB foo = new DeviceRGB(r, g, b);
         DeviceRGB bar = new DeviceRGB(r, g, x);

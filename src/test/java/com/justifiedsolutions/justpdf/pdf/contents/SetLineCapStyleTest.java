@@ -58,6 +58,7 @@ public class SetLineCapStyleTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void equals() {
         SetLineCapStyle operator = new SetLineCapStyle(LineCapStyle.ROUND_CAP);
         assertTrue(operator.equals(operator));

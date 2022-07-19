@@ -25,6 +25,7 @@ public class DeviceGrayTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void equals() {
         PDFReal zero = new PDFReal(0);
         PDFReal one = new PDFReal(1);

@@ -52,6 +52,7 @@ public class SetFontTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void equals() {
         PDFReal small = new PDFReal(8);
         PDFReal large = new PDFReal(12);

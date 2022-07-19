@@ -68,6 +68,7 @@ public class PDFIndirectObjectTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void equals() {
         PDFIndirectObject.resetObjectNumber();
         PDFIndirectObject io1 = new PDFIndirectObject(PDFBoolean.TRUE);
@@ -88,6 +89,7 @@ public class PDFIndirectObjectTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void equalsReference() {
         PDFIndirectObject.resetObjectNumber();
         PDFIndirectObject.Reference io1 = new PDFIndirectObject(PDFBoolean.TRUE).getReference();

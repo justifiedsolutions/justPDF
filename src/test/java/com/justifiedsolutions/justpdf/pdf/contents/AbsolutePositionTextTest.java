@@ -51,6 +51,7 @@ public class AbsolutePositionTextTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void equals() {
         PDFReal x = new PDFReal(1);
         PDFReal y = new PDFReal(2);

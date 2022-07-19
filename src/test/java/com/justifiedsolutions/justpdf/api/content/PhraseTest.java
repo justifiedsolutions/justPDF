@@ -104,6 +104,7 @@ public class PhraseTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void testEqualsHashCode() {
         Phrase phrase2 = new Phrase(phrase, phrase.getChunks());
 

@@ -62,6 +62,7 @@ public class SetGrayFillColorTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void equals() {
         SetGrayFillColor operator = new SetGrayFillColor(gColorSpace);
         assertTrue(operator.equals(operator));

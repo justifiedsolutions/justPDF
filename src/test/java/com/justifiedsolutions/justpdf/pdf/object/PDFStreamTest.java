@@ -63,6 +63,7 @@ public class PDFStreamTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void equals() {
         byte[] b1 = {0, 1, 2, 3, 4};
         byte[] b2 = {1, 2, 3, 4, 5};

@@ -31,6 +31,7 @@ public class OutlineableTextContentTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void testEquals() {
         assertTrue(content.equals(content));
         assertFalse(content.equals(null));

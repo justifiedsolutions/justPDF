@@ -17,6 +17,7 @@ public class DeviceRGBTest {
     private final PDFReal x = new PDFReal(0.1f);
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void equals() {
         DeviceRGB rgb = new DeviceRGB(r, g, b);
         assertFalse(rgb.equals(null));

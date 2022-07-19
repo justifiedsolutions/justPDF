@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class FontWrapperOperatorTest {
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void equals() {
         PDFFontWrapper foo = PDFFontWrapper.getInstance(new PDFFont());
         PDFFontWrapper bar = PDFFontWrapper.getInstance(new PDFFont(PDFFont.FontName.COURIER));

@@ -54,6 +54,7 @@ public class ChunkTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void equalsHashCode() {
         Chunk chunk2 = new Chunk();
 
