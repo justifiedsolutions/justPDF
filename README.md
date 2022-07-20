@@ -1,4 +1,5 @@
 # Justified Solutions PDF (justPDF)
+
 An Open Source library for creating basic PDF documents.
 
 [![justPDF](https://circleci.com/gh/justifiedsolutions/justPDF.svg?style=shield)](https://app.circleci.com/pipelines/github/justifiedsolutions/justPDF?branch=main)
@@ -9,10 +10,13 @@ An Open Source library for creating basic PDF documents.
 [![License (Apache 2.0)](https://img.shields.io/badge/license-Apache%202.0-blue)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ## License
+
 `SPDX-License-Identifier: Apache-2.0`
 
 ## Maven Dependency
+
 Add this to your pom.xml file to use the latest version of justPDF:
+
 ```xml
 <dependency>
     <groupId>com.justifiedsolutions</groupId>
@@ -22,6 +26,7 @@ Add this to your pom.xml file to use the latest version of justPDF:
 ```
 
 ## Goals
+
 The primary goal for justPDF is to provide a PDF library to support Justified Solution's other products. This doesn't require a particularly full-featured API. Features that are required:
 
 * Robust Table Layout Support
