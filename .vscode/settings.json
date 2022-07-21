@@ -1,0 +1,21 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.test.config": [
+        {
+            "name": "modules",
+            "vmargs": [
+                "--add-exports=com.justifiedsolutions.justpdf/com.justifiedsolutions.justpdf.layout=ALL-UNNAMED",
+                "--add-exports=com.justifiedsolutions.justpdf/com.justifiedsolutions.justpdf.pdf=ALL-UNNAMED",
+                "--add-exports=com.justifiedsolutions.justpdf/com.justifiedsolutions.justpdf.pdf.contents=ALL-UNNAMED",
+                "--add-exports=com.justifiedsolutions.justpdf/com.justifiedsolutions.justpdf.pdf.doc=ALL-UNNAMED",
+                "--add-exports=com.justifiedsolutions.justpdf/com.justifiedsolutions.justpdf.pdf.font=ALL-UNNAMED",
+                "--add-exports=com.justifiedsolutions.justpdf/com.justifiedsolutions.justpdf.pdf.object=ALL-UNNAMED",
+                "-DTargetDirectory=${workspaceFolder}/target",
+            ],
+        },
+    ],
+    "java.test.defaultConfig": "modules",
+    "sonarlint.connectedMode.project": {
+        "projectKey": "com.justifiedsolutions:justPDF"
+    },
+}
