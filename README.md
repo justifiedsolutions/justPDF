@@ -21,7 +21,7 @@ Add this to your pom.xml file to use the latest version of justPDF:
 <dependency>
     <groupId>com.justifiedsolutions</groupId>
     <artifactId>justPDF</artifactId>
-    <version>1.2.5</version>
+    <version>1.2.6</version>
 </dependency>
 ```
 
