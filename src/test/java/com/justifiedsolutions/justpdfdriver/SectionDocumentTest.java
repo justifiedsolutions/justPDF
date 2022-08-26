@@ -5,12 +5,20 @@
 
 package com.justifiedsolutions.justpdfdriver;
 
-import com.justifiedsolutions.justpdf.api.*;
+import com.justifiedsolutions.justpdf.api.Document;
+import com.justifiedsolutions.justpdf.api.DocumentException;
+import com.justifiedsolutions.justpdf.api.Header;
+import com.justifiedsolutions.justpdf.api.HorizontalAlignment;
+import com.justifiedsolutions.justpdf.api.Margin;
+import com.justifiedsolutions.justpdf.api.Metadata;
+import com.justifiedsolutions.justpdf.api.PageNumberFooter;
+import com.justifiedsolutions.justpdf.api.PageSize;
+import com.justifiedsolutions.justpdf.api.Section;
 import com.justifiedsolutions.justpdf.api.content.Paragraph;
 import com.justifiedsolutions.justpdf.api.font.PDFFont;
 import org.junit.jupiter.api.Test;
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -18,10 +26,10 @@ import java.nio.file.Files;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SectionDocumentTest {
+class SectionDocumentTest {
 
     @Test
-    public void go() throws IOException, DocumentException {
+    void go() throws IOException, DocumentException {
         Document document = new Document(PageSize.LETTER, new Margin(72, 72, 72, 72));
         document.setMetadata(Metadata.TITLE, "SectionDocumentTest");
         document.setMetadata(Metadata.AUTHOR, "Jay Burgess");

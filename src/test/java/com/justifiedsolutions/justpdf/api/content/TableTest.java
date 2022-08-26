@@ -7,45 +7,50 @@ package com.justifiedsolutions.justpdf.api.content;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TableTest {
+class TableTest {
 
     @Test
-    public void copyConstructor() {
+    void copyConstructor() {
         Table table = new Table(3);
         Table copy = new Table(table, table.getCells());
         assertEquals(table, copy);
     }
 
     @Test
-    public void createWithBadWidthPositive() {
-        float[] columns = {25f, 25f, 25f, 25f};
+    void createWithBadWidthPositive() {
+        float[] columns = { 25f, 25f, 25f, 25f };
         assertThrows(IllegalArgumentException.class, () -> new Table(columns));
     }
 
     @Test
-    public void createWithBadWidthNegative() {
-        float[] columns = {-25f, -25f, -25f, -25f};
+    void createWithBadWidthNegative() {
+        float[] columns = { -25f, -25f, -25f, -25f };
         assertThrows(IllegalArgumentException.class, () -> new Table(columns));
     }
 
     @Test
-    public void getNumberOfColumns() {
+    void getNumberOfColumns() {
         int input = 4;
         Table table = new Table(input);
         assertEquals(input, table.getNumberOfColumns());
     }
 
     @Test
-    public void getRelativeColumnWidths() {
-        float[] columns = {.25f, .25f, .25f, .25f};
+    void getRelativeColumnWidths() {
+        float[] columns = { .25f, .25f, .25f, .25f };
         Table table = new Table(columns);
         assertArrayEquals(columns, table.getRelativeColumnWidths());
     }
 
     @Test
-    public void setKeepTogether() {
+    void setKeepTogether() {
         Table table = new Table(4);
         table.setKeepTogether(true);
         assertTrue(table.isKeepTogether());
@@ -54,7 +59,7 @@ public class TableTest {
     }
 
     @Test
-    public void setWidthPercentage() {
+    void setWidthPercentage() {
         float input = .95f;
         Table table = new Table(4);
         table.setWidthPercentage(input);
@@ -62,7 +67,7 @@ public class TableTest {
     }
 
     @Test
-    public void setSpacingBefore() {
+    void setSpacingBefore() {
         float input = 9;
         Table table = new Table(4);
         table.setSpacingBefore(input);
@@ -70,7 +75,7 @@ public class TableTest {
     }
 
     @Test
-    public void setSpacingAfter() {
+    void setSpacingAfter() {
         float input = 10;
         Table table = new Table(4);
         table.setSpacingAfter(input);
@@ -78,7 +83,7 @@ public class TableTest {
     }
 
     @Test
-    public void setBorderWidth() {
+    void setBorderWidth() {
         float input = .5f;
         Table table = new Table(4);
         table.setBorderWidth(input);
@@ -86,7 +91,7 @@ public class TableTest {
     }
 
     @Test
-    public void createCell() {
+    void createCell() {
         float bw = .5f;
         Table table = new Table(4);
         table.setBorderWidth(bw);
@@ -98,7 +103,7 @@ public class TableTest {
     }
 
     @Test
-    public void createCellContent() {
+    void createCellContent() {
         Phrase content = new Phrase("");
         Table table = new Table(4);
         Cell cell = table.createCell(content);
@@ -109,8 +114,8 @@ public class TableTest {
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void testEquals() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void testEquals() {
         Table t0 = new Table(2);
 
         assertTrue(t0.equals(t0));

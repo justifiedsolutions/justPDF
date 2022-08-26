@@ -7,7 +7,13 @@ package com.justifiedsolutions.justpdf.layout;
 
 import com.justifiedsolutions.justpdf.api.HorizontalAlignment;
 import com.justifiedsolutions.justpdf.api.content.Chunk;
-import com.justifiedsolutions.justpdf.pdf.contents.*;
+import com.justifiedsolutions.justpdf.pdf.contents.GraphicsOperator;
+import com.justifiedsolutions.justpdf.pdf.contents.MoveToNextLine;
+import com.justifiedsolutions.justpdf.pdf.contents.PositionText;
+import com.justifiedsolutions.justpdf.pdf.contents.SetCharacterSpacing;
+import com.justifiedsolutions.justpdf.pdf.contents.SetLeading;
+import com.justifiedsolutions.justpdf.pdf.contents.SetWordSpacing;
+import com.justifiedsolutions.justpdf.pdf.contents.ShowText;
 import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 import com.justifiedsolutions.justpdf.pdf.object.PDFString;
 
@@ -33,7 +39,8 @@ final class TextLine implements ContentLine {
     private int numChars;
 
     /**
-     * Creates a new TextLine of the specified width and indentations from the margin.
+     * Creates a new TextLine of the specified width and indentations from the
+     * margin.
      *
      * @param lineWidth   the width of the line
      * @param leftIndent  the amount of left indent
@@ -61,7 +68,8 @@ final class TextLine implements ContentLine {
     }
 
     /**
-     * Sets the leading to the maximum of the current leading and the specified leading.
+     * Sets the leading to the maximum of the current leading and the specified
+     * leading.
      *
      * @param leading the possible new leading
      */
@@ -70,7 +78,8 @@ final class TextLine implements ContentLine {
     }
 
     /**
-     * Sets the lineHeight multiplier. This will be multiplied by the font height to determine the leading for the
+     * Sets the lineHeight multiplier. This will be multiplied by the font height to
+     * determine the leading for the
      * line.
      *
      * @param lineHeight the multiplier
@@ -107,7 +116,8 @@ final class TextLine implements ContentLine {
     }
 
     /**
-     * Attempts to append the specified {@link Chunk} to the line. Any part of the Chunk that couldn't fit is returned.
+     * Attempts to append the specified {@link Chunk} to the line. Any part of the
+     * Chunk that couldn't fit is returned.
      * If the entire Chunk could fit, then {@code null} is returned.
      *
      * @param chunk the Chunk to append

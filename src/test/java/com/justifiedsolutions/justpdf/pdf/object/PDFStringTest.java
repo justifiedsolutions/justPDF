@@ -10,44 +10,47 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PDFStringTest {
+class PDFStringTest {
 
     @Test
-    public void writeToPDFApostrophe() throws IOException {
+    void writeToPDFApostrophe() throws IOException {
         String value = "it's";
-        byte[] expected = {'(', (byte) 'i', (byte) 't', (byte) '\'', (byte) 's', ')'};
+        byte[] expected = { '(', (byte) 'i', (byte) 't', (byte) '\'', (byte) 's', ')' };
         testPDFString(value, expected);
     }
 
     @Test
-    public void writeToPDFString() throws IOException {
+    void writeToPDFString() throws IOException {
         String value = "string";
-        byte[] expected = {'(', (byte) 's', (byte) 't', (byte) 'r', (byte) 'i', (byte) 'n', (byte) 'g', ')'};
+        byte[] expected = { '(', (byte) 's', (byte) 't', (byte) 'r', (byte) 'i', (byte) 'n', (byte) 'g', ')' };
         testPDFString(value, expected);
     }
 
     @Test
-    public void writeToPDFEmpty() throws IOException {
+    void writeToPDFEmpty() throws IOException {
         String value = "";
-        byte[] expected = {'(', ')'};
+        byte[] expected = { '(', ')' };
         testPDFString(value, expected);
     }
 
     @Test
-    public void escapedCharTest() throws IOException {
-        char[] special = {'\n', '\r', '\t', '\b', '\f', '(', ')', '\\'};
+    void escapedCharTest() throws IOException {
+        char[] special = { '\n', '\r', '\t', '\b', '\f', '(', ')', '\\' };
         for (char c : special) {
             String input = String.format("f%cb", c);
-            byte[] expected = {'(', (byte) 'f', (byte) '\\', (byte) c, (byte) 'b', ')'};
+            byte[] expected = { '(', (byte) 'f', (byte) '\\', (byte) c, (byte) 'b', ')' };
             testPDFString(input, expected);
         }
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void testEquals() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void testEquals() {
         PDFString s0 = new PDFString("foo");
         assertTrue(s0.equals(s0));
         assertFalse(s0.equals(null));

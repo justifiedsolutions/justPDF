@@ -10,10 +10,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TextSplitterTest {
+class TextSplitterTest {
 
     @Test
-    public void splitNoHyphenDoesNotFit() {
+    void splitNoHyphenDoesNotFit() {
         float lineWidth = 79;
         String text = "hyphenation";
         PDFFontWrapper wrapper = PDFFontWrapper.getInstance(new PDFFont(PDFFont.FontName.COURIER, 12));
@@ -23,7 +23,7 @@ public class TextSplitterTest {
     }
 
     @Test
-    public void splitHyphen() {
+    void splitHyphen() {
         float lineWidth = 79;
         String text = "hyphenation";
         PDFFontWrapper wrapper = PDFFontWrapper.getInstance(new PDFFont(PDFFont.FontName.COURIER, 12));

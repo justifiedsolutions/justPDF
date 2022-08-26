@@ -5,13 +5,20 @@
 
 package com.justifiedsolutions.justpdfdriver;
 
-import com.justifiedsolutions.justpdf.api.*;
+import com.justifiedsolutions.justpdf.api.Document;
+import com.justifiedsolutions.justpdf.api.DocumentException;
+import com.justifiedsolutions.justpdf.api.Header;
+import com.justifiedsolutions.justpdf.api.HorizontalAlignment;
+import com.justifiedsolutions.justpdf.api.Margin;
+import com.justifiedsolutions.justpdf.api.Metadata;
+import com.justifiedsolutions.justpdf.api.PageNumberFooter;
+import com.justifiedsolutions.justpdf.api.PageSize;
 import com.justifiedsolutions.justpdf.api.content.PageBreak;
 import com.justifiedsolutions.justpdf.api.content.Paragraph;
 import com.justifiedsolutions.justpdf.api.font.PDFFont;
 import org.junit.jupiter.api.Test;
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -19,10 +26,10 @@ import java.nio.file.Files;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class ParagraphOnlyDocumentTest {
+class ParagraphOnlyDocumentTest {
 
     @Test
-    public void go() throws IOException, DocumentException {
+    void go() throws IOException, DocumentException {
         Document document = new Document(PageSize.LETTER, new Margin(72, 72, 72, 72));
         document.setMetadata(Metadata.TITLE, "ParagraphOnlyDocumentTest");
         document.setMetadata(Metadata.AUTHOR, "Jay Burgess");
@@ -102,23 +109,35 @@ public class ParagraphOnlyDocumentTest {
                 "technology " +
                 "cross	Some hyphenated, some open, some closed. Check the dictionary.	cross-referenced section " +
                 "cross-country skis But: crosscut saw fold	Closed unless formed with numbers of 100 or more.	" +
-                "tenfold increase 100-fold increase full	Hyphenated before noun, open after noun.	full-scale drawings The drawings are full scale. half	Most hyphenated, some closed. Check the dictionary." +
-                "	half-inch measurement half-baked plan halfway house halfhearted attempt high, low, upper, lower, middle, mid	Most hyphenated before noun, open after noun.	high-volume trading highbrow organization" +
-                "   (check the dictionary!) middle-class voters midlife crisis mid-Atlantic region Mideast peace process like	Closed unless root word ends in l or ll or has three syllables or more.	catlike jumping" +
-                " ability childlike demeanor cathedral-like façade number + odd	Always hyphenate compounds formed with numbers (words or numerals) plus the word odd.	" +
-                "twenty-odd pages 360-odd days four-hundred-odd socks   . . . but, four hundred odd socks number	Always open when used to express a ratio (with the word percent).	" +
-                "ten percent increase 100 percent change Number + Unit of Measure	Always hyphenate	three-mile limit two-week vacation 150-yard skid mark Number + Unit of Measure + Adjective	Always hyphenate" +
-                "	two-year-old daughter sixty-five-year-old man two-and-a-half-year-old   child twenty-five-foot-high wall But: six year-old girls Number + Number + Unit of Measure + Adjective	Hyphenate the number " +
-                "and then the adjective	twenty-four six-inch-long measurements Number + Unit of Measure + Adjective (coming after noun)	Hyphenate the number	a man sixty-five years old (note plural years) No hyphen" +
-                "	a wall three meters high Hyphenate the number	twenty-four boys five years old fractional numbers	Hyphenate spelled-out fractions used as adjectives.	two-thirds majority In mixed fractions," +
-                " the whole number is not joined to the fraction by another hyphen.	twenty-one and one-quarter miles four and one-eighth inches numbers	Hyphenate only the numbers from twenty-one through ninety-nine." +
-                " All others are open.	twenty-four bottles of beer on the wall two hundred rock stars over, under	Closed unless the word the appears in the compound.	overexposed film underrated basketball team " +
-                "over-the-counter stock   market under-the-table deal self	Most hyphenated. Closed if prefix un- is added or suffix added to self.	self-confident applicant self-conscious speaker unselfconscious " +
-                "speaker selfish act selfless character trait wide	Always closed unless cumbersome. Cumbersome compounds are hyphenated when they appear before the noun modified and open after the noun modified." +
+                "tenfold increase 100-fold increase full	Hyphenated before noun, open after noun.	full-scale drawings The drawings are full scale. half	Most hyphenated, some closed. Check the dictionary."
+                +
+                "	half-inch measurement half-baked plan halfway house halfhearted attempt high, low, upper, lower, middle, mid	Most hyphenated before noun, open after noun.	high-volume trading highbrow organization"
+                +
+                "   (check the dictionary!) middle-class voters midlife crisis mid-Atlantic region Mideast peace process like	Closed unless root word ends in l or ll or has three syllables or more.	catlike jumping"
+                +
+                " ability childlike demeanor cathedral-like façade number + odd	Always hyphenate compounds formed with numbers (words or numerals) plus the word odd.	"
+                +
+                "twenty-odd pages 360-odd days four-hundred-odd socks   . . . but, four hundred odd socks number	Always open when used to express a ratio (with the word percent).	"
+                +
+                "ten percent increase 100 percent change Number + Unit of Measure	Always hyphenate	three-mile limit two-week vacation 150-yard skid mark Number + Unit of Measure + Adjective	Always hyphenate"
+                +
+                "	two-year-old daughter sixty-five-year-old man two-and-a-half-year-old   child twenty-five-foot-high wall But: six year-old girls Number + Number + Unit of Measure + Adjective	Hyphenate the number "
+                +
+                "and then the adjective	twenty-four six-inch-long measurements Number + Unit of Measure + Adjective (coming after noun)	Hyphenate the number	a man sixty-five years old (note plural years) No hyphen"
+                +
+                "	a wall three meters high Hyphenate the number	twenty-four boys five years old fractional numbers	Hyphenate spelled-out fractions used as adjectives.	two-thirds majority In mixed fractions,"
+                +
+                " the whole number is not joined to the fraction by another hyphen.	twenty-one and one-quarter miles four and one-eighth inches numbers	Hyphenate only the numbers from twenty-one through ninety-nine."
+                +
+                " All others are open.	twenty-four bottles of beer on the wall two hundred rock stars over, under	Closed unless the word the appears in the compound.	overexposed film underrated basketball team "
+                +
+                "over-the-counter stock   market under-the-table deal self	Most hyphenated. Closed if prefix un- is added or suffix added to self.	self-confident applicant self-conscious speaker unselfconscious "
+                +
+                "speaker selfish act selfless character trait wide	Always closed unless cumbersome. Cumbersome compounds are hyphenated when they appear before the noun modified and open after the noun modified."
+                +
                 "	statewide referendum worldwide legal services university-wide crusade (comes before the noun " +
                 "modified)");
         document.add(p5);
-
 
         String targetDirectoryName = System.getProperty("TargetDirectory");
         File targetDirectory = new File(targetDirectoryName);

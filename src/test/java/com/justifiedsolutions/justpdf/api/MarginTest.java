@@ -10,12 +10,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class MarginTest {
+class MarginTest {
 
     private final Margin margin = new Margin(72, 72, 72, 72);
 
     @Test
-    public void getDimensions() {
+    void getDimensions() {
         assertEquals(72, margin.getTop());
         assertEquals(72, margin.getBottom());
         assertEquals(72, margin.getLeft());
@@ -23,7 +23,7 @@ public class MarginTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         assertEquals(margin, margin);
         assertEquals(margin.hashCode(), margin.hashCode());
 

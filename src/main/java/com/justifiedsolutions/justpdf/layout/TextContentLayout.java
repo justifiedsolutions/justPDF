@@ -5,7 +5,11 @@
 
 package com.justifiedsolutions.justpdf.layout;
 
-import com.justifiedsolutions.justpdf.api.content.*;
+import com.justifiedsolutions.justpdf.api.content.Chunk;
+import com.justifiedsolutions.justpdf.api.content.Content;
+import com.justifiedsolutions.justpdf.api.content.Paragraph;
+import com.justifiedsolutions.justpdf.api.content.Phrase;
+import com.justifiedsolutions.justpdf.api.content.TextContent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +30,8 @@ class TextContentLayout implements ContentLayout {
      * Creates a new {@code TextContentLayout}. This should only be called by {@link
      * TextContentLayoutFactory#getContentLayout(Content)}.
      *
-     * @param lineWidth   the width of the lines to be created by this {@link ContentLayout}
+     * @param lineWidth   the width of the lines to be created by this
+     *                    {@link ContentLayout}
      * @param textContent the {@link TextContent} to layout
      */
     TextContentLayout(float lineWidth, TextContent textContent) {

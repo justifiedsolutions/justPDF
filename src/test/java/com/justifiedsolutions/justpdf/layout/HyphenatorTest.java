@@ -13,201 +13,201 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * This tests all 14 exception words plus words specified in Liang's Thesis.
  */
-public class HyphenatorTest {
+class HyphenatorTest {
 
     @Test
-    public void rugsSlashFurnishings() {
+    void rugsSlashFurnishings() {
         String text = "Rugs/furnishings";
-        int[] expected = {8, 12};
+        int[] expected = { 8, 12 };
         testHyphenation(text, expected);
     }
 
     @Test
-    public void rugsSlashFurnishingsSlashSomething() {
+    void rugsSlashFurnishingsSlashSomething() {
         String text = "Rugs/furnishings/Something";
-        int[] expected = {8, 12, 21};
+        int[] expected = { 8, 12, 21 };
         testHyphenation(text, expected);
     }
 
     @Test
-    public void checkingSlashSavings() {
+    void checkingSlashSavings() {
         String text = "Checking/Savings";
-        int[] expected = {5, 12};
+        int[] expected = { 5, 12 };
         testHyphenation(text, expected);
     }
 
     @Test
-    public void test() {
+    void test() {
         String text = "test";
         int[] expected = {};
         testHyphenation(text, expected);
     }
 
     @Test
-    public void whole() {
+    void whole() {
         String text = "whole";
         int[] expected = {};
         testHyphenation(text, expected);
     }
 
     @Test
-    public void squirmed() {
+    void squirmed() {
         String text = "squirmed";
         int[] expected = {};
         testHyphenation(text, expected);
     }
 
     @Test
-    public void analogous() {
+    void analogous() {
         String text = "analogous";
-        int[] expected = {4, 5};
+        int[] expected = { 4, 5 };
         testHyphenation(text, expected);
     }
 
     @Test
-    public void at() {
+    void at() {
         String text = "at";
         int[] expected = {};
         testHyphenation(text, expected);
     }
 
     @Test
-    public void computer() {
+    void computer() {
         String text = "computer";
-        int[] expected = {3, 6};
+        int[] expected = { 3, 6 };
         testHyphenation(text, expected);
     }
 
     @Test
-    public void algorithm() {
+    void algorithm() {
         String text = "algorithm";
-        int[] expected = {2, 4};
+        int[] expected = { 2, 4 };
         testHyphenation(text, expected);
     }
 
     @Test
-    public void hyphenation() {
+    void hyphenation() {
         String text = "hyphenation";
-        int[] expected = {2, 6, 7};
+        int[] expected = { 2, 6, 7 };
         testHyphenation(text, expected);
     }
 
     @Test
-    public void concatenation() {
+    void concatenation() {
         String text = "concatenation";
-        int[] expected = {3, 7, 9};
+        int[] expected = { 3, 7, 9 };
         testHyphenation(text, expected);
     }
 
     @Test
-    public void mathematics() {
+    void mathematics() {
         String text = "mathematics";
-        int[] expected = {4, 5, 8};
+        int[] expected = { 4, 5, 8 };
         testHyphenation(text, expected);
     }
 
     @Test
-    public void typesetting() {
+    void typesetting() {
         String text = "typesetting";
-        int[] expected = {4, 7};
+        int[] expected = { 4, 7 };
         testHyphenation(text, expected);
     }
 
     @Test
-    public void obligatory() {
+    void obligatory() {
         String text = "obligatory";
-        int[] expected = {5, 6};
+        int[] expected = { 5, 6 };
         testHyphenation(text, expected);
     }
 
     @Test
-    public void associate() {
+    void associate() {
         String text = "associate";
-        int[] expected = {2, 4};
+        int[] expected = { 2, 4 };
         testHyphenation(text, expected);
     }
 
     @Test
-    public void associates() {
+    void associates() {
         String text = "associates";
-        int[] expected = {2, 4};
+        int[] expected = { 2, 4 };
         testHyphenation(text, expected);
     }
 
     @Test
-    public void declination() {
+    void declination() {
         String text = "declination";
-        int[] expected = {3, 5, 7};
+        int[] expected = { 3, 5, 7 };
         testHyphenation(text, expected);
     }
 
     @Test
-    public void philanthropic() {
+    void philanthropic() {
         String text = "philanthropic";
-        int[] expected = {4, 6};
+        int[] expected = { 4, 6 };
         testHyphenation(text, expected);
     }
 
     @Test
-    public void present() {
+    void present() {
         String text = "present";
         int[] expected = {};
         testHyphenation(text, expected);
     }
 
     @Test
-    public void presents() {
+    void presents() {
         String text = "presents";
         int[] expected = {};
         testHyphenation(text, expected);
     }
 
     @Test
-    public void project() {
+    void project() {
         String text = "project";
         int[] expected = {};
         testHyphenation(text, expected);
     }
 
     @Test
-    public void projects() {
+    void projects() {
         String text = "projects";
         int[] expected = {};
         testHyphenation(text, expected);
     }
 
     @Test
-    public void reciprocity() {
+    void reciprocity() {
         String text = "reciprocity";
-        int[] expected = {3, 4, 8, 9};
+        int[] expected = { 3, 4, 8, 9 };
         testHyphenation(text, expected);
     }
 
     @Test
-    public void recognizance() {
+    void recognizance() {
         String text = "recognizance";
-        int[] expected = {2, 5, 7};
+        int[] expected = { 2, 5, 7 };
         testHyphenation(text, expected);
     }
 
     @Test
-    public void reformation() {
+    void reformation() {
         String text = "reformation";
-        int[] expected = {3, 5, 7};
+        int[] expected = { 3, 5, 7 };
         testHyphenation(text, expected);
     }
 
     @Test
-    public void retribution() {
+    void retribution() {
         String text = "retribution";
-        int[] expected = {3, 5, 7};
+        int[] expected = { 3, 5, 7 };
         testHyphenation(text, expected);
     }
 
     @Test
-    public void table() {
+    void table() {
         String text = "table";
-        int[] expected = {2};
+        int[] expected = { 2 };
         testHyphenation(text, expected);
     }
 

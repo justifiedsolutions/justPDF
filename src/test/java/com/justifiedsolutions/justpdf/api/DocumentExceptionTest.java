@@ -10,16 +10,16 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class DocumentExceptionTest {
+class DocumentExceptionTest {
 
     @Test
-    public void testNoArgConstructor() {
+    void testNoArgConstructor() {
         DocumentException ex = new DocumentException();
         assertNotNull(ex);
     }
 
     @Test
-    public void testStringConstructor() {
+    void testStringConstructor() {
         var msg = "exception message";
         DocumentException ex = new DocumentException(msg);
         assertNotNull(ex);
@@ -27,7 +27,7 @@ public class DocumentExceptionTest {
     }
 
     @Test
-    public void testStringThrowableConstructor() {
+    void testStringThrowableConstructor() {
         var msg = "exception message";
         var thw = new RuntimeException();
         DocumentException ex = new DocumentException(msg, thw);

@@ -11,12 +11,16 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PDFStreamTest {
+class PDFStreamTest {
 
     @Test
-    public void writeToPDF() throws IOException {
+    void writeToPDF() throws IOException {
         byte[] data = "I am a leaf on the wind. Watch how I soar.".getBytes();
 
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
@@ -34,8 +38,8 @@ public class PDFStreamTest {
     }
 
     @Test
-    public void addFilters() {
-        PDFStream stream = new PDFStream(new byte[]{});
+    void addFilters() {
+        PDFStream stream = new PDFStream(new byte[] {});
         stream.addFilter(null);
         assertNull(stream.getFilter());
         stream.addFilter(new PDFArray());
@@ -47,8 +51,8 @@ public class PDFStreamTest {
     }
 
     @Test
-    public void addDecodeParams() {
-        PDFStream stream = new PDFStream(new byte[]{});
+    void addDecodeParams() {
+        PDFStream stream = new PDFStream(new byte[] {});
         stream.addDecodeParams(null);
         assertNull(stream.getDecodeParams());
         stream.addDecodeParams(new PDFArray());
@@ -63,10 +67,10 @@ public class PDFStreamTest {
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void equals() {
-        byte[] b1 = {0, 1, 2, 3, 4};
-        byte[] b2 = {1, 2, 3, 4, 5};
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void equals() {
+        byte[] b1 = { 0, 1, 2, 3, 4 };
+        byte[] b2 = { 1, 2, 3, 4, 5 };
         PDFStream s1 = new PDFStream(b1);
         assertTrue(s1.equals(s1));
         assertFalse(s1.equals(null));

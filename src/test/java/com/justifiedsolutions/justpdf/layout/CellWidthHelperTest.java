@@ -18,10 +18,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class CellWidthHelperTest {
+class CellWidthHelperTest {
 
     @Test
-    public void getMinimumWidthHyphenate() {
+    void getMinimumWidthHyphenate() {
         Font font = new PDFFont();
         String text = "Respondant is me";
         Paragraph paragraph = new Paragraph(text, font);
@@ -39,7 +39,7 @@ public class CellWidthHelperTest {
     }
 
     @Test
-    public void getMinimumWidthNoHyphenate() {
+    void getMinimumWidthNoHyphenate() {
         Font font = new PDFFont();
         String text = "Respondant";
         Paragraph paragraph = new Paragraph(text, font);
@@ -57,7 +57,7 @@ public class CellWidthHelperTest {
     }
 
     @Test
-    public void getMinimumWidthMultipleChunks() {
+    void getMinimumWidthMultipleChunks() {
         Font font = new PDFFont();
         String text = "Respondant";
         Paragraph paragraph = new Paragraph(text, font);
@@ -76,7 +76,7 @@ public class CellWidthHelperTest {
     }
 
     @Test
-    public void calculateColumnWidthsMinLessPreferred() {
+    void calculateColumnWidthsMinLessPreferred() {
         Column col1 = new Column(1, 10);
         Column col2 = new Column(2, 10);
 
@@ -90,7 +90,7 @@ public class CellWidthHelperTest {
     }
 
     @Test
-    public void calculateColumnWidthsNotEnoughRoom() {
+    void calculateColumnWidthsNotEnoughRoom() {
         Column col1 = new Column(1, 10);
         Column col2 = new Column(2, 10);
 
@@ -103,7 +103,7 @@ public class CellWidthHelperTest {
     }
 
     @Test
-    public void calculateColumnWidthsOneHasRoom() {
+    void calculateColumnWidthsOneHasRoom() {
         Column col1 = new Column(1, 10);
         Column col2 = new Column(2, 10);
 
@@ -117,7 +117,7 @@ public class CellWidthHelperTest {
     }
 
     @Test
-    public void calculateColumnWidthsTwoHaveRoom() {
+    void calculateColumnWidthsTwoHaveRoom() {
         Column col1 = new Column(1, 10);
         Column col2 = new Column(2, 10);
         Column col3 = new Column(3, 10);
@@ -134,7 +134,7 @@ public class CellWidthHelperTest {
     }
 
     @Test
-    public void calculateColumnWidthsTwoHaveRoom2() {
+    void calculateColumnWidthsTwoHaveRoom2() {
         Column col1 = new Column(1, 9.25f);
         Column col2 = new Column(2, 10);
         Column col3 = new Column(3, 10);

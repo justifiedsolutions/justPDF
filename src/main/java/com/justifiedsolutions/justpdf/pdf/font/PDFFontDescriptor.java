@@ -5,7 +5,11 @@
 
 package com.justifiedsolutions.justpdf.pdf.font;
 
-import com.justifiedsolutions.justpdf.pdf.object.*;
+import com.justifiedsolutions.justpdf.pdf.object.PDFDictionary;
+import com.justifiedsolutions.justpdf.pdf.object.PDFInteger;
+import com.justifiedsolutions.justpdf.pdf.object.PDFName;
+import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
+import com.justifiedsolutions.justpdf.pdf.object.PDFRectangle;
 
 import java.util.Objects;
 

@@ -5,8 +5,18 @@
 
 package com.justifiedsolutions.justpdfdriver;
 
-import com.justifiedsolutions.justpdf.api.*;
-import com.justifiedsolutions.justpdf.api.content.*;
+import com.justifiedsolutions.justpdf.api.Document;
+import com.justifiedsolutions.justpdf.api.DocumentException;
+import com.justifiedsolutions.justpdf.api.HorizontalAlignment;
+import com.justifiedsolutions.justpdf.api.Margin;
+import com.justifiedsolutions.justpdf.api.Metadata;
+import com.justifiedsolutions.justpdf.api.PageSize;
+import com.justifiedsolutions.justpdf.api.VerticalAlignment;
+import com.justifiedsolutions.justpdf.api.content.Cell;
+import com.justifiedsolutions.justpdf.api.content.Chunk;
+import com.justifiedsolutions.justpdf.api.content.Paragraph;
+import com.justifiedsolutions.justpdf.api.content.Phrase;
+import com.justifiedsolutions.justpdf.api.content.Table;
 import com.justifiedsolutions.justpdf.api.font.Font;
 import com.justifiedsolutions.justpdf.api.font.PDFFont;
 import org.junit.jupiter.api.Test;
@@ -20,7 +30,7 @@ import static com.justifiedsolutions.justpdf.api.font.PDFFont.FontName.HELVETICA
 import static com.justifiedsolutions.justpdf.api.font.PDFFont.FontName.HELVETICA_BOLD;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ComplexTableOnlyDocumentTest {
+class ComplexTableOnlyDocumentTest {
 
     private static final float MEDIUM_SIZE = PDFFont.DEFAULT_SIZE * .80f;
     private static final Font FONT_MEDIUM_REGULAR = new PDFFont(HELVETICA, MEDIUM_SIZE);
@@ -29,9 +39,9 @@ public class ComplexTableOnlyDocumentTest {
     private static final float CELL_PADDING = 7;
 
     @Test
-    public void go() throws DocumentException, IOException {
+    void go() throws DocumentException, IOException {
 
-        Table table = new Table(new float[]{.63f, .37f});
+        Table table = new Table(new float[] { .63f, .37f });
         table.setKeepTogether(true);
         table.setWidthPercentage(100);
         table.setSpacingBefore(9);
@@ -110,7 +120,6 @@ public class ComplexTableOnlyDocumentTest {
         content.add("Petitioner: ");
         content.add(new Chunk("Jane Smith", FONT_MEDIUM_BOLD));
         content.add(Chunk.LINE_BREAK);
-
 
         content.add(Chunk.LINE_BREAK);
         content.add("Respondent");

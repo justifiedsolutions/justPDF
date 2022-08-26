@@ -13,10 +13,10 @@ import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-public class PDFDocEncodedStringTest {
+class PDFDocEncodedStringTest {
 
     @Test
-    public void writeToPDFString() throws IOException {
+    void writeToPDFString() throws IOException {
         String input = "string\u2122";
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         os.writeBytes("(string".getBytes(StandardCharsets.US_ASCII));
@@ -26,14 +26,14 @@ public class PDFDocEncodedStringTest {
     }
 
     @Test
-    public void writeToPDFEmpty() throws IOException {
+    void writeToPDFEmpty() throws IOException {
         String input = "";
         String expected = "()";
         testPDFString(input, expected);
     }
 
     @Test
-    public void writeToPDFNewLine() throws IOException {
+    void writeToPDFNewLine() throws IOException {
         testPDFString("foo\nbar", "(foo\\\nbar)");
     }
 

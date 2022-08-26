@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TextLineHyphenTest {
+class TextLineHyphenTest {
 
     @BeforeAll
     public static void beforeAll() {
@@ -26,7 +26,7 @@ public class TextLineHyphenTest {
     }
 
     @Test
-    public void append() {
+    void append() {
         Chunk input = new Chunk("hyphenation", new PDFFont());
         TextLine line = new TextLine(20, 0, 0);
         Chunk remainder = line.append(input);

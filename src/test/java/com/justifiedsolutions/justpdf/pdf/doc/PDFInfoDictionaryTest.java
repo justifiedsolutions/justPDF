@@ -10,10 +10,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class PDFInfoDictionaryTest {
+class PDFInfoDictionaryTest {
 
     @Test
-    public void putThrowsException() {
+    void putThrowsException() {
         PDFInfoDictionary info = new PDFInfoDictionary();
         PDFString value = new PDFString("");
         assertThrows(IllegalArgumentException.class, () -> info.put(PDFInfoDictionary.TITLE, value));

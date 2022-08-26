@@ -12,11 +12,11 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-public class BeginTextTest {
+class BeginTextTest {
 
     @Test
-    public void writeToPDF() throws IOException {
-        byte[] expected = {(byte) 'B', (byte) 'T', (byte) '\n'};
+    void writeToPDF() throws IOException {
+        byte[] expected = { (byte) 'B', (byte) 'T', (byte) '\n' };
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         new BeginText().writeToPDF(actual);
         assertArrayEquals(expected, actual.toByteArray());

@@ -14,46 +14,49 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SetFontTest {
+class SetFontTest {
 
     private SetFont operator;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         operator = new SetFont(new PDFName("F1"), new PDFReal(12));
     }
 
     @Test
-    public void isCollapsableFalse() {
+    void isCollapsableFalse() {
         TextOperator other = new MoveToNextLine();
         assertFalse(operator.isCollapsable(other));
     }
 
     @Test
-    public void isCollapsableTrue() {
+    void isCollapsableTrue() {
         SetFont other = new SetFont(new PDFName("F1"), new PDFReal(14));
         assertTrue(operator.isCollapsable(other));
     }
 
     @Test
-    public void collapse() {
+    void collapse() {
         SetFont other = new SetFont(new PDFName("F1"), new PDFReal(14));
         GraphicsOperator actual = operator.collapse(other);
         assertEquals(other, actual);
     }
 
     @Test
-    public void writeToPDF() throws IOException {
+    void writeToPDF() throws IOException {
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         operator.writeToPDF(actual);
         assertArrayEquals("/F1 12 Tf\n".getBytes(StandardCharsets.US_ASCII), actual.toByteArray());
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void equals() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void equals() {
         PDFReal small = new PDFReal(8);
         PDFReal large = new PDFReal(12);
         PDFName foo = new PDFName("foo");

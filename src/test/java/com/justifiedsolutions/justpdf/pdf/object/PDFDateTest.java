@@ -16,9 +16,9 @@ import java.time.ZonedDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-public class PDFDateTest {
+ class PDFDateTest {
     @Test
-    public void createPDFDateStringEpochUTC() throws IOException {
+    void createPDFDateStringEpochUTC() throws IOException {
         String expected = "D:19700101000000Z";
         ZonedDateTime input = ZonedDateTime.ofInstant(Instant.EPOCH, ZoneOffset.UTC);
 
@@ -26,7 +26,7 @@ public class PDFDateTest {
     }
 
     @Test
-    public void createPDFDateStringZMinus6() throws IOException {
+    void createPDFDateStringZMinus6() throws IOException {
         String expected = "D:19770124203800-06'00";
         ZonedDateTime input = ZonedDateTime.of(1977, 1, 24, 20, 38, 0, 0, ZoneOffset.of("-6"));
 
@@ -34,7 +34,7 @@ public class PDFDateTest {
     }
 
     @Test
-    public void createPDFDateStringZPlus0630() throws IOException {
+    void createPDFDateStringZPlus0630() throws IOException {
         String expected = "D:19770124203800+06'30";
         ZonedDateTime input = ZonedDateTime.of(1977, 1, 24, 20, 38, 0, 0, ZoneOffset.of("+0630"));
 

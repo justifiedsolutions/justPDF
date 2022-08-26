@@ -13,19 +13,24 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ParagraphTest {
+class ParagraphTest {
 
     private Paragraph paragraph;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         paragraph = new Paragraph();
     }
 
     @Test
-    public void constructors() {
+    void constructors() {
         String string = "foo";
         Chunk content = new Chunk(string);
         Font font = new PDFFont();
@@ -43,63 +48,63 @@ public class ParagraphTest {
     }
 
     @Test
-    public void setLeading() {
+    void setLeading() {
         float input = 20;
         paragraph.setLeading(input);
         assertEquals(input, paragraph.getLeading());
     }
 
     @Test
-    public void setLineHeight() {
+    void setLineHeight() {
         float input = 20;
         paragraph.setLineHeight(input);
         assertEquals(input, paragraph.getLineHeight());
     }
 
     @Test
-    public void setFont() {
+    void setFont() {
         Font input = new PDFFont();
         paragraph.setFont(input);
         assertEquals(input, paragraph.getFont());
     }
 
     @Test
-    public void setLeftIndent() {
+    void setLeftIndent() {
         float input = 20;
         paragraph.setLeftIndent(input);
         assertEquals(input, paragraph.getLeftIndent());
     }
 
     @Test
-    public void setRightIndent() {
+    void setRightIndent() {
         float input = 20;
         paragraph.setRightIndent(input);
         assertEquals(input, paragraph.getRightIndent());
     }
 
     @Test
-    public void setFirstLineIndent() {
+    void setFirstLineIndent() {
         float input = 20;
         paragraph.setFirstLineIndent(input);
         assertEquals(input, paragraph.getFirstLineIndent());
     }
 
     @Test
-    public void setSpacingBefore() {
+    void setSpacingBefore() {
         float input = 20;
         paragraph.setSpacingBefore(input);
         assertEquals(input, paragraph.getSpacingBefore());
     }
 
     @Test
-    public void setSpacingAfter() {
+    void setSpacingAfter() {
         float input = 20;
         paragraph.setSpacingAfter(input);
         assertEquals(input, paragraph.getSpacingAfter());
     }
 
     @Test
-    public void setKeepTogether() {
+    void setKeepTogether() {
         paragraph.setKeepTogether(true);
         assertTrue(paragraph.isKeepTogether());
         paragraph.setKeepTogether(false);
@@ -107,14 +112,14 @@ public class ParagraphTest {
     }
 
     @Test
-    public void setHyphenate() {
+    void setHyphenate() {
         assertTrue(paragraph.isHyphenate());
         paragraph.setHyphenate(false);
         assertFalse(paragraph.isHyphenate());
     }
 
     @Test
-    public void setAlignment() {
+    void setAlignment() {
         assertEquals(HorizontalAlignment.LEFT, paragraph.getAlignment());
         HorizontalAlignment input = HorizontalAlignment.JUSTIFIED;
         paragraph.setAlignment(input);
@@ -122,7 +127,7 @@ public class ParagraphTest {
     }
 
     @Test
-    public void addContentChunk() {
+    void addContentChunk() {
         Chunk input = new Chunk();
         paragraph.add(input);
         List<TextContent> actual = paragraph.getContent();
@@ -132,7 +137,7 @@ public class ParagraphTest {
     }
 
     @Test
-    public void addContentPhrase() {
+    void addContentPhrase() {
         Phrase input = new Phrase();
         paragraph.add(input);
         List<TextContent> actual = paragraph.getContent();
@@ -142,13 +147,13 @@ public class ParagraphTest {
     }
 
     @Test
-    public void addContentParagraph() {
+    void addContentParagraph() {
         TextContent content = new Paragraph();
         assertThrows(IllegalArgumentException.class, () -> paragraph.add(content));
     }
 
     @Test
-    public void addContentNull() {
+    void addContentNull() {
         paragraph.add((TextContent) null);
         List<TextContent> actual = paragraph.getContent();
         assertNotNull(actual);
@@ -156,7 +161,7 @@ public class ParagraphTest {
     }
 
     @Test
-    public void addString() {
+    void addString() {
         String input = "foo";
         paragraph.add(input);
         List<TextContent> actual = paragraph.getContent();
@@ -166,7 +171,7 @@ public class ParagraphTest {
     }
 
     @Test
-    public void addStringNull() {
+    void addStringNull() {
         paragraph.add((String) null);
         List<TextContent> actual = paragraph.getContent();
         assertNotNull(actual);
@@ -174,7 +179,7 @@ public class ParagraphTest {
     }
 
     @Test
-    public void testEqualsHashCode() {
+    void testEqualsHashCode() {
         Paragraph paragraph2 = new Paragraph(paragraph, paragraph.getContent());
 
         assertEquals(paragraph, paragraph);

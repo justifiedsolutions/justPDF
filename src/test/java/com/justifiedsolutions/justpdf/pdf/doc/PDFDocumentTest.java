@@ -5,11 +5,28 @@
 
 package com.justifiedsolutions.justpdf.pdf.doc;
 
-import com.justifiedsolutions.justpdf.pdf.contents.*;
+import com.justifiedsolutions.justpdf.pdf.contents.BeginText;
+import com.justifiedsolutions.justpdf.pdf.contents.CreateRectangularPath;
+import com.justifiedsolutions.justpdf.pdf.contents.EndText;
+import com.justifiedsolutions.justpdf.pdf.contents.MoveToNextLine;
+import com.justifiedsolutions.justpdf.pdf.contents.PDFContentStreamBuilder;
+import com.justifiedsolutions.justpdf.pdf.contents.PositionText;
+import com.justifiedsolutions.justpdf.pdf.contents.SetFont;
+import com.justifiedsolutions.justpdf.pdf.contents.SetLeading;
+import com.justifiedsolutions.justpdf.pdf.contents.SetLineWidth;
+import com.justifiedsolutions.justpdf.pdf.contents.ShowText;
+import com.justifiedsolutions.justpdf.pdf.contents.StrokePath;
 import com.justifiedsolutions.justpdf.pdf.filter.DeflateFilter;
 import com.justifiedsolutions.justpdf.pdf.font.PDFFont;
 import com.justifiedsolutions.justpdf.pdf.font.PDFFontType1;
-import com.justifiedsolutions.justpdf.pdf.object.*;
+import com.justifiedsolutions.justpdf.pdf.object.PDFDate;
+import com.justifiedsolutions.justpdf.pdf.object.PDFDocEncodedString;
+import com.justifiedsolutions.justpdf.pdf.object.PDFIndirectObject;
+import com.justifiedsolutions.justpdf.pdf.object.PDFName;
+import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
+import com.justifiedsolutions.justpdf.pdf.object.PDFRectangle;
+import com.justifiedsolutions.justpdf.pdf.object.PDFStream;
+import com.justifiedsolutions.justpdf.pdf.object.PDFString;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -20,10 +37,10 @@ import java.nio.file.Files;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PDFDocumentTest {
+class PDFDocumentTest {
 
     @Test
-    public void write() throws IOException {
+    void write() throws IOException {
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         PDFDocument doc = new PDFDocument();
         doc.addInfo(PDFInfoDictionary.AUTHOR, new PDFDocEncodedString("Jason Burgess"));

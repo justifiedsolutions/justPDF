@@ -13,18 +13,21 @@ import com.justifiedsolutions.justpdf.api.font.Font;
 import com.justifiedsolutions.justpdf.api.font.PDFFont;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class TextContentUtilityTest {
+class TextContentUtilityTest {
 
     @Test
-    public void getParagraphParagraph() {
+    void getParagraphParagraph() {
         Paragraph paragraph = new Paragraph();
         assertSame(paragraph, TextContentUtility.getParagraph(paragraph));
     }
 
     @Test
-    public void getParagraphPhrase() {
+    void getParagraphPhrase() {
         Font defaultFont = new PDFFont();
         Phrase phrase = new Phrase("foo", defaultFont);
         Paragraph actual = TextContentUtility.getParagraph(phrase);
@@ -34,7 +37,7 @@ public class TextContentUtilityTest {
     }
 
     @Test
-    public void getParagraphChunk() {
+    void getParagraphChunk() {
         Font defaultFont = new PDFFont();
         Chunk chunk = new Chunk("foo", defaultFont);
         Paragraph actual = TextContentUtility.getParagraph(chunk);
@@ -45,12 +48,12 @@ public class TextContentUtilityTest {
     }
 
     @Test
-    public void getParagraphNull() {
+    void getParagraphNull() {
         assertNull(TextContentUtility.getParagraph(null));
     }
 
     @Test
-    public void getParagraphUnknown() {
+    void getParagraphUnknown() {
         TextContent unknown = new TextContent() {
             @Override
             public Font getFont() {
@@ -59,7 +62,7 @@ public class TextContentUtilityTest {
 
             @Override
             public void setFont(Font font) {
-                //do nothing
+                // do nothing
             }
 
             @Override
@@ -69,14 +72,14 @@ public class TextContentUtilityTest {
 
             @Override
             public void setHyphenate(boolean hyphenate) {
-                //do nothing
+                // do nothing
             }
         };
         assertThrows(IllegalArgumentException.class, () -> TextContentUtility.getParagraph(unknown));
     }
 
     @Test
-    public void initializeFontsParagraph() {
+    void initializeFontsParagraph() {
         Font defaultFont = new PDFFont();
         Font courier = new PDFFont(PDFFont.FontName.COURIER);
 
@@ -97,7 +100,7 @@ public class TextContentUtilityTest {
     }
 
     @Test
-    public void initializeFontsPhrase() {
+    void initializeFontsPhrase() {
         Font defaultFont = new PDFFont();
         Font courier = new PDFFont(PDFFont.FontName.COURIER);
 
@@ -119,7 +122,7 @@ public class TextContentUtilityTest {
     }
 
     @Test
-    public void initializeFontsChunk() {
+    void initializeFontsChunk() {
         Font defaultFont = new PDFFont();
         Font courier = new PDFFont(PDFFont.FontName.COURIER);
 

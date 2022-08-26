@@ -14,42 +14,42 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class PDFContentStreamBuilderTest {
+class PDFContentStreamBuilderTest {
 
     private PDFContentStreamBuilder builder;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         builder = new PDFContentStreamBuilder();
     }
 
     @Test
-    public void addOperatorNotValid() {
+    void addOperatorNotValid() {
         GraphicsOperator operator = new EndText();
         assertThrows(IllegalStateException.class, () -> builder.addOperator(operator));
     }
 
     @Test
-    public void addOperatorEmptyPop() {
+    void addOperatorEmptyPop() {
         GraphicsOperator operator = new PopGraphicsState();
         assertThrows(IllegalStateException.class, () -> builder.addOperator(operator));
     }
 
     @Test
-    public void addOperatorPush() {
+    void addOperatorPush() {
         builder.addOperator(new PushGraphicsState());
         assertThrows(IllegalStateException.class, () -> builder.getStream());
     }
 
     @Test
-    public void addOperatorPushPop() {
+    void addOperatorPushPop() {
         builder.addOperator(new PushGraphicsState());
         builder.addOperator(new PopGraphicsState());
         assertThrows(IllegalStateException.class, () -> builder.getStream());
     }
 
     @Test
-    public void addOperatorChangeState() throws IOException {
+    void addOperatorChangeState() throws IOException {
         builder.addOperator(new SetLeading(new PDFReal(14)));
         builder.addOperator(new SetLineWidth(new PDFReal(.5f)));
         builder.addOperator(new SetLeading(new PDFReal(14)));

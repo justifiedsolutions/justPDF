@@ -12,11 +12,11 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-public class PushGraphicsStateTest {
+class PushGraphicsStateTest {
 
     @Test
-    public void writeToPDF() throws IOException {
-        byte[] expected = {(byte) 'q', (byte) '\n'};
+    void writeToPDF() throws IOException {
+        byte[] expected = { (byte) 'q', (byte) '\n' };
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         new PushGraphicsState().writeToPDF(actual);
         assertArrayEquals(expected, actual.toByteArray());

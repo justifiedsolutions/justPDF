@@ -10,19 +10,21 @@ import com.justifiedsolutions.justpdf.api.font.PDFFont;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ChunkTest {
+class ChunkTest {
 
     private Chunk chunk;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         chunk = new Chunk();
     }
 
     @Test
-    public void append() {
+    void append() {
         String input = "foo";
         chunk.append(input);
         assertEquals(input, chunk.getText());
@@ -31,7 +33,7 @@ public class ChunkTest {
     }
 
     @Test
-    public void setText() {
+    void setText() {
         String input = "foo";
         chunk.setText(input);
         assertEquals(input, chunk.getText());
@@ -41,21 +43,21 @@ public class ChunkTest {
     }
 
     @Test
-    public void setFont() {
+    void setFont() {
         Font font = new PDFFont();
         chunk.setFont(font);
         assertEquals(font, chunk.getFont());
     }
 
     @Test
-    public void setHyphenate() {
+    void setHyphenate() {
         chunk.setHyphenate(false);
         assertFalse(chunk.isHyphenate());
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void equalsHashCode() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void equalsHashCode() {
         Chunk chunk2 = new Chunk();
 
         assertTrue(chunk.equals(chunk));

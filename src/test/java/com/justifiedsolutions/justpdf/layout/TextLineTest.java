@@ -15,12 +15,15 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class TextLineTest {
+class TextLineTest {
 
     @Test
-    public void append() {
+    void append() {
         String text = "technology crossSome hyphenated, some open, some closed. Check the dictionary.";
         Chunk chunk = new Chunk(text);
         chunk.setFont(new PDFFont());
@@ -42,7 +45,7 @@ public class TextLineTest {
     }
 
     @Test
-    public void append2() {
+    void append2() {
         String text = "AdjectiveAlways hyphenatetwo-year-old daughter sixty-five-year-old man two-and-a-half-year-old child";
         Chunk chunk = new Chunk(text);
         chunk.setFont(new PDFFont());
@@ -64,7 +67,7 @@ public class TextLineTest {
     }
 
     @Test
-    public void appendLeadingNewline() {
+    void appendLeadingNewline() {
         Chunk input = new Chunk("\nfoo", new PDFFont());
         TextLine line = new TextLine(468, 0, 0);
         Chunk remainder = line.append(input);
@@ -73,21 +76,21 @@ public class TextLineTest {
     }
 
     @Test
-    public void appendEmptyString() {
+    void appendEmptyString() {
         Chunk input = new Chunk("", new PDFFont());
         TextLine line = new TextLine(468, 0, 0);
         assertNull(line.append(input));
     }
 
     @Test
-    public void appendWillNotFit() {
+    void appendWillNotFit() {
         Chunk input = new Chunk("reallylongword", new PDFFont());
         TextLine line = new TextLine(10, 0, 0);
         assertThrows(IllegalArgumentException.class, () -> line.append(input));
     }
 
     @Test
-    public void appendSecondChunkWillNotFit() {
+    void appendSecondChunkWillNotFit() {
         TextLine line = new TextLine(50, 0, 0);
         Chunk input1 = new Chunk("short", new PDFFont());
         line.append(input1);

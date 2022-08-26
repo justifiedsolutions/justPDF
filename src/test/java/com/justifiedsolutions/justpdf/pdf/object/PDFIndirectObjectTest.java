@@ -11,25 +11,28 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PDFIndirectObjectTest {
+class PDFIndirectObjectTest {
 
     @Test
-    public void getGenerationNumber() {
+    void getGenerationNumber() {
         PDFIndirectObject inObject = new PDFIndirectObject(PDFBoolean.TRUE);
         assertEquals(new PDFInteger(0), inObject.getGenerationNumber());
     }
 
     @Test
-    public void getObject() {
+    void getObject() {
         PDFObject expected = PDFBoolean.TRUE;
         PDFIndirectObject inObject = new PDFIndirectObject(expected);
         assertEquals(expected, inObject.getObject());
     }
 
     @Test
-    public void getReference() throws IOException {
+    void getReference() throws IOException {
         PDFIndirectObject inObject = new PDFIndirectObject(PDFBoolean.TRUE);
 
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
@@ -44,7 +47,7 @@ public class PDFIndirectObjectTest {
     }
 
     @Test
-    public void writeToPDF() throws IOException {
+    void writeToPDF() throws IOException {
         PDFIndirectObject inObject = new PDFIndirectObject(PDFBoolean.TRUE);
 
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
@@ -58,7 +61,7 @@ public class PDFIndirectObjectTest {
     }
 
     @Test
-    public void compareTo() {
+    void compareTo() {
         PDFIndirectObject.resetObjectNumber();
         PDFIndirectObject io1 = new PDFIndirectObject(PDFBoolean.TRUE);
         PDFIndirectObject.resetObjectNumber();
@@ -68,8 +71,8 @@ public class PDFIndirectObjectTest {
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void equals() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void equals() {
         PDFIndirectObject.resetObjectNumber();
         PDFIndirectObject io1 = new PDFIndirectObject(PDFBoolean.TRUE);
         PDFIndirectObject.resetObjectNumber();
@@ -89,8 +92,8 @@ public class PDFIndirectObjectTest {
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void equalsReference() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void equalsReference() {
         PDFIndirectObject.resetObjectNumber();
         PDFIndirectObject.Reference io1 = new PDFIndirectObject(PDFBoolean.TRUE).getReference();
         PDFIndirectObject.resetObjectNumber();

@@ -13,10 +13,10 @@ import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-public class PDFNullTest {
+class PDFNullTest {
 
     @Test
-    public void writeToPDF() throws IOException {
+    void writeToPDF() throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
         expected.writeBytes("null".getBytes(StandardCharsets.US_ASCII));
 

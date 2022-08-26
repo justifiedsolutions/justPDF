@@ -12,16 +12,19 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class StartPathTest {
+class StartPathTest {
 
     private final PDFReal x = new PDFReal(10);
     private final PDFReal y = new PDFReal(20);
     private final PDFReal z = new PDFReal(30);
 
     @Test
-    public void writeToPDF() throws IOException {
+    void writeToPDF() throws IOException {
         byte[] expected = "10 20 m\n".getBytes(StandardCharsets.US_ASCII);
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         new StartPath(x, y).writeToPDF(actual);
@@ -29,7 +32,7 @@ public class StartPathTest {
     }
 
     @Test
-    public void collapsable() {
+    void collapsable() {
         StartPath op1 = new StartPath(x, y);
         StartPath op2 = new StartPath(x, z);
         BeginText bt = new BeginText();
@@ -41,8 +44,8 @@ public class StartPathTest {
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void equals() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void equals() {
         StartPath operator = new StartPath(x, y);
         assertTrue(operator.equals(operator));
         assertFalse(operator.equals(null));

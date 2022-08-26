@@ -5,9 +5,18 @@
 
 package com.justifiedsolutions.justpdf.pdf.font;
 
-import com.justifiedsolutions.justpdf.pdf.object.*;
+import com.justifiedsolutions.justpdf.pdf.object.PDFArray;
+import com.justifiedsolutions.justpdf.pdf.object.PDFInteger;
+import com.justifiedsolutions.justpdf.pdf.object.PDFName;
+import com.justifiedsolutions.justpdf.pdf.object.PDFObject;
+import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
+import com.justifiedsolutions.justpdf.pdf.object.PDFRectangle;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -32,7 +41,8 @@ public final class PDFFontType1 extends PDFFont {
     private float minimumLeading;
 
     /**
-     * Creates a new Type 1 font with the specified name. This supports the "standard 14" fonts in a PDF.
+     * Creates a new Type 1 font with the specified name. This supports the
+     * "standard 14" fonts in a PDF.
      *
      * @param fontName the font name
      */

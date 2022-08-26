@@ -5,7 +5,13 @@
 
 package com.justifiedsolutions.justpdf.pdf.doc;
 
-import com.justifiedsolutions.justpdf.pdf.object.*;
+import com.justifiedsolutions.justpdf.pdf.object.PDFArray;
+import com.justifiedsolutions.justpdf.pdf.object.PDFDictionary;
+import com.justifiedsolutions.justpdf.pdf.object.PDFDocEncodedString;
+import com.justifiedsolutions.justpdf.pdf.object.PDFIndirectObject;
+import com.justifiedsolutions.justpdf.pdf.object.PDFInteger;
+import com.justifiedsolutions.justpdf.pdf.object.PDFName;
+import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 
 import java.util.Deque;
 import java.util.LinkedList;
@@ -53,7 +59,8 @@ public class PDFOutlineDictionary extends PDFDictionary {
      *
      * @param title the text shown in the outline
      * @param page  the reference to the page the content resides on
-     * @param top   the vertical position on the page of the beginning of the content
+     * @param top   the vertical position on the page of the beginning of the
+     *              content
      * @return the new item
      */
     public Item createItem(String title, PDFIndirectObject.Reference page, float top) {
@@ -110,7 +117,8 @@ public class PDFOutlineDictionary extends PDFDictionary {
          *
          * @param title the text shown in the outline
          * @param page  the reference to the page the content resides on
-         * @param top   the vertical position on the page of the beginning of the content
+         * @param top   the vertical position on the page of the beginning of the
+         *              content
          * @return the new item
          */
         public Item createChild(String title, PDFIndirectObject.Reference page, float top) {

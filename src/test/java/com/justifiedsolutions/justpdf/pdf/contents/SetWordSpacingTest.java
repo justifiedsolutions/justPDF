@@ -13,38 +13,41 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SetWordSpacingTest {
+class SetWordSpacingTest {
 
     private SetWordSpacing operator;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         operator = new SetWordSpacing(new PDFReal(12));
     }
 
     @Test
-    public void isCollapsableFalse() {
+    void isCollapsableFalse() {
         TextOperator other = new MoveToNextLine();
         assertFalse(operator.isCollapsable(other));
     }
 
     @Test
-    public void isCollapsableTrue() {
+    void isCollapsableTrue() {
         SetWordSpacing other = new SetWordSpacing(new PDFReal(14));
         assertTrue(operator.isCollapsable(other));
     }
 
     @Test
-    public void collapse() {
+    void collapse() {
         SetWordSpacing other = new SetWordSpacing(new PDFReal(14));
         GraphicsOperator actual = operator.collapse(other);
         assertEquals(other, actual);
     }
 
     @Test
-    public void changeState() {
+    void changeState() {
         PDFReal foo = new PDFReal(1);
         PDFReal bar = new PDFReal(2);
         GraphicsState graphicsState = new GraphicsState();
@@ -58,15 +61,15 @@ public class SetWordSpacingTest {
     }
 
     @Test
-    public void writeToPDF() throws IOException {
+    void writeToPDF() throws IOException {
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         operator.writeToPDF(actual);
         assertArrayEquals("12 Tw\n".getBytes(StandardCharsets.US_ASCII), actual.toByteArray());
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void equals() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void equals() {
         PDFReal foo = new PDFReal(1);
         PDFReal bar = new PDFReal(2);
         SetWordSpacing operator = new SetWordSpacing(foo);
