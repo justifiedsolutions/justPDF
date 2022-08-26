@@ -11,12 +11,15 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PDFRectangleTest {
+class PDFRectangleTest {
 
     @Test
-    public void testCornersWidthHeight() {
+    void testCornersWidthHeight() {
         PDFReal llx = new PDFReal(0);
         PDFReal lly = new PDFReal(0);
         PDFReal urx = new PDFReal(10);
@@ -33,8 +36,8 @@ public class PDFRectangleTest {
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void equals() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void equals() {
         PDFRectangle r1 = new PDFRectangle(0, 0, 10, 10);
 
         assertTrue(r1.equals(r1));
@@ -52,13 +55,13 @@ public class PDFRectangleTest {
     }
 
     @Test
-    public void writeToPDFFloat() throws IOException {
+    void writeToPDFFloat() throws IOException {
         PDFRectangle rect = new PDFRectangle(0, 0, 10, 10);
         testRectangle(rect);
     }
 
     @Test
-    public void writeToPDFObject() throws IOException {
+    void writeToPDFObject() throws IOException {
         PDFReal llx = new PDFReal(0);
         PDFReal lly = new PDFReal(0);
         PDFReal urx = new PDFReal(10);

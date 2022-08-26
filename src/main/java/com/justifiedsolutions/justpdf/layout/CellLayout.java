@@ -8,7 +8,18 @@ package com.justifiedsolutions.justpdf.layout;
 import com.justifiedsolutions.justpdf.api.VerticalAlignment;
 import com.justifiedsolutions.justpdf.api.content.Cell;
 import com.justifiedsolutions.justpdf.api.content.Paragraph;
-import com.justifiedsolutions.justpdf.pdf.contents.*;
+import com.justifiedsolutions.justpdf.pdf.contents.AbsolutePositionText;
+import com.justifiedsolutions.justpdf.pdf.contents.AppendToPath;
+import com.justifiedsolutions.justpdf.pdf.contents.BeginText;
+import com.justifiedsolutions.justpdf.pdf.contents.CreateRectangularPath;
+import com.justifiedsolutions.justpdf.pdf.contents.DeviceGray;
+import com.justifiedsolutions.justpdf.pdf.contents.EndText;
+import com.justifiedsolutions.justpdf.pdf.contents.FillPath;
+import com.justifiedsolutions.justpdf.pdf.contents.GraphicsOperator;
+import com.justifiedsolutions.justpdf.pdf.contents.SetGrayFillColor;
+import com.justifiedsolutions.justpdf.pdf.contents.SetLineWidth;
+import com.justifiedsolutions.justpdf.pdf.contents.StartPath;
+import com.justifiedsolutions.justpdf.pdf.contents.StrokePath;
 import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 import com.justifiedsolutions.justpdf.pdf.object.PDFRectangle;
 
@@ -108,7 +119,8 @@ class CellLayout {
     }
 
     /**
-     * Gets the list of {@link GraphicsOperator}s necessary to draw this cell and it's contents.
+     * Gets the list of {@link GraphicsOperator}s necessary to draw this cell and
+     * it's contents.
      *
      * @return the operators
      */
@@ -233,9 +245,11 @@ class CellLayout {
     }
 
     /**
-     * Method for debugging cell layout issues. Will draw a thin line for the padding border.
+     * Method for debugging cell layout issues. Will draw a thin line for the
+     * padding border.
      *
-     * @return the operators required to draw the padding border. An empty list if the debug is turned off.
+     * @return the operators required to draw the padding border. An empty list if
+     *         the debug is turned off.
      */
     private List<GraphicsOperator> drawCellPadding() {
         List<GraphicsOperator> result = new ArrayList<>();

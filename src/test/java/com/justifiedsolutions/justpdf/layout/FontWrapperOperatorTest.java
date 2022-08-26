@@ -9,13 +9,16 @@ import com.justifiedsolutions.justpdf.api.font.PDFFont;
 import com.justifiedsolutions.justpdf.pdf.contents.GraphicsOperator;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class FontWrapperOperatorTest {
+class FontWrapperOperatorTest {
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void equals() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void equals() {
         PDFFontWrapper foo = PDFFontWrapper.getInstance(new PDFFont());
         PDFFontWrapper bar = PDFFontWrapper.getInstance(new PDFFont(PDFFont.FontName.COURIER));
         GraphicsOperator operator = foo.getOperator();

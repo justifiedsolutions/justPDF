@@ -12,9 +12,12 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SetGrayFillColorTest {
+class SetGrayFillColorTest {
     private final PDFReal g = new PDFReal(.2f);
     private final PDFReal x = new PDFReal(.9f);
     private final DeviceGray gColorSpace = new DeviceGray(g);
@@ -24,31 +27,31 @@ public class SetGrayFillColorTest {
     private GraphicsState graphicsState;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         graphicsState = new GraphicsState();
         operator = new SetGrayFillColor(gColorSpace);
     }
 
     @Test
-    public void changesStateFalse() {
+    void changesStateFalse() {
         graphicsState.setFillColorSpace(gColorSpace);
         assertFalse(operator.changesState(graphicsState));
     }
 
     @Test
-    public void changesStateTrue() {
+    void changesStateTrue() {
         graphicsState.setFillColorSpace(xColorSpace);
         assertTrue(operator.changesState(graphicsState));
     }
 
     @Test
-    public void changeState() {
+    void changeState() {
         operator.changeState(graphicsState);
         assertEquals(gColorSpace, graphicsState.getFillColorSpace());
     }
 
     @Test
-    public void writeToPDF() throws IOException {
+    void writeToPDF() throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
         g.writeToPDF(expected);
         expected.write(' ');
@@ -62,8 +65,8 @@ public class SetGrayFillColorTest {
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void equals() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void equals() {
         SetGrayFillColor operator = new SetGrayFillColor(gColorSpace);
         assertTrue(operator.equals(operator));
         assertFalse(operator.equals(null));

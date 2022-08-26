@@ -5,7 +5,13 @@
 
 package com.justifiedsolutions.justpdf.pdf.doc;
 
-import com.justifiedsolutions.justpdf.pdf.object.*;
+import com.justifiedsolutions.justpdf.pdf.object.PDFArray;
+import com.justifiedsolutions.justpdf.pdf.object.PDFDictionary;
+import com.justifiedsolutions.justpdf.pdf.object.PDFIndirectObject;
+import com.justifiedsolutions.justpdf.pdf.object.PDFName;
+import com.justifiedsolutions.justpdf.pdf.object.PDFObject;
+import com.justifiedsolutions.justpdf.pdf.object.PDFRectangle;
+import com.justifiedsolutions.justpdf.pdf.object.PDFStream;
 
 /**
  * Models a page in a PDF document.
@@ -41,7 +47,8 @@ public final class PDFPage {
     }
 
     /**
-     * Sets the contents of the page. This also sets the {@code Contents} key in the dictionary.
+     * Sets the contents of the page. This also sets the {@code Contents} key in the
+     * dictionary.
      *
      * @param contents the contents of the page
      */

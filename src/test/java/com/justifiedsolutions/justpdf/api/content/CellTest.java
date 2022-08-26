@@ -16,79 +16,79 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class CellTest {
+class CellTest {
 
     private Cell cell;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         cell = new Cell();
     }
 
     @Test
-    public void contentConstructor() {
+    void contentConstructor() {
         Phrase input = new Phrase("text");
         cell = new Cell(input);
         assertEquals(input, cell.getContent());
     }
 
     @Test
-    public void setContentChunk() {
+    void setContentChunk() {
         Chunk input = new Chunk("text");
         assertThrows(IllegalArgumentException.class, () -> cell.setContent(input));
     }
 
     @Test
-    public void setContentParagraph() {
+    void setContentParagraph() {
         Paragraph input = new Paragraph("text");
         cell.setContent(input);
         assertEquals(input, cell.getContent());
     }
 
     @Test
-    public void setContentPhrase() {
+    void setContentPhrase() {
         Phrase input = new Phrase("text");
         cell.setContent(input);
         assertEquals(input, cell.getContent());
     }
 
     @Test
-    public void rowSpan() {
+    void rowSpan() {
         int input = 5;
         cell.setRowSpan(input);
         assertEquals(input, cell.getRowSpan());
     }
 
     @Test
-    public void columnSpan() {
+    void columnSpan() {
         int input = 5;
         cell.setColumnSpan(input);
         assertEquals(input, cell.getColumnSpan());
     }
 
     @Test
-    public void horizontalAlignment() {
+    void horizontalAlignment() {
         HorizontalAlignment input = HorizontalAlignment.CENTER;
         cell.setHorizontalAlignment(input);
         assertEquals(input, cell.getHorizontalAlignment());
     }
 
     @Test
-    public void verticalAlignment() {
+    void verticalAlignment() {
         VerticalAlignment input = VerticalAlignment.MIDDLE;
         cell.setVerticalAlignment(input);
         assertEquals(input, cell.getVerticalAlignment());
     }
 
     @Test
-    public void minHeight() {
+    void minHeight() {
         float input = 5;
         cell.setMinimumHeight(input);
         assertEquals(input, cell.getMinimumHeight());
     }
 
     @Test
-    public void padding() {
+    void padding() {
         float input = 5;
         cell.setPadding(input);
         assertEquals(input, cell.getPaddingTop());
@@ -98,7 +98,7 @@ public class CellTest {
     }
 
     @Test
-    public void borders() {
+    void borders() {
         List<Cell.Border> expected = new ArrayList<>();
 
         cell.setBorders();
@@ -121,7 +121,7 @@ public class CellTest {
     }
 
     @Test
-    public void grayFill() {
+    void grayFill() {
         float input = .25f;
         cell.setGrayFill(input);
         assertEquals(input, cell.getGrayFill());
@@ -131,7 +131,7 @@ public class CellTest {
     }
 
     @Test
-    public void borderWidth() {
+    void borderWidth() {
         float input = .5f;
         cell.setBorderWidth(input);
         assertEquals(input, cell.getBorderWidth());

@@ -1,5 +1,5 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.configuration.updateBuildConfiguration": "automatic",
     "java.test.config": [
         {
             "name": "modules",
@@ -18,4 +18,8 @@
     "sonarlint.connectedMode.project": {
         "projectKey": "com.justifiedsolutions:justPDF"
     },
+    "javaPMD.rulesets": [
+        "pmd-rules.xml"
+    ],
+    "java.format.settings.url": ".vscode/java-formatter.xml",
 }

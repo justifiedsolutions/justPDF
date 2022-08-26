@@ -5,7 +5,11 @@
 
 package com.justifiedsolutions.justpdf.layout;
 
-import com.justifiedsolutions.justpdf.api.*;
+import com.justifiedsolutions.justpdf.api.Document;
+import com.justifiedsolutions.justpdf.api.DocumentException;
+import com.justifiedsolutions.justpdf.api.Margin;
+import com.justifiedsolutions.justpdf.api.Metadata;
+import com.justifiedsolutions.justpdf.api.Section;
 import com.justifiedsolutions.justpdf.api.content.Content;
 import com.justifiedsolutions.justpdf.api.content.KeepTogetherCapable;
 import com.justifiedsolutions.justpdf.api.content.PageBreak;
@@ -19,7 +23,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Lays out a specified {@link Document} as a {@link PDFDocument}. Takes care of pagination, etc.
+ * Lays out a specified {@link Document} as a {@link PDFDocument}. Takes care of
+ * pagination, etc.
  */
 public class DocumentLayout {
     private final Document document;
@@ -95,7 +100,8 @@ public class DocumentLayout {
                     pdfDocument.addInfo(PDFInfoDictionary.PRODUCER, pdfValue);
                     break;
                 case CREATE_DATE:
-                    // do nothing. CREATE_DATE passed by user is ignored and set below even if it isn't specified
+                    // do nothing. CREATE_DATE passed by user is ignored and set below even if it
+                    // isn't specified
                     break;
                 default:
                     break;

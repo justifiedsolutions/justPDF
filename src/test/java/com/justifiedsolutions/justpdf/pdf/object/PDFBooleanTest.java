@@ -11,12 +11,15 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PDFBooleanTest {
+class PDFBooleanTest {
 
     @Test
-    public void writeToPDFTrue() throws IOException {
+    void writeToPDFTrue() throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
         expected.writeBytes("true".getBytes(StandardCharsets.US_ASCII));
 
@@ -27,7 +30,7 @@ public class PDFBooleanTest {
     }
 
     @Test
-    public void writeToPDFFalse() throws IOException {
+    void writeToPDFFalse() throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
         expected.writeBytes("false".getBytes(StandardCharsets.US_ASCII));
 
@@ -38,8 +41,8 @@ public class PDFBooleanTest {
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void equals() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void equals() {
         assertTrue(PDFBoolean.TRUE.equals(PDFBoolean.TRUE));
         assertEquals(PDFBoolean.TRUE.hashCode(), PDFBoolean.TRUE.hashCode());
         assertFalse(PDFBoolean.TRUE.equals(null));

@@ -13,61 +13,61 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PDFRealTest {
+class PDFRealTest {
 
     @Test
-    public void truncate() {
+    void truncate() {
         float input = .123456f;
         float expected = .12345f;
-        assertEquals(expected,PDFReal.truncate(input));
+        assertEquals(expected, PDFReal.truncate(input));
     }
 
     @Test
-    public void writeToPDFPositive() throws IOException {
+    void writeToPDFPositive() throws IOException {
         float input = 3.14f;
-        byte[] expected = {(byte) '3', (byte) '.', (byte) '1', (byte) '4'};
+        byte[] expected = { (byte) '3', (byte) '.', (byte) '1', (byte) '4' };
         testPDFReal(input, expected);
     }
 
     @Test
-    public void writeToPDFNegative() throws IOException {
+    void writeToPDFNegative() throws IOException {
         float input = -3.14f;
-        byte[] expected = {(byte) '-', (byte) '3', (byte) '.', (byte) '1', (byte) '4'};
+        byte[] expected = { (byte) '-', (byte) '3', (byte) '.', (byte) '1', (byte) '4' };
         testPDFReal(input, expected);
     }
 
     @Test
-    public void writeToPDFZero() throws IOException {
+    void writeToPDFZero() throws IOException {
         float input = 0;
-        byte[] expected = {(byte) '0'};
+        byte[] expected = { (byte) '0' };
         testPDFReal(input, expected);
     }
 
     @Test
-    public void writeToPDFOne() throws IOException {
+    void writeToPDFOne() throws IOException {
         float input = 1;
-        byte[] expected = {(byte) '1'};
+        byte[] expected = { (byte) '1' };
         testPDFReal(input, expected);
     }
 
     @Test
-    public void writeToPDFNegOne() throws IOException {
+    void writeToPDFNegOne() throws IOException {
         float input = -1;
-        byte[] expected = {(byte) '-', (byte) '1'};
+        byte[] expected = { (byte) '-', (byte) '1' };
         testPDFReal(input, expected);
     }
 
     @Test
-    public void writeToPDFHalf() throws IOException {
+    void writeToPDFHalf() throws IOException {
         float input = .5f;
-        byte[] expected = {(byte) '.', (byte) '5'};
+        byte[] expected = { (byte) '.', (byte) '5' };
         testPDFReal(input, expected);
     }
 
     @Test
-    public void writeToPDFFrac5() throws IOException {
+    void writeToPDFFrac5() throws IOException {
         float input = .55555557f;
-        byte[] expected = {(byte) '.', (byte) '5', (byte) '5', (byte) '5', (byte) '5', (byte) '6'};
+        byte[] expected = { (byte) '.', (byte) '5', (byte) '5', (byte) '5', (byte) '5', (byte) '6' };
         testPDFReal(input, expected);
     }
 

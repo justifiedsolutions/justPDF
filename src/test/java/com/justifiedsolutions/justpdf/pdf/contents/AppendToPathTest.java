@@ -12,15 +12,18 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class AppendToPathTest {
+class AppendToPathTest {
 
     private final PDFReal x = new PDFReal(10);
     private final PDFReal y = new PDFReal(20);
 
     @Test
-    public void writeToPDF() throws IOException {
+    void writeToPDF() throws IOException {
         byte[] expected = "10 20 l\n".getBytes(StandardCharsets.US_ASCII);
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         new AppendToPath(x, y).writeToPDF(actual);
@@ -28,8 +31,8 @@ public class AppendToPathTest {
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void equals() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void equals() {
         PDFReal x = new PDFReal(1);
         PDFReal y = new PDFReal(2);
         PDFReal z = new PDFReal(3);

@@ -5,15 +5,17 @@
 
 package com.justifiedsolutions.justpdf.pdf.font;
 
-import com.justifiedsolutions.justpdf.pdf.object.*;
+import com.justifiedsolutions.justpdf.pdf.object.PDFName;
+import com.justifiedsolutions.justpdf.pdf.object.PDFObject;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class PDFFontType1Test {
+class PDFFontType1Test {
 
     @Test
-    public void testCourier() {
+    void testCourier() {
         PDFFont font = PDFFontType1.getInstance(PDFFontType1.FontName.COURIER);
         PDFObject type = font.get(PDFFont.TYPE);
         PDFObject subtype = font.get(PDFFont.SUBTYPE);
@@ -27,7 +29,7 @@ public class PDFFontType1Test {
     }
 
     @Test
-    public void testHelveticaBold() {
+    void testHelveticaBold() {
         PDFFont font = PDFFontType1.getInstance(PDFFontType1.FontName.HELVETICA_BOLD);
         PDFObject type = font.get(PDFFont.TYPE);
         PDFObject subtype = font.get(PDFFont.SUBTYPE);
@@ -41,7 +43,7 @@ public class PDFFontType1Test {
     }
 
     @Test
-    public void testSymbol() {
+    void testSymbol() {
         PDFFont font = PDFFontType1.getInstance(PDFFontType1.FontName.SYMBOL);
         PDFObject type = font.get(PDFFont.TYPE);
         PDFObject subtype = font.get(PDFFont.SUBTYPE);

@@ -5,7 +5,13 @@
 
 package com.justifiedsolutions.justpdfdriver;
 
-import com.justifiedsolutions.justpdf.api.*;
+import com.justifiedsolutions.justpdf.api.Document;
+import com.justifiedsolutions.justpdf.api.DocumentException;
+import com.justifiedsolutions.justpdf.api.HorizontalAlignment;
+import com.justifiedsolutions.justpdf.api.Margin;
+import com.justifiedsolutions.justpdf.api.Metadata;
+import com.justifiedsolutions.justpdf.api.PageSize;
+import com.justifiedsolutions.justpdf.api.VerticalAlignment;
 import com.justifiedsolutions.justpdf.api.content.Cell;
 import com.justifiedsolutions.justpdf.api.content.Phrase;
 import com.justifiedsolutions.justpdf.api.content.Table;
@@ -18,10 +24,10 @@ import java.nio.file.Files;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SimpleTableOnlyDocumentTest {
+class SimpleTableOnlyDocumentTest {
 
     @Test
-    public void go() throws DocumentException, IOException {
+    void go() throws DocumentException, IOException {
 
         Document document = new Document(PageSize.LETTER, new Margin(72, 72, 72, 72));
 
@@ -51,7 +57,7 @@ public class SimpleTableOnlyDocumentTest {
     }
 
     private void createTable1(Document document) throws DocumentException {
-        Table table = new Table(new float[]{.25f, .25f, .25f, .25f});
+        Table table = new Table(new float[] { .25f, .25f, .25f, .25f });
 
         Cell cell;
         cell = table.createCell(new Phrase("Cell dp 1-1"));
@@ -95,7 +101,7 @@ public class SimpleTableOnlyDocumentTest {
     }
 
     private void createTable2(Document document) throws DocumentException {
-        Table table = new Table(new float[]{.25f, .25f, .25f, .25f});
+        Table table = new Table(new float[] { .25f, .25f, .25f, .25f });
         table.setSpacingBefore(50);
         table.setWidthPercentage(100);
 
@@ -117,7 +123,7 @@ public class SimpleTableOnlyDocumentTest {
     }
 
     private void createTable3(Document document) throws DocumentException {
-        Table table = new Table(new float[]{1f / 3f, 1f / 3f, 1f / 3f});
+        Table table = new Table(new float[] { 1f / 3f, 1f / 3f, 1f / 3f });
         table.setSpacingBefore(50);
         table.setWidthPercentage(100);
 
@@ -160,7 +166,7 @@ public class SimpleTableOnlyDocumentTest {
     }
 
     private void createTable4(Document document) throws DocumentException {
-        Table table = new Table(new float[]{.25f, .25f, .25f, .25f});
+        Table table = new Table(new float[] { .25f, .25f, .25f, .25f });
         table.setSpacingBefore(50);
         table.setWidthPercentage(100);
 
@@ -177,7 +183,7 @@ public class SimpleTableOnlyDocumentTest {
     }
 
     private void createTable5(Document document) throws DocumentException {
-        Table table = new Table(new float[]{.25f, .25f, .25f, .25f});
+        Table table = new Table(new float[] { .25f, .25f, .25f, .25f });
         table.setSpacingBefore(20);
 
         Cell cell;
@@ -220,7 +226,7 @@ public class SimpleTableOnlyDocumentTest {
     }
 
     private void createTable6(Document document) throws DocumentException {
-        Table table = new Table(new float[]{.25f, .25f, .25f, .25f});
+        Table table = new Table(new float[] { .25f, .25f, .25f, .25f });
         table.setSpacingBefore(100);
         table.setKeepTogether(true);
 
@@ -307,6 +313,5 @@ public class SimpleTableOnlyDocumentTest {
 
         document.add(table);
     }
-
 
 }

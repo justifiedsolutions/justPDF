@@ -20,12 +20,15 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-public class OutlineLayoutTest {
+class OutlineLayoutTest {
 
     @Test
-    public void populatePDFOutlineDictionaryTopEntryNoLoc() {
+    void populatePDFOutlineDictionaryTopEntryNoLoc() {
         Document document = new Document(PageSize.LETTER, new Margin(72, 72, 72, 72));
         PDFDocument pdfDocument = new PDFDocument();
         Outline outline = document.getOutline();
@@ -36,7 +39,7 @@ public class OutlineLayoutTest {
     }
 
     @Test
-    public void populatePDFOutlineDictionaryChildEntryNoLoc() {
+    void populatePDFOutlineDictionaryChildEntryNoLoc() {
         Document document = new Document(PageSize.LETTER, new Margin(72, 72, 72, 72));
         PDFDocument pdfDocument = new PDFDocument();
         Outline outline = document.getOutline();
@@ -54,7 +57,7 @@ public class OutlineLayoutTest {
     }
 
     @Test
-    public void setContentLocationTwice() {
+    void setContentLocationTwice() {
         Outline outline = mock(Outline.class);
         PDFDocument pdfDocument = mock(PDFDocument.class);
         PDFOutlineDictionary outlineDictionary = mock(PDFOutlineDictionary.class);
@@ -81,7 +84,7 @@ public class OutlineLayoutTest {
     }
 
     @Test
-    public void setContentLocationNotInEntries() {
+    void setContentLocationNotInEntries() {
         Document document = new Document(PageSize.LETTER, new Margin(72, 72, 72, 72));
         PDFDocument pdfDocument = new PDFDocument();
         Outline outline = document.getOutline();

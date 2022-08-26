@@ -5,15 +5,19 @@
 
 package com.justifiedsolutions.justpdf.pdf.doc;
 
-import com.justifiedsolutions.justpdf.pdf.object.*;
+import com.justifiedsolutions.justpdf.pdf.object.PDFArray;
+import com.justifiedsolutions.justpdf.pdf.object.PDFBoolean;
+import com.justifiedsolutions.justpdf.pdf.object.PDFIndirectObject;
+import com.justifiedsolutions.justpdf.pdf.object.PDFInteger;
+import com.justifiedsolutions.justpdf.pdf.object.PDFObject;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PDFPagesTest {
+class PDFPagesTest {
 
     @Test
-    public void addPage() {
+    void addPage() {
         PDFPages pages = new PDFPages();
         PDFObject type = pages.get(PDFPages.TYPE_NAME);
         PDFObject count = pages.get(PDFPages.COUNT_NAME);

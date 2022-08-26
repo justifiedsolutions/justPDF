@@ -17,10 +17,10 @@ public enum LineCapStyle {
     ROUND_CAP(new PDFInteger(1)),
     PROJECTING_SQUARE(new PDFInteger(2));
 
-    private final PDFInteger style;
+    private final PDFInteger theStyle;
 
     LineCapStyle(PDFInteger style) {
-        this.style = style;
+        this.theStyle = style;
     }
 
     /**
@@ -29,6 +29,6 @@ public enum LineCapStyle {
      * @return the style ID
      */
     public PDFInteger style() {
-        return style;
+        return theStyle;
     }
 }

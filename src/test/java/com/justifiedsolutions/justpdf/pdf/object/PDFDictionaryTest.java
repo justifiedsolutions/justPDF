@@ -13,12 +13,16 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PDFDictionaryTest {
+class PDFDictionaryTest {
 
     @Test
-    public void sizeAndPut() {
+    void sizeAndPut() {
         PDFDictionary dict = new PDFDictionary();
         assertEquals(0, dict.size());
         dict.put(new PDFName("key"), PDFBoolean.TRUE);
@@ -26,7 +30,7 @@ public class PDFDictionaryTest {
     }
 
     @Test
-    public void isEmpty() {
+    void isEmpty() {
         PDFDictionary dict = new PDFDictionary();
         assertTrue(dict.isEmpty());
         dict.put(new PDFName("key"), PDFBoolean.TRUE);
@@ -34,7 +38,7 @@ public class PDFDictionaryTest {
     }
 
     @Test
-    public void containsKey() {
+    void containsKey() {
         PDFDictionary dict = new PDFDictionary();
         assertFalse(dict.containsKey(new PDFName("key")));
         dict.put(new PDFName("key"), PDFBoolean.TRUE);
@@ -42,7 +46,7 @@ public class PDFDictionaryTest {
     }
 
     @Test
-    public void get() {
+    void get() {
         PDFDictionary dict = new PDFDictionary();
         dict.put(new PDFName("key"), PDFBoolean.TRUE);
         PDFObject actual = dict.get(new PDFName("key"));
@@ -50,7 +54,7 @@ public class PDFDictionaryTest {
     }
 
     @Test
-    public void remove() {
+    void remove() {
         PDFDictionary dict = new PDFDictionary();
         assertFalse(dict.containsKey(new PDFName("key")));
         dict.put(new PDFName("key"), PDFBoolean.TRUE);
@@ -60,7 +64,7 @@ public class PDFDictionaryTest {
     }
 
     @Test
-    public void clear() {
+    void clear() {
         PDFDictionary dict = new PDFDictionary();
         assertFalse(dict.containsKey(new PDFName("key")));
         dict.put(new PDFName("key"), PDFBoolean.TRUE);
@@ -70,7 +74,7 @@ public class PDFDictionaryTest {
     }
 
     @Test
-    public void keySet() {
+    void keySet() {
         PDFDictionary dict = new PDFDictionary();
         dict.put(new PDFName("key"), PDFBoolean.TRUE);
         Set<PDFName> keys = dict.keySet();
@@ -81,7 +85,7 @@ public class PDFDictionaryTest {
     }
 
     @Test
-    public void values() {
+    void values() {
         PDFDictionary dict = new PDFDictionary();
         dict.put(new PDFName("key"), PDFBoolean.TRUE);
         Collection<PDFObject> values = dict.values();
@@ -92,7 +96,7 @@ public class PDFDictionaryTest {
     }
 
     @Test
-    public void writeToPDF1KV() throws IOException {
+    void writeToPDF1KV() throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
         expected.writeBytes("<</Name true>>".getBytes(StandardCharsets.US_ASCII));
 
@@ -105,7 +109,7 @@ public class PDFDictionaryTest {
     }
 
     @Test
-    public void writeToPDF2KV() throws IOException {
+    void writeToPDF2KV() throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
         expected.writeBytes("<</Name true/Type 42>>".getBytes(StandardCharsets.US_ASCII));
 

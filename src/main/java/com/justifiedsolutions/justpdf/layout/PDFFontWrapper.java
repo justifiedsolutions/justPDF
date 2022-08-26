@@ -5,18 +5,24 @@
 
 package com.justifiedsolutions.justpdf.layout;
 
-import com.justifiedsolutions.justpdf.pdf.contents.*;
+import com.justifiedsolutions.justpdf.pdf.contents.ColorSpace;
+import com.justifiedsolutions.justpdf.pdf.contents.DeviceGray;
+import com.justifiedsolutions.justpdf.pdf.contents.DeviceRGB;
+import com.justifiedsolutions.justpdf.pdf.contents.GraphicsOperator;
+import com.justifiedsolutions.justpdf.pdf.contents.SetGrayFillColor;
+import com.justifiedsolutions.justpdf.pdf.contents.SetRGBFillColor;
 import com.justifiedsolutions.justpdf.pdf.font.PDFFont;
 import com.justifiedsolutions.justpdf.pdf.font.PDFFontType1;
 import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 /**
- * Wrapper for a {@link PDFFont} that specifies not only the font, but the size and color as well.
+ * Wrapper for a {@link PDFFont} that specifies not only the font, but the size
+ * and color as well.
  */
 final class PDFFontWrapper {
     private static final Map<com.justifiedsolutions.justpdf.api.font.PDFFont, PDFFontWrapper> CACHE = new HashMap<>();
@@ -33,15 +39,15 @@ final class PDFFontWrapper {
     }
 
     /**
-     * Gets an instance of a {@link PDFFontWrapper} given a specific API {@link com.justifiedsolutions.justpdf.api.font.Font}.
+     * Gets an instance of a {@link PDFFontWrapper} given a specific API
+     * {@link com.justifiedsolutions.justpdf.api.font.Font}.
      *
      * @param apiFont the API Font
      * @return the font wrapper that represents the font
      */
     static PDFFontWrapper getInstance(com.justifiedsolutions.justpdf.api.font.Font apiFont) {
         if (apiFont instanceof com.justifiedsolutions.justpdf.api.font.PDFFont) {
-            com.justifiedsolutions.justpdf.api.font.PDFFont apiPDFFont =
-                    (com.justifiedsolutions.justpdf.api.font.PDFFont) apiFont;
+            com.justifiedsolutions.justpdf.api.font.PDFFont apiPDFFont = (com.justifiedsolutions.justpdf.api.font.PDFFont) apiFont;
             return CACHE.computeIfAbsent(apiPDFFont, k -> {
                 PDFFont font = getFont(apiPDFFont.getName());
                 PDFReal size = new PDFReal(apiPDFFont.getSize());
@@ -149,7 +155,8 @@ final class PDFFontWrapper {
     }
 
     /**
-     * Gets the {@link GraphicsOperator} that represents this {@code PDFFontWrapper}.
+     * Gets the {@link GraphicsOperator} that represents this
+     * {@code PDFFontWrapper}.
      *
      * @return the operator
      */

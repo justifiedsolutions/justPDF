@@ -5,7 +5,11 @@
 
 package com.justifiedsolutions.justpdf.pdf.doc;
 
-import com.justifiedsolutions.justpdf.pdf.object.*;
+import com.justifiedsolutions.justpdf.pdf.object.PDFArray;
+import com.justifiedsolutions.justpdf.pdf.object.PDFDictionary;
+import com.justifiedsolutions.justpdf.pdf.object.PDFIndirectObject;
+import com.justifiedsolutions.justpdf.pdf.object.PDFInteger;
+import com.justifiedsolutions.justpdf.pdf.object.PDFName;
 
 /**
  * Models a Page Tree Node in a PDF document.

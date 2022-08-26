@@ -10,10 +10,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PDFCatalogDictionaryTest {
+class PDFCatalogDictionaryTest {
 
     @Test
-    public void testCreate() {
+    void testCreate() {
         PDFCatalogDictionary dict = new PDFCatalogDictionary();
         PDFObject type = dict.get(PDFCatalogDictionary.TYPE);
         PDFObject version = dict.get(PDFCatalogDictionary.VERSION);

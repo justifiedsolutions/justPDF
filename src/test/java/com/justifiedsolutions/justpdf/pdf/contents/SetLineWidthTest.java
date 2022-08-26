@@ -12,40 +12,43 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SetLineWidthTest {
+class SetLineWidthTest {
 
     private final PDFReal width = new PDFReal(.5f);
     private final SetLineWidth operator = new SetLineWidth(width);
     private GraphicsState graphicsState;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         graphicsState = new GraphicsState();
         graphicsState.setLineWidth(width);
     }
 
     @Test
-    public void changesStateFalse() {
+    void changesStateFalse() {
         graphicsState.setLineWidth(width);
         assertFalse(operator.changesState(graphicsState));
     }
 
     @Test
-    public void changesStateTrue() {
+    void changesStateTrue() {
         graphicsState.setLineWidth(new PDFReal(.2f));
         assertTrue(operator.changesState(graphicsState));
     }
 
     @Test
-    public void changeState() {
+    void changeState() {
         operator.changeState(graphicsState);
         assertEquals(width, graphicsState.getLineWidth());
     }
 
     @Test
-    public void writeToPDF() throws IOException {
+    void writeToPDF() throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
         width.writeToPDF(expected);
         expected.write(' ');
@@ -59,8 +62,8 @@ public class SetLineWidthTest {
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void equals() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void equals() {
         PDFReal foo = new PDFReal(1);
         PDFReal bar = new PDFReal(2);
         SetLineWidth operator = new SetLineWidth(foo);

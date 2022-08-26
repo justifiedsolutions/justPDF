@@ -13,31 +13,34 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ShowTextTest {
+class ShowTextTest {
 
     private ShowText operator;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         operator = new ShowText(new PDFString("string"));
     }
 
     @Test
-    public void isCollapsableFalse() {
+    void isCollapsableFalse() {
         TextOperator other = new MoveToNextLine();
         assertFalse(operator.isCollapsable(other));
     }
 
     @Test
-    public void isCollapsableTrue() {
+    void isCollapsableTrue() {
         ShowText other = new ShowText(new PDFString(" along"));
         assertTrue(operator.isCollapsable(other));
     }
 
     @Test
-    public void collapse() {
+    void collapse() {
         ShowText expected = new ShowText(new PDFString("string along"));
         ShowText other = new ShowText(new PDFString(" along"));
         GraphicsOperator actual = operator.collapse(other);
@@ -45,7 +48,7 @@ public class ShowTextTest {
     }
 
     @Test
-    public void writeToPDF() throws IOException {
+    void writeToPDF() throws IOException {
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         operator.writeToPDF(actual);
         PDFString text = new PDFString("string");
@@ -56,8 +59,8 @@ public class ShowTextTest {
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void equals() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void equals() {
         PDFString foo = new PDFString("foo");
         PDFString bar = new PDFString("bar");
         ShowText operator = new ShowText(foo);

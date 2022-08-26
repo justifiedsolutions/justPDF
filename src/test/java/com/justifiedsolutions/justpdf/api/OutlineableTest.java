@@ -7,12 +7,14 @@ package com.justifiedsolutions.justpdf.api;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class OutlineableTest {
+class OutlineableTest {
 
     @Test
-    public void setOutlineText() {
+    void setOutlineText() {
         String text = "fubar";
         Outlineable outlineable = new Outlineable();
         outlineable.setOutlineText(text);
@@ -20,8 +22,8 @@ public class OutlineableTest {
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void testEquals() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void testEquals() {
         Outlineable o1 = new Outlineable();
         Outlineable o2 = new Outlineable(o1);
 

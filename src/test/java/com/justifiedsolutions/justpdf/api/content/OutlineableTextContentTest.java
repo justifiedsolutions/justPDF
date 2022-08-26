@@ -9,14 +9,17 @@ import com.justifiedsolutions.justpdf.api.font.PDFFont;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class OutlineableTextContentTest {
+class OutlineableTextContentTest {
 
     private OutlineableTextContent content;
 
     @Test
-    public void setFont() {
+    void setFont() {
         assertNull(content.getFont());
         PDFFont font = new PDFFont();
         content.setFont(font);
@@ -24,15 +27,15 @@ public class OutlineableTextContentTest {
     }
 
     @Test
-    public void setHyphenate() {
+    void setHyphenate() {
         assertTrue(content.isHyphenate());
         content.setHyphenate(false);
         assertFalse(content.isHyphenate());
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void testEquals() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void testEquals() {
         assertTrue(content.equals(content));
         assertFalse(content.equals(null));
         assertFalse(content.equals(Boolean.TRUE));
@@ -56,7 +59,7 @@ public class OutlineableTextContentTest {
     }
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         content = new OutlineableTextContent();
     }
 }

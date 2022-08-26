@@ -8,25 +8,28 @@ package com.justifiedsolutions.justpdf.pdf.contents;
 import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class DeviceGrayTest {
+class DeviceGrayTest {
 
     @Test
-    public void testCreateHigh() {
+    void testCreateHigh() {
         PDFReal g = new PDFReal(1.1f);
         assertThrows(IllegalArgumentException.class, () -> new DeviceGray(g));
     }
 
     @Test
-    public void testCreateLow() {
+    void testCreateLow() {
         PDFReal g = new PDFReal(-.1f);
         assertThrows(IllegalArgumentException.class, () -> new DeviceGray(g));
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void equals() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void equals() {
         PDFReal zero = new PDFReal(0);
         PDFReal one = new PDFReal(1);
         DeviceGray black = new DeviceGray(zero);

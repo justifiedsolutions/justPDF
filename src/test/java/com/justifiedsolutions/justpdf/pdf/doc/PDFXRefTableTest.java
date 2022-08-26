@@ -19,15 +19,15 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-public class PDFXRefTableTest {
+class PDFXRefTableTest {
 
     @BeforeEach
-    public void reset() {
+    void reset() {
         PDFIndirectObject.resetObjectNumber();
     }
 
     @Test
-    public void writeToPDF1() throws IOException {
+    void writeToPDF1() throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
         expected.writeBytes("xref\n".getBytes(StandardCharsets.US_ASCII));
         expected.writeBytes("0 2\n".getBytes(StandardCharsets.US_ASCII));
@@ -48,7 +48,7 @@ public class PDFXRefTableTest {
     }
 
     @Test
-    public void writeToPDF5() throws IOException {
+    void writeToPDF5() throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
         expected.writeBytes("xref\n".getBytes(StandardCharsets.US_ASCII));
         expected.writeBytes("0 6\n".getBytes(StandardCharsets.US_ASCII));

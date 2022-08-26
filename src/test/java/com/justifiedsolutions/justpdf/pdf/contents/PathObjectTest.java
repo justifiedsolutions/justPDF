@@ -9,12 +9,14 @@ import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 import com.justifiedsolutions.justpdf.pdf.object.PDFRectangle;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PathObjectTest {
+class PathObjectTest {
 
     @Test
-    public void isValidOperator() {
+    void isValidOperator() {
         PathObject graphicsObject = new PathObject();
         assertFalse(graphicsObject.isValidOperator(new SetLineWidth(new PDFReal(0))));
         assertFalse(graphicsObject.isValidOperator(new PushGraphicsState()));
@@ -29,7 +31,7 @@ public class PathObjectTest {
     }
 
     @Test
-    public void endsGraphicsObject() {
+    void endsGraphicsObject() {
         PathObject graphicsObject = new PathObject();
         assertTrue(graphicsObject.endsGraphicsObject(new FillPath()));
         assertTrue(graphicsObject.endsGraphicsObject(new StrokePath()));
@@ -38,7 +40,7 @@ public class PathObjectTest {
     }
 
     @Test
-    public void getNewGraphicsObject() {
+    void getNewGraphicsObject() {
         PathObject graphicsObject = new PathObject();
         assertEquals(new PageDescriptionObject(), graphicsObject.getNewGraphicsObject(new FillPath()));
     }

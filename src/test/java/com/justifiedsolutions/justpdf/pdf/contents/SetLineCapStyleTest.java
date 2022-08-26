@@ -11,39 +11,42 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SetLineCapStyleTest {
+class SetLineCapStyleTest {
 
     private GraphicsState graphicsState;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         graphicsState = new GraphicsState();
         graphicsState.setLineCap(LineCapStyle.ROUND_CAP);
     }
 
     @Test
-    public void changesStateFalse() {
+    void changesStateFalse() {
         SetLineCapStyle operator = new SetLineCapStyle(LineCapStyle.ROUND_CAP);
         assertFalse(operator.changesState(graphicsState));
     }
 
     @Test
-    public void changesStateTrue() {
+    void changesStateTrue() {
         SetLineCapStyle operator = new SetLineCapStyle(LineCapStyle.PROJECTING_SQUARE);
         assertTrue(operator.changesState(graphicsState));
     }
 
     @Test
-    public void changeState() {
+    void changeState() {
         SetLineCapStyle operator = new SetLineCapStyle(LineCapStyle.PROJECTING_SQUARE);
         operator.changeState(graphicsState);
         assertEquals(LineCapStyle.PROJECTING_SQUARE, graphicsState.getLineCap());
     }
 
     @Test
-    public void writeToPDF() throws IOException {
+    void writeToPDF() throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
         LineCapStyle.ROUND_CAP.style().writeToPDF(expected);
         expected.write(' ');
@@ -58,8 +61,8 @@ public class SetLineCapStyleTest {
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void equals() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void equals() {
         SetLineCapStyle operator = new SetLineCapStyle(LineCapStyle.ROUND_CAP);
         assertTrue(operator.equals(operator));
         assertFalse(operator.equals(null));

@@ -14,17 +14,17 @@ import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-public class MoveToNextLineTest {
+class MoveToNextLineTest {
 
     private MoveToNextLine operator;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         operator = new MoveToNextLine();
     }
 
     @Test
-    public void writeToPDF() throws IOException {
+    void writeToPDF() throws IOException {
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         operator.writeToPDF(actual);
         assertArrayEquals("T*\n".getBytes(StandardCharsets.US_ASCII), actual.toByteArray());

@@ -17,10 +17,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class DocumentLayoutTest {
+class DocumentLayoutTest {
 
     @Test
-    public void testLayoutEmptyDocument() {
+    void testLayoutEmptyDocument() {
         Margin margin = new Margin(72, 72, 72, 72);
         PageSize pageSize = PageSize.LETTER;
         Document document = new Document(pageSize, margin);
@@ -28,7 +28,7 @@ public class DocumentLayoutTest {
     }
 
     @Test
-    public void testLargeTableCanBreak() throws DocumentException {
+    void testLargeTableCanBreak() throws DocumentException {
         Margin margin = new Margin(72, 72, 72, 72);
         PageSize pageSize = PageSize.LETTER;
         Document document = new Document(pageSize, margin);
@@ -48,7 +48,7 @@ public class DocumentLayoutTest {
     }
 
     @Test
-    public void testLargeTableCanBreakNotEmptyPage() throws DocumentException {
+    void testLargeTableCanBreakNotEmptyPage() throws DocumentException {
         Margin margin = new Margin(72, 72, 72, 72);
         PageSize pageSize = PageSize.LETTER;
         Document document = new Document(pageSize, margin);
@@ -71,7 +71,7 @@ public class DocumentLayoutTest {
     }
 
     @Test
-    public void testLargeTableCanNotBreak() throws DocumentException {
+    void testLargeTableCanNotBreak() throws DocumentException {
         Margin margin = new Margin(72, 72, 72, 72);
         PageSize pageSize = PageSize.LETTER;
         Document document = new Document(pageSize, margin);

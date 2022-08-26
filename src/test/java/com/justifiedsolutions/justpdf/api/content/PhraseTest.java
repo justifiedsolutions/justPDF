@@ -10,19 +10,21 @@ import com.justifiedsolutions.justpdf.api.font.PDFFont;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PhraseTest {
+class PhraseTest {
 
     private Phrase phrase;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         phrase = new Phrase();
     }
 
     @Test
-    public void constructors() {
+    void constructors() {
         String string = "foo";
         Chunk content = new Chunk(string);
         Font font = new PDFFont();
@@ -48,54 +50,54 @@ public class PhraseTest {
     }
 
     @Test
-    public void setLeading() {
+    void setLeading() {
         float input = 20;
         phrase.setLeading(input);
         assertEquals(input, phrase.getLeading());
     }
 
     @Test
-    public void setFont() {
+    void setFont() {
         Font input = new PDFFont();
         phrase.setFont(input);
         assertEquals(input, phrase.getFont());
     }
 
     @Test
-    public void setHyphenate() {
+    void setHyphenate() {
         assertTrue(phrase.isHyphenate());
         phrase.setHyphenate(false);
         assertFalse(phrase.isHyphenate());
     }
 
     @Test
-    public void addContentChunk() {
+    void addContentChunk() {
         Chunk input = new Chunk();
         phrase.add(input);
         assertEquals(input, phrase.getChunks().get(0));
     }
 
     @Test
-    public void addContentNull() {
+    void addContentNull() {
         phrase.add((Chunk) null);
         assertEquals(0, phrase.getChunks().size());
     }
 
     @Test
-    public void addString() {
+    void addString() {
         String input = "foo";
         phrase.add(input);
         assertEquals(new Chunk(input), phrase.getChunks().get(0));
     }
 
     @Test
-    public void addStringNull() {
+    void addStringNull() {
         phrase.add((String) null);
         assertEquals(0, phrase.getChunks().size());
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         String text = "Welcome to the jungle!";
         phrase.add("Welcome ");
         phrase.add("to ");
@@ -104,8 +106,8 @@ public class PhraseTest {
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void testEqualsHashCode() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void testEqualsHashCode() {
         Phrase phrase2 = new Phrase(phrase, phrase.getChunks());
 
         assertTrue(phrase.equals(phrase));

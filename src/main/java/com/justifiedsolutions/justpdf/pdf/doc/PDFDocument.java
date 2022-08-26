@@ -6,8 +6,13 @@
 package com.justifiedsolutions.justpdf.pdf.doc;
 
 import com.justifiedsolutions.justpdf.pdf.font.PDFFont;
-import com.justifiedsolutions.justpdf.pdf.object.*;
+import com.justifiedsolutions.justpdf.pdf.object.PDFIndirectObject;
 import com.justifiedsolutions.justpdf.pdf.object.PDFIndirectObject.Reference;
+import com.justifiedsolutions.justpdf.pdf.object.PDFInteger;
+import com.justifiedsolutions.justpdf.pdf.object.PDFName;
+import com.justifiedsolutions.justpdf.pdf.object.PDFObject;
+import com.justifiedsolutions.justpdf.pdf.object.PDFRectangle;
+import com.justifiedsolutions.justpdf.pdf.object.PDFString;
 
 import java.io.IOException;
 import java.io.OutputStream;

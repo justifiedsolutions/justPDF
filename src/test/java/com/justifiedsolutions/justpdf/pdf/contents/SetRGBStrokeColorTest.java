@@ -12,9 +12,12 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SetRGBStrokeColorTest {
+class SetRGBStrokeColorTest {
     private final PDFReal r = new PDFReal(0);
     private final PDFReal g = new PDFReal(.2f);
     private final PDFReal b = new PDFReal(.6f);
@@ -24,34 +27,34 @@ public class SetRGBStrokeColorTest {
     private GraphicsState graphicsState;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         operator = new SetRGBStrokeColor(new DeviceRGB(r, g, b));
         graphicsState = new GraphicsState();
     }
 
     @Test
-    public void changesStateFalse() {
+    void changesStateFalse() {
         DeviceRGB colorSpace = new DeviceRGB(r, g, b);
         graphicsState.setStrokeColorSpace(colorSpace);
         assertFalse(operator.changesState(graphicsState));
     }
 
     @Test
-    public void changesStateTrue() {
+    void changesStateTrue() {
         DeviceRGB colorSpace = new DeviceRGB(r, g, x);
         graphicsState.setStrokeColorSpace(colorSpace);
         assertTrue(operator.changesState(graphicsState));
     }
 
     @Test
-    public void changeState() {
+    void changeState() {
         DeviceRGB colorSpace = new DeviceRGB(r, g, b);
         operator.changeState(graphicsState);
         assertEquals(colorSpace, graphicsState.getStrokeColorSpace());
     }
 
     @Test
-    public void writeToPDF() throws IOException {
+    void writeToPDF() throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
         r.writeToPDF(expected);
         expected.write(' ');
@@ -70,8 +73,8 @@ public class SetRGBStrokeColorTest {
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void equals() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void equals() {
         DeviceRGB foo = new DeviceRGB(r, g, b);
         DeviceRGB bar = new DeviceRGB(r, g, x);
         SetRGBStrokeColor operator = new SetRGBStrokeColor(foo);

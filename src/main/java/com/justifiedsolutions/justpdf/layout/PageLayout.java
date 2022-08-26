@@ -5,11 +5,28 @@
 
 package com.justifiedsolutions.justpdf.layout;
 
-import com.justifiedsolutions.justpdf.api.*;
+import com.justifiedsolutions.justpdf.api.DocumentException;
+import com.justifiedsolutions.justpdf.api.Footer;
+import com.justifiedsolutions.justpdf.api.Header;
+import com.justifiedsolutions.justpdf.api.Margin;
+import com.justifiedsolutions.justpdf.api.Outlineable;
+import com.justifiedsolutions.justpdf.api.RunningMarginal;
 import com.justifiedsolutions.justpdf.api.content.Content;
 import com.justifiedsolutions.justpdf.api.content.Paragraph;
 import com.justifiedsolutions.justpdf.api.content.TextContent;
-import com.justifiedsolutions.justpdf.pdf.contents.*;
+import com.justifiedsolutions.justpdf.pdf.contents.AppendToPath;
+import com.justifiedsolutions.justpdf.pdf.contents.BeginText;
+import com.justifiedsolutions.justpdf.pdf.contents.CreateRectangularPath;
+import com.justifiedsolutions.justpdf.pdf.contents.EndText;
+import com.justifiedsolutions.justpdf.pdf.contents.GraphicsOperator;
+import com.justifiedsolutions.justpdf.pdf.contents.PDFContentStreamBuilder;
+import com.justifiedsolutions.justpdf.pdf.contents.PopGraphicsState;
+import com.justifiedsolutions.justpdf.pdf.contents.PositionText;
+import com.justifiedsolutions.justpdf.pdf.contents.PushGraphicsState;
+import com.justifiedsolutions.justpdf.pdf.contents.SetFont;
+import com.justifiedsolutions.justpdf.pdf.contents.SetLineWidth;
+import com.justifiedsolutions.justpdf.pdf.contents.StartPath;
+import com.justifiedsolutions.justpdf.pdf.contents.StrokePath;
 import com.justifiedsolutions.justpdf.pdf.doc.PDFDocument;
 import com.justifiedsolutions.justpdf.pdf.doc.PDFPage;
 import com.justifiedsolutions.justpdf.pdf.filter.DeflateFilter;
@@ -110,7 +127,8 @@ class PageLayout {
     }
 
     /**
-     * Checks to see if the specified {@link Content} will fit on the unfilled portion of the page.
+     * Checks to see if the specified {@link Content} will fit on the unfilled
+     * portion of the page.
      *
      * @param content the content to check
      * @return true if the content will fit
@@ -128,7 +146,8 @@ class PageLayout {
     }
 
     /**
-     * Adds the {@link Content} to the {@link PDFPage}. This method should only be called after a call to {@link
+     * Adds the {@link Content} to the {@link PDFPage}. This method should only be
+     * called after a call to {@link
      * #checkFit(Content)}.
      *
      * @param content the content to add

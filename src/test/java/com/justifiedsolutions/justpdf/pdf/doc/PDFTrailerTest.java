@@ -14,12 +14,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PDFTrailerTest {
+class PDFTrailerTest {
 
     @Test
-    public void hasInfo() {
+    void hasInfo() {
         PDFTrailer trailer = new PDFTrailer();
         assertFalse(trailer.hasInfo());
 
@@ -29,7 +31,7 @@ public class PDFTrailerTest {
     }
 
     @Test
-    public void writeToPDF() throws IOException {
+    void writeToPDF() throws IOException {
         PDFTrailer trailer = new PDFTrailer();
         PDFIndirectObject info = new PDFIndirectObject(PDFNull.NULL);
         PDFIndirectObject catalog = new PDFIndirectObject(PDFNull.NULL);

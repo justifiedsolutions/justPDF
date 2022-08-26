@@ -8,24 +8,26 @@ package com.justifiedsolutions.justpdf.pdf.contents;
 import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class DeviceRGBTest {
+class DeviceRGBTest {
     private final PDFReal r = new PDFReal(0);
     private final PDFReal g = new PDFReal(.2f);
     private final PDFReal b = new PDFReal(.6f);
     private final PDFReal x = new PDFReal(0.1f);
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void equals() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void equals() {
         DeviceRGB rgb = new DeviceRGB(r, g, b);
         assertFalse(rgb.equals(null));
         assertFalse(rgb.equals(Boolean.TRUE));
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         DeviceRGB rgb1 = new DeviceRGB(r, g, b);
         DeviceRGB rgb2 = new DeviceRGB(r, g, b);
 
@@ -33,14 +35,14 @@ public class DeviceRGBTest {
     }
 
     @Test
-    public void testEqualsSame() {
+    void testEqualsSame() {
         DeviceRGB rgb1 = new DeviceRGB(r, g, b);
 
         assertEquals(rgb1, rgb1);
     }
 
     @Test
-    public void testNotEqualsR() {
+    void testNotEqualsR() {
         DeviceRGB rgb1 = new DeviceRGB(r, g, b);
         DeviceRGB rgb2 = new DeviceRGB(x, g, b);
 
@@ -48,7 +50,7 @@ public class DeviceRGBTest {
     }
 
     @Test
-    public void testNotEqualsG() {
+    void testNotEqualsG() {
         DeviceRGB rgb1 = new DeviceRGB(r, g, b);
         DeviceRGB rgb2 = new DeviceRGB(r, x, b);
 
@@ -56,7 +58,7 @@ public class DeviceRGBTest {
     }
 
     @Test
-    public void testNotEqualsB() {
+    void testNotEqualsB() {
         DeviceRGB rgb1 = new DeviceRGB(r, g, b);
         DeviceRGB rgb2 = new DeviceRGB(r, g, x);
 

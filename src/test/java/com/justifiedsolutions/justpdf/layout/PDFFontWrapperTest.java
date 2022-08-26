@@ -6,18 +6,22 @@
 package com.justifiedsolutions.justpdf.layout;
 
 import com.justifiedsolutions.justpdf.api.font.PDFFont;
-import com.justifiedsolutions.justpdf.pdf.contents.*;
+import com.justifiedsolutions.justpdf.pdf.contents.ColorSpace;
+import com.justifiedsolutions.justpdf.pdf.contents.DeviceGray;
+import com.justifiedsolutions.justpdf.pdf.contents.DeviceRGB;
+import com.justifiedsolutions.justpdf.pdf.contents.SetGrayFillColor;
+import com.justifiedsolutions.justpdf.pdf.contents.SetRGBFillColor;
 import com.justifiedsolutions.justpdf.pdf.object.PDFName;
 import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 import org.junit.jupiter.api.Test;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PDFFontWrapperTest {
+class PDFFontWrapperTest {
 
     private static final Map<PDFFont.FontName, PDFName> FONT_MAP = new HashMap<>();
 
@@ -39,7 +43,7 @@ public class PDFFontWrapperTest {
     }
 
     @Test
-    public void getInstanceDefault() {
+    void getInstanceDefault() {
         for (PDFFont.FontName font : FONT_MAP.keySet()) {
             PDFName fontName = FONT_MAP.get(font);
             PDFFontWrapper wrapper = PDFFontWrapper.getInstance(new PDFFont(font));
@@ -50,7 +54,7 @@ public class PDFFontWrapperTest {
     }
 
     @Test
-    public void getInstanceCourierRed() {
+    void getInstanceCourierRed() {
         PDFFontWrapper wrapper = PDFFontWrapper.getInstance(new PDFFont(PDFFont.FontName.COURIER, PDFFont.DEFAULT_SIZE,
                 Color.RED));
         PDFName fontName = new PDFName("Courier");
@@ -61,9 +65,10 @@ public class PDFFontWrapperTest {
     }
 
     @Test
-    public void getInstanceTimesGreen() {
-        PDFFontWrapper wrapper = PDFFontWrapper.getInstance(new PDFFont(PDFFont.FontName.TIMES_ROMAN, PDFFont.DEFAULT_SIZE,
-                Color.GREEN));
+    void getInstanceTimesGreen() {
+        PDFFontWrapper wrapper = PDFFontWrapper
+                .getInstance(new PDFFont(PDFFont.FontName.TIMES_ROMAN, PDFFont.DEFAULT_SIZE,
+                        Color.GREEN));
         PDFName fontName = new PDFName("Times-Roman");
         assertEquals(fontName, wrapper.getFont().get(new PDFName("BaseFont")));
         assertEquals(new PDFReal(PDFFont.DEFAULT_SIZE), wrapper.getSize());
@@ -72,7 +77,7 @@ public class PDFFontWrapperTest {
     }
 
     @Test
-    public void getInstanceSymbolBlue() {
+    void getInstanceSymbolBlue() {
         PDFFontWrapper wrapper = PDFFontWrapper.getInstance(new PDFFont(PDFFont.FontName.SYMBOL, PDFFont.DEFAULT_SIZE,
                 Color.BLUE));
         PDFName fontName = new PDFName("Symbol");
@@ -83,7 +88,7 @@ public class PDFFontWrapperTest {
     }
 
     @Test
-    public void getCharacterWidth() {
+    void getCharacterWidth() {
         float size = 12f;
         PDFFontWrapper wrapper = PDFFontWrapper.getInstance(new PDFFont(PDFFont.FontName.COURIER, size));
         float expected = 7.2f;
@@ -91,7 +96,7 @@ public class PDFFontWrapperTest {
     }
 
     @Test
-    public void getStringWidth() {
+    void getStringWidth() {
         float size = 12f;
         PDFFontWrapper wrapper = PDFFontWrapper.getInstance(new PDFFont(PDFFont.FontName.COURIER, size));
         float expected = 7.2f * 3f;
@@ -99,7 +104,7 @@ public class PDFFontWrapperTest {
     }
 
     @Test
-    public void getColorSpaceOperatorRGB() {
+    void getColorSpaceOperatorRGB() {
         PDFReal zero = new PDFReal(0);
         PDFReal one = new PDFReal(1);
         DeviceRGB blue = new DeviceRGB(zero, zero, one);
@@ -109,14 +114,14 @@ public class PDFFontWrapperTest {
     }
 
     @Test
-    public void getColorSpaceOperatorGray() {
+    void getColorSpaceOperatorGray() {
         SetGrayFillColor operator = new SetGrayFillColor(new DeviceGray(new PDFReal(0)));
         PDFFontWrapper wrapper = PDFFontWrapper.getInstance(new PDFFont(PDFFont.FontName.COURIER, 12f, Color.BLACK));
         assertEquals(operator, wrapper.getColorSpaceOperator());
     }
 
     @Test
-    public void getMinimumLeading() {
+    void getMinimumLeading() {
         float size = 12f;
         PDFFontWrapper wrapper = PDFFontWrapper.getInstance(new PDFFont(PDFFont.FontName.HELVETICA, size));
         float expected = 8.616f;

@@ -13,31 +13,34 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PositionTextTest {
+class PositionTextTest {
 
     private PositionText operator;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         operator = new PositionText(new PDFReal(10), new PDFReal(10));
     }
 
     @Test
-    public void isCollapsableFalse() {
+    void isCollapsableFalse() {
         TextOperator other = new MoveToNextLine();
         assertFalse(operator.isCollapsable(other));
     }
 
     @Test
-    public void isCollapsableTrue() {
+    void isCollapsableTrue() {
         PositionText other = new PositionText(new PDFReal(5), new PDFReal(5));
         assertTrue(operator.isCollapsable(other));
     }
 
     @Test
-    public void collapse() {
+    void collapse() {
         PositionText expected = new PositionText(new PDFReal(15), new PDFReal(15));
         PositionText other = new PositionText(new PDFReal(5), new PDFReal(5));
         GraphicsOperator actual = operator.collapse(other);
@@ -45,15 +48,15 @@ public class PositionTextTest {
     }
 
     @Test
-    public void writeToPDF() throws IOException {
+    void writeToPDF() throws IOException {
         ByteArrayOutputStream actual = new ByteArrayOutputStream();
         operator.writeToPDF(actual);
         assertArrayEquals("10 10 Td\n".getBytes(StandardCharsets.US_ASCII), actual.toByteArray());
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void equals() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void equals() {
         PDFReal x = new PDFReal(1);
         PDFReal y = new PDFReal(2);
         PDFReal z = new PDFReal(3);

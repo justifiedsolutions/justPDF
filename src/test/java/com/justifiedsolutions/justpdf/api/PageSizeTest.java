@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PageSizeTest {
+class PageSizeTest {
 
     @Test
-    public void width() {
+    void width() {
         assertEquals(612, PageSize.LETTER.width());
         assertEquals(612, PageSize.LEGAL.width());
         assertEquals(2384, PageSize.A0.width());
@@ -27,7 +27,7 @@ public class PageSizeTest {
     }
 
     @Test
-    public void height() {
+    void height() {
         assertEquals(792, PageSize.LETTER.height());
         assertEquals(1008, PageSize.LEGAL.height());
         assertEquals(3370, PageSize.A0.height());

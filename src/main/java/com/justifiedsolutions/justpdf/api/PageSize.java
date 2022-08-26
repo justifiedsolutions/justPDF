@@ -54,12 +54,12 @@ public enum PageSize {
      */
     A8(148, 210);
 
-    private final float width;
-    private final float height;
+    private final float theWidth;
+    private final float theHeight;
 
     PageSize(float width, float height) {
-        this.width = width;
-        this.height = height;
+        this.theWidth = width;
+        this.theHeight = height;
     }
 
     /**
@@ -68,7 +68,7 @@ public enum PageSize {
      * @return the page width
      */
     public float width() {
-        return width;
+        return theWidth;
     }
 
     /**
@@ -77,6 +77,6 @@ public enum PageSize {
      * @return the page height
      */
     public float height() {
-        return height;
+        return theHeight;
     }
 }

@@ -11,19 +11,22 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class DocumentTest {
+class DocumentTest {
 
     private Document document;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         document = new Document(PageSize.LETTER, new Margin(10, 10, 10, 10));
     }
 
     @Test
-    public void setMetadataAddAndRemove() {
+    void setMetadataAddAndRemove() {
         String expected = "text";
         Metadata metadata = Metadata.TITLE;
         document.setMetadata(metadata, expected);
@@ -35,17 +38,17 @@ public class DocumentTest {
     }
 
     @Test
-    public void setMetadataNPE() {
+    void setMetadataNPE() {
         assertThrows(NullPointerException.class, () -> document.setMetadata(null, ""));
     }
 
     @Test
-    public void getMetadataNPE() {
+    void getMetadataNPE() {
         assertThrows(NullPointerException.class, () -> document.getMetadata(null));
     }
 
     @Test
-    public void addSectionAlreadyContent() throws DocumentException {
+    void addSectionAlreadyContent() throws DocumentException {
         document.add(new Chunk());
         assertEquals(1, document.getContent().size());
 
@@ -54,7 +57,7 @@ public class DocumentTest {
     }
 
     @Test
-    public void addContentAlreadySection() throws DocumentException {
+    void addContentAlreadySection() throws DocumentException {
         Section section = document.createSection(new Paragraph(new Chunk()));
         assertEquals(1, document.getSections().size());
         assertEquals(section, document.getSections().get(0));
@@ -62,25 +65,25 @@ public class DocumentTest {
     }
 
     @Test
-    public void getPageSize() {
+    void getPageSize() {
         assertEquals(PageSize.LETTER, document.getPageSize());
     }
 
     @Test
-    public void getMargin() {
+    void getMargin() {
         Margin expected = new Margin(10, 10, 10, 10);
         assertEquals(expected, document.getMargin());
     }
 
     @Test
-    public void setHeader() {
+    void setHeader() {
         Header header = Mockito.mock(Header.class);
         document.setHeader(header);
         assertSame(header, document.getHeader());
     }
 
     @Test
-    public void setFooter() {
+    void setFooter() {
         Footer footer = Mockito.mock(Footer.class);
         document.setFooter(footer);
         assertSame(footer, document.getFooter());

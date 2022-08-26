@@ -8,12 +8,14 @@ package com.justifiedsolutions.justpdf.api;
 import com.justifiedsolutions.justpdf.api.content.Phrase;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class OutlineTest {
+class OutlineTest {
 
     @Test
-    public void add() {
+    void add() {
         Outline outline = new Outline();
         Phrase content = new Phrase();
         Outline.Entry entry = outline.createEntry(content);
@@ -23,7 +25,7 @@ public class OutlineTest {
     }
 
     @Test
-    public void entryGetters() {
+    void entryGetters() {
         Outline outline = new Outline();
         Phrase content = new Phrase();
         Outline.Entry entry = outline.createEntry(content);
@@ -32,7 +34,7 @@ public class OutlineTest {
     }
 
     @Test
-    public void entryCreate() {
+    void entryCreate() {
         Outline outline = new Outline();
         Phrase content = new Phrase();
         Outline.Entry e1 = outline.createEntry(content);
@@ -43,8 +45,8 @@ public class OutlineTest {
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void testEquals() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void testEquals() {
         Outline outline = new Outline();
         Phrase content = new Phrase();
         Outline.Entry e1 = outline.createEntry(content);

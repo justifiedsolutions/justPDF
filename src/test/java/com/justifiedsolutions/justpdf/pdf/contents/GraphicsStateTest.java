@@ -10,19 +10,21 @@ import com.justifiedsolutions.justpdf.pdf.object.PDFReal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class GraphicsStateTest {
+class GraphicsStateTest {
 
     private GraphicsState state;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         state = new GraphicsState();
     }
 
     @Test
-    public void copyConstructor() {
+    void copyConstructor() {
         state.setLineWidth(new PDFReal(2));
         state.setLineCap(LineCapStyle.ROUND_CAP);
         state.setFillColorSpace(new DeviceRGB(new PDFReal(.5f), new PDFReal(.5f), new PDFReal(.5f)));
@@ -37,7 +39,7 @@ public class GraphicsStateTest {
     }
 
     @Test
-    public void lineWidth() {
+    void lineWidth() {
         assertEquals(new PDFReal(1), state.getLineWidth());
         PDFReal value = new PDFReal(.5f);
         state.setLineWidth(value);
@@ -45,14 +47,14 @@ public class GraphicsStateTest {
     }
 
     @Test
-    public void lineCap() {
+    void lineCap() {
         assertEquals(LineCapStyle.BUTT_CAP, state.getLineCap());
         state.setLineCap(LineCapStyle.ROUND_CAP);
         assertEquals(LineCapStyle.ROUND_CAP, state.getLineCap());
     }
 
     @Test
-    public void fillColorSpace() {
+    void fillColorSpace() {
         assertEquals(new DeviceGray(new PDFReal(0)), state.getFillColorSpace());
         ColorSpace cs = new DeviceRGB(new PDFReal(1), new PDFReal(1), new PDFReal(1));
         state.setFillColorSpace(cs);
@@ -60,7 +62,7 @@ public class GraphicsStateTest {
     }
 
     @Test
-    public void strokeColorSpace() {
+    void strokeColorSpace() {
         assertEquals(new DeviceGray(new PDFReal(0)), state.getStrokeColorSpace());
         ColorSpace cs = new DeviceRGB(new PDFReal(1), new PDFReal(1), new PDFReal(1));
         state.setStrokeColorSpace(cs);
@@ -68,7 +70,7 @@ public class GraphicsStateTest {
     }
 
     @Test
-    public void characterSpacing() {
+    void characterSpacing() {
         assertEquals(new PDFReal(0), state.getCharacterSpacing());
         PDFReal value = new PDFReal(.5f);
         state.setCharacterSpacing(value);
@@ -76,7 +78,7 @@ public class GraphicsStateTest {
     }
 
     @Test
-    public void wordSpacing() {
+    void wordSpacing() {
         assertEquals(new PDFReal(0), state.getWordSpacing());
         PDFReal value = new PDFReal(.5f);
         state.setWordSpacing(value);
@@ -84,7 +86,7 @@ public class GraphicsStateTest {
     }
 
     @Test
-    public void leading() {
+    void leading() {
         assertEquals(new PDFReal(0), state.getLeading());
         PDFReal value = new PDFReal(.5f);
         state.setLeading(value);
@@ -92,7 +94,7 @@ public class GraphicsStateTest {
     }
 
     @Test
-    public void font() {
+    void font() {
         PDFName name = new PDFName("F3");
         PDFReal size = new PDFReal(12);
         state.setTextFont(name);
@@ -102,8 +104,8 @@ public class GraphicsStateTest {
     }
 
     @Test
-    @SuppressWarnings("unlikely-arg-type")
-    public void equals() {
+    @SuppressWarnings({ "unlikely-arg-type", "PMD.SimplifiableTestAssertion" })
+    void equals() {
         PDFReal one = new PDFReal(1);
         GraphicsState gs = new GraphicsState();
         assertTrue(gs.equals(gs));

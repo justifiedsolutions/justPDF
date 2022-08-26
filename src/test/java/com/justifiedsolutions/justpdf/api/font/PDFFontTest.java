@@ -12,10 +12,10 @@ import java.awt.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class PDFFontTest {
+class PDFFontTest {
 
     @Test
-    public void constructorDefault() {
+    void constructorDefault() {
         PDFFont font = new PDFFont();
         assertEquals(PDFFont.FontName.HELVETICA, font.getName());
         assertEquals(12, font.getSize());
@@ -23,7 +23,7 @@ public class PDFFontTest {
     }
 
     @Test
-    public void constructorName() {
+    void constructorName() {
         PDFFont font = new PDFFont(PDFFont.FontName.COURIER);
         assertEquals(PDFFont.FontName.COURIER, font.getName());
         assertEquals(12, font.getSize());
@@ -31,7 +31,7 @@ public class PDFFontTest {
     }
 
     @Test
-    public void constructorNameSize() {
+    void constructorNameSize() {
         PDFFont font = new PDFFont(PDFFont.FontName.COURIER, 24);
         assertEquals(PDFFont.FontName.COURIER, font.getName());
         assertEquals(24, font.getSize());
@@ -39,7 +39,7 @@ public class PDFFontTest {
     }
 
     @Test
-    public void constructorNameSizeColor() {
+    void constructorNameSizeColor() {
         PDFFont font = new PDFFont(PDFFont.FontName.COURIER, 24, Color.BLUE);
         assertEquals(PDFFont.FontName.COURIER, font.getName());
         assertEquals(24, font.getSize());
@@ -47,7 +47,7 @@ public class PDFFontTest {
     }
 
     @Test
-    public void equalsHashCode() {
+    void equalsHashCode() {
         PDFFont f1 = new PDFFont();
 
         assertEquals(f1, f1);

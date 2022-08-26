@@ -11,12 +11,15 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PDFArrayTest {
+class PDFArrayTest {
 
     @Test
-    public void sizeAndAdd() {
+    void sizeAndAdd() {
         PDFArray array = new PDFArray();
         assertEquals(0, array.size());
         array.add(PDFBoolean.TRUE);
@@ -24,7 +27,7 @@ public class PDFArrayTest {
     }
 
     @Test
-    public void isEmpty() {
+    void isEmpty() {
         PDFArray array = new PDFArray();
         assertTrue(array.isEmpty());
         array.add(PDFBoolean.TRUE);
@@ -32,7 +35,7 @@ public class PDFArrayTest {
     }
 
     @Test
-    public void contains() {
+    void contains() {
         PDFArray array = new PDFArray();
         assertFalse(array.contains(PDFBoolean.TRUE));
         array.add(PDFBoolean.TRUE);
@@ -40,7 +43,7 @@ public class PDFArrayTest {
     }
 
     @Test
-    public void remove() {
+    void remove() {
         PDFArray array = new PDFArray();
         assertFalse(array.contains(PDFBoolean.TRUE));
         array.add(PDFBoolean.TRUE);
@@ -50,7 +53,7 @@ public class PDFArrayTest {
     }
 
     @Test
-    public void clear() {
+    void clear() {
         PDFArray array = new PDFArray();
         assertEquals(0, array.size());
         array.add(PDFBoolean.TRUE);
@@ -60,7 +63,7 @@ public class PDFArrayTest {
     }
 
     @Test
-    public void get() {
+    void get() {
         PDFArray array = new PDFArray();
         assertEquals(0, array.size());
         array.add(PDFBoolean.TRUE);
@@ -68,7 +71,7 @@ public class PDFArrayTest {
     }
 
     @Test
-    public void writeToPDFEmpty() throws IOException {
+    void writeToPDFEmpty() throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
         expected.write('[');
         expected.write(' ');
@@ -82,7 +85,7 @@ public class PDFArrayTest {
     }
 
     @Test
-    public void writeToPDFIntegerBoolean() throws IOException {
+    void writeToPDFIntegerBoolean() throws IOException {
         ByteArrayOutputStream expected = new ByteArrayOutputStream();
         expected.write('[');
         expected.write(' ');

@@ -10,9 +10,13 @@ import com.justifiedsolutions.justpdf.api.content.Phrase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SectionTest {
+class SectionTest {
 
     private static final String SECTION_NUMBER = "1";
     private final Paragraph title = new Paragraph("title");
@@ -20,20 +24,20 @@ public class SectionTest {
     private Outline.Entry entry;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         Outline outline = new Outline();
         entry = outline.createEntry(title);
         section = new Section(SECTION_NUMBER, title, entry);
     }
 
     @Test
-    public void constructor() {
+    void constructor() {
         assertEquals(SECTION_NUMBER, section.getSectionNumber());
         assertEquals(title, section.getTitle());
     }
 
     @Test
-    public void setStartsNewPage() {
+    void setStartsNewPage() {
         section.setStartsNewPage(true);
         assertTrue(section.isStartsNewPage());
         section.setStartsNewPage(false);
@@ -41,7 +45,7 @@ public class SectionTest {
     }
 
     @Test
-    public void setDisplaySectionNumber() {
+    void setDisplaySectionNumber() {
         section.setDisplaySectionNumber(true);
         assertTrue(section.isDisplaySectionNumber());
         section.setDisplaySectionNumber(false);
@@ -49,25 +53,25 @@ public class SectionTest {
     }
 
     @Test
-    public void testGetEntry() {
+    void testGetEntry() {
         assertSame(entry, section.getEntry());
     }
 
     @Test
-    public void getDisplayTextHideSection() {
+    void getDisplayTextHideSection() {
         section.setDisplaySectionNumber(false);
         assertEquals(section.getTitle(), section.getDisplayTitle());
     }
 
     @Test
-    public void addContent() {
+    void addContent() {
         Phrase phrase = new Phrase("test");
         section.addContent(phrase);
         assertEquals(phrase, section.getContent().get(0));
     }
 
     @Test
-    public void addSection() {
+    void addSection() {
         Paragraph t2 = new Paragraph("t2");
         Section s1 = section.addSection(t2);
         assertEquals("1.1", s1.getSectionNumber());
@@ -76,7 +80,7 @@ public class SectionTest {
     }
 
     @Test
-    public void testEqualsHashCode() {
+    void testEqualsHashCode() {
         assertEquals(section, section);
         assertEquals(section.hashCode(), section.hashCode());
 

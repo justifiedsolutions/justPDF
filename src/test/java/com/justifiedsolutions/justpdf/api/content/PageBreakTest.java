@@ -10,10 +10,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PageBreakTest {
+class PageBreakTest {
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         PageBreak pb = new PageBreak();
         assertNotNull(pb);
         assertTrue(pb instanceof Content);

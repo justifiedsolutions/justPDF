@@ -14,27 +14,27 @@ import java.nio.charset.StandardCharsets;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PDFIntegerTest {
+class PDFIntegerTest {
 
     @Test
-    public void compareTo() {
+    void compareTo() {
         PDFInteger value = new PDFInteger(0);
         assertEquals(-1, value.compareTo(null));
         assertEquals(0, value.compareTo(new PDFInteger(0)));
     }
 
     @Test
-    public void writeToPDFPositive() throws IOException {
+    void writeToPDFPositive() throws IOException {
         testPDFInteger(100);
     }
 
     @Test
-    public void writeToPDFNegative() throws IOException {
+    void writeToPDFNegative() throws IOException {
         testPDFInteger(-100);
     }
 
     @Test
-    public void writeToPDFZero() throws IOException {
+    void writeToPDFZero() throws IOException {
         testPDFInteger(0);
     }
 
