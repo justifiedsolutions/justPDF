@@ -74,12 +74,6 @@
         </properties>
     </rule>
 
-    <rule ref="category/java/design.xml/ExcessiveMethodLength">
-        <properties>
-            <property name="violationSuppressXPath" value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
-        </properties>
-    </rule>
-
     <rule ref="category/java/design.xml/NcssCount">
         <properties>
             <property name="violationSuppressXPath" value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
@@ -113,7 +107,6 @@
     <rule ref="category/java/errorprone.xml">
         <exclude name="AvoidDuplicateLiterals" />
         <exclude name="AvoidLiteralsInIfCondition" />
-        <exclude name="BeanMembersShouldSerialize" />
         <exclude name="DataflowAnomalyAnalysis" />
         <exclude name="JUnitSpelling" />
         <exclude name="MissingSerialVersionUID" />
