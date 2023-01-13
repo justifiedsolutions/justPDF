@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 
-<ruleset name="justPDF Rules" xmlns="http://pmd.sourceforge.net/ruleset/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+<ruleset name="justPDF Rules" xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
 
     <description>Justified Solutions PDF Ruleset</description>
 
@@ -16,7 +18,8 @@
 
     <rule ref="category/java/bestpractices.xml/LiteralsFirstInComparisons">
         <properties>
-            <property name="violationSuppressXPath" value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
+            <property name="violationSuppressXPath"
+                value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
         </properties>
     </rule>
 
@@ -38,7 +41,8 @@
 
     <rule ref="category/java/codestyle.xml/LinguisticNaming">
         <properties>
-            <property name="violationSuppressXPath" value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
+            <property name="violationSuppressXPath"
+                value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
         </properties>
     </rule>
 
@@ -50,13 +54,15 @@
 
     <rule ref="category/java/codestyle.xml/ShortMethodName">
         <properties>
-            <property name="violationSuppressXPath" value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
+            <property name="violationSuppressXPath"
+                value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
         </properties>
     </rule>
 
     <rule ref="category/java/codestyle.xml/UseUnderscoresInNumericLiterals">
         <properties>
-            <property name="violationSuppressXPath" value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
+            <property name="violationSuppressXPath"
+                value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
         </properties>
     </rule>
 
@@ -74,15 +80,10 @@
         </properties>
     </rule>
 
-    <rule ref="category/java/design.xml/ExcessiveMethodLength">
-        <properties>
-            <property name="violationSuppressXPath" value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
-        </properties>
-    </rule>
-
     <rule ref="category/java/design.xml/NcssCount">
         <properties>
-            <property name="violationSuppressXPath" value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
+            <property name="violationSuppressXPath"
+                value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
         </properties>
     </rule>
 
@@ -97,7 +98,8 @@
 
     <rule ref="category/java/documentation.xml/CommentRequired">
         <properties>
-            <property name="violationSuppressXPath" value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
+            <property name="violationSuppressXPath"
+                value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
             <property name="methodWithOverrideCommentRequirement" value="Unwanted" />
             <property name="accessorCommentRequirement" value="Ignored" />
             <property name="classCommentRequirement" value="Required" />
@@ -113,23 +115,25 @@
     <rule ref="category/java/errorprone.xml">
         <exclude name="AvoidDuplicateLiterals" />
         <exclude name="AvoidLiteralsInIfCondition" />
-        <exclude name="BeanMembersShouldSerialize" />
         <exclude name="DataflowAnomalyAnalysis" />
         <exclude name="JUnitSpelling" />
         <exclude name="MissingSerialVersionUID" />
+        <exclude name="NonSerializableClass" />
         <exclude name="NullAssignment" />
         <exclude name="ReturnEmptyArrayRatherThanNull" />
     </rule>
 
     <rule ref="category/java/errorprone.xml/SuspiciousEqualsMethodName">
         <properties>
-            <property name="violationSuppressXPath" value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
+            <property name="violationSuppressXPath"
+                value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
         </properties>
     </rule>
 
     <rule ref="category/java/errorprone.xml/EqualsNull">
         <properties>
-            <property name="violationSuppressXPath" value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
+            <property name="violationSuppressXPath"
+                value="//ImportDeclaration/Name[@Image='org.junit.jupiter.api.Test']" />
         </properties>
     </rule>
 
