@@ -14,6 +14,10 @@
 			"installZsh": "true",
 			"configureZshAsDefaultShell": "true",
 			"installOhMyZsh": "true"
+		},
+		"ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {
+			"plugins": "git mvn",
+			"username": "vscode"
 		}
 	}
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
