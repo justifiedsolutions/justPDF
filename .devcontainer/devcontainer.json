@@ -19,5 +19,20 @@
 			"plugins": "mvn",
 			"username": "vscode"
 		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"vscjava.vscode-java-pack",
+				"sonarsource.sonarlint-vscode",
+				"cracrayol.java-pmd",
+				"tenninebt.vscode-koverage",
+				"github.vscode-pull-request-github",
+				"shardulm94.trailing-spaces",
+				"redhat.vscode-xml",
+				"yzhang.markdown-all-in-one",
+				"davidanson.vscode-markdownlint"
+			]
+		}
 	}
 }
