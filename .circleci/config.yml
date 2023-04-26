@@ -42,14 +42,6 @@ jobs:
                   -Prelease
 
 workflows:
-  validation:
-    jobs:
-      - maven/test:
-          name: 'Maven Validation'
-          context: sonarcloud
-          command: 'verify sonar:sonar'
-          executor: jdk11
-
   deploy:
     jobs:
       - maven-deploy:

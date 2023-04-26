@@ -13,6 +13,6 @@ jobs:
           java-version: '11'
           cache: 'maven'
       - name: 'Maven Verify'
-        run: 'mvn verify sonar:sonar'
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: 'mvn verify sonar:sonar'
