@@ -1,0 +1,21 @@
+name: Validate
+on: push
+jobs:
+  run-tests:
+    name: 'Validate'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: 'Setup Java'
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+          cache: 'maven'
+      - name: 'Maven Verify'
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: 'mvn verify sonar:sonar'
