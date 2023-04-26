@@ -16,6 +16,7 @@
     ],
     "java.test.defaultConfig": "modules",
     "sonarlint.connectedMode.project": {
+        "connectionId": "justifiedsolutions",
         "projectKey": "com.justifiedsolutions:justPDF"
     },
     "javaPMD.rulesets": [
