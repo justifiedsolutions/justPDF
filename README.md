@@ -2,7 +2,8 @@
 
 An Open Source library for creating basic PDF documents.
 
-[![justPDF](https://circleci.com/gh/justifiedsolutions/justPDF.svg?style=shield)](https://app.circleci.com/pipelines/github/justifiedsolutions/justPDF?branch=main)
+[![justPDF](https://github.com/justifiedsolutions/justPDF/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/justifiedsolutions/justPDF/actions/workflows/validate.yml)
+[![justPDF](https://github.com/justifiedsolutions/justPDF/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/justifiedsolutions/justPDF/actions/workflows/deploy.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.justifiedsolutions%3AjustPDF&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.justifiedsolutions%3AjustPDF)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=com.justifiedsolutions%3AjustPDF&metric=coverage)](https://sonarcloud.io/dashboard?id=com.justifiedsolutions%3AjustPDF)
 [![Maven Central](https://img.shields.io/maven-central/v/com.justifiedsolutions/justPDF?color=green)](https://maven-badges.herokuapp.com/maven-central/com.justifiedsolutions/justPDF)
@@ -21,7 +22,7 @@ Add this to your pom.xml file to use the latest version of justPDF:
 <dependency>
     <groupId>com.justifiedsolutions</groupId>
     <artifactId>justPDF</artifactId>
-    <version>1.2.7</version>
+    <version>1.2.8</version>
 </dependency>
 ```
 
@@ -37,6 +38,12 @@ The primary goal for justPDF is to provide a PDF library to support Justified So
 * Commercial Friendly License
 
 ## Releases
+
+### justPDF 1.2.8 (2023-04-26)
+
+* Bump dependency versions
+* Bump plugin versions
+* Migrate build to GHA
 
 ### justPDF 1.2.7 (2023-01-06)
 
