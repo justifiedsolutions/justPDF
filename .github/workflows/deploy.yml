@@ -12,31 +12,24 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install gpg
-      - name: 'Configure GPG'
-        env:
-          GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
-        run: |
-          echo ${GPG_SIGNING_KEY} | base64 --decode | gpg --batch --no-tty --import --yes
+
       - name: 'Checkout'
         uses: actions/checkout@v3
+
       - name: 'Setup Java'
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '11'
-          cache: 'maven'
+          server-id: ossrh
+          server-username: NEXUS_USER
+          server-password: NEXUS_PASS
+          gpg-private-key: ${{ secrets.GPG_SIGNING_KEY }}
+          gpg-passphrase: GPG_PASS
+
       - name: 'Maven Deploy'
         env:
           GPG_PASS: ${{ secrets.GPG_PASS }}
           NEXUS_USER: ${{ secrets.NEXUS_USER }}
           NEXUS_PASS: ${{ secrets.NEXUS_PASS }}
-        run: |
-          mvn \
-          -s ./maven-release-settings.xml \
-          clean deploy \
-          -DskipTests=true \
-          -Dpmd.skip=true \
-          -Djacoco.skip=true \
-          -Dgpg.passphrase=${GPG_PASS} \
-          -Prelease
-
+        run: mvn deploy -Prelease
