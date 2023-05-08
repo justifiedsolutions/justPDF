@@ -1,5 +1,11 @@
 name: Validate
 on: push
+
+permissions:
+  checks: write
+  contents: read
+  pull-requests: write
+
 jobs:
   run-tests:
     name: 'Validate'
