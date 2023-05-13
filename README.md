@@ -6,9 +6,9 @@ An Open Source library for creating basic PDF documents.
 [![justPDF](https://github.com/justifiedsolutions/justPDF/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/justifiedsolutions/justPDF/actions/workflows/deploy.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.justifiedsolutions%3AjustPDF&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.justifiedsolutions%3AjustPDF)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=com.justifiedsolutions%3AjustPDF&metric=coverage)](https://sonarcloud.io/dashboard?id=com.justifiedsolutions%3AjustPDF)
-[![Maven Central](https://img.shields.io/maven-central/v/com.justifiedsolutions/justPDF?color=green)](https://maven-badges.herokuapp.com/maven-central/com.justifiedsolutions/justPDF)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.justifiedsolutions/justPDF/badge.svg?style=flat)](https://central.sonatype.com/artifact/com.justifiedsolutions/justPDF/)
 [![javadoc](https://javadoc.io/badge2/com.justifiedsolutions/justPDF/javadoc.svg)](https://javadoc.io/doc/com.justifiedsolutions/justPDF)
-[![License (Apache 2.0)](https://img.shields.io/badge/license-Apache%202.0-blue)](http://www.apache.org/licenses/LICENSE-2.0.txt)
+[![License (Apache 2.0)](https://img.shields.io/badge/License-Apache%202.0-blue)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ## License
 
