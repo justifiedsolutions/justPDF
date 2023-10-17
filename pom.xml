@@ -49,7 +49,7 @@
         <sonar.projectKey>com.justifiedsolutions:justPDF</sonar.projectKey>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 
-        <jacoco-version>0.8.10</jacoco-version>
+        <jacoco-version>0.8.11</jacoco-version>
         <mockito-version>5.6.0</mockito-version>
     </properties>
 
